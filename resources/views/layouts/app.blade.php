@@ -46,7 +46,7 @@ The above copyright notice and this permission notice shall be included in all c
 <body class="{{ $class }}">
     @if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check())
         @include('layouts.page_templates.auth')
-        @include('layouts.navbars.fixed-plugin')
+       
     @else
         @include('layouts.page_templates.guest')
     @endif

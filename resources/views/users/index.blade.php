@@ -132,7 +132,7 @@ The above copyright notice and this permission notice shall be included in all c
                             </div>
                         </a>
                         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                            {{ __('Creative Tim') }}
+                            {{ __('School Management') }}
                         </a>
                     </div>
                     <div class="sidebar-wrapper">

@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-7">
-                                            {{ __('Creative Tim') }}
+                                            {{ __('School Management') }}
                                         <br />
                                         <span class="text-success">
                                             <small>{{ __('Available') }}</small>
