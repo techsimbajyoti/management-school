@@ -17,6 +17,7 @@
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
+         
             <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
                     <i class="fa fa-user"></i>
@@ -42,6 +43,7 @@
                     </ul>
                 </div>
             </li>
+          
             <!-- <li class="{{ $elementActive == 'icons' ? 'active' : '' }}">
                 <a href="{{ route('page.index', 'icons') }}">
                     <i class="nc-icon nc-diamond"></i>
