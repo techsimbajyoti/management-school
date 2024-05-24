@@ -1,12 +1,12 @@
 <div class="sidebar" data-color="white" data-active-color="danger">
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
             <div class="logo-image-small">
                 <img src="{{ asset('paper') }}/img/logo-small.png">
             </div>
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            {{ __('Creative Tim') }}
+        <a href="#" class="simple-text logo-normal">
+            {{ __('School Managemnt') }}
         </a>
         
     </div>
@@ -18,6 +18,7 @@
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
+         
             <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
                     <i class="fa fa-user"></i>
@@ -28,19 +29,19 @@
                 </a>
                 <div class="collapse show" id="laravelExamples">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'profile' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'admit-student' ? 'active' : '' }}">
                             <a href="{{ route('admit-student')  }}">
                                 <span class="sidebar-mini-icon">{{ __('A') }}</span>
                                 <span class="sidebar-normal">{{ __('Admit Students ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'profile' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'student-list' ? 'active' : '' }}">
                             <a href="{{ route('students') }}">
                                 <span class="sidebar-mini-icon">{{ __('S') }}</span>
                                 <span class="sidebar-normal">{{ __(' Students List ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'user' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'promote-student' ? 'active' : '' }}">
                             <a href="">
                                 <span class="sidebar-mini-icon">{{ __('P') }}</span>
                                 <span class="sidebar-normal">{{ __(' Promote Student ') }}</span>
@@ -61,19 +62,19 @@
                 </a>
                 <div class="collapse show" id="laravelExampless">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'profile' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'teacher' ? 'active' : '' }}">
                             <a href="{{ route('teachers') }}">
                                 <span class="sidebar-mini-icon">{{ __('T') }}</span>
                                 <span class="sidebar-normal">{{ __('Teachers ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'profile' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'parent' ? 'active' : '' }}">
                             <a href="{{ route('parents') }}">
                                 <span class="sidebar-mini-icon">{{ __('P') }}</span>
                                 <span class="sidebar-normal">{{ __(' Parents ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'user' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'accountant' ? 'active' : '' }}">
                             <a href="{{ route('accountant') }}">
                                 <span class="sidebar-mini-icon">{{ __('AC') }}</span>
                                 <span class="sidebar-normal">{{ __(' Accountant ') }}</span>
@@ -83,14 +84,6 @@
                     </ul>
                 </div>
             </li>
-
-
-          
-
-
-
-
-
             <!-- <li class="{{ $elementActive == 'icons' ? 'active' : '' }}">
                 <a href="{{ route('page.index', 'icons') }}">
                     <i class="nc-icon nc-diamond"></i>

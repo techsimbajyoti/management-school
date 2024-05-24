@@ -49,6 +49,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('accountant', [AccountantController::class, 'accountant'])->name('accountant');
 
+	Route::get('admit-parents', [ParentController::class, 'admit_parents'])->name('admit-parents');
+
+	Route::get('view-parents', [ParentController::class, 'view_parents'])->name('view-parents');
+
+	Route::get('edit-parents', [ParentController::class, 'edit_parents'])->name('edit-parents');
+
+	Route::get('delete-parents', [ParentController::class, 'delete_parents'])->name('delete-parents');
+
+	Route::get('view-teachers', [ParentController::class, 'view_teachers'])->name('view-teachers');
+
+	Route::get('edit-teachers', [ParentController::class, 'edit_teachers'])->name('edit-teachers');
+
+	Route::get('delete-teachers', [ParentController::class, 'delete_teachers'])->name('delete-teachers');
 
 });
 

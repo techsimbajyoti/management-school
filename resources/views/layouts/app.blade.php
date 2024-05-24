@@ -28,7 +28,7 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Extra details for Live View on GitHub Pages -->
     
     <title>
-        {{ __('Paper Dashboard by Creative Tim') }}
+        {{ __('School Management') }}
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
@@ -44,15 +44,12 @@ The above copyright notice and this permission notice shall be included in all c
 </head>
 
 <body class="{{ $class }}">
-    
-    @auth()
+    @if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check())
         @include('layouts.page_templates.auth')
-        @include('layouts.navbars.fixed-plugin')
-    @endauth
-    
-    @guest
+       
+    @else
         @include('layouts.page_templates.guest')
-    @endguest
+    @endif
 
     <!--   Core JS Files   -->
     <script src="{{ asset('paper') }}/js/core/jquery.min.js"></script>
