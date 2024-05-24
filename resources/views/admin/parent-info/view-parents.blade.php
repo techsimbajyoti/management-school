@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'admit-parent'
+    'elementActive' => 'view-parent'
 ])
 
 @section('content')
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0 title">Admit Parents</h4><a href="{{ route('parents') }}" class="btn ot-btn-primary"><span class="">Back</span></a>
+                        <h4 class="mb-0 title">View Parents</h4><a href="{{ route('parents') }}" class="btn ot-btn-primary"><span class="">Back</span></a>
                     </div>
                     <div class="card-body">
                         <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">

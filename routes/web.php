@@ -57,11 +57,21 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-parents', [ParentController::class, 'delete_parents'])->name('delete-parents');
 
-	Route::get('view-teachers', [ParentController::class, 'view_teachers'])->name('view-teachers');
+	Route::get('view-teachers', [TeacherController::class, 'view_teachers'])->name('view-teachers');
 
-	Route::get('edit-teachers', [ParentController::class, 'edit_teachers'])->name('edit-teachers');
+	Route::get('edit-teachers', [TeacherController::class, 'edit_teachers'])->name('edit-teachers');
 
-	Route::get('delete-teachers', [ParentController::class, 'delete_teachers'])->name('delete-teachers');
+	Route::get('admit-teachers', [TeacherController::class, 'admit_teachers'])->name('admit-teachers');
+
+	Route::get('delete-teachers', [TeacherController::class, 'delete_teachers'])->name('delete-teachers');
+
+	Route::get('view-accountant', [AccountantController::class, 'view_accountant'])->name('view-accountant');
+
+	Route::get('edit-accountant', [AccountantController::class, 'edit_accountant'])->name('edit-accountant');
+
+	Route::get('admit-accountant', [AccountantController::class, 'admit_accountant'])->name('admit-accountant');
+
+	Route::get('delete-accountant', [AccountantController::class, 'delete_accountant'])->name('delete-accountant');
 
 });
 

@@ -65,12 +65,14 @@
                         </div>
                     </div>
                 </form>
-                <a href="{{ route('password.request') }}" class="btn btn-link">
+                <din>
+                <a href="{{ route('password.request') }}" class="btn btn-link" style="margin-button:20px;">
                     {{ __('Forgot password') }}
                 </a>
                 <a href="{{ route('register') }}" class="btn btn-link float-right">
                     {{ __('Create Account') }}
                 </a>
+                </div>
             </div>
         </div>
     </div>

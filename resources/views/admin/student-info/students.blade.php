@@ -17,14 +17,10 @@
     <div class="row">
        
         <div class="col-md-12">
-            
-            
             <div class="card">
                 <div class="card-header">
-                           
                      <h5 class="title">{{ __('Filtering') }}</h5>
-                    <div class="row">
-                                     
+                    <div class="row">          
                       <div class= "col-md-3"> 
                         <select id="getSections" class="class nice-select niceSelect bordered_style wide " name="class">
                             <option value>Select class</option>

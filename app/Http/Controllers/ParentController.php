@@ -25,15 +25,8 @@ class ParentController extends Controller
     public function delete_parents(){
     }
 
-    public function view_teachers(){
-        return view('admin.teacher-info.view-teachers');
-    }
+    
 
-    public function edit_teachers(){
-        return view('admin.teacher-info.edit-teachers');
-    }
-
-    public function delete_teachers(){
-    }
+    
 }
 
