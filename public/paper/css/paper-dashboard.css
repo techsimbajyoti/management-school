@@ -4991,7 +4991,7 @@ License - nucleoapp.com/license/
 .off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"] i,
 .off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"]~div>ul>li .sidebar-mini-icon,
 .off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"]~div>ul>li>a {
-  color: #66615B;
+  color: #000000;
   opacity: .7;
 }
 
@@ -6854,3 +6854,109 @@ License - nucleoapp.com/license/
             transform: scale(0.75); } }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+
+.gap-3 {
+  gap: 1rem!important;
+}
+
+.ot-input {
+  /* padding: 16px !important; */
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  height: 48px;
+  border-radius: 4px;
+}
+
+.ot-btn-common, .ot-dropdown-btn, .ot-btn-primary, .ot-btn-success, .ot-btn-danger, .ot-btn-warning, .ot-btn-info {
+  color: #ffffff !important;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: capitalize;
+  background-color: #51bcda;
+}
+
+.ot-card {
+  border-radius: 5px !important;
+}
+
+
+
+
+
+.mb-24 {
+  margin-bottom: 24px !important;
+}
+
+.mb-3 {
+  margin-bottom: 1rem!important;
+}
+
+@media (min-width: 768px) {
+  .col-md-3 {
+      flex: 0 0 auto;
+      width: 25%;
+  }
+}
+
+.ot_fileUploader {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--ot-border-primary) !important;
+  height: 48px;
+}
+
+.form-label {
+  margin-bottom: .5rem;
+}
+
+.ot_fileUploader input.form-control {
+  border: 0 !important;
+  border-radius: 3px;
+  border: 0;
+  height: 40px;
+  width: 100%;
+  box-shadow: none !important;
+}
+
+.nice-select.wide {
+  width: 100%;
+}
+
+.nice-select {
+  border: 0 !important;
+  border-radius: 0px !important;
+  padding-left: 0 !important;
+  padding-right: 30px !important;
+  border: 1px solid var(--ot-border-primary) !important;
+}
+
+.nice-select.bordered_style {
+  padding-right: 35px !important;
+}
+
+.nice-select.bordered_style {
+  background: transparent!important;
+  border-bottom: 1px solid rgba(130, 139, 178, 0.3)!important;
+  -webkit-transition: all 0.4s ease 0s!important;
+  -moz-transition: all 0.4s ease 0s!important;
+  -o-transition: all 0.4s ease 0s!important;
+  transition: all 0.4s ease 0s!important;
+  height: 48px!important;
+  line-height: 48px!important;
+  position: relative!important;
+  padding: 0 12px!important;
+}
+
+.table-content.table-basic .table .dropdown-action .btn-dropdown {
+  background: linear-gradient(130.57deg, #392C7D -0.48%, #314CAD 71.79%);
+  color: #fff;
+  border: none;
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+.fillable{
+  color: red;
+  font-size: 15px;
+}
