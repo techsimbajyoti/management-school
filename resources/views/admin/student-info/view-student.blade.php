@@ -40,148 +40,103 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Admission No.:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="admission_no" class="form-control" placeholder="Admission No" required>
+                                            <input type="text" name="admission_no" class="form-control" placeholder="Admission No" disabled>
                                         </div>
-                                        @if ($errors->has('admission_no'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('admission_no') }}</strong>
-                                            </span>
-                                        @endif
+                                        
                                 </div>
 
                                 <div class="col-md-4">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('First Name:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                                            <input type="text" name="first_name" class="form-control" placeholder="First Name" disabled>
                                         </div>
-                                        @if ($errors->has('first_name'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('first_name') }}</strong>
-                                            </span>
-                                        @endif
+                                        
                                 </div>
 
                                 <div class="col-md-4">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Last Name:') }}</label>
 
                                     <div class="form-group">
-                                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+                                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" disabled>
                                     </div>
-                                    @if ($errors->has('full_name'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('last_name') }}</strong>
-                                        </span>
-                                    @endif
+                                   
                                 </div>
                                                   
                                
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Phone:') }}</label>
                                         <div class="form-group">
-                                            <input type="text" name="" class="form-control" placeholder="" required>
+                                            <input type="text" name="" class="form-control" placeholder="" disabled>
                                         </div>
-                                        @if ($errors->has(''))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('') }}</strong>
-                                            </span>
-                                        @endif
+                                       
                                 </div>
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                      <label class="form-label" style="font-weight: 600;">{{ __('Email address:') }}</label>
   
                                       <div class="form-group">
-                                          <input type="text" name="" class="form-control" placeholder="email address" required>
+                                          <input type="text" name="" class="form-control" placeholder="email address" disabled>
                                       </div>
-                                      @if ($errors->has(''))
-                                          <span class="invalid-feedback" style="display: block;" role="alert">
-                                              <strong>{{ $errors->first('') }}</strong>
-                                          </span>
-                                      @endif
+                                     
                                   </div>
                                   <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                      <label class="form-label" style="font-weight: 600;">{{ __('Password:') }}</label>
   
                                       <div class="form-group">
-                                          <input type="password" name="password" class="form-control"  required>
+                                          <input type="password" name="password" class="form-control"  disabled>
                                           <span style="font-size: 12px;">Default Password: 123456789</span>
 
                                       </div>
-                                      @if ($errors->has('password'))
-                                          <span class="invalid-feedback" style="display: block;" role="alert">
-                                              <strong>{{ $errors->first('password') }}</strong>
-                                          </span>
-                                      @endif
+                                    
                                   </div>
                                    
                                 <div class="col-md-3">
                                         <label class="form-label" style="font-weight: 600;">{{ __('Class:') }}</label>
                                             <div class="form-group">
-                                                <input type="text" name="class" class="form-control" placeholder="" required>
+                                                <input type="text" name="class" class="form-control" placeholder="" disabled>
                                             </div>
-                                            @if ($errors->has('class'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('class') }}</strong>
-                                                </span>
-                                            @endif
+                                           
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Section:</label>
-                                        <select class="select form-control" id="section" name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                            <option value=""></option>
-                                            <option value="A">A</option>
-                                            <option  value="B">B</option>
-                                            <option  value="C">C</option>
-                                        </select>
+                                        <input type="text" name="section" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Date of Birth:</label>
-                                        <input name="dob" value="" type="date" class="form-control date-pick" placeholder="Select Date...">
+                                        <input name="dob" value="" type="date" class="form-control date-pick" placeholder="Select Date..." disabled>
         
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Religion:</label>
-                                        <select class="select form-control" id="section" name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                            <option value=""></option>
-                                            <option value="Hindu">Hindu</option>
-                                            <option  value="Muslim">Muslim</option>
-                                            <option  value="Christian"> Christian</option>
-                                            <option  value="Jain"> Jain</option>
-                                            <option  value="Buddhist"> Buddhist</option>
-                                            <option  value="Sikh">Sikh</option>
-                                        </select>
+                                        <input type="text" name="religion" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Gender:</label>
-                                        <select class="select form-control" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
-                                            <option value=""></option>
-                                            <option  value="Male">Male</option>
-                                            <option  value="Female">Female</option>
-                                        </select>
+                                        <input type="text" name="gender" class="form-control" disabled>
                                     </div>
                                 </div>
                                                   
@@ -190,59 +145,43 @@
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Category:</label>
-                                        <select class="select form-control" id="category" name="category" required data-fouc data-placeholder="Choose.." name="category">
-                                            <option value=""></option>
-                                            <option  value="General">General</option>
-                                            <option  value="OBC">OBC</option>
-                                            <option  value="SC">SC</option>
-                                            <option  value="ST">ST</option>
-                                        </select>
+                                        <input type="text" name="category" class="form-control" disabled>
                                     </div>
 
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Blood Group:</label>
-                                        <select class="select form-control" id="category" name="blood_group" required data-fouc data-placeholder="Choose.." name="blood_group">
-                                            <option value=""></option>
-                                            <option  value="General">A+</option>
-                                            <option  value="General">A-</option>
-                                            <option  value="OBC">B+</option>
-                                            <option  value="General">B-</option>
-                                            <option  value="SC">AB+</option>
-                                            <option  value="General">AB-</option>
-                                            <option  value="ST">O+</option>
-                                            <option  value="General">O-</option>
-                                        </select>
+                                        <input type="text" name="blood_group" class="form-control" disabled>
                                     </div>
 
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Admission Date</label>
-                                        <input type="date" name="admission_date" class="form-control">
+                                        <input type="date" name="admission_date" class="form-control" disabled>
                                     </div> 
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="form-label" style="font-weight: 600;">Upload Passport Photo:</label>
                                         <span class="text-info" style="font-size: 12px;">Accepted Images: jpeg, png. Max file size 2Mb</span>
-                                        <input type="file" class="form-control-file" name="image" accept=".png,.jpg,.jpeg" required>
+                                        <input type="file" class="form-control-file" name="image" accept=".png,.jpg,.jpeg" disabled>
                                     </div>
                                 </div>
                                 
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Parent Name:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="parent_name" class="form-control" placeholder="Parent Name" required>
+                                            <input type="text" name="parent_name" class="form-control" placeholder="Parent Name" disabled>
                                         </div>
                                         @if ($errors->has('parent_name'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -251,11 +190,11 @@
                                         @endif
                                 </div>
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Parent Mobile:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="parent_mobile" class="form-control" placeholder="Parent Mobile" required>
+                                            <input type="text" name="parent_mobile" class="form-control" placeholder="Parent Mobile" disabled>
                                         </div>
                                         @if ($errors->has('parent_mobile'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -264,11 +203,11 @@
                                         @endif
                                 </div>
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Place Of Birth:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="place_of_birth" class="form-control" placeholder="Place Of Birth" required>
+                                            <input type="text" name="place_of_birth" class="form-control" placeholder="Place Of Birth" disabled>
                                         </div>
                                         @if ($errors->has('place_of_birth'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -278,9 +217,9 @@
                                 </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
+                                       
                                         <label class="form-label" style="font-weight: 600;">Nationality: </label>
-                                        <select data-placeholder="Choose..." required name="nal_id" id="nal_id" class="select-search form-control">
+                                        <select data-placeholder="Choose..." disabled name="nal_id" id="nal_id" class="select-search form-control">
                                             <option value=""></option>
                                                                                     <option  value="1">Afghan</option>
                                                                                     <option  value="2">Albanian</option>
@@ -481,11 +420,11 @@
                             </div>
                             <div class="row mb-3" >
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('CPR Number:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="CPR_number" class="form-control" placeholder="CPR Number" required>
+                                            <input type="text" name="CPR_number" class="form-control" placeholder="CPR Number" disabled>
                                         </div>
                                         @if ($errors->has('CPR_number'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -494,11 +433,11 @@
                                         @endif
                                 </div>
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Student Language:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="student_language" class="form-control" placeholder="Student Language" required>
+                                            <input type="text" name="student_language" class="form-control" placeholder="Student Language" disabled>
                                         </div>
                                         @if ($errors->has('student_language'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -508,11 +447,11 @@
                                 </div>
                               
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                   
                                     <label class="form-label" style="font-weight: 600;">{{ __('Residance Address:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="residance_address" class="form-control" placeholder="Residance Address" required>
+                                            <input type="text" name="residance_address" class="form-control" placeholder="Residance Address" disabled>
                                         </div>
                                         @if ($errors->has('residance_address'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -527,11 +466,7 @@
                             </div>
                            
                             
-                            <div class="card-footer">
-                                <div class="d-flex justify-content-end">
-                                   <button type="submit" class="btn btn-info">{{ __('Submit') }}</button>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>    
                 </form>

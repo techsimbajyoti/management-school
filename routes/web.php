@@ -43,6 +43,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('admit-student', [StudentController::class, 'admit_student'])->name('admit-student');
 
+	Route::get('view-student', [StudentController::class, 'view_student'])->name('view-student');
+
+	Route::get('edit-student', [StudentController::class, 'edit_student'])->name('edit-student');
+
+	Route::get('delete-student', [StudentController::class, 'delete_student'])->name('delete-student');
+
 	Route::get('teachers', [TeacherController::class, 'teachers'])->name('teachers');
 
 	Route::get('parents', [ParentController::class, 'parents'])->name('parents');
