@@ -19,6 +19,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,18 +80,23 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-accountant', [AccountantController::class, 'delete_accountant'])->name('delete-accountant');
 
+	Route::get('edit-admin-profile', [UserController::class, 'edit_admin_profile'])->name('edit-admin-profile');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
 
 	Route::get('student-dashboard', [HomeController::class, 'student_dashboard'])->name('student-dashboard');
 
+	Route::get('edit-student', [StudentController::class, 'student_edit'])->name('edit-student');
 });
 
 Route::group(['middleware' => 'auth.webteachers'], function () {
 
 	Route::get('teacher-dashboard', [HomeController::class, 'teacher_dashboard'])->name('teacher-dashboard');
 
+	Route::get('edit-teacher',[TeacherController::class, 'edit_teacher'])->name('edit-teacher');
+
+	Route::get('edit-teacher-profile',[TeacherController::class, 'edit_teacher_profile'])->name('edit-teacher-profile');
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {

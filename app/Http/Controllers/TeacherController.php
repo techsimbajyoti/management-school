@@ -24,5 +24,10 @@ class TeacherController extends Controller
 
     public function delete_teachers(){
     }
+
+    public function edit_teacher(){
+        return view('admin.teacher-info.edit-teacher');
+    }
+
 }
 

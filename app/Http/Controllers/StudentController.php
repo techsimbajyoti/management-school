@@ -25,4 +25,8 @@ class StudentController extends Controller
     public function delete_student(){
         return view('admin.student-info.students');
     }
+
+    public function student_edit(){
+        return view('students.edit-student');
+    }
 }

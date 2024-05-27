@@ -4880,17 +4880,17 @@ License - nucleoapp.com/license/
 .off-canvas-sidebar .logo a.logo-mini {
   opacity: 1;
   float: left;
-  width: 34px;
+  width: 50px;
   text-align: center;
   margin-left: 10px;
-  margin-right: 12px;
+  margin-right: 0px;
 }
 
 .sidebar .logo a.logo-normal,
 .off-canvas-sidebar .logo a.logo-normal {
   display: block;
   opacity: 1;
-  padding: 11px 0 8px;
+  padding: 18px 0 8px;
   -webkit-transform: translate3d(0px, 0, 0);
   -moz-transform: translate3d(0px, 0, 0);
   -o-transform: translate3d(0px, 0, 0);
@@ -4925,7 +4925,7 @@ License - nucleoapp.com/license/
   padding: 0.5rem 0;
   display: block;
   white-space: nowrap;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   color: #FFFFFF;
   text-decoration: none;
   font-weight: 400;
@@ -5111,7 +5111,7 @@ License - nucleoapp.com/license/
 .off-canvas-sidebar[data-active-color="danger"] .nav li.active>a[data-toggle="collapse"] i,
 .off-canvas-sidebar[data-active-color="danger"] .nav li.active>a[data-toggle="collapse"]~div>ul>li.active .sidebar-mini-icon,
 .off-canvas-sidebar[data-active-color="danger"] .nav li.active>a[data-toggle="collapse"]~div>ul>li.active>a {
-  color: #ef8157;
+  color: #17a2b8;
   opacity: 1;
 }
 
@@ -5685,11 +5685,11 @@ License - nucleoapp.com/license/
   padding-bottom: 15px;
 }
 
-.card label {
+/* .card label {
   font-size: 0.8571em;
   margin-bottom: 5px;
   color: #9A9A9A;
-}
+} */
 
 .card .card-footer {
   background-color: transparent;
@@ -6960,3 +6960,8 @@ License - nucleoapp.com/license/
   color: red;
   font-size: 15px;
 }
+
+.ot-btn-common, .ot-dropdown-btn, .ot-btn-primary, .ot-btn-success, .ot-btn-danger, .ot-btn-warning, .ot-btn-info {
+  background: linear-gradient(130.57deg, #392C7D -0.48%, #314CAD 71.79%) !important;
+}
+

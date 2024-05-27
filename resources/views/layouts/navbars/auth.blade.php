@@ -1,62 +1,79 @@
+<style>
+    .nav li.active > a,
+    .nav li.active > a i,
+    .nav li.active > a p,
+    .nav li.active > a .sidebar-mini-icon {
+        color: #17a2b8 !important;
+        font-weight:700;
+    }
+</style>
 <div class="sidebar" data-color="white" data-active-color="danger">
     <div class="logo">
         <a href="#" class="simple-text logo-mini">
             <div class="logo-image-small">
-                <img src="{{ asset('paper') }}/img/logo-small.png">
+                <img src="{{ asset('paper') }}/img/d.png">
             </div>
         </a>
         <a href="#" class="simple-text logo-normal">
-            {{ __('School Managemnt') }}
+            {{ __('School Management') }}
         </a>
         
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
+            @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
             <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('page.index', 'dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
-         
-            <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
+            
+            <li class="{{ $elementActive == 'user' || $elementActive == 'student-info' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-users"></i>
                     <p>
-                            {{ __('Student Management') }}
+                        {{ __('Students Info') }}
                         <b class="caret"></b>
                     </p>
                 </a>
                 <div class="collapse show" id="laravelExamples">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'admit-student' ? 'active' : '' }}">
-                            <a href="{{ route('admit-student')  }}">
-                                <span class="sidebar-mini-icon">{{ __('A') }}</span>
-                                <span class="sidebar-normal">{{ __('Admit Students ') }}</span>
-                            </a>
-                        </li>
                         <li class="{{ $elementActive == 'student-list' ? 'active' : '' }}">
                             <a href="{{ route('students') }}">
                                 <span class="sidebar-mini-icon">{{ __('S') }}</span>
-                                <span class="sidebar-normal">{{ __(' Students List ') }}</span>
+                                <span class="sidebar-normal">{{ __(' Students') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'promote-student' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'admit-student' ? 'active' : '' }}">
+                            <a href="{{ route('admit-student')  }}">
+                                <span class="sidebar-mini-icon">{{ __('AS') }}</span>
+                                <span class="sidebar-normal">{{ __('Admit Students ') }}</span>
+                            </a>
+                        </li>
+                        
+                        <!-- <li class="{{ $elementActive == 'promote-student' ? 'active' : '' }}">
                             <a href="">
-                                <span class="sidebar-mini-icon">{{ __('P') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('PS') }}</span>
                                 <span class="sidebar-normal">{{ __(' Promote Student ') }}</span>
                             </a>
-                            
+                        </li> -->
+
+                        <li class="{{ $elementActive == 'parent' ? 'active' : '' }}">
+                            <a href="{{ route('parents') }}">
+                                <span class="sidebar-mini-icon">{{ __('P') }}</span>
+                                <span class="sidebar-normal">{{ __(' Parents ') }}</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </li>
 
-            <li class="{{ $elementActive == 'user' || $elementActive == 'profile' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'user' || $elementActive == 'manage-staff' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExampless">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-users"></i>
                     <p>
-                            {{ __('Manage Users') }}
+                            {{ __('Manage Staff') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -66,12 +83,6 @@
                             <a href="{{ route('teachers') }}">
                                 <span class="sidebar-mini-icon">{{ __('T') }}</span>
                                 <span class="sidebar-normal">{{ __('Teachers ') }}</span>
-                            </a>
-                        </li>
-                        <li class="{{ $elementActive == 'parent' ? 'active' : '' }}">
-                            <a href="{{ route('parents') }}">
-                                <span class="sidebar-mini-icon">{{ __('P') }}</span>
-                                <span class="sidebar-normal">{{ __(' Parents ') }}</span>
                             </a>
                         </li>
                         <li class="{{ $elementActive == 'accountant' ? 'active' : '' }}">
@@ -84,37 +95,21 @@
                     </ul>
                 </div>
             </li>
-            <!-- <li class="{{ $elementActive == 'icons' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'icons') }}">
-                    <i class="nc-icon nc-diamond"></i>
-                    <p>{{ __('Icons') }}</p>
+            @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                <li class="{{ $elementActive == 'teacher-dashboard' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Dashboard') }}</p>
+                    </a>
+                </li>
+            @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+            <li class="{{ $elementActive == 'student-dashboard' ? 'active' : '' }}">
+                <a href="{{ route('student-dashboard') }}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'map' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'map') }}">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>{{ __('Maps') }}</p>
-                </a>
-            </li>
-            <li class="{{ $elementActive == 'notifications' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'notifications') }}">
-                    <i class="nc-icon nc-bell-55"></i>
-                    <p>{{ __('Notifications') }}</p>
-                </a>
-            </li>
-            <li class="{{ $elementActive == 'tables' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'tables') }}">
-                    <i class="nc-icon nc-tile-56"></i>
-                    <p>{{ __('Table List') }}</p>
-                </a>
-            </li>
-            <li class="{{ $elementActive == 'typography' ? 'active' : '' }}">
-                <a href="{{ route('page.index', 'typography') }}">
-                    <i class="nc-icon nc-caps-small"></i>
-                    <p>{{ __('Typography') }}</p>
-                </a>
-            </li> -->
-            
+            @endif
         </ul>
     </div>
 </div>
