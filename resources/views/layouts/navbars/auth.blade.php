@@ -48,6 +48,12 @@
                             </a>
                             
                         </li>
+                        <li class="{{ $elementActive == 'parent' ? 'active' : '' }}">
+                            <a href="{{ route('parents') }}">
+                                <span class="sidebar-mini-icon">{{ __('P') }}</span>
+                                <span class="sidebar-normal">{{ __(' Parents ') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -56,7 +62,7 @@
                 <a data-toggle="collapse" aria-expanded="true" href="#laravelExampless">
                     <i class="fa fa-user"></i>
                     <p>
-                            {{ __('Manage Users') }}
+                            {{ __('Manage Staff') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -68,12 +74,7 @@
                                 <span class="sidebar-normal">{{ __('Teachers ') }}</span>
                             </a>
                         </li>
-                        <li class="{{ $elementActive == 'parent' ? 'active' : '' }}">
-                            <a href="{{ route('parents') }}">
-                                <span class="sidebar-mini-icon">{{ __('P') }}</span>
-                                <span class="sidebar-normal">{{ __(' Parents ') }}</span>
-                            </a>
-                        </li>
+                       
                         <li class="{{ $elementActive == 'accountant' ? 'active' : '' }}">
                             <a href="{{ route('accountant') }}">
                                 <span class="sidebar-mini-icon">{{ __('AC') }}</span>

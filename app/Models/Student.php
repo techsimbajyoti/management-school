@@ -41,7 +41,7 @@ class Student extends Authenticatable
         'student_nationality',
         'CPR_number',
         'student_language',
-        'residance_address',
+        'residence_address',
         'document',
         'status',
         'role_id',

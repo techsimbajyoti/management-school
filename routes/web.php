@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-teachers', [ParentController::class, 'delete_teachers'])->name('delete-teachers');
 
+	Route::post('post-admit-student', [StudentController::class, 'post_admit_student'])->name('post-admit-student');
+
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

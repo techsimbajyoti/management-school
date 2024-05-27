@@ -14,31 +14,71 @@
             {{ session('password_status') }}
         </div>
     @endif
+
+    <style>
+            .card_header_right {
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                align-items: center; 
+            }
+
+            .single_large_selectBox {
+                flex: 1;
+            }
+
+            .equal-dimensions {
+                height: 40px; 
+                width: 100%; 
+                box-sizing: border-box;
+            }
+
+            button.equal-dimensions {
+                width: 100%; 
+                max-width: 150px; 
+                white-space: nowrap; 
+                height: 40px;
+            }
+    </style>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="col-12">
-                <form action="" method="" id="marksheed">
+            
+                <form action="" method="" id="">
                     @csrf
                     <div class="card ot-card mb-24 position-relative z_1">
-                    <div class="card-header d-flex align-items-center gap-4 flex-wrap">
-                    <h3 class="mb-0 title">Filtering</h3>
-                    <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
-                    <div class="single_large_selectBox">
-                    <input class="form-control ot-input" name="select_class" list="datalistOptions" id="exampleDataList" placeholder="Enter Class" value>
-                    </div>
-                    <div class="single_large_selectBox">
-                        <input class="form-control ot-input" name="select_section" list="datalistOptions" id="exampleDataList" placeholder="Enter Section" value>
-                    </div>
-                    <div class="single_large_selectBox">
-                    <input class="form-control ot-input" name="keyword" list="datalistOptions" id="exampleDataList" placeholder="Enter keyword" value>
-                    </div>
-                    <button class="btn btn-md ot-btn-info" type="submit">
-                    Search
-                    </button>
-                    </div>
-                    </div>
+                        <div class="card-header d-flex align-items-center gap-4 flex-wrap">
+                            <h3 class="mb-0 title">Filtering</h3>
+                            <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
+                                <div class="form-group single_large_selectBox">
+                                    <select id="getSections" class="form-control ot-input equal-dimensions" name="class"> 
+                                        <option value>Select class</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="form-group single_large_selectBox">
+                                    <select class="form-control ot-input equal-dimensions" name="section">
+                                        <option value>Select section</option>
+                                    </select>
+                                </div>
+                                <div class="form-group single_large_selectBox">
+                                    <input class="form-control ot-input equal-dimensions" name="keyword" list="datalistOptions" id="exampleDataList" placeholder="Enter keyword" value="">
+                                </div>
+                                <div class="form-group single_large_selectBox">
+                                    <button class="btn btn-lg ot-btn-primary equal-dimensions" type="submit">
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
+                   
+
+                                  
                 <div class="table-content table-basic mt-20">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">

@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <h6 class="card-title">{{ __('Please fill The form Below To Admit A New Student') }}</h6>
                             <div class="d-flex justify-content-end">
-                                <a href="" class="btn btn-info">Back</a>
+                                <a href="{{ route('students')}}" class="btn btn-info">Back</a>
                             </div>
                         </div>
                         <hr style="width:1000px; height: 2px; border: none; background-color:#c2c2c2;">
