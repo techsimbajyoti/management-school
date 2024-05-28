@@ -64,7 +64,6 @@
                                 <span class="sidebar-normal">{{ __(' Promote Students ') }}</span>
                             </a>
                         </li>
-
                         <li class="{{ $elementActive == 'disabled-student' ? 'active' : '' }}">
                             <a href="{{ route('disabled-students') }}">
                                 <span class="sidebar-mini-icon">{{ __('DS') }}</span>
@@ -165,6 +164,63 @@
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
+            @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+            <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
+                <a href="{{ route('parent-dashboard') }}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>{{ __('Dashboard') }}</p>
+                </a>
+            </li>
+            <li class="{{ $elementActive == 'students_profile' ? 'active' : '' }}">
+                <a href="{{ route('student-profile') }}">
+                    <i class="fa fa-user"></i>
+                    <p>{{ __('Student Profile') }}</p>
+                </a>
+            </li>
+            
+            <li class="{{ $elementActive == 'marksheet' ? 'active' : '' }}">
+                <a href="{{ route('marksheet') }}">
+                    <i class="fa fa-graduation-cap"></i>
+                    <p>{{ __('Marksheet') }}</p>
+                </a>
+            </li>
+            <li class="{{ $elementActive == 'fees' ? 'active' : '' }}">
+                <a href="{{ route('student-fees') }}">
+                    <i class="fa fa-rupee"></i>
+                    <p>{{ __('Fees') }}</p>
+                </a>
+            </li>
+            <li class="{{ $elementActive == 'events' ? 'active' : '' }}">
+                <a href="{{ route('parent-dashboard') }}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <p>{{ __('Events') }}</p>
+                </a>
+            </li>
+            <li class="{{ $elementActive == 'exam' ? 'active' : '' }}">
+                <a href="{{ route('exam-routine') }}">
+                    <i class="fa fa-calendar-o"></i>
+                    <p>{{ __('Exam Routine') }}</p>
+                </a>
+            </li>
+           
+            <li class="{{ $elementActive == 'attendance' ? 'active' : '' }}">
+                <a href="{{ route('attendance') }}">
+                    <i class="fa fa-clock-o"></i>
+                    <p>{{ __('Attendance') }}</p>
+                </a>
+            </li>
+            <li class="{{ $elementActive == 'gallary' ? 'active' : '' }}">
+                <a href="{{ route('parent-dashboard') }}">
+                    <i class="fa fa-camera"></i>
+                    <p>{{ __('Gallary') }}</p>
+                </a>
+            </li>
+            <li class="{{ $elementActive == 'messages' ? 'active' : '' }}">
+                <a href="{{ route('parent-dashboard') }}">
+                    <i class="fa fa-comment"></i>
+                    <p>{{ __('Messages') }}</p>
+                </a>
+            </li>
             @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
             <li class="{{ $elementActive == 'student-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('student-dashboard') }}">
@@ -172,6 +228,7 @@
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
+
             @endif
         </ul>
     </div>

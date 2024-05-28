@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('admit-teachers', [TeacherController::class, 'admit_teachers'])->name('admit-teachers');
 
+	Route::post('post-admit-student', [StudentController::class, 'post_admit_student'])->name('post-admit-student');
+
 	Route::get('delete-teachers', [TeacherController::class, 'delete_teachers'])->name('delete-teachers');
 
 	Route::get('view-accountant', [AccountantController::class, 'view_accountant'])->name('view-accountant');
@@ -81,6 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('delete-accountant', [AccountantController::class, 'delete_accountant'])->name('delete-accountant');
 
 	Route::get('edit-admin-profile', [UserController::class, 'edit_admin_profile'])->name('edit-admin-profile');
+
 
 	Route::post('post-admit-student', [StudentController::class, 'post_admit_student'])->name('post-admit-student');
 
@@ -135,6 +138,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('edit-subject-assign', [UserController::class, 'edit_subject_assign'])->name('edit-subject-assign');
 
 	Route::get('delete-subject-assign', [UserController::class, 'delete_subject_assign'])->name('delete-subject-assign');
+
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
@@ -156,6 +160,26 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::get('parent-dashboard', [HomeController::class, 'parent_dashboard'])->name('parent-dashboard');
+
+	Route::get('student-profile', [ParentController::class, 'student_profile'])->name('student-profile');
+
+	Route::get('edit-parent-profile', [ParentController::class, 'edit_parent_profile'])->name('edit-parent-profile');
+
+	Route::get('edit-parent', [ParentController::class, 'edit_parent'])->name('edit-parent');
+
+	Route::get('student-fees', [ParentController::class, 'student_fees'])->name('student-fees');
+
+	Route::get('marksheet', [ParentController::class, 'marksheet'])->name('marksheet');
+	
+	Route::get('events', [ParentController::class, 'events'])->name('events');
+	
+	Route::get('exam-routine', [ParentController::class, 'exam_routine'])->name('exam-routine');
+	
+	Route::get('attendance', [ParentController::class, 'attendance'])->name('attendance');
+
+	Route::get('messages', [ParentController::class, 'messages'])->name('messages');
+	
+	Route::get('gallary', [ParentController::class, 'gallary'])->name('gallary');
 
 });
 

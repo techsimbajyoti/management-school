@@ -24,20 +24,22 @@ class StudentController extends Controller
     }
 
     public function view_student(){
-        return view('admin.student-info.view-student');
+        $country=Country::get();
+        return view('admin.student-info.view-student',compact('country'));
     }
     public function edit_student(){
-        return view('admin.student-info.edit-student');
+        $country=Country::get();
+        return view('admin.student-info.edit-student',compact('country'));
     }
 
     public function delete_student(){
         return view('admin.student-info.students');
     }
 
-
     public function student_edit(){
         return view('students.edit-student');
     }
+
 
     public function post_admit_student(Request $request){
         // $validated = $request->validate([
@@ -129,8 +131,10 @@ class StudentController extends Controller
         return view('admin.student-info.disabled-students');
     }
 
+
     public function promote_students(){
         return view('admin.student-info.promote-students');
     }
     
+
 }
