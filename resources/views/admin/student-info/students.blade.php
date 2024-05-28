@@ -14,35 +14,49 @@
             {{ session('password_status') }}
         </div>
     @endif
+    
     <div class="row">
         <div class="col-md-12">
             <div class="col-12">
-                <form action="" method="" id="marksheed">
+            
+                <form action="" method="" id="">
                     @csrf
                     <div class="card ot-card mb-24 position-relative z_1">
-                    <div class="card-header d-flex align-items-center gap-4 flex-wrap">
-                    <h3 class="mb-0 title">Filtering</h3>
-                    <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
-                    <div class="single_large_selectBox">
-                    <input class="form-control ot-input" name="select_class" list="datalistOptions" id="exampleDataList" placeholder="Enter Class" value>
-                    </div>
-                    <div class="single_large_selectBox">
-                        <input class="form-control ot-input" name="select_section" list="datalistOptions" id="exampleDataList" placeholder="Enter Section" value>
-                    </div>
-                    <div class="single_large_selectBox">
-                    <input class="form-control ot-input" name="keyword" list="datalistOptions" id="exampleDataList" placeholder="Enter keyword" value>
-                    </div>
-                    <button class="btn btn-md ot-btn-info" type="submit">
-                    Search
-                    </button>
-                    </div>
-                    </div>
+                        <div class="card-header d-flex align-items-center gap-4 flex-wrap">
+                            <h3 class="mb-0 title">Filtering</h3>
+                            <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
+                            <div class="single_large_selectBox">
+                                <select id="getSections" class="class nice-select niceSelect bordered_style wide " name="class">
+                                <option value>Select class</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                </select>
+                            </div>
+                                <div class="single_large_selectBox">
+                                    <select class="class nice-select niceSelect bordered_style wide " name="section">
+                                        <option value>Select section</option>
+                                    </select>
+                                </div>
+                                <div class="form-group single_large_selectBox">
+                                    <input class="form-control ot-input equal-dimensions" name="keyword" list="datalistOptions" id="exampleDataList" placeholder="Enter keyword" value="">
+                                </div>
+                                <div class="form-group single_large_selectBox">
+                                    <button class="btn btn-lg ot-btn-primary equal-dimensions" type="submit">
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
+                   
+
+                                  
                 <div class="table-content table-basic mt-20">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="mb-0 title">Student list</h4><a href="{{ route('admit-student') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"> Add</i></a>
+                            <h4 class="mb-0 title">Student list</h4><a href="{{ route('admit-student') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -55,6 +69,7 @@
                                         <th class="purchase">Student name</th>
                                         <th class="purchase">Class (Section)	</th>
                                         <th class="purchase">Guardian name</th>
+                                        <th class="action">Date Of Birth</th>
                                         <th class="action">Gender</th>
                                         <th class="action">Mobile number</th>
                                         <th class="action">Status</th>

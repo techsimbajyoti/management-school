@@ -26,8 +26,9 @@ class TeacherController extends Controller
     }
 
     public function edit_teacher(){
-        return view('admin.teacher-info.edit-teacher');
+        return view('teachers.edit-teacher');
     }
+
 
 }
 

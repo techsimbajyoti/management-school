@@ -81,13 +81,67 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('delete-accountant', [AccountantController::class, 'delete_accountant'])->name('delete-accountant');
 
 	Route::get('edit-admin-profile', [UserController::class, 'edit_admin_profile'])->name('edit-admin-profile');
+
+	Route::post('post-admit-student', [StudentController::class, 'post_admit_student'])->name('post-admit-student');
+
+	Route::get('disabled-students', [StudentController::class, 'disabled_students'])->name('disabled-students');
+
+	Route::get('promote-students', [StudentController::class, 'promote_students'])->name('promote-students');
+
+	Route::get('designation', [UserController::class, 'designation'])->name('designation');
+
+	Route::get('add-designation', [UserController::class, 'add_designation'])->name('add-designation');
+
+	Route::get('edit-designation', [UserController::class, 'edit_designation'])->name('edit-designation');
+
+	Route::get('delete-designation', [UserController::class, 'delete_designation'])->name('delete-designation');
+
+	Route::get('department', [UserController::class, 'department'])->name('department');
+
+	Route::get('add-department', [UserController::class, 'add_department'])->name('add-department');
+
+	Route::get('edit-department', [UserController::class, 'edit_department'])->name('edit-department');
+
+	Route::get('delete-department', [UserController::class, 'delete-department'])->name('delete-department');
+
+	Route::get('class', [UserController::class, 'class'])->name('class');
+
+	Route::get('section', [UserController::class, 'section'])->name('section');
+
+	Route::get('subject', [UserController::class, 'subject'])->name('subject');
+
+	Route::get('assign-subject', [UserController::class, 'assign_subject'])->name('assign-subject');
+
+	Route::get('add-class', [UserController::class, 'add_class'])->name('add-class');
+
+	Route::get('edit-class', [UserController::class, 'edit_class'])->name('edit-class');
+
+	Route::get('delete-class', [UserController::class, 'delete_class'])->name('delete-class');
+
+	Route::get('add-section', [UserController::class, 'add_section'])->name('add-section');
+
+	Route::get('edit-section', [UserController::class, 'edit_section'])->name('edit-section');
+
+	Route::get('delete-section', [UserController::class, 'delete_section'])->name('delete-section');
+
+	Route::get('add-subject', [UserController::class, 'add_subject'])->name('add-subject');
+
+	Route::get('edit-subject', [UserController::class, 'edit_subject'])->name('edit-subject');
+
+	Route::get('delete-subject', [UserController::class, 'delete_subject'])->name('delete-subject');
+
+	Route::get('add-subject-assign', [UserController::class, 'add_subject_assign'])->name('add-subject-assign');
+
+	Route::get('edit-subject-assign', [UserController::class, 'edit_subject_assign'])->name('edit-subject-assign');
+
+	Route::get('delete-subject-assign', [UserController::class, 'delete_subject_assign'])->name('delete-subject-assign');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
 
 	Route::get('student-dashboard', [HomeController::class, 'student_dashboard'])->name('student-dashboard');
 
-	Route::get('edit-student', [StudentController::class, 'student_edit'])->name('edit-student');
+	Route::get('student-edit', [StudentController::class, 'student_edit'])->name('student-edit');
 });
 
 Route::group(['middleware' => 'auth.webteachers'], function () {
