@@ -20,7 +20,7 @@
             <div class="table-content table-basic mt-20">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 title">Staff</h4><a href="" class="btn btn-lg ot-btn-primary"><span class="">Add</span></a>
+                    <h4 class="mb-0 title">Teachers</h4><a href="{{ route('admit-teachers') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"> Add</i></a>
                     </div>
                     <div class="card-body">
                     <div class="table-responsive">
@@ -45,7 +45,7 @@
                                 <td class="serial">10012</td>
                                 <td>
                                     <div class="">
-                                    <a href="https://school.onesttech.com/users/show/15">
+                                    <a href="">
                                     <div class="user-card">
                                         <div class="user-info">
                                         Grace Madueke
@@ -57,7 +57,7 @@
                                 <td>History</td>
                                 <td>Instructor</td>
                                 <td>
-                                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e087928183858d818495858b85a08d81898cce838f8d">[email&nbsp;protected]</a>
+                                    <a href="" class="__cf_email__" data-cfemail="e087928183858d818495858b85a08d81898cce838f8d">[email&nbsp;protected]</a>
                                 </td>
                                 <td>07063777851</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
@@ -79,7 +79,7 @@
                                 <td class="serial">12</td>
                                 <td>
                                     <div class="">
-                                    <a href="https://school.onesttech.com/users/show/14">
+                                    <a href="">
                                     <div class="user-card">
                                         <div class="user-avatar"></div>
                                         <div class="user-info">
@@ -92,7 +92,7 @@
                                 <td>History</td>
                                 <td>Admin</td>
                                 <td>
-                                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="462c68362732332a293206353f2823342b273e3e6825292b">[email&nbsp;protected]</a>
+                                    <a href="" class="__cf_email__" data-cfemail="462c68362732332a293206353f2823342b273e3e6825292b">[email&nbsp;protected]</a>
                                 </td>
                                 <td>09178880009</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>

@@ -18,4 +18,8 @@ class UserController extends Controller
     {
         return view('users.index', ['users' => $model->paginate(15)]);
     }
+
+    public function edit_admin_profile(){
+        return view('admin.edit-admin-profile');
+    }
 }

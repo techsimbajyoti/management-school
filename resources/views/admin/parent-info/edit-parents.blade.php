@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'admit-parent'
+    'elementActive' => 'edit-parent'
 ])
 
 @section('content')
@@ -19,11 +19,11 @@
             <div class="col-md-12">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0 title">Admit Parents</h4><a href="{{ route('parents') }}" class="btn ot-btn-primary"><span class="">Back</span></a>
+                        <h4 class="mb-0 title">Edit Parents</h4><a href="{{ route('parents') }}" class="btn ot-btn-primary"><span class="">Back</span></a>
                     </div>
                     <div class="card-body">
-                        <form action="https://school.onesttech.com/parent/store" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
-                        <input type="hidden" name="_token" value="204iWXt9onsVIUAVM5lWdIZWnSqEjqDec1SiB2It">
+                        <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+                        @csrf
                         <div class="row mb-3">
                             <div class="col-lg-12">
                             <div class="row">

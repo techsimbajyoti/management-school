@@ -1,7 +1,7 @@
 
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'profile'
+    'elementActive' => ''
 ])
 
 @section('content')
@@ -33,8 +33,8 @@
                                     <img class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Admin"></div>
                                 <div class="flex-grow-1">
                                 <div class="body">
-                                    <h2 class="title">Admin</h2>
-                                    <p class="paragraph">Admin</p>
+                                    <h2 class="title">Parent</h2>
+                                    <p class="paragraph">Parent</p>
                                 </div>
                                 </div>
                             </div>
@@ -52,10 +52,10 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="profile-body edit">
+                        <div class="profile-body edit-parent-profile">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="title">My Profile</h2>
-                                <a class="btn btn-lg ot-btn-primary mb-5" id="edit-admin-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+                                <a class="btn btn-lg ot-btn-primary mb-5" id="edit-parent"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
                             </div>
                             <div class="profile-body-form">
                             <div class="form-item border-bottom-0 pb-0">
@@ -97,7 +97,7 @@
                             </div>
                         </div>
 
-                        @include('admin.edit-admin-profile')
+                        @include('parents.edit-parent')
                         @include('admin.change-password')
                     </div>
                 </div>
@@ -110,16 +110,16 @@
 <script>
     $(document).ready(function(){
         $('.change-password').hide();
-        $('.edit-admin').hide();
+        $('.edit-parent').hide();
 
-    $('#edit-admin-profile').click(function(){
-        $('.edit-admin').show();
-        $('.edit').hide();
+    $('#edit-parent').click(function(){
+        $('.edit-parent-profile').hide();
+        $('.edit-parent').show();
     })
 
     $('.update-admin-password').click(function(){
-        $('.edit-admin').hide();
-        $('.edit').hide();
+        $('.edit-parent-profile').hide();
+        $('.edit-parent').hide();
         $('.change-password').show();
 
     })

@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => 'register-page',
-    'backgroundImagePath' => 'img/bg/jan-sendereks.jpg'
+    'backgroundImagePath' => 'img/bg/school2.jpg'
 ])
 
 @section('content')
@@ -46,7 +46,7 @@
                     <div class="card card-signup text-center">
                         <div class="card-header ">
                             <h4 class="card-title">{{ __('Register') }}</h4>
-                            <div class="social">
+                            <!-- <div class="social">
                                 <button class="btn btn-icon btn-round btn-twitter">
                                     <i class="fa fa-twitter"></i>
                                 </button>
@@ -57,8 +57,8 @@
                                     <i class="fa fa-facebook-f"></i>
                                 </button>
                                 <p class="card-description">{{ __('or be classical') }}</p>
-                            </div>
-                        </div>
+                            </div> -->
+                        </div>  
                         <div class="card-body ">
                             <form class="form" method="POST" action="{{ route('register') }}">
                                 @csrf

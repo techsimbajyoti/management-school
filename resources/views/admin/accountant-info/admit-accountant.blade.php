@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'edit-parent'
+    'elementActive' => 'admit-accountant'
 ])
 
 @section('content')
@@ -19,14 +19,14 @@
             <div class="col-md-12">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0 title">Edit Teachers</h4><a href="{{ route('teachers') }}" class="btn ot-btn-primary"><span class="">Back</span></a>
+                        <h4 class="mb-0 title">Admit Accountant</h4><a href="{{ route('accountant') }}" class="btn ot-btn-primary"><span class="">Back</span></a>
                     </div>
                     <div class="card-body">
                     <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
                         @csrf
                         <div class="row mb-3">
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <label for="exampleDataList" class="form-label">Staff ID <span class="fillable">*</span></label> <input class="form-control ot-input" name="staff_id" value="" list="datalistOptions" id="exampleDataList" type="number" placeholder="Enter staff ID">
+                            <label for="exampleDataList" class="form-label">Accountant ID <span class="fillable">*</span></label> <input class="form-control ot-input" name="accountant_id" value="" list="datalistOptions" id="exampleDataList" type="number" placeholder="Enter accountant ID">
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <label for="validationServer04" class="form-label">Roles <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide change-role" name="role" id="validationServer04" aria-describedby="validationServer04Feedback">
@@ -76,15 +76,9 @@
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <label for="validationServer04" class="form-label">Genders <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide change-gender" name="gender" id="validationServer04" aria-describedby="validationServer04Feedback">
-                            <option value="">
-                                Select gender
-                            </option>
-                            <option value="1">
-                                Male
-                            </option>
-                            <option value="2">
-                                Female
-                            </option>
+                            <option value="">Select gender</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
@@ -101,22 +95,14 @@
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <label for="validationServer04" class="form-label">Marital status</label> <select class="nice-select niceSelect bordered_style wide" name="marital_status" id="validationServer04" aria-describedby="validationServer04Feedback">
-                            <option selected value="0">
-                                Unmarried
-                            </option>
-                            <option value="1">
-                                Married
-                            </option>
+                            <option selected value="0">Unmarried</option>
+                            <option value="1">Married</option>
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
-                            <option value="1">
-                                Active
-                            </option>
-                            <option selected value="0">
-                                Inactive
-                            </option>
+                            <option value="1">Active</option>
+                            <option selected value="0">Inactive</option>
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
