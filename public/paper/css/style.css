@@ -5625,7 +5625,7 @@
   /* Common card for layout for dashboard */
   .ot-card {
     border-radius: 5px;
-    padding: 28px;
+    padding: 20px;
     border: none;
   }
   
@@ -6228,7 +6228,7 @@
     font-weight: 700;
     line-height: 30px;
     color: var(--ot-text-title);
-    padding: 15px 40px;
+    padding: 4px 20px;
     border-bottom: 1px solid var(--ot-border-table-card-header);
     background-color: var(--ot-bg-table-card-header);
     border-radius: 0;
@@ -10443,7 +10443,7 @@
     border-radius: 5px;
     border: 1px solid var(--ot-border-table-checkbox);
     background-color: var(--ot-bg-table-checkbox);
-    margin-top: 0;
+    margin-top: -7px;
   }
   
   .input-check-radio .form-check .form-check-input:focus {
@@ -12918,6 +12918,24 @@
     display: flex;
     align-items: center;
   }
+
+  input.form-check-input {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+    margin-top: 0;
+}
+
+  .form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+}
+
+  .align-items-center {
+    align-items: center!important;
+}
   
   .d-flex.justify-content-between.align-items-center.w-100.mt-20 {
     display: flex;
@@ -13787,3 +13805,53 @@
       display: flex;
     }
   }
+
+  .gap-4 {
+    gap: 1.5rem!important;
+}
+
+.d-flex {
+  display: flex!important;
+}
+
+.form-check {
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5em;
+  margin-bottom: .125rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .375rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.table-bordered>:not(caption)>* {
+  border-width: 1px 0;
+}
+
+.table>:not(caption)>*>* {
+  padding: .5rem .5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+/* tbody, td, tfoot, th, thead, tr {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+} */

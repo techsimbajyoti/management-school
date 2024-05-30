@@ -57,7 +57,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Update</a>
+                              <a href="{{route('subject')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Update</a>
                             </div>
                           </div>
                         </div>

@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-content table-basic mt-20">
-                <div class="card">
+                <div class="card ot-card">
                   <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Class</h4><a href="{{ route('add-class') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
                   </div>

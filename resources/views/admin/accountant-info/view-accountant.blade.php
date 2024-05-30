@@ -21,6 +21,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">View Accountant</h4><a href="{{ route('accountant') }}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                     </div>
+                    <hr>
                     <div class="card-body">
                     <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
                         @csrf

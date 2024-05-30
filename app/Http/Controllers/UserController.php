@@ -119,4 +119,12 @@ class UserController extends Controller
     public function delete_subject_assign(){
         // return view('admin.academic.add-section');
     }
+
+    public function admin_attendance(){
+        return view('admin.attendance.attendance');
+    }
+
+    public function admin_attendance_report(){
+        return view('admin.attendance.admin-attendance-report');
+    }
 }

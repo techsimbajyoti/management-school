@@ -21,6 +21,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">Edit Teachers</h4><a href="{{ route('teachers') }}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                     </div>
+                    <hr>
                     <div class="card-body">
                     <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
                         @csrf
@@ -138,7 +139,7 @@
                         </div>
                         <div class="col-md-12 mt-24">
                             <div class="text-right">
-                                <button class="btn ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+                                <a href="teachers" class="btn ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
                             </div>
                         </div>
                     </form>

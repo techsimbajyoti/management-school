@@ -65,4 +65,100 @@ class HomeController extends Controller
     {
         return view('accountants.accountants');
     }
+
+    public function gallery_category(){
+        return view('admin.gallery.gallery-category');
+    }
+
+    public function image(){
+        return view('admin.gallery.image');
+    }
+
+    public function add_gallery_category(){
+        return view('admin.gallery.add-gallery-category');
+    }
+
+    public function edit_gallery_category(){
+        return view('admin.gallery.edit-gallery-category');
+    }
+
+    public function delete_gallery_category(){
+        // return view('admin.gallery.add-gallery-category');
+    }
+
+    public function add_image(){
+        return view('admin.gallery.add-image');
+    }
+
+    public function edit_image(){
+        return view('admin.gallery.edit-image');
+    }
+
+    public function delete_image(){
+        
+    }
+
+    public function add_event(){
+        return view('admin.event.add-event');
+    }
+
+    public function calender(){
+        return view('admin.event.calender');
+    }
+
+    public function type(){
+        return view('admin.examination.type');
+    }
+
+    public function marks_grade(){
+        return view('admin.examination.marks-grade');
+    }
+
+    public function add_type(){
+        return view('admin.examination.add-type');
+    }
+
+    public function edit_type(){
+        return view('admin.examination.edit-type');
+    }
+
+    public function delete_type(){
+        // return view('admin.examination.delete_type');
+    }
+
+    public function add_marks_grade(){
+        return view('admin.examination.add-marks-grade');
+    }
+
+    public function edit_mark_grade(){
+        return view('admin.examination.edit-marks-grade');
+    }
+
+    public function delete_mark_grade(){
+      
+    }
+
+    public function exam_assign(){
+        return view('admin.examination.exam-assign');
+    }
+
+    public function mark_register(){
+        return view('admin.examination.mark-register');
+    }
+
+    public function settings(){
+        return view('admin.examination.settings');
+    }
+
+    public function add_exam_assign(){
+        return view('admin.examination.add-exam-assign');
+    }
+
+    public function edit_exam_assign(){
+        return view('admin.examination.edit-exam-assign');
+    }
+
+    public function delete_exam_assign(){
+        
+    }
 }

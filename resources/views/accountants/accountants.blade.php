@@ -7,8 +7,8 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
+                <div class="card ot-card card-stats">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">

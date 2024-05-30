@@ -31,7 +31,7 @@
                 <form action="{{route('post-admit-student')}}" method="POST" enctype="multipart/form-data" >
                     @csrf
                     
-                    <div class="card">
+                    <div class="card ot-card">
                         <div class="card-header">
                             <h6 class="card-title">{{ __('Please fill The form Below To Admit A New Student') }}</h6>
                             <div class="d-flex justify-content-end">
@@ -47,7 +47,7 @@
                                     <label class="form-label" style="font-weight: 600;">{{ __('Admission No.:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="admission_no" class="form-control" placeholder="Admission No" required>
+                                            <input type="text" name="admission_no" class="form-control" placeholder="Admission No." required>
                                         </div>
                                         @if ($errors->has('admission_no'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -91,7 +91,7 @@
                                     <span style="color:red">*</span>
                                     <label class="form-label" style="font-weight: 600;">{{ __('Phone:') }}</label>
                                         <div class="form-group">
-                                            <input type="text" name="mobile" class="form-control" placeholder="" required>
+                                            <input type="text" name="mobile" class="form-control" placeholder="Phone No." required>
                                         </div>
                                         @if ($errors->has('mobile'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -104,7 +104,7 @@
                                      <label class="form-label" style="font-weight: 600;">{{ __('Email address:') }}</label>
   
                                       <div class="form-group">
-                                          <input type="text" name="email" class="form-control" placeholder="email address" required>
+                                          <input type="text" name="email" class="form-control" placeholder="Email Address" required>
                                       </div>
                                       @if ($errors->has('email'))
                                           <span class="invalid-feedback" style="display: block;" role="alert">
@@ -131,7 +131,7 @@
                                 <div class="col-md-3">
                                         <label class="form-label" style="font-weight: 600;">{{ __('Class:') }}</label>
                                             <div class="form-group">
-                                                <input type="text" name="class" class="form-control" placeholder="" required>
+                                                <input type="text" name="class" class="form-control" placeholder="Class" required>
                                             </div>
                                             @if ($errors->has('class'))
                                                 <span class="invalid-feedback" style="display: block;" role="alert">
@@ -146,7 +146,7 @@
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Section:</label>
                                         <select class="select form-control" id="section" name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                            <option value=""></option>
+                                            <option value="">Select one of these</option>
                                             <option value="A">A</option>
                                             <option  value="B">B</option>
                                             <option  value="C">C</option>
@@ -157,7 +157,7 @@
                                     <div class="form-group">
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Date of Birth:</label>
-                                        <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Select Date...">
+                                        <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth">
         
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Religion:</label>
                                         <select class="select form-control" id="religion" name="religion" required data-fouc data-placeholder="Choose.." name="section">
-                                            <option value=""></option>
+                                            <option value="">Select one of these</option>
                                             <option value="Hindu">Hindu</option>
                                             <option  value="Muslim">Muslim</option>
                                             <option  value="Christian"> Christian</option>
@@ -181,7 +181,7 @@
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Gender:</label>
                                         <select class="select form-control" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
-                                            <option value=""></option>
+                                            <option value="">Select one of these</option>
                                             <option  value="Male">Male</option>
                                             <option  value="Female">Female</option>
                                         </select>
@@ -196,7 +196,7 @@
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Category:</label>
                                         <select class="select form-control" id="category" name="category" required data-fouc data-placeholder="Choose.." name="category">
-                                            <option value=""></option>
+                                            <option value="">Select one of these</option>
                                             <option  value="General">General</option>
                                             <option  value="OBC">OBC</option>
                                             <option  value="SC">SC</option>
@@ -210,7 +210,7 @@
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Blood Group:</label>
                                         <select class="select form-control" id="category" name="blood_group" required data-fouc data-placeholder="Choose.." name="blood_group">
-                                            <option value=""></option>
+                                            <option value="">Select one of these</option>
                                             <option  value="A+">A+</option>
                                             <option  value="A">A-</option>
                                             <option  value="B+">B+</option>
@@ -231,11 +231,9 @@
                                     </div> 
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group">
                                         <label class="form-label" style="font-weight: 600;">{{ __('Upload Passport Photo:') }}</label>
-                                        {{-- <span class="text-info" style="font-size: 12px;">Accepted Images: jpeg, png. Max file size 2Mb</span> --}}
-                                        <input type="file" class="form-control-file" name="image" accept=".png,.jpg,.jpeg" required>
-                                    </div>
+                                        <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
+                                
                                 </div>
                                 
                             </div>

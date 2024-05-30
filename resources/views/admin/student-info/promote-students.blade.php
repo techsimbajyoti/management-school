@@ -18,10 +18,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-content table-basic mt-20">
-                <div class="card">
+                <div class="card ot-card">
                   <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Promote students</h4>
                   </div>
+                  <hr>
                   <div class="card-body">
                     <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
                      @csrf
@@ -137,7 +138,7 @@
                         </div>
                         <div class="col-md-12">
                           <div class="text-right">
-                            <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Promote</button>
+                            <a href="{{route('students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Promote</a>
                           </div>
                         </div>
                       </form>

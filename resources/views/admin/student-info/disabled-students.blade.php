@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-content table-basic mt-20">
-                <div class="card">
+                <div class="card ot-card">
                   <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Disabled students</h4>
                   </div>
@@ -89,7 +89,7 @@
                             <td>Male</td>
                             <td>01478521114</td>
                             <td><span class="badge-basic-success-text">Active</span></td>
-                            <td class="action">
+                            {{-- <td class="action">
                               <div class="dropdown dropdown-action">
                                 <ul class="dropdown-menu dropdown-menu-end">
                                   <li>
@@ -100,7 +100,7 @@
                                   </li>
                                 </ul>
                               </div>
-                            </td>
+                            </td> --}}
                           </tr>
                         </tbody>
                       </table>

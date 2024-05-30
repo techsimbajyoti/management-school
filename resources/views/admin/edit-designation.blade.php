@@ -17,7 +17,7 @@
     
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Edit Designation</h4>
                     <a href="{{ route('designation') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
@@ -44,7 +44,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              <a href="{{route('designation')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
                             </div>
                           </div>
                         </div>

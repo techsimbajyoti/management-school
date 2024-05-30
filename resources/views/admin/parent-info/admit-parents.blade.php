@@ -21,9 +21,10 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">Admit Parents</h4><a href="{{ route('parents') }}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                     </div>
+                    <hr>
                     <div class="card-body">
-                        <form action="https://school.onesttech.com/parent/store" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
-                        <input type="hidden" name="_token" value="204iWXt9onsVIUAVM5lWdIZWnSqEjqDec1SiB2It">
+                        <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+                        @csrf
                         <div class="row mb-3">
                             <div class="col-lg-12">
                             <div class="row">
@@ -102,7 +103,7 @@
                             <div class="row">
                                 <div class="col-md-12 mt-24">
                                 <div class="text-right">
-                                    <button class="btn ot-btn-primary">submit</button>
+                                    <a href="{{route('parents')}}" class="btn ot-btn-primary">submit</a>
                                 </div>
                                 </div>
                             </div>

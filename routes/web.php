@@ -139,6 +139,57 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-subject-assign', [UserController::class, 'delete_subject_assign'])->name('delete-subject-assign');
 
+	Route::get('admin-attendance', [UserController::class, 'admin_attendance'])->name('admin-attendance');
+
+	Route::get('admin-attendance-report', [UserController::class, 'admin_attendance_report'])->name('admin-attendance-report');
+
+	Route::get('gallery-category', [HomeController::class, 'gallery_category'])->name('gallery-category');
+
+	Route::get('add-gallery-category', [HomeController::class, 'add_gallery_category'])->name('add-gallery-category');
+
+	Route::get('edit-gallery-category', [HomeController::class, 'edit_gallery_category'])->name('edit-gallery-category');
+
+	Route::get('delete-gallery-category', [HomeController::class, 'delete_gallery_category'])->name('delete-gallery-category');
+
+	Route::get('image', [HomeController::class, 'image'])->name('image');
+
+	Route::get('add-image', [HomeController::class, 'add_image'])->name('add-image');
+
+	Route::get('edit-image', [HomeController::class, 'edit_image'])->name('edit-image');
+
+	Route::get('delete-image', [HomeController::class, 'delete_image'])->name('delete-image');
+
+	Route::get('add-event', [HomeController::class, 'add_event'])->name('add-event');
+
+	Route::get('calender', [HomeController::class, 'calender'])->name('calender');
+
+	Route::get('type', [HomeController::class, 'type'])->name('type');
+
+	Route::get('add-type', [HomeController::class, 'add_type'])->name('add-type');
+
+	Route::get('edit-type', [HomeController::class, 'edit_type'])->name('edit-type');
+
+	Route::get('delete-type', [HomeController::class, 'delete_type'])->name('delete-type');
+
+	Route::get('marks-grade', [HomeController::class, 'marks_grade'])->name('marks-grade');
+
+	Route::get('add-marks-grade', [HomeController::class, 'add_marks_grade'])->name('add-marks-grade');
+
+	Route::get('edit-mark-grade', [HomeController::class, 'edit_mark_grade'])->name('edit-mark-grade');
+
+	Route::get('delete-mark-grade', [HomeController::class, 'delete_mark_grade'])->name('delete-mark-grade');
+
+	Route::get('exam-assign', [HomeController::class, 'exam_assign'])->name('exam-assign');
+
+	Route::get('mark-register', [HomeController::class, 'mark_register'])->name('mark-register');
+
+	Route::get('settings', [HomeController::class, 'settings'])->name('settings');
+
+	Route::get('add-exam-assign', [HomeController::class, 'add_exam_assign'])->name('add-exam-assign');
+
+	Route::get('edit-exam-assign', [HomeController::class, 'edit_exam_assign'])->name('edit-exam-assign');
+
+	Route::get('delete-exam-assign', [HomeController::class, 'delete_exam_assign'])->name('delete-exam-assign');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

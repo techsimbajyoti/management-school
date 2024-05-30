@@ -39,7 +39,7 @@
                 <a aria-expanded="{{ in_array($elementActive, ['user', 'manage-student', 'student-list', 'admit-student', 'promote-student', 'disabled-student', 'parent']) ? 'true' : 'false' }}" data-toggle="collapse" aria-expanded="true" href="#laravelExamples">
                     <i class="fa fa-users"></i>
                     <p>
-                        {{ __('Manage Students') }}
+                        {{ __('Students') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -85,7 +85,7 @@
                 <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['user', 'manage-staff', 'teacher', 'accountant', 'department', 'designation']) ? 'true' : 'false' }}" href="#laravelExampless">
                     <i class='fas fa-chalkboard-teacher'></i>
                     <p>
-                        {{ __('Manage Staff') }}
+                        {{ __('Staff') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -123,7 +123,7 @@
                 <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject']) ? 'true' : 'false' }}" href="#laravelExamplesss">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <p>
-                        {{ __('Manage Academic') }}
+                        {{ __('Academic') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -151,6 +151,135 @@
                             <a href="{{ route('assign-subject') }}">
                                 <span class="sidebar-mini-icon">{{ __('AS') }}</span>
                                 <span class="sidebar-normal">{{ __(' Assign Subject ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="{{ in_array($elementActive, ['manage-attendance','attendance','admin-attendance-report']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['manage-attendance','attendance','admin-attendance-report']) ? 'true' : 'false' }}" href="#laravelExamplessss">
+                    <i class="fas fa-calendar-check"></i>
+                    <p>
+                        {{ __('Attendance') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['manage-attendance','attendance','admin-attendance-report']) ? 'show' : '' }}" id="laravelExamplessss">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'attendance' ? 'active' : '' }}">
+                            <a href="{{ route('admin-attendance') }}">
+                                <span class="sidebar-mini-icon">{{ __('A') }}</span>
+                                <span class="sidebar-normal">{{ __(' Attendance ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'admin-attendance-report' ? 'active' : '' }}">
+                            <a href="{{ route('admin-attendance-report') }}">
+                                <span class="sidebar-mini-icon">{{ __('AR') }}</span>
+                                <span class="sidebar-normal">{{ __(' Attendance Report ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="{{ in_array($elementActive, ['gallery','gallery-category','image']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['gallery','gallery-category','image']) ? 'true' : 'false' }}" href="#laravelExampl">
+                    <i class="fas fa-images"></i>
+                    <p>
+                        {{ __('Gallery') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['gallery','gallery-category','image']) ? 'show' : '' }}" id="laravelExampl">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
+                            <a href="{{ route('gallery-category') }}">
+                                <span class="sidebar-mini-icon">{{ __('GC') }}</span>
+                                <span class="sidebar-normal">{{ __(' Gallery Category ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'image' ? 'active' : '' }}">
+                            <a href="{{ route('image') }}">
+                                <span class="sidebar-mini-icon">{{ __('I') }}</span>
+                                <span class="sidebar-normal">{{ __(' Image ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            {{-- <li class="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#laravelExamp">
+                    <i class="fas fa-images"></i>
+                    <p>
+                        {{ __('School Calender') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'show' : '' }}" id="laravelExamp">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'add-event' ? 'active' : '' }}">
+                            <a href="{{ route('add-event') }}">
+                                <span class="sidebar-mini-icon">{{ __('AE') }}</span>
+                                <span class="sidebar-normal">{{ __(' Add Event ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'calender' ? 'active' : '' }}">
+                            <a href="{{ route('calender') }}">
+                                <span class="sidebar-mini-icon">{{ __('C') }}</span>
+                                <span class="sidebar-normal">{{ __(' Calender ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li> --}}
+
+            <li class="{{ in_array($elementActive, ['examination','type','marks-grade','exam-assign','mark-register']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['examination','type','marks-grade','exam-assign','mark-register']) ? 'true' : 'false' }}" href="#laravelExamp">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>
+                        {{ __('Examination') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['examination','type','marks-grade','exam-assign','mark-register']) ? 'show' : '' }}" id="laravelExamp">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'type' ? 'active' : '' }}">
+                            <a href="{{ route('type') }}">
+                                <span class="sidebar-mini-icon">{{ __('T') }}</span>
+                                <span class="sidebar-normal">{{ __(' Type ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'marks-grade' ? 'active' : '' }}">
+                            <a href="{{ route('marks-grade') }}">
+                                <span class="sidebar-mini-icon">{{ __('MG') }}</span>
+                                <span class="sidebar-normal">{{ __(' Marks Grade ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'exam-assign' ? 'active' : '' }}">
+                            <a href="{{ route('exam-assign') }}">
+                                <span class="sidebar-mini-icon">{{ __('EA') }}</span>
+                                <span class="sidebar-normal">{{ __(' Exam Assign ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'mark-register' ? 'active' : '' }}">
+                            <a href="{{ route('mark-register') }}">
+                                <span class="sidebar-mini-icon">{{ __('MR') }}</span>
+                                <span class="sidebar-normal">{{ __(' Mark Register ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'settings' ? 'active' : '' }}">
+                            <a href="{{ route('settings') }}">
+                                <span class="sidebar-mini-icon">{{ __('S') }}</span>
+                                <span class="sidebar-normal">{{ __(' Settings ') }}</span>
                             </a>
                         </li>
                     </ul>

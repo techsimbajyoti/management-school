@@ -31,14 +31,14 @@
                 <form  action="" method="">
                     @csrf
                     
-                    <div class="card">
+                    <div class="card ot-card">
                         <div class="card-header">
                             <h6 class="card-title">{{ __('Edit Student Details') }}</h6>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                             </div>
                         </div>
-                        <hr style="width:1000px; height: 2px; border: none; background-color:#c2c2c2;">
+                        <hr>
 
                         <div class="card-body">
                             <div class="row mb-3">
@@ -231,11 +231,8 @@
                                     </div> 
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group">
                                         <label class="form-label" style="font-weight: 600;">Upload Passport Photo:</label>
-                                        <span class="text-info" style="font-size: 12px;">Accepted Images: jpeg, png. Max file size 2Mb</span>
-                                        <input type="file" class="form-control-file" name="image" accept=".png,.jpg,.jpeg" required>
-                                    </div>
+                                        <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
                                 </div>
                                 
                             </div>
