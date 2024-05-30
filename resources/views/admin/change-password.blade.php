@@ -3,7 +3,7 @@
     <h2 class="title">Update Password</h2>
   </div>
   <div class="profile-body-form">
-    <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+    <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">
       @csrf
       <div class="row mb-3 mt-3">
         <div class="col-md-12">

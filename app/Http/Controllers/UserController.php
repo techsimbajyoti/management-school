@@ -22,4 +22,101 @@ class UserController extends Controller
     public function edit_admin_profile(){
         return view('admin.edit-admin-profile');
     }
+
+
+    public function designation(){
+        return view('admin.designation');
+    }
+
+    public function add_designation(){
+        return view('admin.add-designation');
+    }
+
+    public function edit_designation(){
+        return view('admin.edit-designation');
+    }
+
+    public function delete_designation(){
+        // return view('admin.delete-designation');
+    }
+
+    public function department(){
+        return view('admin.department');
+    }
+
+    public function add_department(){
+        return view('admin.add-department');
+    }
+
+    public function edit_department(){
+        return view('admin.edit-department');
+    }
+
+    public function delete_department(){
+        // return view('admin.department');
+    }
+
+    public function class(){
+        return view('admin.academic.class');
+    }
+
+    public function add_class(){
+        return view('admin.academic.add-class');
+    }
+
+    public function edit_class(){
+        return view('admin.academic.edit-class');
+    }
+
+    public function delete_class(){
+        // return view('admin.academic.edit-class');
+    }
+
+    public function section(){
+        return view('admin.academic.section');
+    }
+
+    public function subject(){
+        return view('admin.academic.subject');
+    }
+
+    public function assign_subject(){
+        return view('admin.academic.assign-subject');
+    }
+
+    public function add_section(){
+        return view('admin.academic.add-section');
+    }
+
+    public function edit_section(){
+        return view('admin.academic.edit-section');
+    }
+
+    public function delete_section(){
+        // return view('admin.academic.section');
+    }
+
+    public function add_subject(){
+        return view('admin.academic.add-subject');
+    }
+
+    public function edit_subject(){
+        return view('admin.academic.edit-subject');
+    }
+
+    public function delete_subject(){
+        // return view('admin.academic.subject');
+    }
+
+    public function add_subject_assign(){
+        return view('admin.academic.add-subject-assign');
+    }
+
+    public function edit_subject_assign(){
+        return view('admin.academic.edit-subject-assign');
+    }
+
+    public function delete_subject_assign(){
+        // return view('admin.academic.add-section');
+    }
 }

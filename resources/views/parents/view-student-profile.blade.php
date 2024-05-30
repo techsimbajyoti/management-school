@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <h6 class="card-title">{{ __('View Student Details') }}</h6>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('students')}}" class="btn btn-lg ot-btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                                <a href="{{ route('parent-dashboard')}}" class="btn btn-lg ot-btn-info"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                             </div>
                         </div>
                         <hr>

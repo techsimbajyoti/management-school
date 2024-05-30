@@ -37,6 +37,13 @@ class StudentController extends Controller
     }
 
 
+
+    public function student_edit(){
+        $country = Country::get();
+        return view('students.edit-student',compact('country'));
+    }
+
+
     public function post_admit_student(Request $request){
         // $validated = $request->validate([
         //     'admission_no' => 'required',
@@ -122,13 +129,46 @@ class StudentController extends Controller
             return redirect()->back()->with('status', 'Oops!! Registration Failed');
         }
     }
+
+    public function disabled_students(){
+        return view('admin.student-info.disabled-students');
+    }
+
+
+    public function promote_students(){
+        return view('admin.student-info.promote-students');
+    }
     
-    
+    public function student_parent_profile(){
+        return view('students.student-parent-profile');
+    }
 
+    public function student_exam(){
+        return view('students.student-exam');
+    }
 
+    public function student_attendance(){
+        return view('students.student-parent-profile');
+    }
 
-    public function student_edit(){
-        return view('students.edit-student');
+    public function student_marksheet(){
+        return view('students.student-marksheet');
+    }
+
+    public function student_event(){
+        return view('students.student-event');
+    }
+
+    public function student_gallary(){
+        return view('students.student-gallary');
+    }
+
+    public function student_notification(){
+        return view('students.student-notification');
+    }
+
+    public function student_message(){
+        return view('students.student-message');
     }
 
 }

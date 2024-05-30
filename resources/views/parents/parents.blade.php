@@ -7,7 +7,7 @@
     <div class="content">
         <div class="row">
            <div class="col-md-12"> 
-            <form action="" method="post" id="marksheet" enctype="multipart/form-data">
+            <form action="" method="" id="marksheet" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="VEysqVBCR0KYZWVKtIbfyAXh5yl4uSwDtDxCKKTo"> <div class="card ot-card mb-24 position-relative z_1">
                 <div class="card-header d-flex align-items-center gap-4 flex-wrap">
                 <h3 class="mb-0">Filtering</h3>
@@ -138,25 +138,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header ">
-                        <h5 class="card-title">Users Behavior</h5>
-                        <p class="card-category">24 Hours performance</p>
-                    </div>
-                    <div class="card-body ">
-                        <canvas id=chartHours width="400" height="100"></canvas>
-                    </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+        
         
         <div class="row">
             <div class="col-md-6">
@@ -169,7 +151,7 @@
                 <div class="card-body">
                   <div class="row mb-3">
                     <div class="col-sm-6">
-                      <img class="mt-2" width="100" height="100" src="https://school.onesttech.com/backend/uploads/default-images/100X100.webp" alt="Student">
+                      <img class="mt-2" width="100" height="100" src="{{asset('paper/img/dummy-image.png')}}" alt="Student">
                       <div class="d-flex justify-content-between align-content-center mb-3 mt-2">
                         <div class="align-self-center">
                           <h6 class="title">Student name</h6>

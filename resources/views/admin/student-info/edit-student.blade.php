@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <h6 class="card-title">{{ __('Edit Student Details') }}</h6>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('students')}}" class="btn btn-info">Back</a>
+                                <a href="{{ route('students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                             </div>
                         </div>
                         <hr style="width:1000px; height: 2px; border: none; background-color:#c2c2c2;">
@@ -344,7 +344,7 @@
                             
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
-                                   <button type="submit" class="btn btn-info">{{ __('Submit') }}</button>
+                                   <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Submit') }}</button>
                                 </div>
                             </div>
                         </div>

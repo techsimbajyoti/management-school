@@ -2409,7 +2409,7 @@ h4,
 .h4 {
   font-size: 1.714em;
   line-height: 1.45em;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   margin-bottom: 15px;
 }
 
@@ -4796,7 +4796,7 @@ License - nucleoapp.com/license/
   text-transform: uppercase;
   cursor: pointer;
   font-size: 12px;
-  padding: 10px 8px;
+  /* padding: 10px 8px; */
   line-height: 30px;
   opacity: .7;
 }
@@ -4822,7 +4822,7 @@ License - nucleoapp.com/license/
 
 .sidebar .nav i,
 .off-canvas-sidebar .nav i {
-  font-size: 24px;
+  font-size: 17px;
   float: left;
   margin-right: 12px;
   line-height: 30px;
