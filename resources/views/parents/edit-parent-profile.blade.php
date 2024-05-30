@@ -66,7 +66,7 @@
                                 <div class="d-flex justify-content-between align-content-center">
                                 <div class="align-self-center">
                                     <h2 class="title">Name</h2>
-                                    <p class="paragraph">Admin</p>
+                                    <p class="paragraph">Parent</p>
                                 </div>
                                 </div>
                             </div>
@@ -81,8 +81,8 @@
                             <div class="form-item">
                                 <div class="d-flex justify-content-between align-content-center">
                                 <div class="align-self-center">
-                                    <h2 class="title">Date of Birth</h2>
-                                    <p class="paragraph">2022-09-07</p>
+                                    <h2 class="title">Occupation</h2>
+                                    <p class="paragraph">occupation</p>
                                 </div>
                                 </div>
                             </div>
@@ -115,6 +115,7 @@
     $('#edit-parent').click(function(){
         $('.edit-parent-profile').hide();
         $('.edit-parent').show();
+        $('.change-password').hide();
     })
 
     $('.update-admin-password').click(function(){

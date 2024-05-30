@@ -197,7 +197,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-mark-register', [HomeController::class, 'delete_mark_register'])->name('delete-mark-register');
 
-
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
@@ -205,6 +204,23 @@ Route::group(['middleware' => 'auth.webstudents'], function () {
 	Route::get('student-dashboard', [HomeController::class, 'student_dashboard'])->name('student-dashboard');
 
 	Route::get('student-edit', [StudentController::class, 'student_edit'])->name('student-edit');
+
+	Route::get('student-edit-profile', [StudentController::class, 'student_edit_profile'])->name('student-edit-profile');
+
+	Route::get('parent-profile', [StudentController::class, 'student_parent_profile'])->name('parent-profile');
+
+	Route::get('student-marksheet', [StudentController::class, 'student_marksheet'])->name('student-marksheet');
+
+	Route::get('events', [StudentController::class, 'student_event'])->name('events');
+
+	Route::get('student-gallary', [StudentController::class, 'student_gallary'])->name('student-gallary');
+
+	Route::get('chat', [StudentController::class, 'student_message'])->name('chat');
+
+	Route::get('student-attendance', [StudentController::class, 'student_attendance'])->name('student-attendance');
+
+	Route::get('student-exam', [StudentController::class, 'student_exam'])->name('student-exam');
+
 });
 
 Route::group(['middleware' => 'auth.webteachers'], function () {
@@ -246,6 +262,17 @@ Route::group(['middleware' => 'auth.webaccountants'], function () {
 
 	Route::get('accountant-dashboard', [HomeController::class, 'accountant_dashboard'])->name('accountant-dashboard');
 
+	Route::get('edit-accountant-profile', [AccountantController::class, 'edit_accountant_profile'])->name('edit-accountant-profile');
+
+	Route::get('accountant-edit', [AccountantController::class, 'accountant_edit'])->name('accountant-edit');
+
+	Route::get('manage-fees', [AccountantController::class, 'manage_fees'])->name('manage-fees');
+
+	Route::get('add-fees', [AccountantController::class, 'add_fees'])->name('add-fees');
+
+	Route::get('accountant-report', [AccountantController::class, 'accountant_report'])->name('accountant-report');
+
+	Route::get('accountant-fees-challans', [AccountantController::class, 'accountant_fees_challans'])->name('accountant-fees-challans');
 });
 
 Route::group(['middleware' => 'auth'], function () {

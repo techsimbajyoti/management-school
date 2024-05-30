@@ -12,31 +12,7 @@
           <div class="card-header d-flex align-items-center gap-4 flex-wrap">
             <h3 class="mb-0">Filtering</h3>
             <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
-              <div class="single_large_selectBox">
-                <select class="nice-select niceSelect bordered_style wide" name="student">
-                  <option value="">
-                    Select student
-                  </option>
-                  <option selected value="2">
-                    Student 112
-                  </option>
-                  <option value="17">
-                    Student 123
-                  </option>
-                  <option value="29">
-                    Student 211
-                  </option>
-                  <option value="54">
-                    Student 2212
-                  </option>
-                  <option value="65">
-                    Student 319
-                  </option>
-                  <option value="79">
-                    Student 329
-                  </option>
-                </select>
-              </div>
+              
               <div class="single_large_selectBox">
                 <select class="class nice-select niceSelect bordered_style wide" name="view">
                   <option value="0">

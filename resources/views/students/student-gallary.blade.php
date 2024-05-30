@@ -15,22 +15,22 @@
               <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
                 <div class="single_large_selectBox">
                   <select class="nice-select niceSelect bordered_style wide student" name="student">
-                    <option value="">
+                    <option value="0">
                       Select Ocassion
                     </option>
-                    <option value="2">
+                    <option value="Cultural Day">
                       Cultural Day
                     </option>
-                    <option value="17">
+                    <option value="Sports Day">
                       Sports Day
                     </option>
-                    <option value="29">
+                    <option value="Independence Day">
                       Independence Day
                     </option>
-                    <option value="54">
+                    <option value="Fun Day">
                       Fun Day
                     </option>
-                    <option value="65">
+                    <option value=" Interschool Competition">
                       Interschool Competition
                     </option>
                   </select>
@@ -71,6 +71,23 @@
         </div>
       </div>
     </div>
+    <dic class="col-lg-12 no-data" style="display:none;">
+        <div class="table-content table-basic">
+            <div class="card mt-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Empty Gallary Box</h4>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <div class="text-center gray-color">
+                        <img src="https://school.onesttech.com/images/no_data.svg" alt="no_data" class="mb-primary" width="100">
+                        <p class="mb-0 text-center">No data available</p>
+                        <p class="mb-0 text-center text-secondary font-size-90">Please add new entity regarding this table</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
 @endsection
@@ -79,16 +96,31 @@
     $(document).ready(function(){
     $('.gallary-box').hide();
     $('.search-form').show();
-
+    $('.no-data').hide();
 
     $('#marksheed').on('submit', function(e) {
       e.preventDefault(); 
-      $('.gallary-box').show();
-      $('.search-form').show();
+
+      var student = $('select[name="student').val();
+          
+          if(student !== '0'){
+            $('.no-data').hide();
+            $('.gallary-box').show();
+          }
+           else{
+            $('.no-data').show();
+            $('.gallary-box').hide();
+           }
+           
+        })
+
+
+
+     
      
     });
 
-   });
+
 
 </script>
 @endpush

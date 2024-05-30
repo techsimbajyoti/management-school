@@ -11,17 +11,7 @@
                         <div class="card-header d-flex align-items-center gap-4 flex-wrap">
                             <h3 class="mb-0">Filtering</h3>
                             <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
-                                <div class="single_large_selectBox">
-                                    <select class="nice-select niceSelect bordered_style wide" name="student_id">
-                                        <option value='0'>Select student</option>
-                                        <option value="1">Student 112</option>
-                                        <option value="2">Student 123</option>
-                                        <option value="3">Student 211</option>
-                                        <option value="3">Student 2212</option>
-                                        <option value="4">Student 319</option>
-                                        <option value="5">Student 329</option>
-                                    </select>
-                                </div>
+                                
                                 <div class="single_large_selectBox">
                                     <select class="nice-select niceSelect bordered_style wide" name="exam_type" id="exam_type">
                                         <option value="0">Select Exam Type</option>
@@ -42,7 +32,7 @@
             <div class="col-lg-12 exam-form" style="display:none;">
                 <div class="card ot-card mb-24" id="printableArea">
                     <div class="download_print_btns">
-                        <button class="btn btn-lg ot-btn-primary" onclick="printDiv('printableArea')"><i class="fa-solid fa-print"></i> Print Now</button> <a class="btn btn-lg ot-btn-primary" href=""><i class="fas fa-file-pdf"></i> PDF Download</a>
+                        <button class="btn btn-lg ot-btn-primary" onclick="printDiv('printableArea')"><i class="fa-solid fa-print"></i> Print Now</button> <a class="btn btn-lg ot-btn-primary" href="#"><i class="fas fa-file-pdf"></i> PDF Download</a>
                     </div>
                     <div class="card-header">
                         <h4 class="mb-0">Exam Schedule</h4>
@@ -132,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </div>        
+          
 @endsection
 @push('scripts')
     <script>

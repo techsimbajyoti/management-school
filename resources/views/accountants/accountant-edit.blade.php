@@ -29,11 +29,11 @@
                             <div class="profile-menu-head">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Teacher"></div>
+                                    <img class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Admin"></div>
                                 <div class="flex-grow-1">
                                 <div class="body">
-                                    <h2 class="title">Student</h2>
-                                    <p class="paragraph">Student</p>
+                                    <h2 class="title">Accountant</h2>
+                                    <p class="paragraph">Accountant</p>
                                 </div>
                                 </div>
                             </div>
@@ -51,17 +51,28 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="profile-body edit-student">
+                        <div class="profile-body accountant-edit">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="title">My Profile</h2>
-                                <a class="btn btn-lg ot-btn-primary mb-5" id="student-edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+                                <a class="btn btn-lg ot-btn-primary mb-5" id="accountant-edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
                             </div>
                             <div class="profile-body-form">
                                 <div class="form-item border-bottom-0 pb-0">
                                     <div class="image-box">
                                     <img id="id-profile-image" class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Teacher"></div>
                                 </div>
-                               
+                                <div class="form-item">
+                                    <div class="d-flex justify-content-between align-content-center">
+                                    <div class="align-self-center">
+                                        <h2 class="title">Designations</h2>
+                                        <p class="paragraph">Demo</p>
+                                    </div>
+                                    <div class="align-self-center">
+                                        <h2 class="title">Departments</h2>
+                                        <p class="paragraph">Demo</p>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="form-item">
                                     <div class="d-flex justify-content-between align-content-center">
                                     <div class="align-self-center">
@@ -105,8 +116,8 @@
                                         <p class="paragraph">00/00/0000</p>
                                     </div>
                                     <div class="align-self-center">
-                                        <h2 class="title">Class</h2>
-                                        <p class="paragraph">VI</p>
+                                        <h2 class="title">Joining Date</h2>
+                                        <p class="paragraph">00/00/0000</p>
                                     </div>
                                     </div>
                                 </div>
@@ -117,15 +128,15 @@
                                         <p class="paragraph">0000000000</p>
                                     </div>
                                     <div class="align-self-center">
-                                        <h2 class="title">Section</h2>
-                                        <p class="paragraph">A</p>
+                                        <h2 class="title">Basic salary</h2>
+                                        <p class="paragraph">00000</p>
                                     </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        @include('students.student-edit-profile')
+                        @include('accountants.accountant-edit-profile')
                         @include('admin.change-password')
                     </div>
                 </div>
@@ -138,17 +149,17 @@
 <script>
     $(document).ready(function(){
         $('.change-password').hide();
-        $('.student-edit-profile').hide();
+        $('.accountant-edit-profile').hide();
 
-    $('#student-edit-profile').click(function(){
-        $('.student-edit-profile').show();
-        $('.edit-student').hide();
+    $('#accountant-edit-profile').click(function(){
+        $('.accountant-edit-profile').show();
+        $('.accountant-edit').hide();
         $('.change-password').hide();
     })
 
     $('.update-admin-password').click(function(){
-        $('.student-edit-profile').hide();
-        $('.edit-student').hide();
+        $('.accountant-edit-profile').hide();
+        $('.accountant-edit').hide();
         $('.change-password').show();
 
     })

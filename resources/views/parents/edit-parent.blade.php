@@ -1,4 +1,4 @@
-<div class="profile-body edit-parent">
+<div class="profile-body edit-parent" style="display:none;">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h2 class="title">Edit Profile</h2>
     </div>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-md-12 mt-24">
                     <div class="text-right">
-                        <button type="submit" class="btn ot-btn-primary"><span class=""><i class="fa fa-save"></i> Save</span></button>
+                        <button type="submit" class="btn ot-btn-primary"><span class=""><i class="fa fa-refresh" aria-hidden="true"></i> Update</span></button>
                     </div>
                     </div>
                 </div>
