@@ -167,6 +167,10 @@
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
+
+
+
+
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('parent-dashboard') }}">
@@ -255,19 +259,19 @@
                 </a>
             </li>
             <li class="{{ $elementActive == 'exam' ? 'active' : '' }}">
-                <a href="{{ route('student-dashboard') }}">
+                <a href="{{ route('student-exam') }}">
                     <i class="fa fa-calendar-o"></i>
                     <p>{{ __('Exam') }}</p>
                 </a>
             </li>
             <li class="{{ $elementActive == 'attendance' ? 'active' : '' }}">
-                <a href="{{ route('student-dashboard') }}">
+                <a href="{{ route('student-attendance') }}">
                     <i class="fa fa-clock-o"></i>
                     <p>{{ __('Attendance') }}</p>
                 </a>
             </li>
             <li class="{{ $elementActive == 'gallary' ? 'active' : '' }}">
-                <a href="{{ route('student-dashboard') }}">
+                <a href="{{ route('student-gallary') }}">
                     <i class="fa fa-camera"></i>
                     <p>{{ __('Gallary') }}</p>
                 </a>
@@ -284,7 +288,61 @@
                     <p>{{ __('Notification') }}</p>
                 </a>
             </li>
-            @endif
+
+
+
+
+
+
+                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <li class="{{ $elementActive == 'accountant-dashboard' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-dashboard') }}">
+                            <i class="nc-icon nc-bank"></i>
+                            <p>{{ __('Dashboard') }}</p>
+                        </a>
+                    </li>
+                    <li class="{{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'active' : '' }}">
+                        <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'true' : 'false' }}" href="#laravelExamplesss">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                            <p>{{ __('Manage Fees Payment') }}</p>
+                        </a>
+                    </li>
+                    <div class="collapse {{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'show' : '' }}" id="laravelExamplesss">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'add-fees' ? 'active' : '' }}">
+                                <a href="{{ route('add-fees') }}">
+                                    <span class="sidebar-mini-icon">{{ __(' ') }}</span>
+                                    <span class="sidebar-normal">{{ __('Add Fees') }}</span>
+                                </a>
+                            </li>
+                            <li class="{{ $elementActive == 'manage-payment' ? 'active' : '' }}">
+                                <a href="{{ route('accountant-dashboard') }}">
+                                    <span class="sidebar-mini-icon">{{ __(' ') }}</span>
+                                    <span class="sidebar-normal">{{ __('Manage Payment') }}</span>
+                                </a>
+                            </li>
+                            <li class="{{ $elementActive == 'student-payment' ? 'active' : '' }}">
+                                <a href="{{ route('accountant-dashboard') }}">
+                                    <span class="sidebar-mini-icon">{{ __(' ') }}</span>
+                                    <span class="sidebar-normal">{{ __('Payment and Receipt') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-fees-challans') }}">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>{{ __('Fees Challans') }}</p>
+                        </a>
+                    </li>
+                    <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-report') }}">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <p>{{ __('Reports') }}</p>
+                        </a>
+                    </li>
+                @endif
+
         </ul>
     </div>
 </div>

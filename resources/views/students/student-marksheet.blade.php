@@ -7,7 +7,7 @@
     <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-12 p-0">
+                <div class="col-12 p-0 search-form">
                     <form action="" method="" id="marksheed" enctype="multipart/form-data" name="marksheet">
                       <input type="hidden" name="_token" value="T8ADYQ4K6q9LyaUSsnKqFQ0S4GqWjDxZrDkKbHTb">
                       <div class="card ot-card mb-24 position-relative z_1">
@@ -17,16 +17,16 @@
                             
                             <div class="single_large_selectBox">
                               <select class="nice-select niceSelect bordered_style wide exam_types" name="exam_type">
-                                <option value="">
+                                <option value="0">
                                   Select Exam Type *
                                 </option>
-                                <option value="">
+                                <option value="First">
                                     First
                                   </option>
-                                  <option value="">
+                                  <option value="Mid">
                                     Mid
                                   </option>
-                                  <option value="">
+                                  <option value="Final">
                                     Final
                                   </option>
                               </select>
@@ -37,7 +37,7 @@
                     </form>
                   </div>
 
-                  <div class="col-lg-12 marksheet-form">
+                  <div class="col-lg-12 marksheet-form" style="display:none;">
                     <div class="card ot-card mb-24" id="printableArea">
                         <div class="download_print_btns">
                             <button class="btn btn-lg ot-btn-primary" onclick="printDiv('printableArea')"><i class="fa-solid fa-print"></i> Print Now</button> <a class="btn btn-lg ot-btn-primary" href=""><i class="fas fa-file-pdf"></i> PDF Download</a>
@@ -168,6 +168,23 @@
                       </div>
                     </div>
                   </div>
+                  <dic class="col-lg-12 no-data" style="display:none;">
+                    <div class="table-content table-basic">
+                        <div class="card mt-3">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">Marksheet Details</h4>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <div class="text-center gray-color">
+                                    <img src="https://school.onesttech.com/images/no_data.svg" alt="no_data" class="mb-primary" width="100">
+                                    <p class="mb-0 text-center">No data available</p>
+                                    <p class="mb-0 text-center text-secondary font-size-90">Please add new entity regarding this table</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>            
     </div>
@@ -178,8 +195,23 @@
   <script>
      $(document).ready(function(){
          $('.marksheet-form').hide();
+         $('.no-data').hide();
 
-        // $('#')
+        $('#marksheed').submit(function(e){
+            e.preventDefault();
+
+          var examType = $('select[name="exam_type').val();
+          
+          if(examType !== '0'){
+            $('.no-data').hide();
+            $('.marksheet-form').show();
+          }
+           else{
+            $('.no-data').show();
+            $('.marksheet-form').hide();
+           }
+           
+        })
 
 
      });

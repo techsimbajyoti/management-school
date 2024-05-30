@@ -1,4 +1,4 @@
-<div class="profile-body student-edit-profile">
+<div class="profile-body student-edit-profile" style="display:none;">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h2 class="title">Edit Profile</h2>
     </div>
@@ -323,11 +323,11 @@
                     
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                           <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Submit') }}</button>
+                           <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> {{ __('Update') }}</button>
                         </div>
                     </div>
                 </div>
             </div>    
         </form>
     </div>
-</div>
+</div> 

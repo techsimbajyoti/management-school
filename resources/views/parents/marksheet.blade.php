@@ -7,8 +7,8 @@
     <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-12 p-0">
-                    <form action="https://school.onesttech.com/parent-panel-marksheet/search" method="post" id="marksheet" enctype="multipart/form-data" name="marksheet">
+                <div class="col-12 p-0 search-form">
+                    <form action="" method="post" id="marksheed" enctype="multipart/form-data" name="marksheet">
                       <input type="hidden" name="_token" value="T8ADYQ4K6q9LyaUSsnKqFQ0S4GqWjDxZrDkKbHTb">
                       <div class="card ot-card mb-24 position-relative z_1">
                         <div class="card-header d-flex align-items-center gap-4 flex-wrap">
@@ -52,7 +52,7 @@
                     </form>
                   </div>
 
-                  <div class="col-lg-12">
+                  <div class="col-lg-12 marksheet-form">
                     <div class="card ot-card mb-24" id="printableArea">
                         <div class="download_print_btns">
                             <button class="btn btn-lg ot-btn-primary" onclick="printDiv('printableArea')"><i class="fa-solid fa-print"></i> Print Now</button> <a class="btn btn-lg ot-btn-primary" href=""><i class="fas fa-file-pdf"></i> PDF Download</a>
@@ -188,3 +188,20 @@
     </div>
 
 @endsection
+@push('scripts')
+  <script>
+     $(document).ready(function(){
+         $('.marksheet-form').hide();
+
+        $('#marksheed').submit(function(e){
+            e.preventDefault();
+            $('.search-form').show();
+            $('.marksheet-form').show();
+        })
+
+
+     });
+
+  </script>
+
+@endpush

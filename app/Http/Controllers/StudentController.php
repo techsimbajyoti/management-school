@@ -148,7 +148,7 @@ class StudentController extends Controller
     }
 
     public function student_attendance(){
-        return view('students.student-parent-profile');
+        return view('students.student-attendance');
     }
 
     public function student_marksheet(){

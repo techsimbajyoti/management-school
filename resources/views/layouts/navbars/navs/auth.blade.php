@@ -56,45 +56,66 @@
                         </div>
                     </div>
                 </li>
-            @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
-            <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="nc-icon nc-settings-gear-65"></i>
-                    <p>
-                        <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
-                    </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                    <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
-                        <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
+
+                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <li class="nav-item btn-rotate dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="nc-icon nc-settings-gear-65"></i>
+                            <p>
+                                <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                            </p>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                            <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                                <a class="dropdown-item" href="{{ route('accountant-edit') }}">{{ __('My profile') }}</a>
+                            </div>
+                        </div>
+                    </li>
+
+                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
-            <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="nc-icon nc-settings-gear-65"></i>
-                    <p>
-                        <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
-                    </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                    <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
-                        <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
+                </li>
+                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            @endif
+                </li>
+                @endif
             </ul>
         </div>
     </div>

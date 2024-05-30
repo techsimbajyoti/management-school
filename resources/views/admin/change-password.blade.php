@@ -1,4 +1,4 @@
-<div class="profile-body change-password">
+<div class="profile-body change-password" style="display:none;">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="title">Update Password</h2>
   </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="col-md-12 mt-3">
           <div class="text-end">
-            <button class="btn btn-lg ot-btn-primary">Update</button>
+            <button class="btn btn-lg ot-btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Update</button>
           </div>
         </div>
       </div>
