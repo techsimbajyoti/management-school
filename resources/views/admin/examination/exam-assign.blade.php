@@ -61,6 +61,9 @@
                         <option value="">
                             Select Subject
                         </option>
+                        <option>Math</option>
+                        <option>English</option>
+                        <option>Hindi</option>
                         </select>
                     </div><a class="btn btn-lg ot-btn-primary" type="submit"><i class="fa fa-search"></i> Search</a>
                     </div>
@@ -93,7 +96,7 @@
                             <td class="serial">9</td>
                             <td>Final</td>
                             <td>Three (A)</td>
-                            <td>Accounting</td>
+                            <td>Math</td>
                             <td>100</td>
                             <td>
                               <div class="d-flex align-items-center justify-content-between mt-0">
@@ -147,4 +150,50 @@
     </div>
 </div>
 @endsection 
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+
+             var sections = {
+                 1: ["A", "B", "C"],
+                 2: ["D", "E"],
+                 3: ["F", "G", "H", "I"]
+             }
+
+             var exams = {
+                 1: ["First", "Mid", "Final"],
+                 2: ["Mid", "Final"],
+                 3: ["First", "Mid", "Final", "Test"]
+             }
+
+             $('#getSections').change(function() {
+                 var classId = $(this).val();
+                 var $sectionsDropdown = $('.sections');
+                 $sectionsDropdown.empty();
+                 $sectionsDropdown.append('<option value="">Select section</option>');
+                
+                 if (sections[classId]) {
+                     sections[classId].forEach(function(section) {
+                         $sectionsDropdown.append('<option value="' + classId + '">' + section + '</option>');
+                     });
+                 }
+             });
+
+             $('.sections').change(function() {
+                 var classId = $(this).val();
+                 var $sectionsDropdown = $('.exam_types');
+                 $sectionsDropdown.empty();
+                 $sectionsDropdown.append('<option value="">Select section</option>');
+                 if (exams[classId]) {
+                  exams[classId].forEach(function(exam) {
+                         $sectionsDropdown.append('<option value="' + exam + '">' + exam + '</option>');
+                     });
+                 }
+             });
+
+            
+        });
+    </script>
+@endpush
 

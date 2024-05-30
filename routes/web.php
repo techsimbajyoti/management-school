@@ -190,6 +190,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('edit-exam-assign', [HomeController::class, 'edit_exam_assign'])->name('edit-exam-assign');
 
 	Route::get('delete-exam-assign', [HomeController::class, 'delete_exam_assign'])->name('delete-exam-assign');
+
+	Route::get('add-mark-register', [HomeController::class, 'add_mark_register'])->name('add-mark-register');
+
+	Route::get('edit-mark-register', [HomeController::class, 'edit_mark_register'])->name('edit-mark-register');
+
+	Route::get('delete-mark-register', [HomeController::class, 'delete_mark_register'])->name('delete-mark-register');
+
+
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

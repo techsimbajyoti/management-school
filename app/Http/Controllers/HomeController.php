@@ -161,4 +161,16 @@ class HomeController extends Controller
     public function delete_exam_assign(){
         
     }
+
+    public function add_mark_register(){
+        return view('admin.examination.add-mark-register');
+    }
+
+    public function edit_mark_register(){
+        return view('admin.examination.edit-mark-register');
+    }
+
+    public function delete_mark_register(){
+        return view('admin.examination.delete-mark-register');
+    }
 }
