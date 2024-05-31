@@ -23,7 +23,7 @@
         @endif
         <div class="row">
             <div class="col-md-12 card">
-            <div class="page-content">
+                <div class="page-content">
                 <div class="profile-content">
                     <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-0">
                         <div class="profile-menu">

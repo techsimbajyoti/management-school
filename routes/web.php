@@ -197,6 +197,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-mark-register', [HomeController::class, 'delete_mark_register'])->name('delete-mark-register');
 
+	Route::get('edit-inactive-student', [HomeController::class, 'edit_inactive_student'])->name('edit-inactive-student');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
