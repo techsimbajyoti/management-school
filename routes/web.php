@@ -197,6 +197,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('delete-mark-register', [HomeController::class, 'delete_mark_register'])->name('delete-mark-register');
 
+	Route::post('json-state', [StudentController::class, 'json-state'])->name('json-state');
+
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

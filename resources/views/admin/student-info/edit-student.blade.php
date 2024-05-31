@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'admit-student'
+    'elementActive' => 'student-list'
 ])
 
 @section('content')
@@ -18,7 +18,7 @@
         <div class="row">
            
             <div class="col-md-12">
-              
+                
                     @csrf
                     
                     <div class="card">
@@ -28,26 +28,29 @@
                                
                     </div>
             
-                <form  action="" method="">
+                <form action="" method="" enctype="multipart/form-data" >
                     @csrf
                     
                     <div class="card ot-card">
                         <div class="card-header">
-                            <h6 class="card-title">{{ __('Edit Student Details') }}</h6>
+                            <h6 class="card-title">{{ __('Edit the Student details') }}</h6>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                              <a href="{{ route('students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                             </div>
                         </div>
-                        <hr>
+                        <hr style="background-color:#c2c2c2;">
 
                         <div class="card-body">
+                            <h5>Student Information</h5><br>
                             <div class="row mb-3">
+                              
                                 <div class="col-md-4">
+                                   
                                     <span style="color:red">*</span>
                                     <label class="form-label" style="font-weight: 600;">{{ __('Admission No.:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="admission_no" class="form-control" placeholder="Admission No" required>
+                                            <input type="text" name="admission_no" class="form-control" placeholder="Admission No." required>
                                         </div>
                                         @if ($errors->has('admission_no'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -55,13 +58,30 @@
                                             </span>
                                         @endif
                                 </div>
-
+                                <div class="col-md-4">
+                                    <span style="color:red">*</span>
+                                    <label class="form-label" style="font-weight: 600;">{{ __('Parent Name:') }}</label>
+                                
+                                    <select class="select form-control" id="parent_name" name="parent_name"  data-fouc data-placeholder="Choose.." >
+                                        <option value="">Parent Name</option>
+                                        <option  value="Parent1">Parent1</option>
+                                        <option  value="Parent2">Parent2</option>
+                                      
+                                    </select>
+                                           
+                                </div>
+                                        @if ($errors->has('parent_name')) 
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('parent_name') }}</strong>
+                                            </span>
+                                        @endif
+                             
                                 <div class="col-md-4">
                                     <span style="color:red">*</span>
                                     <label class="form-label" style="font-weight: 600;">{{ __('First Name:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                                            <input type="text" name="first_name" class="form-control" placeholder="Student First Name" required>
                                         </div>
                                         @if ($errors->has('first_name'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -70,54 +90,44 @@
                                         @endif
                                 </div>
 
-                                <div class="col-md-4">
+                               
+                                         
+                               
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-3">
                                     <span style="color:red">*</span>
                                     <label class="form-label" style="font-weight: 600;">{{ __('Last Name:') }}</label>
 
                                     <div class="form-group">
-                                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+                                        <input type="text" name="last_name" class="form-control" placeholder="Student Last Name" required>
                                     </div>
-                                    @if ($errors->has('full_name'))
+                                    @if ($errors->has('last_name'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('last_name') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                                                  
-                               
-                            </div>
-                            <div class="row mb-3">
                                 <div class="col-md-3">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Phone:') }}</label>
-                                        <div class="form-group">
-                                            <input type="text" name="" class="form-control" placeholder="" required>
-                                        </div>
-                                        @if ($errors->has(''))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('') }}</strong>
-                                            </span>
-                                        @endif
-                                </div>
-                                <div class="col-md-3">
-                                    <span style="color:red">*</span>
-                                     <label class="form-label" style="font-weight: 600;">{{ __('Email address:') }}</label>
-  
-                                      <div class="form-group">
-                                          <input type="text" name="" class="form-control" placeholder="email address" required>
-                                      </div>
-                                      @if ($errors->has(''))
-                                          <span class="invalid-feedback" style="display: block;" role="alert">
-                                              <strong>{{ $errors->first('') }}</strong>
-                                          </span>
-                                      @endif
-                                  </div>
-                                  <div class="col-md-3">
+                                    <label class="form-label" style="font-weight: 600;">{{ __('Email address:') }}</label>
+    
+                                     <div class="form-group">
+                                         <input type="text" name="email" class="form-control" placeholder="Email Address" required value="admin@gmail.com">
+                                     </div>
+                                     @if ($errors->has('email'))
+                                         <span class="invalid-feedback" style="display: block;" role="alert">
+                                             <strong>{{ $errors->first('email') }}</strong>
+                                         </span>
+                                     @endif
+                                 </div> 
+                                 <div class="col-md-3">
                                     <span style="color:red">*</span>
                                      <label class="form-label" style="font-weight: 600;">{{ __('Password:') }}</label>
   
                                       <div class="form-group">
-                                          <input type="password" name="password" class="form-control"  required>
+                                          <input type="password" name="password" class="form-control" value="123456789" required>
                                           <span style="font-size: 12px;">Default Password: 123456789</span>
 
                                       </div>
@@ -126,149 +136,65 @@
                                               <strong>{{ $errors->first('password') }}</strong>
                                           </span>
                                       @endif
-                                  </div>
-                                   
+                                  </div> 
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                        <span style="color:red">*</span>
+                                        <label class="form-label" style="font-weight: 600;">Gender:</label>
+                                        <select class="select form-control" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
+                                            <option value="">Select one of these</option>
+                                            <option  value="Male">Male</option>
+                                            <option  value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                  
+                            </div>
+                            <div class="row mb-3">
                                 <div class="col-md-3">
+                                    <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">{{ __('Class:') }}</label>
                                             <div class="form-group">
-                                                <input type="text" name="class" class="form-control" placeholder="" required>
+                                                <select id="getSections" class="class nice-select niceSelect bordered_style wide " name="class" required>
+                                                    <option value>Select class</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                    </select>
                                             </div>
                                             @if ($errors->has('class'))
                                                 <span class="invalid-feedback" style="display: block;" role="alert">
                                                     <strong>{{ $errors->first('class') }}</strong>
                                                 </span>
                                             @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Section:</label>
-                                        <select class="select form-control" id="section" name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                            <option value=""></option>
-                                            <option value="A">A</option>
-                                            <option  value="B">B</option>
-                                            <option  value="C">C</option>
-                                        </select>
+                                    </div>    
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label" style="font-weight: 600;">Section:</label>
+                                            <select class="select form-control sections" id="getSections" name="section" required data-fouc data-placeholder="Choose.." name="section">
+                                                <option value="">Select one of these</option>
+                                                <option value="A">A</option>
+                                                <option  value="B">B</option>
+                                                <option  value="C">C</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <span style="color:red">*</span>
                                         <label class="form-label" style="font-weight: 600;">Date of Birth:</label>
-                                        <input name="dob" value="" type="date" class="form-control date-pick" placeholder="Select Date...">
+                                        <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth">
         
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Religion:</label>
-                                        <select class="select form-control" id="section" name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                            <option value=""></option>
-                                            <option value="Hindu">Hindu</option>
-                                            <option  value="Muslim">Muslim</option>
-                                            <option  value="Christian"> Christian</option>
-                                            <option  value="Jain"> Jain</option>
-                                            <option  value="Buddhist"> Buddhist</option>
-                                            <option  value="Sikh">Sikh</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Gender:</label>
-                                        <select class="select form-control" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
-                                            <option value=""></option>
-                                            <option  value="Male">Male</option>
-                                            <option  value="Female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                                  
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Category:</label>
-                                        <select class="select form-control" id="category" name="category" required data-fouc data-placeholder="Choose.." name="category">
-                                            <option value=""></option>
-                                            <option  value="General">General</option>
-                                            <option  value="OBC">OBC</option>
-                                            <option  value="SC">SC</option>
-                                            <option  value="ST">ST</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Blood Group:</label>
-                                        <select class="select form-control" id="category" name="blood_group" required data-fouc data-placeholder="Choose.." name="blood_group">
-                                            <option value=""></option>
-                                            <option  value="General">A+</option>
-                                            <option  value="General">A-</option>
-                                            <option  value="OBC">B+</option>
-                                            <option  value="General">B-</option>
-                                            <option  value="SC">AB+</option>
-                                            <option  value="General">AB-</option>
-                                            <option  value="ST">O+</option>
-                                            <option  value="General">O-</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Admission Date</label>
-                                        <input type="date" name="admission_date" class="form-control">
-                                    </div> 
-                                </div>
-                                <div class="col-md-3">
-                                        <label class="form-label" style="font-weight: 600;">Upload Passport Photo:</label>
-                                        <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
-                                </div>
-                                
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Parent Name:') }}</label>
-    
-                                        <div class="form-group">
-                                            <input type="text" name="parent_name" class="form-control" placeholder="Parent Name" required>
-                                        </div>
-                                        @if ($errors->has('parent_name'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('parent_name') }}</strong>
-                                            </span>
-                                        @endif
-                                </div>
-                                <div class="col-md-3">
-                                    <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Parent Mobile:') }}</label>
-    
-                                        <div class="form-group">
-                                            <input type="text" name="parent_mobile" class="form-control" placeholder="Parent Mobile" required>
-                                        </div>
-                                        @if ($errors->has('parent_mobile'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('parent_mobile') }}</strong>
-                                            </span>
-                                        @endif
-                                </div>
-                                <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                            
                                     <label class="form-label" style="font-weight: 600;">{{ __('Place Of Birth:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="place_of_birth" class="form-control" placeholder="Place Of Birth" required>
+                                            <input type="text" name="place_of_birth" class="form-control" placeholder="Place Of Birth">
                                         </div>
                                         @if ($errors->has('place_of_birth'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -276,72 +202,245 @@
                                             </span>
                                         @endif
                                 </div>
+                            
+                                
+                                
+                                                  
+                            </div>
+
+                            <div class="row mb-3">
+                                 <div class="col-md-3">
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" style="font-weight: 600;">Blood Group:</label>
+                                        <select class="select form-control" id="category" name="blood_group"  data-fouc data-placeholder="Choose.." name="blood_group">
+                                            <option value="">Select one of these</option>
+                                            <option  value="A+">A+</option>
+                                            <option  value="A">A-</option>
+                                            <option  value="B+">B+</option>
+                                            <option  value="B-">B-</option>
+                                            <option  value="AB+">AB+</option>
+                                            <option  value="AB-">AB-</option>
+                                            <option  value="O+">O+</option>
+                                            <option  value="O-">O-</option>
+                                        </select>
+                                    </div>
+
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">{{ __('Nationality:') }} </label>
-                                        <select data-placeholder="Choose..." required name="student_nationality" id="student_nationality" class="select-search form-control">
-                                            <option value="">Select Country</option>
-                                            @foreach ($country as $data)
-                                                <option value="{{ $data->id }}" {{ (old('country') == $data->id) ? 'selected' : '' }}>
-                                                    {{ $data->country }}
-                                                </option>
-                                            @endforeach
+                            
+                                        <label class="form-label" style="font-weight: 600;">Religion:</label>
+                                        <select class="select form-control" id="religion" name="religion" required data-fouc data-placeholder="Choose.." name="section">
+                                            <option value="">Select one of these</option>
+                                            <option value="Hindu">Hindu</option>
+                                            <option  value="Muslim">Muslim</option>
+                                            <option  value="Christian"> Christian</option>
+                                            <option  value="Jain"> Jain</option>
+                                            <option  value="Buddhist"> Buddhist</option>
+                                            <option  value="Sikh">Sikh</option>
+                                            <option  value="Sikh">Other</option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mb-3" >
                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('CPR Number:') }}</label>
-    
-                                        <div class="form-group">
-                                            <input type="text" name="CPR_number" class="form-control" placeholder="CPR Number" required>
-                                        </div>
-                                        @if ($errors->has('CPR_number'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('CPR_number') }}</strong>
-                                            </span>
-                                        @endif
+                                    <div class="form-group">
+                                        
+                                        <label class="form-label" style="font-weight: 600;">Category:</label>
+                                        <select class="select form-control" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
+                                            <option value="">Select one of these</option>
+                                            <option  value="General">General</option>
+                                            <option  value="OBC">OBC</option>
+                                            <option  value="SC">SC</option>
+                                            <option  value="ST">ST</option>
+                                            <option  value="ST">Other</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <span style="color:red">*</span>
+                                 <div class="col-md-3">
+                                    
                                     <label class="form-label" style="font-weight: 600;">{{ __('Student Language:') }}</label>
     
-                                        <div class="form-group">
-                                            <input type="text" name="student_language" class="form-control" placeholder="Student Language" required>
-                                        </div>
-                                        @if ($errors->has('student_language'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('student_language') }}</strong>
-                                            </span>
-                                        @endif
+                                    <select class="select form-control" id="student_language" name="student_language"  data-fouc data-placeholder="Choose..">
+                                        <option value="">Select one of these</option>
+                                        <option  value="Hindi">Hindi</option>
+                                        <option  value="English">English</option>
+                                        <option  value="French">French</option>
+                                        <option  value="Other">Other</option>
+                                    </select>
+                                    @if ($errors->has('student_language'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('student_language') }}</strong>
+                                        </span>
+                                    @endif
+                            </div>
+                                    
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span style="color:red">*</span>
+                                        <label class="form-label" style="font-weight: 600;">{{ __('Admission Date') }}</label>
+                                        <input type="date" name="admission_date" class="form-control">
+                                    </div> 
                                 </div>
-                              
-                                <div class="col-md-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label" style="font-weight: 600;">{{ __('Upload Profile Image:') }}</label>
+                                        <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
+                                
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label" style="font-weight: 600;">{{ __('Status') }}</label>
+                                            <select class="select form-control" id="status" name="status"  data-fouc data-placeholder="Choose.." required>
+                                                <option value="Active" selected>Active</option>
+                                                <option  value="Deactive">Deactive</option>
+                                                
+                                            </select>
+                                        </div> 
+                                    </div>
+                            </div>
+                            
+                            <h5 style="margin-top:30px;">Contact Information</h5><br>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Residance Address:') }}</label>
+                                    <label class="form-label" style="font-weight: 600;">{{ __('Address:') }}</label>
     
                                         <div class="form-group">
-                                            <input type="text" name="residance_address" class="form-control" placeholder="Residance Address" required>
+                                            <input type="text" name="residence_address" class="form-control" placeholder="Residance Address" required>
                                         </div>
-                                        @if ($errors->has('residance_address'))
+                                        @if ($errors->has('residence_address'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('residance_address') }}</strong>
+                                                <strong>{{ $errors->first('residence_address') }}</strong>
                                             </span>
                                         @endif
                                 </div>
-                                <div class="col-md-3">
-                                    <label class="form-label" style="font-weight: 600;">Document</label>
-                                    <input type="file" class="form-control" id="document" name="document">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                
+                                        <div class="form-group">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label" style="font-weight: 600;">{{ __('Country:') }} </label>
+                                            <select data-placeholder="Choose..." required name="country" id="country" class="select-search form-control">
+                                                <option value="">Select Country</option>
+                                                @foreach ($country as $data)
+                                                    <option value="{{ $data->id }}" {{ (old('country') == $data->id) ? 'selected' : '' }}>
+                                                        {{ $data->country }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label" style="font-weight: 600;">{{ __('State:') }} </label>
+                                            <select data-placeholder="Choose..." required name="state" id="state" class="select-search form-control">
+                                                <option value="">Select state</option>
+                                                @foreach ($state as $data)
+                                                <option value="{{ $data->id }}" {{ (old('state') == $data->id) ? 'selected' : '' }}>
+                                                    {{ $data->state }}
+                                                </option>
+                                            @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                    
+                                        <label class="form-label" style="font-weight: 600;">{{ __('City:') }}</label>
+        
+                                            <div class="form-group">
+                                                <input type="text" name="city" class="form-control" placeholder="city" required>
+                                            </div>
+                                            @if ($errors->has('city'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('city') }}</strong>
+                                                </span>
+                                            @endif
+                                    </div>
+                                    
+                                  
+                                
+                                 
+                                
+                            </div>
+                            <div class="row mb-3" >
+                                <div class="col-md-4">
+                                    
+                                    <label class="form-label" style="font-weight: 600;">{{ __('Pin Code:') }}</label>
+    
+                                        <div class="form-group">
+                                            <input type="text" name="pin_code" class="form-control" placeholder="Pin Code" required>
+                                        </div>
+                                        @if ($errors->has('pin_code'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('pin_code') }}</strong>
+                                            </span>
+                                        @endif
+                                </div>
+                                <div class="col-md-4">
+                                    <span style="color:red">*</span>
+                                    <label class="form-label" style="font-weight: 600;">{{ __('Contact:') }}</label>
+                                        <div class="form-group">
+                                            <input type="text" name="mobile" class="form-control" placeholder="Phone No." required>
+                                        </div>
+                                        @if ($errors->has('mobile'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('mobile') }}</strong>
+                                            </span>
+                                        @endif
+                                </div>
+                               
+                               <div class="col-md-4">
+                                    <span style="color:red">*</span>
+                                    <label class="form-label" style="font-weight: 600;">{{ __('Parent Mobile:') }}</label>
+                                       <div class="form-group">
+                                            <input type="text" name="parent_mobile" class="form-control" placeholder="Parent Mobile" required>
+                                        </div>
+                                        @if ($errors->has('parent_mobile'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('parent_mobile') }}</strong>
+                                            </span>
+                                        @endif
+                                </div> 
+                                                   
+                               
+                            </div>
+                            <<div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
+                                <h5>Upload Documents</h5>
+                                <button id="add-document" class="btn btn-lg ot-btn-primary">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add
+                                </button>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table school_borderLess_table table_border_hide2" id="student-document">
+                                            <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
+                                                <tr>
+                                                    <th scope="col">Name <span class="text-danger"></span></th>
+                                                    <th scope="col">Document <span class="text-danger"></span></th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                           
+                            
+                            
+                            
+                          
                             
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
-                                   <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Submit') }}</button>
+                                   <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -352,9 +451,97 @@
     </div>
 @endsection
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+        
+
+            var sections = {
+                1: ["A", "B", "C"],
+                2: ["D", "E"],
+                3: ["F", "G", "H", "I"]
+            };
+
+            $('#getSections').change(function() {
+                var classId = $(this).val();
+                var $sectionsDropdown = $('.sections');
+                $sectionsDropdown.empty();
+                $sectionsDropdown.append('<option value="">Select section</option>');
+
+                if (sections[classId]) {
+                    sections[classId].forEach(function(section) {
+                        $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
+                    });
+                }
+            });
+
+            
+
+
+
+        });
+        $('#state').on('change', function () {
+                var idState = $(this).val();
+                
+                // $("#country").html('');
+                $.ajax({
+                    url: "{{url('json-state')}}",
+                    type: "POST",
+                    data: { 
+                        state_id: idState,
+                        _token: '{{csrf_token()}}' 
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        console.log(result);
+                        $('#country').html('<option value="">Select Country</option>');
+                        $.each(result.states, function (key, value) {
+                            $("#country").append('<option value="' + value
+                                .id + '">' + value.country + '</option>');
+                        });
+                        // $('#city-dd').html('<option value="">Select City</option>');
+                        $("#country").val('{{ old('country') }}');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Log any error response
+                    }
+                });
+            });
+            
+    document.getElementById('add-document').addEventListener('click', function() {
+        var tableBody = document.querySelector('#student-document tbody');
+        var newRow = document.createElement('tr');
+
+        newRow.innerHTML = `
+            <td>
+                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
+            </td>
+            <td>
+                <input type="file" class="form-control" name="document_file[]">
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger remove-document">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(newRow);
+    });
+
+    document.querySelector('#student-document tbody').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-document')) {
+            event.target.closest('tr').remove();
+        }
+    });
+
+    </script>
+@endpush
 
 
 
 
 
 
+                               
+                               

@@ -31,19 +31,13 @@
                  <div class="row">
                      <div class="col-sm-6">
                          <div class="form-group">
-                             <label class="form-label" for="Roll_No">Roll No.</label>
-                             <input placeholder="Roll No" id="Roll_No" type="text" class="form-control"
+                             <label class="form-label" for="Roll_No">Fees Title</label>
+                             <input placeholder="eg. School fees" id="School_fees" type="text" class="form-control"
                                  required>
                          </div>
                      </div>
-                     <div class="col-sm-6">
-                         <div class="form-group">
-                             <label class="form-label" for="Student_Name">Student Name</label>
-                             <input placeholder="Student Name" id="Student_Name" type="text"
-                                 class="form-control" required>
-                         </div>
-                     </div>
-                     <div class="col-sm-6">
+                     
+                     {{-- <div class="col-sm-6">
                          <div class="form-group">
                              <label class="form-label">Department</label>
                              <select class="form-control">
@@ -53,9 +47,9 @@
                                  <option value="Commerce">Commerce</option>
                              </select>
                          </div>
-                     </div>
+                     </div> --}}
                      <div class="col-sm-6">
-                         <div class="form-group mb-4">
+                         <div class="form-group">
                              <label class="form-label">Type</label>
                              <select class="form-control">
                                  <option value="Fess Type">Fess Type</option>
@@ -65,50 +59,17 @@
                              </select>
                          </div>
                      </div>
-                     <div>
-                         <div class="form-group row">
-                             <div class="form-check col-lg-3 ms-3">
-                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                     id="flexRadioDefault1" required>
-                                 <label class="form-check-label" for="flexRadioDefault1">
-                                     Option 1
-                                 </label>
-                             </div>
-                             <div class="form-check col-lg-3 ms-3">
-                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                     id="flexRadioDefault2" required>
-                                 <label class="form-check-label" for="flexRadioDefault2">
-                                     Option 2
-                                 </label>
-                             </div>
-                             <div class="form-check col-lg-3 ms-3">
-                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                     id="flexRadioDefault3" required>
-                                 <label class="form-check-label" for="flexRadioDefault3">
-                                     Option 3
-                                 </label>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-lg-12 col-md-12 col-sm-12">
+                     
+                     <div class="col-sm-6">
                          <div class="form-group">
-                             <label class="form-label" for="Ammount">Ammount</label>
+                             <label class="form-label" for="Ammount">Amount</label>
                              <input placeholder="Ammount" id="Ammount" type="text" class="form-control"
                                  required>
                          </div>
                      </div>
+                     
                      <div class="col-sm-6">
-                         <div class="form-group mb-4">
-                             <label class="form-label" for="datepicker">Collection Date</label>
-                             <div class="input-hasicon mb-xl-0 mb-3">
-                                 <input placeholder="Collection Date" name="datepicker"
-                                     class="datepicker-default form-control" id="datepicker" required>
-                                 <div class="icon"><i class="far fa-calendar"></i></div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-sm-6">
-                         <div class="form-group mb-4">
+                         <div class="form-group ">
                              <label class="form-label">Payment Type</label>
                              <select class="form-control">
                                  <option value="Payment Type">Payment Type</option>

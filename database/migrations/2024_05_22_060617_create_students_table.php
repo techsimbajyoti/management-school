@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('parent_name');
             $table->string('parent_mobile');
             $table->string('place_of_birth');
-            $table->string('student_nationality');
+            $table->string('country');
             $table->string('CPR_number');
             $table->string('student_language');
             $table->string('residance_address');

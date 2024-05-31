@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Country;
+use App\Models\State;
 use Session;
 use Auth;
 use Hash;
@@ -19,17 +20,21 @@ class StudentController extends Controller
 
     public function admit_student(){
 
-        $country=Country::get();
-        return view('admin.student-info.admit-student',compact('country'));
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+        return view('admin.student-info.admit-student',compact('country','state'));
     }
 
     public function view_student(){
-        $country=Country::get();
-        return view('admin.student-info.view-student',compact('country'));
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+        return view('admin.student-info.view-student',compact('country','state'));
     }
     public function edit_student(){
-        $country=Country::get();
-        return view('admin.student-info.edit-student',compact('country'));
+
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+        return view('admin.student-info.edit-student',compact('country','state'));
     }
 
     public function delete_student(){
@@ -62,7 +67,7 @@ class StudentController extends Controller
         //     'parent_name' => 'required|string|max:255|regex:/^[A-Za-z\s]+$/',
         //     'parent_mobile' => 'required|min:10|max:12',
         //     'place_of_birth' => 'required',
-        //     'student_nationality' => 'required',
+        //     'country' => 'required',
         //     'CPR_number' => 'required',
         //     'student_language' => 'required',
         //     'residence_address' => 'required|min:3|max:255',
@@ -107,7 +112,7 @@ class StudentController extends Controller
         $student->parent_name = $request->parent_name;
         $student->parent_mobile = $request->parent_mobile;
         $student->place_of_birth = $request->place_of_birth;
-        $student->student_nationality = $request->student_nationality;
+        $student->country = $request->country;
         $student->CPR_number = $request->CPR_number;
         $student->student_language = $request->student_language;
         $student->residence_address = $request->residence_address;
@@ -169,5 +174,11 @@ class StudentController extends Controller
         return view('students.student-message');
     }
 
-
+    public function json_state(Request $request)
+    {
+        $states = State::where("id",$request->state_id)->first();
+        $data['states'] = Country::where("id",$states->country_id)->get(["id", "country"]);
+        return response()->json($data);
+      
+    }
 }
