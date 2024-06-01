@@ -38,7 +38,7 @@ class Student extends Authenticatable
         'parent_name',
         'parent_mobile',
         'place_of_birth',
-        'student_nationality',
+        'country',
         'CPR_number',
         'student_language',
         'residence_address',

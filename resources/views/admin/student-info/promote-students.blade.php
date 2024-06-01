@@ -4,6 +4,7 @@
 ])
 @section('content')
 <style>
+
   /* The Modal (background) */
   .modal{
     display: none; /* Hidden by default */
