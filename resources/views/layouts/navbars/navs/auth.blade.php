@@ -20,9 +20,10 @@
             <ul class="navbar-nav">
             @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                 <li class="nav-item btn-rotate dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('web')->user()->name }}
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
                         </p>

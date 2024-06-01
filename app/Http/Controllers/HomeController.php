@@ -173,4 +173,8 @@ class HomeController extends Controller
     public function delete_mark_register(){
         return view('admin.examination.delete-mark-register');
     }
+
+    public function edit_inactive_student(){
+        return view('admin.student-info.edit-inactive-student');
+    }
 }

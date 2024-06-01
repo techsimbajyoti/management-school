@@ -67,8 +67,8 @@
 
                         <li class="{{ $elementActive == 'disabled-student' ? 'active' : '' }}">
                             <a href="{{ route('disabled-students') }}">
-                                <span class="sidebar-mini-icon">{{ __('DS') }}</span>
-                                <span class="sidebar-normal">{{ __(' Disabled Students ') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('IS') }}</span>
+                                <span class="sidebar-normal">{{ __(' Inactive Students ') }}</span>
                             </a>
                         </li>
 

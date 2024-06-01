@@ -399,7 +399,7 @@
                                                    
                                
                             </div>
-                            <<div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
+                           <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
                                 <h5>Upload Documents</h5>
                                 <button id="add-document" class="btn btn-lg ot-btn-primary">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Add

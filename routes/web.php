@@ -199,6 +199,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('json-state', [StudentController::class, 'json-state'])->name('json-state');
 
+	Route::get('edit-inactive-student', [HomeController::class, 'edit_inactive_student'])->name('edit-inactive-student');
+
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

@@ -45,6 +45,17 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="{{ asset('paper') }}/css/style.css" rel="stylesheet" />
     <link href="{{ asset('paper') }}/css/style2.css" rel="stylesheet" />
 
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css' rel='stylesheet' />
+    <!-- jQuery (necessary for FullCalendar) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js">
+</script>
+
 </head>
 
 <body class="{{ $class }}">
