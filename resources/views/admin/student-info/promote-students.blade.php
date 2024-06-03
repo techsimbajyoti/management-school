@@ -69,179 +69,137 @@
     @endif
     
     <div class="row">
-        <div class="col-md-12">
-            <div class="table-content table-basic mt-20">
-                <div class="card ot-card">
+      <div class="col-md-12">
+          <div class="table-content table-basic mt-20">
+              <div class="card ot-card">
                   <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Promote students</h3>
+                      <h3 class="mb-0">Promote students</h3>
                   </div>
                   <hr>
                   <div class="card-body">
-                    <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
-                     @csrf
-                      <div class="row">
-                        <div class="col-md-6 mb-3">
-                          <label for="validationServer04" class="form-label">Class <span class="fillable">*</span></label> 
-                          <select id="getSections" class="nice-select niceSelect bordered_style wide" name="class">
-                            <option value="">
-                              Select class
-                            </option>
-                            <option value="1">
-                              One
-                            </option>
-                            <option value="2">
-                              Two
-                            </option>
-                            <option value="3">
-                              Three
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                          <label for="validationServer04" class="form-label">Section <span class="fillable">*</span></label> <select class="sections nice-select niceSelect bordered_style wide" name="section">
-                            <option value="">
-                              Select section
-                            </option>
-                            <option value="1">
-                              A
-                            </option>
-                            <option value="2">
-                              B
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                     
-                      <div class="col-md-12 mb-3">
-                        <div class="text-right">
-                          <a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                      </div>
-
-                      <form action="" method="post" class="student-disabled-list" style="display:none;">
-                        <div class="table-responsive mb-3">
-                          <table class="table table-bordered" id="dtExample">
-                            <thead class="thead">
-                              <tr>
-                                <th>
-                                  <div class="">
-                                    <div class="">
-                                      <input type="checkbox" name="check" id="checking">
-                                    </div>
-                                  </div>
-                                </th>
-                                <th class="purchase">Admission no</th>
-                                <th class="purchase">Student Name</th>
-                                <th class="purchase">Parent Name</th>
-                                <th class="purchase">Contact Number</th>
-                                <th class="purchase">Result</th>
-                                <th class="purchase">Roll</th>
-                              </tr>
-                            </thead>
-                            <tbody class="tbody">
-                              <tr id="row_14">
-                                <td class="serial"><input type="checkbox" name="check"></td>
-                                <td class="serial">20231114</td>
-                                <td>
-                                  <div class>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn">
-                                  <div class="user-card">
-                                  <div class="user-avatar">
-                                  <img src="{{ asset('paper') }}/img/demo.png" alt>
-                                  </div>
-                                  <div class="user-info">
-                                  Student 1114
-                                  </div>
-                                  </div>
-                                  </a>
-                                  </div>
-                                  </td>
-                                  <td>
-                                    <div class>
-                                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn1">
-                                    <div class="user-card">
-                                    <div class="user-avatar">
-                                    <img src="{{ asset('paper') }}/img/demo.png" alt>
-                                    </div>
-                                    <div class="user-info">
-                                    Parent 1114
-                                    </div>
-                                    </div>
-                                    </a>
-                                    </div>
-                                    </td>
-                                <td>01478521114</td>
-                                <td>80%</td>
-                                <td>OneA101</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                       
-                      </form>
-
-                      <div class="row mb-3">
-                        <h4>Promote students in next session</h4>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-md-4 mb-3">
-                          <label for="validationServer04" class="form-label">Promote session <span class="fillable">*</span></label> <select class="session nice-select niceSelect bordered_style wide" name="promote_session">
-                            <option value="">
-                              Select session
-                            </option>
-                            <option value="1">
-                              2024 Current
-                            </option>
-                            <option value="2">
-                              2025
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label for="validationServer04" class="form-label">Promote class <span class="fillable">*</span></label> <select class="classes nice-select niceSelect bordered_style wide" name="promote_class">
-                            <option value="">
-                              Select class
-                            </option>
-                            <option value="1">
-                              One
-                            </option>
-                            <option value="2">
-                              Two
-                            </option>
-                            <option value="3">
-                              Three
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label for="validationServer04" class="form-label">Promote section <span class="fillable">*</span></label> <select class="promoteSections nice-select niceSelect bordered_style wide" name="promote_section">
-                            <option value="">
-                              Select section
-                            </option>
-                            <option value="1">
-                              A
-                            </option>
-                            <option value="2">
-                              B
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="text-right">
-                            <a href="{{route('promote-students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Promote</a>
+                      <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+                          @csrf
+                          <div class="row">
+                              <div class="col-md-6 mb-3">
+                                  <label for="validationServer04" class="form-label">Class <span class="fillable">*</span></label>
+                                  <select id="getSections" class="nice-select niceSelect bordered_style wide" name="class">
+                                      <option value="">Select class</option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label for="validationServer04" class="form-label">Section <span class="fillable">*</span></label>
+                                  <select class="sections nice-select niceSelect bordered_style wide" name="section">
+                                      <option value="">Select section</option>
+                                  </select>
+                              </div>
                           </div>
-                        </div>
-
-                      </div>
-                      
-                    </form>
-                    
-                    
+  
+                          <div class="col-md-12 mb-3">
+                              <div class="text-right">
+                                  <a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-eye"></i> View</a>
+                              </div>
+                          </div>
+  
+                          <div class="student-disabled-list" style="display:none;">
+                              <div class="table-responsive mb-3">
+                                  <table class="table table-bordered" id="dtExample">
+                                      <thead class="thead">
+                                          <tr>
+                                              <th><input type="checkbox" name="check" id="checking"></th>
+                                              <th class="purchase">Admission no</th>
+                                              <th class="purchase">Student Name</th>
+                                              <th class="purchase">Parent Name</th>
+                                              <th class="purchase">Contact Number</th>
+                                              <th class="purchase">Result</th>
+                                              <th class="purchase">Roll No.</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="tbody">
+                                          <tr id="row_14">
+                                              <td class="serial"><input type="checkbox" name="check"></td>
+                                              <td class="serial">20231114</td>
+                                              <td>
+                                                  <div>
+                                                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn">
+                                                          <div class="user-card">
+                                                              <div class="user-avatar">
+                                                                  <img src="{{ asset('paper') }}/img/demo.png" alt>
+                                                              </div>
+                                                              <div class="user-info">
+                                                                  Student 1114
+                                                              </div>
+                                                          </div>
+                                                      </a>
+                                                  </div>
+                                              </td>
+                                              <td>
+                                                  <div>
+                                                      <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn1">
+                                                          <div class="user-card">
+                                                              <div class="user-avatar">
+                                                                  <img src="{{ asset('paper') }}/img/demo.png" alt>
+                                                              </div>
+                                                              <div class="user-info">
+                                                                  Parent 1114
+                                                              </div>
+                                                          </div>
+                                                      </a>
+                                                  </div>
+                                              </td>
+                                              <td>01478521114</td>
+                                              <td>80%</td>
+                                              <td>OneA101</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+  
+                          <div class="row mb-3">
+                              <h4>Promote students in next session</h4>
+                          </div>
+                          <div class="row mb-3">
+                              <div class="col-md-4 mb-3">
+                                  <label for="validationServer04" class="form-label">Promote session <span class="fillable">*</span></label>
+                                  <select class="session nice-select niceSelect bordered_style wide" name="promote_session">
+                                      <option value="">Select session</option>
+                                      <option value="1">2024 Current</option>
+                                      <option value="2">2025</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                  <label for="validationServer04" class="form-label">Promote class <span class="fillable">*</span></label>
+                                  <select class="classes nice-select niceSelect bordered_style wide" name="promote_class">
+                                      <option value="">Select class</option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-4 mb-3">
+                                  <label for="validationServer04" class="form-label">Promote section <span class="fillable">*</span></label>
+                                  <select class="promoteSections nice-select niceSelect bordered_style wide" name="promote_section">
+                                      <option value="">Select section</option>
+                                      <option value="1">A</option>
+                                      <option value="2">B</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-12">
+                                  <div class="text-right">
+                                      <a href="{{route('promote-students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-up"></i> Promote</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
                   </div>
-                </div>
               </div>
-        </div>    
-    </div>
+          </div>
+      </div>
+  </div>
+  
 </div>
 
 <!-- The Modal -->
@@ -430,39 +388,40 @@ window.onclick = function(event) {
   }
 }
 
-        $(document).ready(function() {
-            $('.student-disabled-list').hide();
+$(document).ready(function() {
+    $('.student-disabled-list').hide();
 
-            var table = $('#dtExample').DataTable({
-                fixedHeader: true
+    var table = $('#dtExample').DataTable({
+        fixedHeader: true
+    });
+
+    var sections = {
+        1: ["A", "B", "C"],
+        2: ["D", "E"],
+        3: ["F", "G", "H", "I"]
+    };
+
+    $('#getSections').change(function() {
+        var classId = $(this).val();
+        var $sectionsDropdown = $('.sections');
+        $sectionsDropdown.empty();
+        $sectionsDropdown.append('<option value="">Select section</option>');
+
+        if (sections[classId]) {
+            sections[classId].forEach(function(section) {
+                $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
             });
+        }
+    });
 
-            var sections = {
-                1: ["A", "B", "C"],
-                2: ["D", "E"],
-                3: ["F", "G", "H", "I"]
-            };
+    $('#checking').click(function() {
+        $('input[type="checkbox"]').prop('checked', this.checked);
+    });
 
-            $('#getSections').change(function() {
-                var classId = $(this).val();
-                var $sectionsDropdown = $('.sections');
-                $sectionsDropdown.empty();
-                $sectionsDropdown.append('<option value="">Select section</option>');
+    $('.search-student').click(function() {
+        $('.student-disabled-list').show();
+    });
+});
 
-                if (sections[classId]) {
-                    sections[classId].forEach(function(section) {
-                        $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
-                    });
-                }
-            });
-
-            $('#checking').click(function(){
-                $('input[type="checkbox"]').prop('checked', true);
-            });
-
-            $('.search-student').click(function(){
-                $('.student-disabled-list').show();
-            })
-        });
     </script>
 @endpush

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\Religion;
+use App\Models\BloodGroup;
+use App\Models\Language;
 use Session;
 use Auth;
 use Hash;
@@ -19,22 +22,67 @@ class StudentController extends Controller
 
 
     public function admit_student(){
+        $country = Country::get();
 
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
         $country = Country::get(['id','country']);
         $state = State::get(['id','state']);
-        return view('admin.student-info.admit-student',compact('country','state'));
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+        $Language = Language::get();
+
+        return view('admin.student-info.admit-student',compact('Language','BloodGroup','Religion','test','testing','country','state'));
     }
 
     public function view_student(){
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
         $country = Country::get(['id','country']);
         $state = State::get(['id','state']);
-        return view('admin.student-info.view-student',compact('country','state'));
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+        $Language = Language::get();
+        return view('admin.student-info.view-student',compact('Language','BloodGroup','Religion','test','testing','country','state'));
     }
     public function edit_student(){
+        $country = Country::get();
 
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
         $country = Country::get(['id','country']);
         $state = State::get(['id','state']);
-        return view('admin.student-info.edit-student',compact('country','state'));
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+        $Language = Language::get();
+        
+        return view('admin.student-info.edit-student',compact('Language','BloodGroup','Religion','test','testing','country','state'));
     }
 
     public function delete_student(){
@@ -180,5 +228,9 @@ class StudentController extends Controller
         $data['states'] = Country::where("id",$states->country_id)->get(["id", "country"]);
         return response()->json($data);
       
+    }
+
+    public function admin_student_profile(){
+        return view('admin.student-info.student-profile');
     }
 }

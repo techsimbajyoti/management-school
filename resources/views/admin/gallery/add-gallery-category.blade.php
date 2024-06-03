@@ -44,7 +44,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a href="{{route('gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              <a href="{{route('gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
                             </div>
                           </div>
                         </div>

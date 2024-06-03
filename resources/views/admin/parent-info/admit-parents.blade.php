@@ -134,7 +134,9 @@
                             <div class="row">
                                 <div class="col-md-12 mt-24">
                                 <div class="text-right">
+
                                     <a href="{{route('parents')}}" class="btn ot-btn-primary"><i class="fa fa-save"></i> Save</a>
+                                    
                                 </div>
                                 </div>
                             </div>

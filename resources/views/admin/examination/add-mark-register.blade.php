@@ -100,7 +100,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <button class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+                              <button class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</button>
                             </div>
                           </div>
                         </div>

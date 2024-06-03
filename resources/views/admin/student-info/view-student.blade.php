@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'admit-student'
+    'elementActive' => 'view-student'
 ])
 
 @section('content')
@@ -31,7 +31,7 @@
                     
                     <div class="card ot-card">
                         <div class="card-header">
-                            <h6 class="card-title">{{ __('View Student Details') }}</h6>
+                            <h6 class="card-title">{{ __('View Student Information') }}</h6>
                             
                         </div>
                         <hr>
@@ -43,7 +43,7 @@
                                 <div class="col-md-4">
                                    
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Admission No.:') }}</label>
+                                    <label class="form-label">{{ __('Admission No.:') }}</label>
     
                                         <div class="form-group">
                                             <input type="text" name="admission_no" class="nice-select sections niceSelect bordered_style wide" placeholder="Admission No." required>
@@ -56,14 +56,17 @@
                                 </div>
                                 <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Parent Name:') }}</label>
+                                    <label class="form-label">{{ __('Parent Name:') }}</label>
                                     <div class="form-group">
-                                    <select class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name"  data-fouc data-placeholder="Choose.." >
-                                        <option value="">Parent Name</option>
+                                    <div class="autocomplete">
+                                        <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name">
+                                    </div>
+                                    {{-- <select class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name"  data-fouc data-placeholder="Choose.." >
+                                        <option value="">Select one of these</option>
                                         <option  value="Parent1">Parent1</option>
                                         <option  value="Parent2">Parent2</option>
                                       
-                                    </select>
+                                    </select> --}}
                                 </div>
                                 </div>
                                         @if ($errors->has('parent_name')) 
@@ -74,7 +77,7 @@
                              
                                 <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('First Name:') }}</label>
+                                    <label class="form-label">{{ __('First Name:') }}</label>
     
                                         <div class="form-group">
                                             <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
@@ -92,9 +95,9 @@
                             </div>
                             
                             <div class="row mb-3">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Last Name:') }}</label>
+                                    <label class="form-label">{{ __('Last Name:') }}</label>
 
                                     <div class="form-group">
                                         <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required>
@@ -105,9 +108,9 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Email address:') }}</label>
+                                    <label class="form-label">{{ __('Email address:') }}</label>
     
                                      <div class="form-group">
                                          <input type="text" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Email Address" required value="admin@gmail.com">
@@ -118,25 +121,10 @@
                                          </span>
                                      @endif
                                  </div> 
-                                 <div class="col-md-3">
-                                    <span style="color:red">*</span>
-                                     <label class="form-label" style="font-weight: 600;">{{ __('Password:') }}</label>
-  
-                                      <div class="form-group">
-                                          <input type="password" name="password" class="nice-select niceSelect bordered_style wide" value="123456789" required>
-                                          <span style="font-size: 12px;">Default Password: 123456789</span>
-
-                                      </div>
-                                      @if ($errors->has('password'))
-                                          <span class="invalid-feedback" style="display: block;" role="alert">
-                                              <strong>{{ $errors->first('password') }}</strong>
-                                          </span>
-                                      @endif
-                                  </div> 
-                                  <div class="col-md-3">
+                                  <div class="col-md-4">
                                     <div class="form-group">
                                         <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Gender:</label>
+                                        <label class="form-label">Gender:</label>
                                         <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
                                             <option value="">Select one of these</option>
                                             <option  value="Male">Male</option>
@@ -149,9 +137,9 @@
                                   
                             </div>
                             <div class="row mb-3">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">{{ __('Class:') }}</label>
+                                        <label class="form-label">{{ __('Class:') }}</label>
                                             <div class="form-group">
                                                 <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
                                                     <option value>Select class</option>
@@ -166,10 +154,10 @@
                                                 </span>
                                             @endif
                                     </div>    
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <span style="color:red">*</span>
-                                            <label class="form-label" style="font-weight: 600;">Section:</label>
+                                            <label class="form-label">Section:</label>
                                             <select class="nice-select sections niceSelect bordered_style wide"  name="section" required data-fouc data-placeholder="Choose.." name="section">
                                                 <option value="">Select one of these</option>
                                                 <option value="A">A</option>
@@ -179,73 +167,46 @@
                                         </div>
                                     </div>
                                 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">Date of Birth:</label>
+                                        <label class="form-label">Date of Birth:</label>
                                         <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth">
         
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                            
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Place Of Birth:') }}</label>
-    
-                                        <div class="form-group">
-                                            <input type="text" name="place_of_birth" class="nice-select niceSelect bordered_style wide" placeholder="Place Of Birth">
-                                        </div>
-                                        @if ($errors->has('place_of_birth'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('place_of_birth') }}</strong>
-                                            </span>
-                                        @endif
-                                </div>
-                            
-                                
-                                
-                                                  
+                                </div>           
                             </div>
 
                             <div class="row mb-3">
-                                 <div class="col-md-3">
+                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        
-                                        <label class="form-label" style="font-weight: 600;">Blood Group:</label>
+                                        <label class="form-label">Blood Group:</label>
                                         <select class="nice-select niceSelect bordered_style wide" id="blood-group" name="blood_group"  data-fouc data-placeholder="Choose.." name="blood_group">
                                             <option value="">Select one of these</option>
-                                            <option  value="A+">A+</option>
-                                            <option  value="A">A-</option>
-                                            <option  value="B+">B+</option>
-                                            <option  value="B-">B-</option>
-                                            <option  value="AB+">AB+</option>
-                                            <option  value="AB-">AB-</option>
-                                            <option  value="O+">O+</option>
-                                            <option  value="O-">O-</option>
+                                            @foreach($BloodGroup as $BloodGroups)
+                                            <option value="{{ $BloodGroups->bg_code }}">{{ $BloodGroups->bg_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                             
-                                        <label class="form-label" style="font-weight: 600;">Religion:</label>
+                                        <label class="form-label">Religion:</label>
                                         <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" required data-fouc data-placeholder="Choose.." name="section">
                                             <option value="">Select one of these</option>
-                                            <option value="Hindu">Hindu</option>
-                                            <option  value="Muslim">Muslim</option>
-                                            <option  value="Christian"> Christian</option>
-                                            <option  value="Jain"> Jain</option>
-                                            <option  value="Buddhist"> Buddhist</option>
-                                            <option  value="Sikh">Sikh</option>
+                                            @foreach($Religion as $Religions)
+                                            <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
+                                            @endforeach
                                             <option  value="other">Other</option>
                                         </select>
                                         <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        
-                                        <label class="form-label" style="font-weight: 600;">Category:</label>
+                                        <label class="form-label">Category:</label>
                                         <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
                                             <option value="">Select one of these</option>
                                             <option  value="General">General</option>
@@ -257,16 +218,17 @@
                                         <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
                                     </div>
                                 </div>
-                                 <div class="col-md-3">
-                                    
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Student Language:') }}</label>
-    
-                                    <select class="nice-select niceSelect bordered_style wide" id="student_language" name="student_language"  data-fouc data-placeholder="Choose..">
+
+                            </div>
+                                <div class="row mb-3">
+                                 <div class="col-md-4">
+                                    <label class="form-label">{{ __('Student Language:') }}</label>
+                                    <select class="nice-select niceSelect bordered_style wide" id="student_language"  name="student_language"  data-fouc data-placeholder="Choose..">
                                         <option value="">Select one of these</option>
-                                        <option  value="Hindi">Hindi</option>
-                                        <option  value="English">English</option>
-                                        <option  value="French">French</option>
-                                        <option  value="other">Other</option>
+                                        @foreach($Language as $Languages)
+                                        <option value="{{ $Languages->lang_code }}">{{ $Languages->name }}</option>
+                                        @endforeach
+                                        <option value="other">Other</option>
                                     </select>
                                     <input type="text" id="other-language" name="other_gender" class="nice-select niceSelect bordered_style wide" placeholder="Please specify">
                                    
@@ -276,29 +238,27 @@
                                         </span>
                                     @endif
                                 </div>
-                                    
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
+
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <span style="color:red">*</span>
-                                        <label class="form-label" style="font-weight: 600;">{{ __('Admission Date:') }}</label>
+                                        <label class="form-label">{{ __('Admission Date:') }}</label>
                                         <input type="date" name="admission_date" id="admission_date" class="form-control">
                                     </div>
                                 </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label" style="font-weight: 600;">{{ __('Student Photo:') }}</label>
+                                    <div class="col-md-4">
+                                        <label class="form-label">{{ __('Student Photo:') }} </label>
                                         <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
-                                
+                                        <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                     </div>
                             </div>
+                        </div>
                             <hr style="margin-top: 50px">
                             <h5 style="margin-top:30px;">Contact Information</h5><br>
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Address:') }}</label>
+                                    <label class="form-label">{{ __('Address:') }}</label>
     
                                         <div class="form-group">
                                             <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required>
@@ -315,34 +275,27 @@
                                 
                                         <div class="form-group">
                                             <span style="color:red">*</span>
-                                            <label class="form-label" style="font-weight: 600;">{{ __('Country:') }} </label>
-                                            <select id="country" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" required>
-                                                <option value="">Select country</option>
-                                                    @foreach ($country as $data)
-                                                        <option value="{{ $data->id }}" {{ (old('country') == $data->id) ? 'selected' : '' }}>
-                                                            {{ $data->country }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                            <label class="form-label">{{ __('Country:') }} </label>
+                                            <div class="autocomplete">
+                                            <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <span style="color:red">*</span>
-                                            <label class="form-label" style="font-weight: 600;">{{ __('State:') }} </label>
-                                            <select name="state" id="state" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror">
+                                            <label class="form-label">{{ __('State:') }} </label>
+                                            {{-- <select name="state" id="state" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror">
                                                 <option value="">Select state</option>
-                                                @foreach ($state as $data)
-                                                    <option value="{{ $data->id }}" {{ (old('state') == $data->id) ? 'selected' : '' }}>
-                                                        {{ $data->state }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            </select> --}}
+                                            <div class="autocomplete">
+                                                <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                     
-                                        <label class="form-label" style="font-weight: 600;">{{ __('City:') }}</label>
+                                        <label class="form-label">{{ __('City:') }}</label>
         
                                             <div class="form-group">
                                                 <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" required>
@@ -353,16 +306,11 @@
                                                 </span>
                                             @endif
                                     </div>
-                                    
-                                  
-                                
-                                 
-                                
                             </div>
                             <div class="row mb-3" >
                                 <div class="col-md-4">
                                     
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Pin Code:') }}</label>
+                                    <label class="form-label">{{ __('Pin Code:') }}</label>
     
                                         <div class="form-group">
                                             <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required>
@@ -375,9 +323,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Contact Number:') }}</label>
+                                    <label class="form-label">{{ __('Contact Number:') }}</label>
                                         <div class="form-group">
-                                            <input type="text" name="mobile" class="nice-select niceSelect bordered_style wide" placeholder="Phone No." required>
+                                            <input type="text" name="mobile" class="nice-select niceSelect bordered_style wide" placeholder="Contact Number" required>
                                         </div>
                                         @if ($errors->has('mobile'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -388,9 +336,9 @@
                                
                                <div class="col-md-4">
                                     <span style="color:red">*</span>
-                                    <label class="form-label" style="font-weight: 600;">{{ __('Parent Mobile:') }}</label>
+                                    <label class="form-label">{{ __('Alternative Number:') }}</label>
                                        <div class="form-group">
-                                            <input type="text" name="parent_mobile" class="nice-select niceSelect bordered_style wide" placeholder="Parent Mobile" required>
+                                            <input type="text" name="parent_mobile" class="nice-select niceSelect bordered_style wide" placeholder="Alternative Number" required>
                                         </div>
                                         @if ($errors->has('parent_mobile'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -398,12 +346,13 @@
                                             </span>
                                         @endif
                                 </div> 
-                                                   
-                               
                             </div>
                             <hr style="margin-top: 50px">
                             <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
                                 <h5>View Documents</h5>
+                                <a id="add-document" class="btn btn-lg ot-btn-primary">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add
+                                </a>
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -428,10 +377,122 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="countriess" value="{{ json_encode($test) }}">
 @endsection
 
 @push('scripts')
+{{-- <script src="{{ asset('paper') }}/js/custom.js"></script> --}}
     <script>
+        function autocomplete(inp, arr) {
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function(e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+    });
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+    });
+    function addActive(x) {
+      /*a function to classify an item as "active":*/
+      if (!x) return false;
+      /*start by removing the "active" class on all items:*/
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      /*add class "autocomplete-active":*/
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+      /*a function to remove the "active" class from all autocomplete items:*/
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+    function closeAllLists(elmnt) {
+      /*close all autocomplete lists in the document,
+      except the one passed as an argument:*/
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+          x[i].parentNode.removeChild(x[i]);
+        }
+      }
+    }
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+  }
+  
+  var countries = <?php echo json_encode($test); ?>;
+  /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+  autocomplete(document.getElementById("country"), countries);
+
+  var st = <?php echo json_encode($testing); ?>;
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+  autocomplete(document.getElementById("state"), st);
+
+  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
+  autocomplete(document.getElementById("parent_name"), parent);
+
+
         $(document).ready(function() {
             $('#other-gender').hide();
             $('#other-language').hide();
@@ -491,40 +552,8 @@
                     });
                 }
             });
-
-            
-
-
-
         });
-        $('#state').on('change', function () {
-                var idState = $(this).val();
-                
-                // $("#country").html('');
-                $.ajax({
-                    url: "{{url('json-state')}}",
-                    type: "POST",
-                    data: { 
-                        state_id: idState,
-                        _token: '{{csrf_token()}}' 
-                    },
-                    dataType: 'json',
-                    success: function (result) {
-                        console.log(result);
-                        $('#country').html('<option value="">Select Country</option>');
-                        $.each(result.states, function (key, value) {
-                            $("#country").append('<option value="' + value
-                                .id + '">' + value.country + '</option>');
-                        });
-                        // $('#city-dd').html('<option value="">Select City</option>');
-                        $("#country").val('{{ old('country') }}');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText); // Log any error response
-                    }
-                });
-            });
-            
+        
     document.getElementById('add-document').addEventListener('click', function() {
         var tableBody = document.querySelector('#student-document tbody');
         var newRow = document.createElement('tr');

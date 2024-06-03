@@ -73,8 +73,8 @@
                             <div class="form-item">
                                 <div class="d-flex justify-content-between align-content-center">
                                 <div class="align-self-center">
-                                    <h2 class="title">E-mail Address<span class="text-info" style="font-size:0.85rem;"> (Note: This email address is your login username)</span></h2>
-                                    <p class="paragraph"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="99eaece9fcebf8fdf4f0f7d9f6f7fceaedb7faf6f4">[email&nbsp;protected]</a></p>
+                                    <h2 class="title">E-mail Address<span class="text-info" style="font-size:0.85rem;"> (Note: Login Id)</span></h2>
+                                    <p class="paragraph"><a href="">admin@gmail.com</a></p>
                                 </div>
                                 </div>
                             </div>

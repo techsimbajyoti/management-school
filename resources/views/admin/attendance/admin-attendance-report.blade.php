@@ -124,7 +124,7 @@
                             </table>
                           </div>
                           <div class="ot-pagination pagination-content d-flex justify-content-end align-content-center py-3">
-                            <a class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                            <a class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
                           </div>
                         </form>
                       </div>

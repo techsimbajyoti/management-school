@@ -128,60 +128,66 @@
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Gender</th>
                                         <th class="action">Contact</th>
+                                        <th class="action">Password</th>
                                         <th class="action">Status</th>
                                         <th class="action">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="tbody">
-                                    <tr id="row_7">
-                                        <td class="serial">1</td>
-                                        <td>20231114</td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn"> 
-                                            <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">John</a>
-                                        </td>
-                                        <td>Two (A)</td>
-                                        <td>Parent5</td>
-                                        <td>12 Apr 2021</td>
-                                        <td>Male</td>
-                                        <td>658932654</td>
-                                        <td><span class="badge-basic-success-text">Active</span></td>
-                                        <td class="action">
-                                            <div class="dropdown dropdown-action">
-                                                <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                        <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                        <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                        <a href="{{ route('delete-student') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                        <tr id="row_7">
+                                            <td class="serial">1</td>
+                                            <td>20231114</td>
+                                            <td>OneA110</td>
+                                            
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                            <td>Two (A)</td>
+                                            <td>Parent5</td>
+                                            <td>12 Apr 2021</td>
+                                            <td>Male</td>
+                                            <td>658932654</td>
+                                            <td>123456789</td>
+
+                                            <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td class="action">
+                                                <div class="dropdown dropdown-action">
+                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
+                                                            <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('delete-student') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr id="row_7">
-                                        <td class="serial">2</td>
-                                        <td>2023111</td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn1"> 
-                                            <img src="{{asset('paper/img/dummy-image.png')}}" height="40px" width="40px">William</a>
-                                        </td>
-                                        <td>Two (A)</td>
-                                        <td>Parent8</td>
-                                        <td>10 Jan 2024</td>
-                                        <td>Male</td>
-                                        <td>0147852111</td>
-                                        <td><span class="badge-basic-success-text">Active</span></td>
-                                        <td class="action">
-                                            <div class="dropdown dropdown-action">
-                                                <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                        <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                        <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                        <a href="{{ route('delete-student') }}" class="dropdown-item"><i class="fa fa-trash" onclick="return confirm('Are you sure you want to delete?')"></i>  {{ __('Delete') }}</a>
+                                            </td>
+                                        </tr>
+                                        <tr id="row_7">
+                                            <td class="serial">2</td>
+                                            <td>2023111</td>
+                                            <td>OneA110</td>
+                                           
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                            <td>Two (A)</td>
+                                            <td>Parent8</td>
+                                            <td>10 Jan 2024</td>
+                                            <td>Male</td>
+                                            <td>0147852111</td>
+                                            <td>123456789</td>
+
+                                            <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td class="action">
+                                                <div class="dropdown dropdown-action">
+                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
+                                                            <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('delete-student') }}" class="dropdown-item"><i class="fa fa-trash" onclick="return confirm('Are you sure you want to delete?')"></i>  {{ __('Delete') }}</a>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>

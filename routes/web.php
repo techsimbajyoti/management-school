@@ -219,6 +219,7 @@ Route::group(['middleware' => 'auth'], function () {
    
 	// Route::view('/test', 'admin.student-info.test');
 
+	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
