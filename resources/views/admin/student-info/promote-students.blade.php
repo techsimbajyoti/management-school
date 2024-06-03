@@ -4,6 +4,7 @@
 ])
 @section('content')
 <style>
+
   /* The Modal (background) */
   .modal{
     display: none; /* Hidden by default */
@@ -72,7 +73,7 @@
             <div class="table-content table-basic mt-20">
                 <div class="card ot-card">
                   <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Promote students</h4>
+                    <h3 class="mb-0">Promote students</h3>
                   </div>
                   <hr>
                   <div class="card-body">
@@ -110,61 +111,14 @@
                           </select>
                         </div>
                       </div>
-                      <div class="row mb-3">
-                        <h3>Promote students in next session</h3>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-md-4 mb-3">
-                          <label for="validationServer04" class="form-label">Promote session <span class="fillable">*</span></label> <select class="session nice-select niceSelect bordered_style wide" name="promote_session">
-                            <option value="">
-                              Select session
-                            </option>
-                            <option value="1">
-                              2024 Current
-                            </option>
-                            <option value="2">
-                              2025
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label for="validationServer04" class="form-label">Promote class <span class="fillable">*</span></label> <select class="classes nice-select niceSelect bordered_style wide" name="promote_class">
-                            <option value="">
-                              Select class
-                            </option>
-                            <option value="1">
-                              One
-                            </option>
-                            <option value="2">
-                              Two
-                            </option>
-                            <option value="3">
-                              Three
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label for="validationServer04" class="form-label">Promote section <span class="fillable">*</span></label> <select class="promoteSections nice-select niceSelect bordered_style wide" name="promote_section">
-                            <option value="">
-                              Select section
-                            </option>
-                            <option value="1">
-                              A
-                            </option>
-                            <option value="2">
-                              B
-                            </option>
-                          </select>
-                        </div>
-                      </div>
+                     
                       <div class="col-md-12 mb-3">
                         <div class="text-right">
-                          <a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-search"></i> Search</a>
+                          <a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-eye"></i> View</a>
                         </div>
                       </div>
-                    </form>
-                    
-                    <form action="" method="post" class="student-disabled-list">
+
+                      <form action="" method="post" class="student-disabled-list" style="display:none;">
                         <div class="table-responsive mb-3">
                           <table class="table table-bordered" id="dtExample">
                             <thead class="thead">
@@ -223,12 +177,66 @@
                             </tbody>
                           </table>
                         </div>
+                       
+                      </form>
+
+                      <div class="row mb-3">
+                        <h4>Promote students in next session</h4>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-md-4 mb-3">
+                          <label for="validationServer04" class="form-label">Promote session <span class="fillable">*</span></label> <select class="session nice-select niceSelect bordered_style wide" name="promote_session">
+                            <option value="">
+                              Select session
+                            </option>
+                            <option value="1">
+                              2024 Current
+                            </option>
+                            <option value="2">
+                              2025
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationServer04" class="form-label">Promote class <span class="fillable">*</span></label> <select class="classes nice-select niceSelect bordered_style wide" name="promote_class">
+                            <option value="">
+                              Select class
+                            </option>
+                            <option value="1">
+                              One
+                            </option>
+                            <option value="2">
+                              Two
+                            </option>
+                            <option value="3">
+                              Three
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationServer04" class="form-label">Promote section <span class="fillable">*</span></label> <select class="promoteSections nice-select niceSelect bordered_style wide" name="promote_section">
+                            <option value="">
+                              Select section
+                            </option>
+                            <option value="1">
+                              A
+                            </option>
+                            <option value="2">
+                              B
+                            </option>
+                          </select>
+                        </div>
                         <div class="col-md-12">
                           <div class="text-right">
                             <a href="{{route('promote-students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Promote</a>
                           </div>
                         </div>
-                      </form>
+
+                      </div>
+                      
+                    </form>
+                    
+                    
                   </div>
                 </div>
               </div>

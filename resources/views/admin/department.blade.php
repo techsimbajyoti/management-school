@@ -29,7 +29,7 @@
                         <thead class="thead">
                           <tr>
                             <th class="serial">SR No.</th>
-                            <th class="purchase">Name</th>
+                            <th class="purchase">Department Name</th>
                             <th class="purchase">Status</th>
                             <th class="action">Action</th>
                           </tr>
@@ -37,7 +37,7 @@
                         <tbody class="tbody">
                           <tr id="row_1">
                             <td class="serial">1</td>
-                            <td>History</td>
+                            <td>Administration</td>
                             <td><span class="badge-basic-success-text">Active</span></td>
                             <td class="action">
                                 <div class="dropdown dropdown-action">
@@ -69,7 +69,71 @@
                           </tr>
                           <tr id="row_3">
                             <td class="serial">3</td>
-                            <td>Arch</td>
+                            <td>Arts</td>
+                            <td><span class="badge-basic-success-text">Active</span></td>
+                            <td class="action">
+                                <div class="dropdown dropdown-action">
+                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                            <a href="{{ route('edit-department') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                            <a href="{{ route('delete-department') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                          </tr>
+                          <tr id="row_1">
+                            <td class="serial">3</td>
+                            <td>Commerce</td>
+                            <td><span class="badge-basic-success-text">Active</span></td>
+                            <td class="action">
+                                <div class="dropdown dropdown-action">
+                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                            <a href="{{ route('edit-department') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                            <a href="{{ route('delete-department') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                          </tr>
+                          <tr id="row_1">
+                            <td class="serial">4</td>
+                            <td>Information Practices</td>
+                            <td><span class="badge-basic-success-text">Active</span></td>
+                            <td class="action">
+                                <div class="dropdown dropdown-action">
+                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                            <a href="{{ route('edit-department') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                            <a href="{{ route('delete-department') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                          </tr>
+                          <tr id="row_1">
+                            <td class="serial">5</td>
+                            <td>Maths</td>
+                            <td><span class="badge-basic-success-text">Active</span></td>
+                            <td class="action">
+                                <div class="dropdown dropdown-action">
+                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                            <a href="{{ route('edit-department') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                            <a href="{{ route('delete-department') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                          </tr>
+                          <tr id="row_1">
+                            <td class="serial">6</td>
+                            <td>Accounts and Finance</td>
                             <td><span class="badge-basic-success-text">Active</span></td>
                             <td class="action">
                                 <div class="dropdown dropdown-action">

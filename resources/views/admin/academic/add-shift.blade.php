@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'add-section'
+    'elementActive' => 'assign-subject'
 ])
 @section('content')
 <div class="content">
@@ -14,13 +14,12 @@
             {{ session('password_status') }}
         </div>
     @endif
-    
     <div class="row">
         <div class="col-md-12">
             <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Add Section</h4>
-                    <a href="{{ route('section') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    <h4 class="mb-0">Add Shift</h4>
+                    <a href="{{ route('shift') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <hr>
                 <div class="card-body">
@@ -30,8 +29,16 @@
                       <div class="col-lg-12">
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                            <label for="exampleDataList" class="form-label">Section Name <span class="fillable">*</span></label> <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="text" placeholder="Enter name" value="">
-                          </div>
+                            <label for="exampleDataList" class="form-label"> Shift Name <span class="fillable">*</span></label> 
+                            <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
+                                <option value="1">
+                                  Morning Shift
+                                </option>
+                                <option value="0">
+                                  Noon Shift
+                                </option>
+                              </select>
+                            </div>
                           <div class="col-md-6">
                             <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
                               <option value="1">
@@ -44,7 +51,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a href="{{route('section')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
+                              <a href="{{route('shift')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
                             </div>
                           </div>
                         </div>
@@ -56,4 +63,13 @@
         </div>    
     </div>
 </div>
-@endsection 
+
+
+
+
+
+
+
+
+
+@endsection

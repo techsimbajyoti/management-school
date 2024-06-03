@@ -127,4 +127,36 @@ class UserController extends Controller
     public function admin_attendance_report(){
         return view('admin.attendance.admin-attendance-report');
     }
+    public function shift(){
+        return view('admin.academic.shift');
+    }
+
+    public function add_shift(){
+        return view('admin.academic.add-shift');
+    }
+
+    public function edit_shift(){
+        return view('admin.academic.edit-shift');
+    }
+
+    public function delete_shift(){
+        return view('admin.academic.shift');
+    }
+
+    public function class_setup(){
+        return view('admin.academic.class-setup');
+    }
+
+    public function add_class_setup(){
+        return view('admin.academic.add-class-setup');
+    }
+
+    public function edit_class_setup(){
+        return view('admin.academic.edit-class-setup');
+    }
+    public function delete_class_setup(){
+        return view('admin.academic.lass-setup');
+    }
+
+
 }

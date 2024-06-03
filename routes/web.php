@@ -196,10 +196,28 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('edit-mark-register', [HomeController::class, 'edit_mark_register'])->name('edit-mark-register');
 
 	Route::get('delete-mark-register', [HomeController::class, 'delete_mark_register'])->name('delete-mark-register');
+    
+	Route::get('shift', [UserController::class, 'shift'])->name('shift');
 
-	Route::post('json-state', [StudentController::class, 'json-state'])->name('json-state');
+	Route::get('add-shift', [UserController::class, 'add_shift'])->name('add-shift');
 
+	Route::get('edit-shift', [UserController::class, 'edit_shift'])->name('edit-shift');
+
+	Route::post('json-state', [UserController::class, 'json-state'])->name('json-state');
+
+	Route::post('delete-shift', [UserController::class, 'delete_shift'])->name('delete-shift');
+
+	Route::get('class-setup', [UserController::class, 'class_setup'])->name('class-setup');
+
+	Route::get('add-class-setup', [UserController::class, 'add_class_setup'])->name('add-class-setup');
+
+	Route::get('delete-class-setup', [UserController::class, 'delete-class-setup'])->name('delete-class-setup');
+
+	Route::get('edit-class-setup', [UserController::class, 'edit_class_setup'])->name('edit-class-setup');
+	
 	Route::get('edit-inactive-student', [HomeController::class, 'edit_inactive_student'])->name('edit-inactive-student');
+   
+	// Route::view('/test', 'admin.student-info.test');
 
 });
 

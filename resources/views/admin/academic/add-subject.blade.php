@@ -30,7 +30,7 @@
                       <div class="col-lg-12">
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                            <label for="exampleDataList" class="form-label">Name <span class="fillable">*</span></label> <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" placeholder="Enter name" value="">
+                            <label for="exampleDataList" class="form-label">Subject Name <span class="fillable">*</span></label> <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" placeholder="Enter name" value="">
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="exampleDataList" class="form-label">Code <span class="fillable">*</span></label> <input class="form-control ot-input" name="code" list="datalistOptions" id="exampleDataList" type="number" placeholder="Enter Code" value="">
@@ -57,7 +57,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a href="{{route('subject')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              <a href="{{route('subject')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
                             </div>
                           </div>
                         </div>

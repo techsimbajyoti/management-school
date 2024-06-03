@@ -29,7 +29,7 @@
                         <thead class="thead">
                           <tr>
                             <th class="serial">SR No.</th>
-                            <th class="purchase">Name</th>
+                            <th class="purchase">Class Name</th>
                             <th class="purchase">Status</th>
                             <th class="action">Action</th>
                           </tr>

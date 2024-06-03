@@ -4571,7 +4571,7 @@ License - nucleoapp.com/license/
   font-weight: 700;
   padding-bottom: 0;
   text-transform: uppercase;
-  border: 0;
+  border: 1!important;
 }
 
 .table .radio,
@@ -6925,10 +6925,10 @@ License - nucleoapp.com/license/
 
 .nice-select {
   border: 0 !important;
-  border-radius: 0px !important;
+  border-radius: 7px !important;
   padding-left: 0 !important;
   padding-right: 30px !important;
-  border: 1px solid var(--ot-border-primary) !important;
+  border: 1px solid #ced4da !important;
 }
 
 .nice-select.bordered_style {

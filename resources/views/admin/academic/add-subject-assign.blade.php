@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Add Subject</h4>
+                    <h4 class="mb-0">Assign Subject </h4>
                     <a href="{{ route('assign-subject') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <hr>
@@ -69,7 +69,7 @@
                                 </select>
                           </div>
                           <div class="col-md-6">
-                            <label for="validationServer04" class="form-label">Subject <span class="fillable">*</span></label> 
+                            <label for="validationServer04" class="form-label">Teacher <span class="fillable">*</span></label> 
                             <select class="nice-select bordered_style wide" name="teachers[]" id="teacher2" required="">
                                 <option value="">Select teacher</option>
                                 <option value="1">Teacher 1</option>
@@ -78,7 +78,7 @@
                           </div>
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a href="{{route('assign-subject')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              <a href="{{route('assign-subject')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
                             </div>
                           </div>
                         </div>
