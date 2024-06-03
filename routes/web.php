@@ -201,6 +201,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('json-state', [StudentController::class, 'json-state'])->name('json-state');
 
+	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

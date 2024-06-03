@@ -71,6 +71,7 @@
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Gender</th>
                                         <th class="action">Contact</th>
+                                        <th class="action">Password</th>
                                         <th class="action">Status</th>
                                         <th class="action">Action</th>
                                         </tr>
@@ -79,15 +80,16 @@
                                         <tr id="row_7">
                                             <td class="serial">1</td>
                                             <td>20231114</td>
-                                            <td></td>
+                                            <td>OneA110</td>
                                             
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px"><a href="{{ route('view-student')}}">John</a></td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
                                             <td>Two (A)</td>
                                             <td>Parent5</td>
                                             <td>12 Apr 2021</td>
                                             <td>Male</td>
                                             <td>658932654</td>
-
+                                            <td>123456789</td>
 
                                             <td><span class="badge-basic-success-text">Active</span></td>
                                             <td class="action">
@@ -106,15 +108,16 @@
                                         <tr id="row_7">
                                             <td class="serial">2</td>
                                             <td>2023111</td>
-                                            <td></td>
+                                            <td>OneA110</td>
                                            
-                                            <td> <img src="{{asset('paper/img/dummy-image.png')}}" height="40px" width="40px"><a href="{{ route('view-student')}}">William</a></td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
                                             <td>Two (A)</td>
                                             <td>Parent8</td>
                                             <td>10 Jan 2024</td>
                                             <td>Male</td>
                                             <td>0147852111</td>
-
+                                            <td>123456789</td>
 
                                             <td><span class="badge-basic-success-text">Active</span></td>
                                             <td class="action">

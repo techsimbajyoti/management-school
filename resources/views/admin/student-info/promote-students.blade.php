@@ -112,7 +112,7 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <h3>Promote students in next session</h3>
+                        <h6>Promote students in next session</h6>
                       </div>
                       <div class="row mb-3">
                         <div class="col-md-4 mb-3">
@@ -182,7 +182,7 @@
                                 <th class="purchase">Parent Name</th>
                                 <th class="purchase">Contact Number</th>
                                 <th class="purchase">Result</th>
-                                <th class="purchase">Roll</th>
+                                <th class="purchase">Roll No.</th>
                               </tr>
                             </thead>
                             <tbody class="tbody">
@@ -226,7 +226,7 @@
                         </div>
                         <div class="col-md-12">
                           <div class="text-right">
-                            <a href="{{route('promote-students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Promote</a>
+                            <a href="{{route('promote-students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-up"></i> Promote</a>
                           </div>
                         </div>
                       </form>
