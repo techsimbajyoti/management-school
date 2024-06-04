@@ -20,6 +20,7 @@ use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -217,7 +218,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('edit-inactive-student', [HomeController::class, 'edit_inactive_student'])->name('edit-inactive-student');
    
-	// Route::view('/test', 'admin.student-info.test');
+	Route::get('/general-setting', [SettingController::class, 'general_setting'])->name('general-setting');
 
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 });
