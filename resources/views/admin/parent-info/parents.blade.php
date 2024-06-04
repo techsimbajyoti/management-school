@@ -132,7 +132,7 @@
                                                 </td>
                                                 <td>Father</td>
                                                 <td>
-                                                <a href="#" class="btn ot-btn-primary" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn1"><i class="fa fa-eye"></i> Childern</a>
+                                                <a href="specific-student" class="btn ot-btn-primary" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn1"><i class="fa fa-eye"></i> Childern</a>
                                                     </td>
                                                 <td>Dhaka</td>
                                                 <td><span class="badge-basic-success-text">Active</span></td>

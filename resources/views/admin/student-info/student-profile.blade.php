@@ -16,9 +16,9 @@
         </div>
     @endif
     
-    <div class="row">
+   <div class="row">
         <div class="col-lg-4">
-            <div class="card mb-4">
+            <div class="card" style="margin-bottom: 20px;">
                 <div class="card-body text-center">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="my-3">John Smith</h5>
@@ -26,7 +26,7 @@
                     <p class="text-muted mb-4">Roll No : 4554</p>
                 </div>
             </div>
-
+    
             <div class="card mb-4">
                 <div class="card-header">
                     <h4 class="mb-0">Documents Uploaded</h4>
@@ -47,8 +47,12 @@
                 </div>
             </div>
         </div>
+    
+    
+    
+    
         <div class="col-lg-8">
-            <div class="card mb-4">
+            <div class="card" style="margin-bottom: 20px;">
                 <div class="card-header">
                     <h4 class="mb-0">General Information</h4>
                 </div>

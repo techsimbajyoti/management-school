@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'student-list'
+    'elementActive' => 'parent'
 ])
 @section('content')
 <style>
@@ -106,7 +106,62 @@
                     </div>
                 </div>
             </form>
-        
+            <div class="table-content table-basic mt-20 specific-student" id="specific-student">
+                <div class="card ot-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 title"> Student list</h4>
+                        <a href="{{ route('admit-student') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered role-table">
+                                <thead class="thead">
+                                    <tr>
+                                        <th class="serial">SR No.</th>
+                                        <th class="purchase">Admission NO</th>
+                                        <th class="purchase">Roll NO</th>
+                                        <th class="purchase">Student name</th>
+                                        <th class="purchase">Class (Section)</th>
+                                        <th class="purchase">Parent name</th>
+                                        <th class="action">Date Of Birth</th>
+                                        <th class="action">Gender</th>
+                                        <th class="action">Contact</th>
+                                        <th class="action">Status</th>
+                                        <th class="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                    <tr id="row_14">
+                                        <td class="serial">1</td>
+                                        <td>20231114</td>
+                                        <td></td>
+                                        <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                          <a href="{{ route('admin-student-profile')}}" target="_blank">Herry</a></td>
+                                        <td>Three (A)</td>
+                                        <td>Parent2</td>
+                                        <td>12 Apr 2019</td>
+                                        <td>Male</td>
+                                        <td>6589326562</td>
+                                        <td><span class="badge-basic-danger-text">Inactive</span></td>
+                                        <td class="action">
+                              <div class="dropdown dropdown-action">
+                                  <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                          <a href="{{ route('edit-inactive-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="table-content table-basic mt-20 activeStudentList" id="activeStudentList" style="display:none;">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -369,129 +424,7 @@
         </div>    
     </div>
 </div>
-{{-- <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="text-left">Student Details</h4>
-      <span class="close">&times;</span>
-    </div>
-    <div class="modal-body">
-      <div class="col-lg-12 marksheet-form">
-          <div class="card ot-card mb-24" id="printableArea">
-            <div class="routine_wrapper">
-              <div class="routine_wrapper_body">
-                <div class="student_info_wrapper">
-                  <div class="student_info_single">
-                    <span>Admission No :</span>
-                    <h5>12</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student name :</span>
-                    <h5>John</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student Contact :</span>
-                    <h5>00000000000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Date of Birth :</span>
-                    <h5>02 Oct 2023</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Email Id :</span>
-                    <h5>john@gmail.com</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Class (Section) :</span>
-                    <h5>Two (A)</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Admission Date :</span>
-                    <h5>00/00/0000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Address :</span>
-                    <h5>Demo Demo</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>GPA :</span>
-                    <h5>0.00</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" onclick="document.getElementById('myModal').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<div id="myModal1" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="text-left">Student Details</h4>
-      <span class="close">&times;</span>
-    </div>
-    <div class="modal-body">
-      <div class="col-lg-12 marksheet-form">
-          <div class="card ot-card mb-24" id="printableArea">
-            <div class="routine_wrapper">
-              <div class="routine_wrapper_body">
-                <div class="student_info_wrapper">
-                  <div class="student_info_single">
-                    <span>Admission No :</span>
-                    <h5>13</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student name :</span>
-                    <h5>William</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student Contact :</span>
-                    <h5>00000000000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Date of Birth :</span>
-                    <h5>05 july 2023</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Email Id :</span>
-                    <h5>william@gmail.com</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Class (Section) :</span>
-                    <h5>Two (A)</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Admission Date :</span>
-                    <h5>00/00/0000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Address :</span>
-                    <h5>Demo Demo</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>GPA :</span>
-                    <h5>0.00</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" onclick="document.getElementById('myModal1').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </div>
-</div> --}}
 @endsection 
 @push('scripts')
 <script>
@@ -528,92 +461,20 @@
                 $('.activeStudentList').show();
                 $('.inactiveStudentList').hide();
                 $('.allStudentList').hide();
+                $('.specific-student').hide();
             } else if (status == "2") {
                 $('.activeStudentList').hide();
                 $('.inactiveStudentList').show();
                 $('.allStudentList').hide();
+                $('.specific-student').hide();
             } else {
                 $('.activeStudentList').hide();
                 $('.inactiveStudentList').hide();
                 $('.allStudentList').show();
+                $('.specific-student').hide();
             }
         });
     });
 </script>
 @endpush
-{{--
-// var modal = document.getElementById("myModal");
 
-// // Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
-
-
-//   var modal1 = document.getElementById("myModal1");
-
-// // Get the button that opens the modal
-// var btn1 = document.getElementById("myBtn1");
-
-// // Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// var span1 = document.getElementsByClassName("close")[0];
-
-// // When the user clicks the button, open the modal 
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
-
-// btn1.onclick = function() {
-//   modal1.style.display = "block";
-// }
-
-
-// When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// } if (status == "1") {
-//             $('.no-data').hide();
-//             $('.exam-form').show();
-//             $('.exam-form').show();
-
-// }
-// span1.onclick = function() {
-//   modal1.style.display = "none";
-// }
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-
-// window.onclick = function(event) {
-//   if (event.target == modal1) {
-//     modal1.style.display = "none";
-//   }
-// }
-
-
-
-  // document.getElementById('statusSelect').addEventListener('change', function() {
-  //     var status = this.value;
-  //     var activeStudentList = document.getElementById('activeStudentList');
-  //     var inactiveStudentList = document.getElementById('inactiveStudentList');
-  
-  //     if (status == '1') {
-  //         activeStudentList.style.display = 'block';
-  //         inactiveStudentList.style.display = 'none';
-  //         allStudentList.style.display = 'none';
-  //     } else if (status == '2') {
-  //         activeStudentList.style.display = 'none';
-  //         inactiveStudentList.style.display = 'block';
-  //         allStudentList.style.display = 'none';
-  //     } else {
-  //         allStudentList.style.display = 'block';
-  //         activeStudentList.style.display = 'none';
-  //         inactiveStudentList.style.display = 'none';
-  //     }
-  // });
-        
---}}

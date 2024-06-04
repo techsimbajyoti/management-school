@@ -81,9 +81,8 @@
                                     <div class="">
                                     <a href="">
                                     <div class="user-card">
-                                        <div class="user-avatar"></div>
                                         <div class="user-info">
-                                        Jeric Patulot
+                                        Jeric Patulote
                                         </div>
                                     </div></a>
                                     </div>

@@ -24,7 +24,7 @@
                 </div>
                 <hr>
                 <div class="card-body">
-                  <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+                  <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">
                     @csrf
                     <div class="row mb-3">
                       <div class="col-lg-12">
@@ -77,8 +77,11 @@
                         </select>
                           </div>
                           <div class="col-md-12 mt-24">
-                            <div class="text-right">
-                              <a href="{{route('assign-subject')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</a>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
+                                    <a href="{{ route('assign-subject') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                                </div>
                             </div>
                           </div>
                         </div>

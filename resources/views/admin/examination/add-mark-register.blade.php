@@ -34,7 +34,7 @@
         <div class="col-md-12">
             <div class="card ot-card">
                 <div class="card-body">
-                  <form action="https://school.onesttech.com/marks-register/store" enctype="multipart/form-data" method="post" id="markRegister" name="markRegister">
+                  <form action="" enctype="multipart/form-data" method="" id="markRegister" name="markRegister">
                     <input type="hidden" name="_token" value="BkXIX47epMX3Dypk06ErAL4Tom5pQWjgTASJv7o8">
                     <div class="row mb-3">
                       <div class="col-lg-12">
@@ -99,9 +99,12 @@
                             </div>
                           </div>
                           <div class="col-md-12 mt-24">
-                            <div class="text-right">
-                              <button class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Save</button>
+                            <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
+                                <a href="{{ route('mark-register') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
                             </div>
+                        </div>
                           </div>
                         </div>
                       </div>

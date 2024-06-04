@@ -217,7 +217,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('edit-inactive-student', [HomeController::class, 'edit_inactive_student'])->name('edit-inactive-student');
    
-	// Route::view('/test', 'admin.student-info.test');
+	Route::view('/specific-student', 'admin.student-info.specific-student');
 
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 });

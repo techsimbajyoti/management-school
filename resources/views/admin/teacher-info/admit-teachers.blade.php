@@ -19,11 +19,11 @@
             <div class="col-md-12">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0 title">Admit Staff</h4><a href="{{ route('teachers') }}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                        <h4 class="mb-0 title">Add Staff</h4><a href="{{ route('teachers') }}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                     </div>
                     <hr>
                     <div class="card-body">
-                    <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+                    <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">
                         @csrf
                         <div class="row mb-3">
                         <div class="col-lg-3 col-md-6 mb-3">
@@ -142,12 +142,13 @@
                             </select>
                         </div> 
                         </div>
-                        <div class="col-md-12 mt-24">
-                            <div class="text-right">
-                                <a href="{{route('teachers')}}" class="btn ot-btn-primary"><span><i class="fa-solid fa-save"></i>
-                                </span>Save</a>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
+                                <a href="{{ route('teachers') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
                             </div>
                         </div>
+                        
                     </form>
                     </div>
                 </div>
