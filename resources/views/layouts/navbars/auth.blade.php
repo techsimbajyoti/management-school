@@ -232,15 +232,15 @@
                 </div>
             </li>
 
-            {{-- <li class="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#laravelExamp">
-                    <i class="fas fa-images"></i>
+            <li class="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#laravelExam">
+                    <i class="fas fa-calendar-alt"></i>
                     <p>
-                        {{ __('School Calender') }}
+                        {{ __('Calender') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'show' : '' }}" id="laravelExamp">
+                <div class="collapse {{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'show' : '' }}" id="laravelExam">
                     <ul class="nav">
                         <li class="{{ $elementActive == 'add-event' ? 'active' : '' }}">
                             <a href="{{ route('add-event') }}">
@@ -257,7 +257,7 @@
                         </li>
                     </ul>
                 </div>
-            </li> --}}
+            </li>
 
             <li class="{{ in_array($elementActive, ['examination','type','marks-grade','exam-assign','mark-register']) ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['examination','type','marks-grade','exam-assign','mark-register']) ? 'true' : 'false' }}" href="#laravelExamp">
@@ -301,6 +301,26 @@
                             <a href="{{ route('settings') }}">
                                 <span class="sidebar-mini-icon">{{ __('S') }}</span>
                                 <span class="sidebar-normal">{{ __(' Settings ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="{{ in_array($elementActive, ['settings','general-setting']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['settings','general-setting']) ? 'true' : 'false' }}" href="#laravelExa">
+                    <i class="fas fa-cog"></i>
+                    <p>
+                        {{ __('Settings') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['settings','general-setting']) ? 'show' : '' }}" id="laravelExa">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'general-setting' ? 'active' : '' }}">
+                            <a href="{{ route('general-setting') }}">
+                                <span class="sidebar-mini-icon">{{ __('GS') }}</span>
+                                <span class="sidebar-normal">{{ __(' General Settings ') }}</span>
                             </a>
                         </li>
                     </ul>

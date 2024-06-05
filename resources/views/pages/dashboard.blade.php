@@ -213,7 +213,7 @@
 
             <div class="col-md-12">
                 <div class="card ">
-                    <div class="card-header ">
+                    <div class="card-header">
                         <h5 class="card-title">Today's Attendance (01 Jun 2024)</h5>
                     </div><hr>
                     <div class="card-body">

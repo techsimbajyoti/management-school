@@ -247,8 +247,9 @@
                                     </div>
                                 </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">{{ __('Student Photo:') }} <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span></label>
+                                        <label class="form-label">{{ __('Student Photo:') }}</label>
                                         <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
+                                        <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                     </div>
                             </div>
                         </div>

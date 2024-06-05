@@ -35,7 +35,7 @@
                       </div>
                       <div class="col-md-12 mt-3">
                         <div class="text-right">
-                          <button class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Update</button>
+                          <a class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Update</a>
                         </div>
                       </div>
                     </div>

@@ -41,7 +41,7 @@
                                 <input class="form-control ot-input" name="father_profession" list="datalistOptions" id="exampleDataList" placeholder="Enter father profession" type="text" value="">
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                <label for="exampleDataList" class="form-label">Father Email (username login Id) <span class="fillable">*</span></label> 
+                                <label for="exampleDataList" class="form-label">Father Email<span class="text-info"> (username login Id)</span> <span class="fillable">*</span></label> 
                                 <input class="form-control ot-input" name="email" list="datalistOptions" id="exampleDataList" placeholder="Enter father login id" type="text" value="">
                                 </div>
                                 <div class="col-md-3 mb-3">
@@ -58,11 +58,12 @@
                                     <input name="father_nationality" placeholder="Father Nationality" class="email form-control ot-input" type="text">
                                     </div>
                                 <div class="col-md-3 mb-3">
-                                <label class="form-label" for="inputImage">Image (95 x 95 px)</label>
+                                <label class="form-label" for="inputImage">Photo</label>
                                 <div class="ot_fileUploader left-side mb-3">
                                     <input class="form-control" type="text" placeholder="Father image" readonly id="placeholder"> 
                                     <button class="primary-btn-small-input btn ot-btn-primary" type="button">Browse</button>
                                 </div>
+                                <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                 </div>
                                 
                             </div>
@@ -89,11 +90,12 @@
                                 <input class="form-control ot-input" name="mother_profession" list="datalistOptions" id="exampleDataList" placeholder="Enter father profession" type="text" value="">
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                <label class="form-label" for="inputImage">Image (95 x 95 px)</label>
+                                <label class="form-label" for="inputImage">Photo</label>
                                 <div class="ot_fileUploader left-side mb-3">
                                     <input class="form-control" type="text" placeholder="Mother image" readonly id="placeholder2"> 
                                     <button class="primary-btn-small-input  btn ot-btn-primary" type="button">Browse</button>
                                 </div>
+                                <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -110,11 +112,12 @@
                                  <input class="form-control ot-input" name="guardian_profession" list="datalistOptions" id="exampleDataList" placeholder="Enter guardian profession" type="text" value="">
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                <label class="form-label" for="inputImage">Image (95 x 95 px)</label>
+                                <label class="form-label" for="inputImage">Photo</label>
                                 <div class="ot_fileUploader left-side mb-3">
                                     <input class="form-control" type="text" placeholder="Guardian image" readonly id="placeholder2"> 
                                     <button class="primary-btn-small-input  btn ot-btn-primary" type="button">Browse</button>
                                 </div>
+                                <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                 </div>
                                 <div class="col-md-3 mb-3">
                                 <label for="exampleDataList" class="form-label">Guardian Email</label> 
