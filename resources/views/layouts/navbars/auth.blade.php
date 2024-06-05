@@ -393,8 +393,31 @@
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Routine') }}</p>
+                    </a>
+                </li>
 
-
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Attendance') }}</p>
+                    </a>
+                </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Examination') }}</p>
+                    </a>
+                </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Report') }}</p>
+                    </a>
+                </li>
 
 
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
@@ -404,7 +427,7 @@
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'students_profile' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'student-profile' ? 'active' : '' }}">
                 <a href="{{ route('student-profile') }}">
                     <i class="fa fa-user"></i>
                     <p>{{ __('Student Profile') }}</p>
@@ -527,22 +550,22 @@
                             <p>{{ __('Dashboard') }}</p>
                         </a>
                     </li>
-                    <li class="{{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'active' : '' }}">
-                        <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'true' : 'false' }}" href="#laravelExamplesss">
+                    <li class="{{ in_array($elementActive, ['manage-payment', 'student-payment']) ? 'active' : '' }}">
+                        <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['manage-payment', 'student-payment']) ? 'true' : 'false' }}" href="#laravelExamplesss">
                             <i class="fa-solid fa-indian-rupee-sign"></i>
-                            <p>{{ __('Manage Fees Payment') }}</p>
+                            <p>{{ __('Fees') }}</p>
                         </a>
-                    </li>
-                    <div class="collapse {{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'show' : '' }}" id="laravelExamplesss">
+                    
+                    <div class="collapse {{ in_array($elementActive, ['manage-payment', 'student-payment']) ? 'show' : '' }}" id="laravelExamplesss">
                         <ul class="nav">
-                            <li class="{{ $elementActive == 'add-fees' ? 'active' : '' }}">
+                            {{-- <li class="{{ $elementActive == 'add-fees' ? 'active' : '' }}">
                                 <a href="{{ route('add-fees') }}">
                                     <span class="sidebar-mini-icon">{{ __(' AF') }}</span>
                                     <span class="sidebar-normal">{{ __(' Add Fees') }}</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="{{ $elementActive == 'manage-payment' ? 'active' : '' }}">
-                                <a href="{{ route('accountant-dashboard') }}">
+                                <a href="{{ route('manage-payment') }}">
                                     <span class="sidebar-mini-icon">{{ __('MP ') }}</span>
                                     <span class="sidebar-normal">{{ __('Manage Payment') }}</span>
                                 </a>
@@ -555,6 +578,7 @@
                             </li>
                         </ul>
                     </div>
+                </li>
                     <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
                         <a href="{{ route('accountant-fees-challans') }}">
                             <i class="fa-solid fa-receipt"></i>

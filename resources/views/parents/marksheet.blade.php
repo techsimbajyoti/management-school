@@ -41,9 +41,18 @@
                             </div>
                             <div class="single_large_selectBox">
                               <select class="nice-select niceSelect bordered_style wide exam_types" name="exam_type">
-                                <option value="">
+                                <option value="0">
                                   Select Exam Type *
                                 </option>
+                                <option value="First">
+                                    First
+                                  </option>
+                                  <option value="Mid">
+                                    Mid
+                                  </option>
+                                  <option value="Final">
+                                    Final
+                                  </option>
                               </select>
                             </div><button class="btn btn-lg ot-btn-primary" type="submit"> <i class="fa fa-search"></i> Search</button>
                           </div>
@@ -52,7 +61,7 @@
                     </form>
                   </div>
 
-                  <div class="col-lg-12 marksheet-form">
+                  <div class="col-lg-12 marksheet-form" style="display:none;">
                     <div class="card ot-card mb-24" id="printableArea">
                         <div class="download_print_btns">
                             <button class="btn btn-lg ot-btn-primary" onclick="printDiv('printableArea')"><i class="fa-solid fa-print"></i> Print Now</button> <a class="btn btn-lg ot-btn-primary" href=""><i class="fas fa-file-pdf"></i> PDF Download</a>

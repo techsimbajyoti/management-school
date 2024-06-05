@@ -219,9 +219,11 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('edit-inactive-student', [HomeController::class, 'edit_inactive_student'])->name('edit-inactive-student');
    
+	Route::view('/specific-student', 'admin.student-info.specific-student');
+
 	Route::get('/general-setting', [SettingController::class, 'general_setting'])->name('general-setting');
 
-	Route::view('/specific-student', 'admin.student-info.specific-student');
+
 
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 
@@ -334,6 +336,10 @@ Route::group(['middleware' => 'auth.webaccountants'], function () {
 	Route::get('accountant-report', [AccountantController::class, 'accountant_report'])->name('accountant-report');
 
 	Route::get('accountant-fees-challans', [AccountantController::class, 'accountant_fees_challans'])->name('accountant-fees-challans');
+
+	Route::get('manage-payment', [AccountantController::class, 'manage_payment'])->name('manage-payment');
+
+	Route::get('student-payment', [AccountantController::class, 'student_payment'])->name('student-payment');
 });
 
 Route::group(['middleware' => 'auth'], function () {
