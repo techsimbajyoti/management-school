@@ -128,15 +128,15 @@
                 </div>
             </li>
             
-            <li class="{{ in_array($elementActive, ['user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'true' : 'false' }}" href="#laravelExamplesss">
+            <li class="{{ in_array($elementActive, ['lecture-plan','user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['lecture-plan','user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'true' : 'false' }}" href="#laravelExamplesss">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <p>
                         {{ __('Academic') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ in_array($elementActive, ['user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'show' : '' }}" id="laravelExamplesss">
+                <div class="collapse {{ in_array($elementActive, ['lecture-plan','user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'show' : '' }}" id="laravelExamplesss">
                     <ul class="nav">
 
                         <li class="{{ $elementActive == 'shift' ? 'active' : '' }}">
@@ -173,6 +173,12 @@
                             <a href="{{ route('assign-subject') }}">
                                 <span class="sidebar-mini-icon">{{ __('AS') }}</span>
                                 <span class="sidebar-normal">{{ __(' Assign Subject ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'lecture-plan' ? 'active' : '' }}">
+                            <a href="{{ route('lecture-plan') }}">
+                                <span class="sidebar-mini-icon">{{ __('LP') }}</span>
+                                <span class="sidebar-normal">{{ __(' Lecture Plan ') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -308,20 +314,50 @@
                 </div>
             </li>
 
-            <li class="{{ in_array($elementActive, ['fees','fees-manage']) ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['fees','fees-manage']) ? 'true' : 'false' }}" href="#laravelEx">
+            <li class="{{ in_array($elementActive, ['student-payment','fees','fees-group','fees-type','fees-master','fees-assign','fees-collect']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['student-payment','fees','fees-group','fees-type','fees-master','fees-assign','fees-collect']) ? 'true' : 'false' }}" href="#laravelEx">
                     <i class="fa fa-money" aria-hidden="true"></i>
                     <p>
-                        {{ __('Fees') }}
+                        {{ __('Fees & Payment') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ in_array($elementActive, ['fees','fees-manage']) ? 'show' : '' }}" id="laravelEx">
+                <div class="collapse {{ in_array($elementActive, ['student-payment','fees','fees-group','fees-type','fees-master','fees-assign','fees-collect']) ? 'show' : '' }}" id="laravelEx">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'fees-manage' ? 'active' : '' }}">
-                            <a href="{{ route('general-setting') }}">
-                                <span class="sidebar-mini-icon">{{ __('F') }}</span>
-                                <span class="sidebar-normal">{{ __(' Fees ') }}</span>
+                        <li class="{{ $elementActive == 'fees-group' ? 'active' : '' }}">
+                            <a href="{{ route('group') }}">
+                                <span class="sidebar-mini-icon">{{ __('G') }}</span>
+                                <span class="sidebar-normal">{{ __(' Group ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'fees-type' ? 'active' : '' }}">
+                            <a href="{{ route('type') }}">
+                                <span class="sidebar-mini-icon">{{ __('T') }}</span>
+                                <span class="sidebar-normal">{{ __(' Type ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'fees-master' ? 'active' : '' }}">
+                            <a href="{{ route('master') }}">
+                                <span class="sidebar-mini-icon">{{ __('M') }}</span>
+                                <span class="sidebar-normal">{{ __(' Master ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'fees-assign' ? 'active' : '' }}">
+                            <a href="{{ route('assign') }}">
+                                <span class="sidebar-mini-icon">{{ __('A') }}</span>
+                                <span class="sidebar-normal">{{ __(' Assign ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'fees-collect' ? 'active' : '' }}">
+                            <a href="{{ route('collect') }}">
+                                <span class="sidebar-mini-icon">{{ __('C') }}</span>
+                                <span class="sidebar-normal">{{ __(' Collect ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'student-payment' ? 'active' : '' }}">
+                            <a href="{{ route('student-payment') }}">
+                                <span class="sidebar-mini-icon">{{ __('SP') }}</span>
+                                <span class="sidebar-normal">{{ __(' Student Payment ') }}</span>
                             </a>
                         </li>
                     </ul>
