@@ -111,6 +111,6 @@ class LoginController extends Controller
         }
     
         // If the authentication fails or the role is not correct, redirect to the login page
-        return redirect()->route('login')->withErrors(['email' => 'Your provided credentials could not be verified.']);
+        return redirect('/')->withErrors(['email' => 'Your provided credentials could not be verified.']);
     }
 }

@@ -24,14 +24,27 @@
                 </div>
                 <hr>
                 <div class="card-body">
-                  <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
+                  <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">
                     @csrf
                     <div class="row mb-3">
                       <div class="col-lg-12">
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                            <label for="exampleDataList" class="form-label"> Class Name <span class="fillable">*</span></label> <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="text" placeholder="Enter name" value="">
+                            <label for="exampleDataList" class="form-label"> Class Name <span class="fillable">*</span></label> 
+                            <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="text" placeholder="Enter class name" value="">
                           </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="exampleDataList" class="form-label"> Shift Name <span class="fillable">*</span></label> 
+                            <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
+                                <option value="">Select one of these</option>
+                              <option value="1">
+                                  Morning Shift
+                                </option>
+                                <option value="0">
+                                  Noon Shift
+                                </option>
+                              </select>
+                            </div>
                           <div class="col-md-6">
                             <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
                               <option value="1">
@@ -43,9 +56,12 @@
                             </select>
                           </div>
                           <div class="col-md-12 mt-24">
-                            <div class="text-right">
-                              <a href="{{route('class')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
-                            </div>
+                            <div class="card-footer">
+                              <div class="d-flex justify-content-end">
+                                  <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
+                                  <a href="{{ route('class') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                              </div>
+                          </div>
                           </div>
                         </div>
                       </div>

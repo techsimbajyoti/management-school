@@ -16,17 +16,17 @@
         </div>
     @endif
     
-    <div class="row">
+   <div class="row">
         <div class="col-lg-4">
-            <div class="card mb-4">
+            <div class="card" style="margin-bottom: 20px;">
                 <div class="card-body text-center">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                    <img src="{{ asset('paper') }}/img/dummy-image.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="my-3">John Smith</h5>
                     <p class="text-muted mb-1">Admission No : 1256</p>
                     <p class="text-muted mb-4">Roll No : 4554</p>
                 </div>
             </div>
-
+    
             <div class="card mb-4">
                 <div class="card-header">
                     <h4 class="mb-0">Documents Uploaded</h4>
@@ -35,20 +35,24 @@
                 <div class="card-body p-0">
                     <ul class="list-group list-group-flush rounded-3">
                         <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                            <p class="mb-0">Transfer Certificate</p>
+                            <p class="mb-0">Transfer Certificate</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                            <p class="mb-0">Attested Copy of Adhaar Card</p>
+                            <p class="mb-0">Attested Copy of Adhaar Card</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                            <p class="mb-0">Previous Year Marksheet</p>
+                            <p class="mb-0">Previous Year Marksheet</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+    
+    
+    
+    
         <div class="col-lg-8">
-            <div class="card mb-4">
+            <div class="card" style="margin-bottom: 20px;">
                 <div class="card-header">
                     <h4 class="mb-0">General Information</h4>
                 </div>
@@ -58,8 +62,14 @@
                         <div class="col-sm-3">
                             <p class="mb-0">Full Name</p>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-3">
                             <p class="text-muted mb-0">John Smith</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0">Blood Group</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="text-muted mb-0">O+</p>
                         </div>
                     </div>
                     <hr>
@@ -67,8 +77,14 @@
                         <div class="col-sm-3">
                             <p class="mb-0">Class </p>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-3">
                             <p class="text-muted mb-0">Two</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0">Gender</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="text-muted mb-0">Male</p>
                         </div>
                     </div>
                     <hr>
@@ -76,8 +92,14 @@
                         <div class="col-sm-3">
                             <p class="mb-0">Section</p>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-3">
                             <p class="text-muted mb-0">A</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0">Religion</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="text-muted mb-0">Hindu</p>
                         </div>
                     </div>
                     <hr>
@@ -85,8 +107,14 @@
                         <div class="col-sm-3">
                             <p class="mb-0">Date Of Birth</p>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-3">
                             <p class="text-muted mb-0">05 April, 2014</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0">Category</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="text-muted mb-0">OBC</p>
                         </div>
                     </div>
                     <hr>

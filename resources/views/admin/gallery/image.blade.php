@@ -30,7 +30,9 @@
                               <tr>
                                 <th class="serial">SR No.</th>
                                 <th class="purchase">Category</th>
+                                <th class="purchase">Image Name</th>
                                 <th class="purchase">Image</th>
+                                <th class="purchase">Video Link</th>
                                 <th class="purchase">Status</th>
                                 <th class="action">Action</th>
                               </tr>
@@ -39,9 +41,11 @@
                               <tr id="row_23">
                                 <td class="serial">1</td>
                                 <td>Awards</td>
+                                <td>Demo</td>
                                 <td>
                                   <div class="user-avatar"><img src="https://school.onesttech.com/frontend/img/gallery/23.webp" alt="Photo"></div>
                                 </td>
+                                <td><a href="#">http://example.com</a></td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
@@ -58,9 +62,11 @@
                               <tr id="row_22">
                                 <td class="serial">2</td>
                                 <td>Awards</td>
+                                <td>Demo</td>
                                 <td>
                                   <div class="user-avatar"><img src="https://school.onesttech.com/frontend/img/gallery/22.webp" alt="Photo"></div>
                                 </td>
+                                <td><a href="#">http://example.com</a></td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">

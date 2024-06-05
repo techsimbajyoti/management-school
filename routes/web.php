@@ -220,7 +220,11 @@ Route::group(['middleware' => 'auth'], function () {
    
 	Route::get('/general-setting', [SettingController::class, 'general_setting'])->name('general-setting');
 
+	Route::view('/specific-student', 'admin.student-info.specific-student');
+
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
+
+	Route::get('/view-image', [HomeController::class, 'view_image'])->name('view-image');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

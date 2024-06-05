@@ -177,4 +177,8 @@ class HomeController extends Controller
     public function edit_inactive_student(){
         return view('admin.student-info.edit-inactive-student');
     }
+
+    public function view_image(){
+        return view('admin.gallery.view-image');
+    }
 }
