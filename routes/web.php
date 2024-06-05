@@ -21,6 +21,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\FeesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -227,6 +228,36 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/view-image', [HomeController::class, 'view_image'])->name('view-image');
 
 	Route::get('/lecture-plan', [HomeController::class, 'lecture_plan'])->name('lecture-plan');
+
+	Route::get('/group', [FeesController::class, 'group'])->name('group');
+
+	Route::get('/type', [FeesController::class, 'type'])->name('type');
+
+	Route::get('/master', [FeesController::class, 'master'])->name('master');
+
+	Route::get('/assign', [FeesController::class, 'assign'])->name('assign');
+
+	Route::get('/collect', [FeesController::class, 'collect'])->name('collect');
+
+	Route::get('/add-fees-group', [FeesController::class, 'add_fees_group'])->name('add-fees-group');
+
+	Route::get('/edit-fees-group', [FeesController::class, 'edit_fees_group'])->name('edit-fees-group');
+
+	Route::get('/delete-fees-group', [FeesController::class, 'delete_fees_group'])->name('delete-fees-group');
+
+	Route::get('add-fees-type', [FeesController::class, 'add_fees_type'])->name('add-fees-type');
+
+	Route::get('edit-fees-type', [FeesController::class, 'edit_fees_type'])->name('edit-fees-type');
+
+	Route::get('delete-fees-type', [FeesController::class, 'delete_fees_type'])->name('delete-fees-type');
+
+	Route::get('add-master', [FeesController::class, 'add_master'])->name('add-master');
+
+	Route::get('add-fees-assign', [FeesController::class, 'add_fees_assign'])->name('add-fees-assign');
+
+	Route::get('student-payment', [FeesController::class, 'student_payment'])->name('student-payment');
+
+	Route::get('admin-manage-payment', [FeesController::class, 'admin_manage_payment'])->name('admin-manage-payment');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

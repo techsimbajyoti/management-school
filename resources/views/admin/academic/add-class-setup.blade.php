@@ -36,19 +36,19 @@
                             <label class="form-label">Section <span class="fillable">*</span></label>
                             <div class="input-check-radio academic-section d-flex">
                                 <div class="form-check me-3" style="display: flex; align-items: center;">
-                                    <input class="form-check-input" type="checkbox" name="sections[]" value="1" id="flexCheckDefaultA" />
+                                    <input type="checkbox" name="sections[]" value="1" id="flexCheckDefaultA" />
                                     <label class="form-check-label ms-2" for="flexCheckDefaultA">A</label>
                                 </div>
                                 <div class="form-check me-3" style="display: flex; align-items: center;">
-                                    <input class="form-check-input" type="checkbox" name="sections[]" value="2" id="flexCheckDefaultB" />
+                                    <input type="checkbox" name="sections[]" value="2" id="flexCheckDefaultB" />
                                     <label class="form-check-label ms-2" for="flexCheckDefaultB">B</label>
                                 </div>
                                 <div class="form-check me-3" style="display: flex; align-items: center;">
-                                    <input class="form-check-input" type="checkbox" name="sections[]" value="3" id="flexCheckDefaultC" />
+                                    <input type="checkbox" name="sections[]" value="3" id="flexCheckDefaultC" />
                                     <label class="form-check-label ms-2" for="flexCheckDefaultC">C</label>
                                 </div>
                                 <div class="form-check" style="display: flex; align-items: center;">
-                                    <input class="form-check-input" type="checkbox" name="sections[]" value="4" id="flexCheckDefaultD" />
+                                    <input type="checkbox" name="sections[]" value="4" id="flexCheckDefaultD" />
                                     <label class="form-check-label ms-2" for="flexCheckDefaultD">D</label>
                                 </div>
                             </div>

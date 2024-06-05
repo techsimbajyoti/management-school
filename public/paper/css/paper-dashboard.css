@@ -2813,7 +2813,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
   cursor: pointer;
   border-radius: 6px;
   top: 0;
-  background-color: #AAA7A4;
+  /* background-color: #AAA7A4; */
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
   -o-transition: opacity 0.3s linear;
@@ -2841,9 +2841,9 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 
 .form-check input[type="checkbox"],
 .form-check-radio input[type="radio"] {
-  opacity: 0;
+  opacity: 1;
   position: absolute;
-  visibility: hidden;
+  visibility: visible !important;
 }
 
 .form-check input[type="checkbox"]:checked+.form-check-sign::after {
@@ -6979,5 +6979,8 @@ License - nucleoapp.com/license/
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
+  /* input#exampleDataList {
+    margin-left: 10px;
+} */
   
  
