@@ -181,4 +181,8 @@ class HomeController extends Controller
     public function view_image(){
         return view('admin.gallery.view-image');
     }
+
+    public function lecture_plan(){
+        return view('admin.academic.lecture-plan');
+    }
 }

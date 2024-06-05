@@ -57,24 +57,26 @@
                             </div>
 
                           <div class="col-md-12 mt-3">
-                            <div class="d-flex align-items-center gap-4 flex-wrap">
-                              <h5 class="m-0 flex-fill">Add Subject & Teacher</h5><button type="button" class="btn btn-lg ot-btn-primary radius_30px small_add_btn" id="add-document"><i class="fa fa-plus"></i> Add</button>
-                             
+                            <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
+                                <h5>Assign Subject To Teacher</h5>
+                                <a id="add-document" class="btn btn-lg ot-btn-primary">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add
+                                </a>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-12">  
                             <div class="table-responsive">
-                              <div id="student-document">
-                                <table class="table school_borderLess_table table_border_hide2" id="subject-teacher">
-                                  <thead>
-                                    <tr>
-                                      <td scope="col">Subject</td>
-                                      <td scope="col">Teacher</td>
-                                      <td scope="col"></td>
-                                    </tr>
-                                  </thead>
+                                <table class="table school_borderLess_table table_border_hide2" id="student-document">
+                                    <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
+                                        <tr>
+                                            <th scope="col">Subject <span class="text-danger"></span></th>
+                                            <th scope="col">Teacher <span class="text-danger"></span></th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
                                 </table>
-                              </div>
                             </div>
                           </div>
 
@@ -136,10 +138,31 @@
 
             newRow.innerHTML = `
                 <td>
-                    <input type="text" class="form-control" name="document_name[]" placeholder="Enter Image Name">
+                    <select class="form-control" name="document_name[]">
+                    <option>Please select one of these</option>
+                    <option>Hindi</option>
+                    <option>English</option>
+                    <option>Math</option>
+                    <option>Science</option>
+                    <option>Sports</option>
+                    <option>Art</option>
+                    <option>Music</option>
+                    <option>Bio</option>
+                    <option>Chemistry</option>
+                    <option>Physics</option>
+                    <option>Commerce</option>
+                    </select>
                 </td>
                 <td>
-                    <input type="file" class="form-control" name="document_file[]">
+                    <select class="form-control" name="document_name[]">
+                    <option>Please select one of these</option>
+                    <option>Teacher1</option>
+                    <option>Teacher2</option>
+                    <option>Teacher3</option>
+                    <option>Teacher4</option>
+                    <option>Teacher5</option>
+                    <option>Teacher6</option>
+                    </select>
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger remove-document">

@@ -225,6 +225,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 
 	Route::get('/view-image', [HomeController::class, 'view_image'])->name('view-image');
+
+	Route::get('/lecture-plan', [HomeController::class, 'lecture_plan'])->name('lecture-plan');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
