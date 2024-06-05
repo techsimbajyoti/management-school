@@ -49,6 +49,15 @@ class AccountantController extends Controller
     public function add_fees(){
         return view('accountants.add-fees');
     }
-
+    public function manage_payment(){
+        return view('accountants.manage-payment');
+    }
+    public function student_payment(){
+        return view('accountants.student-payment');
+    }
 }
+
+
+
+
 

@@ -92,8 +92,8 @@
                             <div class="single_large_selectBox">
                                 <select id="status" class="class nice-select niceSelect bordered_style wide" name="status">
                                     <option value="">Select Status</option>
-                                    <option value="1">Active Students</option>
-                                    <option value="2">Inactive Students</option>
+                                    <option value="1">Active</option>
+                                    <option value="2">Inactive</option>
                                     <option value="3">All</option>
                                 </select>
                             </div>
@@ -148,7 +148,6 @@
                                             <td>Male</td>
                                             <td>658932654</td>
                                             <td>123456789</td>
-
                                             <td><span class="badge-basic-success-text">Active</span></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
@@ -176,7 +175,6 @@
                                             <td>Male</td>
                                             <td>0147852111</td>
                                             <td>123456789</td>
-
                                             <td><span class="badge-basic-success-text">Active</span></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
@@ -220,6 +218,7 @@
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Gender</th>
+                                        <th class="action">Password</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Status</th>
                                         <th class="action">Action</th>
@@ -229,13 +228,14 @@
                                     <tr id="row_14">
                                         <td class="serial">1</td>
                                         <td>20231114</td>
-                                        <td></td>
+                                        <td>OneA110</td>
                                         <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                           <a href="{{ route('admin-student-profile')}}" target="_blank">Herry</a></td>
                                         <td>Three (A)</td>
                                         <td>Parent2</td>
                                         <td>12 Apr 2019</td>
                                         <td>Male</td>
+                                        <td>123456789</td>
                                         <td>6589326562</td>
                                         <td><span class="badge-basic-danger-text">Inactive</span></td>
                                         <td class="action">
@@ -276,6 +276,7 @@
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Gender</th>
+                                        <th class="action">Password</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Status</th>
                                         <th class="action">Action</th>
@@ -285,13 +286,14 @@
                                   <tr id="row_7">
                                     <td class="serial">1</td>
                                     <td>20231114</td>
-                                    <td></td>
+                                    <td>OneA110</td>
                                     <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                       <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
                                     <td>Two (A)</td>
                                     <td>Parent5</td>
                                     <td>12 Apr 2021</td>
                                     <td>Male</td>
+                                    <td>123456789</td>
                                     <td>658932654</td>
                                     <td><span class="badge-basic-success-text">Active</span></td>
                                     <td class="action">
@@ -310,13 +312,14 @@
                                 <tr id="row_7">
                                     <td class="serial">2</td>
                                     <td>2023111</td>
-                                    <td></td>
+                                    <td>OneA110</td>
                                     <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                       <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
                                     <td>Two (A)</td>
                                     <td>Parent8</td>
                                     <td>10 Jan 2024</td>
                                     <td>Male</td>
+                                    <td>123456789</td>
                                     <td>0147852111</td>
                                     <td><span class="badge-basic-success-text">Active</span></td>
                                     <td class="action">
@@ -335,13 +338,14 @@
                                 <tr id="row_14">
                                   <td class="serial">1</td>
                                   <td>20231114</td>
-                                  <td></td>
+                                  <td>OneA110</td>
                                   <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                     <a href="{{ route('admin-student-profile')}}" target="_blank">Herry</a></td>
                                   <td>Three (A)</td>
                                   <td>Parent2</td>
                                   <td>12 Apr 2019</td>
                                   <td>Male</td>
+                                  <td>123456789</td>
                                   <td>6589326562</td>
                                   <td><span class="badge-basic-danger-text">Inactive</span></td>
                                   <td class="action">
@@ -369,129 +373,6 @@
         </div>    
     </div>
 </div>
-{{-- <div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="text-left">Student Details</h4>
-      <span class="close">&times;</span>
-    </div>
-    <div class="modal-body">
-      <div class="col-lg-12 marksheet-form">
-          <div class="card ot-card mb-24" id="printableArea">
-            <div class="routine_wrapper">
-              <div class="routine_wrapper_body">
-                <div class="student_info_wrapper">
-                  <div class="student_info_single">
-                    <span>Admission No :</span>
-                    <h5>12</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student name :</span>
-                    <h5>John</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student Contact :</span>
-                    <h5>00000000000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Date of Birth :</span>
-                    <h5>02 Oct 2023</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Email Id :</span>
-                    <h5>john@gmail.com</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Class (Section) :</span>
-                    <h5>Two (A)</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Admission Date :</span>
-                    <h5>00/00/0000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Address :</span>
-                    <h5>Demo Demo</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>GPA :</span>
-                    <h5>0.00</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" onclick="document.getElementById('myModal').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<div id="myModal1" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="text-left">Student Details</h4>
-      <span class="close">&times;</span>
-    </div>
-    <div class="modal-body">
-      <div class="col-lg-12 marksheet-form">
-          <div class="card ot-card mb-24" id="printableArea">
-            <div class="routine_wrapper">
-              <div class="routine_wrapper_body">
-                <div class="student_info_wrapper">
-                  <div class="student_info_single">
-                    <span>Admission No :</span>
-                    <h5>13</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student name :</span>
-                    <h5>William</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Student Contact :</span>
-                    <h5>00000000000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Date of Birth :</span>
-                    <h5>05 july 2023</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Email Id :</span>
-                    <h5>william@gmail.com</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Class (Section) :</span>
-                    <h5>Two (A)</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Admission Date :</span>
-                    <h5>00/00/0000</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>Address :</span>
-                    <h5>Demo Demo</h5>
-                  </div>
-                  <div class="student_info_single">
-                    <span>GPA :</span>
-                    <h5>0.00</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" onclick="document.getElementById('myModal1').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </div>
-</div> --}}
 @endsection 
 @push('scripts')
 <script>
@@ -541,79 +422,3 @@
     });
 </script>
 @endpush
-{{--
-// var modal = document.getElementById("myModal");
-
-// // Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
-
-
-//   var modal1 = document.getElementById("myModal1");
-
-// // Get the button that opens the modal
-// var btn1 = document.getElementById("myBtn1");
-
-// // Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// var span1 = document.getElementsByClassName("close")[0];
-
-// // When the user clicks the button, open the modal 
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
-
-// btn1.onclick = function() {
-//   modal1.style.display = "block";
-// }
-
-
-// When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// } if (status == "1") {
-//             $('.no-data').hide();
-//             $('.exam-form').show();
-//             $('.exam-form').show();
-
-// }
-// span1.onclick = function() {
-//   modal1.style.display = "none";
-// }
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-
-// window.onclick = function(event) {
-//   if (event.target == modal1) {
-//     modal1.style.display = "none";
-//   }
-// }
-
-
-
-  // document.getElementById('statusSelect').addEventListener('change', function() {
-  //     var status = this.value;
-  //     var activeStudentList = document.getElementById('activeStudentList');
-  //     var inactiveStudentList = document.getElementById('inactiveStudentList');
-  
-  //     if (status == '1') {
-  //         activeStudentList.style.display = 'block';
-  //         inactiveStudentList.style.display = 'none';
-  //         allStudentList.style.display = 'none';
-  //     } else if (status == '2') {
-  //         activeStudentList.style.display = 'none';
-  //         inactiveStudentList.style.display = 'block';
-  //         allStudentList.style.display = 'none';
-  //     } else {
-  //         allStudentList.style.display = 'block';
-  //         activeStudentList.style.display = 'none';
-  //         inactiveStudentList.style.display = 'none';
-  //     }
-  // });
-        
---}}

@@ -43,6 +43,9 @@
                               <option value="2">
                                 Practical
                               </option>
+                              <option value="2">
+                                Both
+                              </option>
                             </select>
                           </div>
                           <div class="col-md-6">
@@ -58,7 +61,7 @@
                           <div class="col-md-12 mt-24">
                             <div class="card-footer">
                               <div class="d-flex justify-content-end">
-                                  <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
+                                  <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
                                   <a href="{{ route('subject') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
                               </div>
                           </div>

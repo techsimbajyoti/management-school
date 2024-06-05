@@ -33,7 +33,8 @@
                             <label for="exampleDataList" class="form-label">Department Name <span class="fillable">*</span></label> <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="text" placeholder="Enter name" value="">
                           </div>
                           <div class="col-md-6">
-                            <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
+                            <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> 
+                            <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
                               <option value="1">
                                 Active
                               </option>
@@ -43,12 +44,12 @@
                             </select>
                           </div>
                           <div class="col-md-12 mt-24">
-                            <div class="card-footer">
-                              <div class="d-flex justify-content-end">
-                                  <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
-                                  <a href="{{ route('department') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                              <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
+                                    <a href="{{ route('department') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                                </div>
                               </div>
-                          </div>
                           </div>
                         </div>
                       </div>

@@ -251,6 +251,17 @@
                                         <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
                                         <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label"><span class="fillable">* </span>Status:</label>
+                                            <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
+                                                <option value="">Select one of these</option>
+                                                <option  value="active">Active</option>
+                                                <option  value="deactive">deactive</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                             <hr style="margin-top: 50px">
@@ -377,7 +388,7 @@
                             
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
+                                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
                                     <a href="{{ route('students') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
                                 </div>
                             </div>

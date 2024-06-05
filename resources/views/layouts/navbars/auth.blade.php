@@ -138,6 +138,13 @@
                 </a>
                 <div class="collapse {{ in_array($elementActive, ['user', 'manage-academic', 'class', 'section', 'subject', 'assign-subject','shift','class-setup']) ? 'show' : '' }}" id="laravelExamplesss">
                     <ul class="nav">
+
+                        <li class="{{ $elementActive == 'shift' ? 'active' : '' }}">
+                            <a href="{{ route('shift') }}">
+                                <span class="sidebar-mini-icon">{{ __('S') }}</span>
+                                <span class="sidebar-normal">{{ __(' Shift ') }}</span>
+                            </a>
+                        </li>
                         <li class="{{ $elementActive == 'class' ? 'active' : '' }}">
                             <a href="{{ route('class') }}">
                                 <span class="sidebar-mini-icon">{{ __('C') }}</span>
@@ -148,12 +155,6 @@
                             <a href="{{ route('section') }}">
                                 <span class="sidebar-mini-icon">{{ __('S') }}</span>
                                 <span class="sidebar-normal">{{ __(' Section ') }}</span>
-                            </a>
-                        </li>
-                        <li class="{{ $elementActive == 'shift' ? 'active' : '' }}">
-                            <a href="{{ route('shift') }}">
-                                <span class="sidebar-mini-icon">{{ __('S') }}</span>
-                                <span class="sidebar-normal">{{ __(' Shift ') }}</span>
                             </a>
                         </li>
                         <li class="{{ $elementActive == 'class-setup' ? 'active' : '' }}">
@@ -224,8 +225,8 @@
 
                         <li class="{{ $elementActive == 'image' ? 'active' : '' }}">
                             <a href="{{ route('image') }}">
-                                <span class="sidebar-mini-icon">{{ __('I') }}</span>
-                                <span class="sidebar-normal">{{ __(' Image ') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('IV') }}</span>
+                                <span class="sidebar-normal">{{ __(' Image & Video ') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -236,7 +237,7 @@
                 <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#laravelExam">
                     <i class="fas fa-calendar-alt"></i>
                     <p>
-                        {{ __('Calender') }}
+                        {{ __('Event') }}
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -251,8 +252,8 @@
 
                         <li class="{{ $elementActive == 'calender' ? 'active' : '' }}">
                             <a href="{{ route('calender') }}">
-                                <span class="sidebar-mini-icon">{{ __('C') }}</span>
-                                <span class="sidebar-normal">{{ __(' Calender ') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('EC') }}</span>
+                                <span class="sidebar-normal">{{ __(' Event Calender ') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -307,6 +308,26 @@
                 </div>
             </li>
 
+            <li class="{{ in_array($elementActive, ['fees','fees-manage']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['fees','fees-manage']) ? 'true' : 'false' }}" href="#laravelEx">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                    <p>
+                        {{ __('Fees') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['fees','fees-manage']) ? 'show' : '' }}" id="laravelEx">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'fees-manage' ? 'active' : '' }}">
+                            <a href="{{ route('general-setting') }}">
+                                <span class="sidebar-mini-icon">{{ __('F') }}</span>
+                                <span class="sidebar-normal">{{ __(' Fees ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="{{ in_array($elementActive, ['settings','general-setting']) ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['settings','general-setting']) ? 'true' : 'false' }}" href="#laravelExa">
                     <i class="fas fa-cog"></i>
@@ -326,6 +347,8 @@
                     </ul>
                 </div>
             </li>
+
+            
             
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 <li class="{{ $elementActive == 'teacher-dashboard' ? 'active' : '' }}">
@@ -334,8 +357,31 @@
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Routine') }}</p>
+                    </a>
+                </li>
 
-
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Attendance') }}</p>
+                    </a>
+                </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Examination') }}</p>
+                    </a>
+                </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Report') }}</p>
+                    </a>
+                </li>
 
 
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
@@ -345,7 +391,7 @@
                     <p>{{ __('Dashboard') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'students_profile' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'student-profile' ? 'active' : '' }}">
                 <a href="{{ route('student-profile') }}">
                     <i class="fa fa-user"></i>
                     <p>{{ __('Student Profile') }}</p>
@@ -468,22 +514,22 @@
                             <p>{{ __('Dashboard') }}</p>
                         </a>
                     </li>
-                    <li class="{{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'active' : '' }}">
-                        <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'true' : 'false' }}" href="#laravelExamplesss">
+                    <li class="{{ in_array($elementActive, ['manage-payment', 'student-payment']) ? 'active' : '' }}">
+                        <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['manage-payment', 'student-payment']) ? 'true' : 'false' }}" href="#laravelExamplesss">
                             <i class="fa-solid fa-indian-rupee-sign"></i>
-                            <p>{{ __('Manage Fees Payment') }}</p>
+                            <p>{{ __('Fees') }}</p>
                         </a>
-                    </li>
-                    <div class="collapse {{ in_array($elementActive, ['add-fees', 'manage-payment', 'student-payment']) ? 'show' : '' }}" id="laravelExamplesss">
+                    
+                    <div class="collapse {{ in_array($elementActive, ['manage-payment', 'student-payment']) ? 'show' : '' }}" id="laravelExamplesss">
                         <ul class="nav">
-                            <li class="{{ $elementActive == 'add-fees' ? 'active' : '' }}">
+                            {{-- <li class="{{ $elementActive == 'add-fees' ? 'active' : '' }}">
                                 <a href="{{ route('add-fees') }}">
                                     <span class="sidebar-mini-icon">{{ __(' AF') }}</span>
                                     <span class="sidebar-normal">{{ __(' Add Fees') }}</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="{{ $elementActive == 'manage-payment' ? 'active' : '' }}">
-                                <a href="{{ route('accountant-dashboard') }}">
+                                <a href="{{ route('manage-payment') }}">
                                     <span class="sidebar-mini-icon">{{ __('MP ') }}</span>
                                     <span class="sidebar-normal">{{ __('Manage Payment') }}</span>
                                 </a>
@@ -496,6 +542,7 @@
                             </li>
                         </ul>
                     </div>
+                </li>
                     <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
                         <a href="{{ route('accountant-fees-challans') }}">
                             <i class="fa-solid fa-receipt"></i>

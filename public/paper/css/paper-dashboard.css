@@ -5592,7 +5592,7 @@ License - nucleoapp.com/license/
   box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
   background-color: #FFFFFF;
   color: #252422;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
   position: relative;
   border: 0 none;
   -webkit-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
@@ -6632,7 +6632,7 @@ License - nucleoapp.com/license/
   position: initial; }
 
 .full-page > .content {
-  padding-top: 21vh; }
+  padding-top: 14vh; }
 
 .full-page .footer {
   position: absolute;

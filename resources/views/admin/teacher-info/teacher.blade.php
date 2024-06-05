@@ -34,6 +34,7 @@
                             <th class="purchase">Roles</th>
                             <th class="purchase">Departments</th>
                             <th class="purchase">Email</th>
+                            <th class="purchase">Password</th>
                             <th class="purchase">Contact</th>
                             <th class="purchase">Status</th>
                             <th class="action">Action</th>
@@ -57,8 +58,9 @@
                                 <td>Administration</td>
                             
                                 <td>
-                                    <a href="" class="__cf_email__" data-cfemail="e087928183858d818495858b85a08d81898cce838f8d">[email&nbsp;protected]</a>
+                                    <a href="" >demo@gmail.com</a>
                                 </td>
+                                <td>123456789</td>
                                 <td>0706526451</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
@@ -91,8 +93,9 @@
                                 <td>Accounts</td>
                                 
                                 <td>
-                                    <a href="" class="__cf_email__" data-cfemail="462c68362732332a293206353f2823342b273e3e6825292b">[email&nbsp;protected]</a>
+                                    <a href="">demo@gmail.com</a>
                                 </td>
+                                <td>123456789</td>
                                 <td>09178880009</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
@@ -125,8 +128,9 @@
                                 <td>Commerce</td>
                             
                                 <td>
-                                    <a href="" class="__cf_email__" data-cfemail="e087928183858d818495858b85a08d81898cce838f8d">[email&nbsp;protected]</a>
+                                    <a href="" >demo@gmail.com</a>
                                 </td>
+                                <td>123456789</td>
                                 <td>02263264461</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
@@ -159,8 +163,9 @@
                                 <td>Arts</td>
                             
                                 <td>
-                                    <a href="" class="__cf_email__" data-cfemail="e087928183858d818495858b85a08d81898cce838f8d">[email&nbsp;protected]</a>
+                                    <a href="" >demo@gmail.com</a>
                                 </td>
+                                <td>123456789</td>
                                 <td>065837778514</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
@@ -193,8 +198,9 @@
                                 <td>Science</td>
                             
                                 <td>
-                                    <a href="" class="__cf_email__" data-cfemail="e087928183858d818495858b85a08d81898cce838f8d">[email&nbsp;protected]</a>
+                                    <a href="" >demo@gmail.com</a>
                                 </td>
+                                <td>123456789</td>
                                 <td>02283777851</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">

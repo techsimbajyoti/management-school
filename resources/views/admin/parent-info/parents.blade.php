@@ -132,7 +132,7 @@
                                                 </td>
                                                 <td>Father</td>
                                                 <td>
-                                                <a href="specific-student" class="btn ot-btn-primary" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn1"><i class="fa fa-eye"></i> Childern</a>
+                                                <a href="specific-student" class="btn ot-btn-primary"><i class="fa fa-eye"></i> Childern</a>
                                                     </td>
                                                 <td>Dhaka</td>
                                                 <td><span class="badge-basic-success-text">Active</span></td>
@@ -220,103 +220,7 @@
   </div>
 
 
-     <!-- The Modal -->
-<div id="myModal1" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="text-left">Student Details</h4>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <div class="col-lg-12 marksheet-form">
-            <div class="card ot-card mb-24" id="printableArea">
-              <div class="routine_wrapper">
-                <div class="routine_wrapper_body">
-                  <div class="student_info_wrapper">
-                    <div class="student_info_single">
-                      <span>Student name :</span>
-                      <h5>Student 1114</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Student Number :</span>
-                      <h5>00000000000</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Date of Birth :</span>
-                      <h5>02 Oct 2023</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Email Id :</span>
-                      <h5>parent@gmail.com</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Class (Section) :</span>
-                      <h5>Two (A)</h5>
-                    </div> 
-                    <div class="student_info_single">
-                      <span>Admission Date :</span>
-                      <h5>00/00/0000</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Address :</span>
-                      <h5>Demo Demo</h5>
-                    </div>
-                    {{-- <div class="student_info_single">
-                      <span>GPA :</span>
-                      <h5>0.00</h5>
-                    </div> --}}
-                  </div>
-                </div>
-
-                <div class="routine_wrapper_body">
-                    <div class="student_info_wrapper">
-                      <div class="student_info_single">
-                        <span>Student name :</span>
-                        <h5>Student 1114</h5>
-                      </div>
-                      <div class="student_info_single">
-                        <span>Student Number :</span>
-                        <h5>00000000000</h5>
-                      </div>
-                      <div class="student_info_single">
-                        <span>Date of Birth :</span>
-                        <h5>02 Oct 2023</h5>
-                      </div>
-                      <div class="student_info_single">
-                        <span>Email Id :</span>
-                        <h5>parent@gmail.com</h5>
-                      </div>
-                      <div class="student_info_single">
-                        <span>Class (Section) :</span>
-                        <h5>Two (A)</h5>
-                      </div> 
-                      <div class="student_info_single">
-                        <span>Admission Date :</span>
-                        <h5>00/00/0000</h5>
-                      </div>
-                      <div class="student_info_single">
-                        <span>Address :</span>
-                        <h5>Demo Demo</h5>
-                      </div>
-                      {{-- <div class="student_info_single">
-                        <span>GPA :</span>
-                        <h5>0.00</h5>
-                      </div> --}}
-                    </div>
-                  </div>
-              </div>
-            </div>
-        </div>
-
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" onclick="document.getElementById('myModal1').style.display='none'" class="cancelbtn">Cancel</button>
-      </div>
-    </div>
-  </div>
+ 
 @endsection
 
 @push('scripts')

@@ -40,6 +40,9 @@
                             <div class="text-center">
                                 <button type="submit" class="btn btn-warning btn-round mb-3">{{ __('Send Password Reset Link') }}</button>
                             </div>
+                            <div class="text-center">
+                            <a href="{{url('/')}}" class="text-info">Back to login page</a>
+                            </div>
                         </form>
                     </div>
                 </div>

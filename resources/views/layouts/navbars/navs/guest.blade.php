@@ -8,7 +8,8 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
             </div>
-            <a class="navbar-brand" href="#pablo">{{ __('School Management') }}</a>
+            <img src="{{ asset('paper') }}/img/d.png" class="img-fluid" alt="Logo" height="55px" width="55px">
+            {{-- <a class="navbar-brand" href="#pablo">{{ __('School Management') }}</a> --}}
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -22,16 +23,16 @@
                     <i class="nc-icon nc-layout-11"></i> {{ __('Dashboard') }}
                     </a>
                 </li> -->
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="{{ route('register') }}" class="nav-link">
                     <i class="nc-icon nc-book-bookmark"></i>{{ __('Register') }}
                     </a>
-                </li>
-                <li class="nav-item  active ">
+                </li> --}}
+                {{-- <li class="nav-item  active ">
                     <a href="{{ route('login') }}" class="nav-link">
                     <i class="nc-icon nc-tap-01"></i>{{ __('Login') }}
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

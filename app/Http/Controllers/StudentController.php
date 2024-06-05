@@ -91,7 +91,23 @@ class StudentController extends Controller
 
     public function student_edit(){
         $country = Country::get();
-        return view('students.edit-student',compact('country'));
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+        $Language = Language::get();
+        
+        return view('students.edit-student',compact('Language','BloodGroup','Religion','test','testing','country','state'));
     }
 
 

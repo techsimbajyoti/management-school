@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'assign-subject'
+    'elementActive' => 'add-shift'
 ])
 @section('content')
 <div class="content">
