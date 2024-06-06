@@ -20,7 +20,7 @@
                 <div class="table-content table-basic mt-20">
                     <div class="card ot-card">
                       <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Gallery category</h4>
+                        <h4 class="mb-0">Gallery Category</h4>
                         <a href="{{route('add-gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
                       </div>
                       <hr>
@@ -31,7 +31,7 @@
                               <tr>
                                 <th class="serial">SR No.</th>
                                 <th class="purchase">Name</th>
-                                <th class="purchase">Image</th>
+                                <th class="purchase">Image / Video</th>
                                 <th class="purchase">Status</th>
                                 <th class="action">Action</th>
                               </tr>
@@ -40,7 +40,7 @@
                               <tr id="row_3">
                                 <td class="serial">3</td>
                                 <td>Awards</td>
-                                <td><a href="{{route('view-image')}}" ><img src="{{asset('paper/img/oceans.jpeg')}}" height="40px" width="40px"></a></td>
+                                <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
@@ -57,7 +57,7 @@
                               <tr id="row_2">
                                 <td class="serial">4</td>
                                 <td>Annual Program</td>
-                                <td><a href="{{route('view-image')}}"><img src="{{asset('paper/img/bg/school2.jpg')}}" height="40px" width="40px"></a></td>
+                                <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">

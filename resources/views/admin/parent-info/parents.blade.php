@@ -102,6 +102,7 @@
                                             <th class="purchase">Name</th>
                                             <th class="purchase">Phone</th>
                                             <th class="purchase">Email</th>
+                                            <th class="purchase">Password</th>
                                             <th class="purchase">Relation</th>
                                             <th class="purchase">Childern Details</th>
                                             <th class="purchase">Address</th>
@@ -130,6 +131,7 @@
                                                 <td>
                                                     parent@gmail.com
                                                 </td>
+                                                <td>123456789</td>
                                                 <td>Father</td>
                                                 <td>
                                                 <a href="specific-student" class="btn ot-btn-primary"><i class="fa fa-eye"></i> Childern</a>

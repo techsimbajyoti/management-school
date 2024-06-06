@@ -32,7 +32,6 @@
                     <div class="card ot-card">
                         <div class="card-header">
                             <h6 class="card-title">{{ __('Please fill The form Below To Admit A New Student') }}</h6>
-                            
                         </div>
                         <hr>
 

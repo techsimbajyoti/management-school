@@ -28,7 +28,7 @@
                 <div class="table-content table-basic mt-20">
                     <div class="card ot-card">
                       <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Annual Function</h4>
+                        <h4 class="mb-0">Annual Function Video</h4>
                         <a href="{{route('gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                       </div>
                       <hr>
@@ -45,6 +45,7 @@
                                     <img src="{{ asset('paper') }}/img/111.jpeg" alt="Image 2" class="zoom">
                                 </a>
                             </div>
+                            
                         </div>
                       </div>
                     </div>

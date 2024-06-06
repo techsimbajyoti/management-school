@@ -22,6 +22,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FeesController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+	Route::get('admin-edit', [AdminController::class, 'admin_edit'])->name('admin-edit');
 
 	Route::get('students', [StudentController::class, 'students'])->name('students');
 
@@ -260,6 +263,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('student-payment', [FeesController::class, 'student_payment'])->name('student-payment');
 
 	Route::get('admin-manage-payment', [FeesController::class, 'admin_manage_payment'])->name('admin-manage-payment');
+
+	Route::post('update-password', [HomeController::class, 'update_password'])->name('update-password');
+
+	Route::get('view-video', [HomeController::class, 'view_video'])->name('view-video');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
