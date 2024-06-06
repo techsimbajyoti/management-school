@@ -94,6 +94,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Change Password</a>
                         </div>
                     </div>
                 </li>
@@ -113,6 +114,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('Change Password') }}</a>
                         </div>
                     </div>
                 </li>

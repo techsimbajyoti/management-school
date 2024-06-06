@@ -21,38 +21,24 @@
                 {{ session('password_status') }}
             </div>
         @endif
+        <div class="edit-parent-profile">
+        <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="title">My Profile</h2>
+            <a class="btn btn-lg ot-btn-primary mb-5" id="edit-parent"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+        </div>
+       </div>
+        <div class="row">
+            @include('admin.student-info.profile-inc')
+           </div>
+        </div>
         <div class="row">
             <div class="col-md-12 card">
             <div class="page-content">
                 <div class="profile-content">
                     <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-0">
-                        <div class="profile-menu">
-                            <div class="profile-menu-head">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <img class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Admin"></div>
-                                <div class="flex-grow-1">
-                                <div class="body">
-                                    <h2 class="title">Parent</h2>
-                                    <p class="paragraph">Parent</p>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="profile-menu-body">
-                                <nav>
-                                    <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="">My Profile</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link update-admin-password">Update Password</a>
-                                    </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="profile-body edit-parent-profile">
+                        
+                        {{-- <div class="profile-body edit-parent-profile">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h2 class="title">My Profile</h2>
                                 <a class="btn btn-lg ot-btn-primary mb-5" id="edit-parent"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
@@ -95,7 +81,7 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         @include('parents.edit-parent')
                         @include('admin.change-password')

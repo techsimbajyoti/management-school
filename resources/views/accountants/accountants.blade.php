@@ -111,79 +111,201 @@
                 </div>
             </div>
         </div>
+        
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header ">
-                        <h5 class="card-title">Users Behavior</h5>
-                        <p class="card-category">24 Hours performance</p>
+                        <h5 class="card-title">Fees Collection (2024)</h5>
                     </div>
                     <div class="card-body ">
-                        <canvas id=chartHours width="400" height="100"></canvas>
-                    </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-history"></i> Updated 3 minutes ago
-                        </div>
+                        <canvas id=myChart width="400" height="100"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header ">
+                        <h5 class="card-title">School Calender</h5>
+                    </div><hr>
+                    <div class="card-body ">
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="card ">
                     <div class="card-header ">
-                        <h5 class="card-title">Email Statistics</h5>
-                        <p class="card-category">Last Campaign Performance</p>
-                    </div>
-                    <div class="card-body ">
-                        <canvas id="chartEmail"></canvas>
-                    </div>
-                    <div class="card-footer ">
-                        <div class="legend">
-                            <i class="fa fa-circle text-primary"></i> Opened
-                            <i class="fa fa-circle text-warning"></i> Read
-                            <i class="fa fa-circle text-danger"></i> Deleted
-                            <i class="fa fa-circle text-gray"></i> Unopened
-                        </div>
-                        <hr>
-                        <div class="stats">
-                            <i class="fa fa-calendar"></i> Number of emails sent
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h5 class="card-title">NASDAQ: AAPL</h5>
-                        <p class="card-category">Line Chart with Points</p>
-                    </div>
+                        <h5 class="card-title">Revenue (2024)</h5>
+                    </div><hr>
                     <div class="card-body">
-                        <canvas id="speedChart" width="400" height="100"></canvas>
-                    </div>
-                    <div class="card-footer">
-                        <div class="chart-legend">
-                            <i class="fa fa-circle text-info"></i> Tesla Model S
-                            <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                        </div>
-                        <hr />
-                        <div class="card-stats">
-                            <i class="fa fa-check"></i> Data information certified
-                        </div>
+                        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 @endsection
 
 @push('scripts')
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-            demo.initChartsPages();
+      
+
+    
+         
+  window.onload = function () {
+            var options = {
+                animationEnabled: true, 
+                title: {
+                    text: "Yearly Metrics"
+                },
+                axisX: {
+                    valueFormatString: "YYYY"
+                },
+                axisY: {
+                    title: "Amount (in USD)",
+                    prefix: "$"
+                },
+                data: [
+                    {
+                        type: "spline",
+                        name: "Total Income",
+                        showInLegend: true,
+                        yValueFormatString: "$#,###",
+                        xValueFormatString: "YYYY",
+                        dataPoints: [
+                            { x: new Date(2018, 0), y: 10000 },
+                            { x: new Date(2019, 0), y: 15000 },
+                            { x: new Date(2020, 0), y: 20000 },
+                            { x: new Date(2021, 0), y: 25000 },
+                            { x: new Date(2022, 0), y: 30000 },
+                            { x: new Date(2023, 0), y: 35000 }
+                        ]
+                    },
+                    {
+                        type: "spline",
+                        name: "Total Expense",
+                        showInLegend: true,
+                        yValueFormatString: "$#,###",
+                        xValueFormatString: "YYYY",
+                        dataPoints: [
+                            { x: new Date(2018, 0), y: 5000 },
+                            { x: new Date(2019, 0), y: 7000 },
+                            { x: new Date(2020, 0), y: 9000 },
+                            { x: new Date(2021, 0), y: 11000 },
+                            { x: new Date(2022, 0), y: 13000 },
+                            { x: new Date(2023, 0), y: 15000 }
+                        ]
+                    },
+                    {
+                        type: "spline",
+                        name: "Total Balance",
+                        showInLegend: true,
+                        yValueFormatString: "$#,###",
+                        xValueFormatString: "YYYY",
+                        dataPoints: [
+                            { x: new Date(2018, 0), y: 5000 },
+                            { x: new Date(2019, 0), y: 8000 },
+                            { x: new Date(2020, 0), y: 11000 },
+                            { x: new Date(2021, 0), y: 14000 },
+                            { x: new Date(2022, 0), y: 17000 },
+                            { x: new Date(2023, 0), y: 20000 }
+                        ]
+                    }
+                ]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+        }
+
+         $(document).ready(function() {
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: 'Buddha Purnima',
+                        start: '2024-05-23'
+                    },
+                    {
+                        title: 'World Environment Day',
+                        start: '2024-06-05'
+                    },
+                    {
+                        title: 'World Oceans Day',
+                        start: '2024-06-08',
+                        end: '2024-06-03'
+                    }
+                    // more events here
+                ]
+            });
+            calendar.render();
         });
+
+        const xValues = [50,60,70,80,90,100,110,120,130,140,150];
+const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  }
+});
+
+mobiscroll.setOptions({
+  theme: 'ios',
+  themeVariant: 'light'
+});
+
+$(function () {
+  var inst = $('#demo-desktop-month-view')
+    .mobiscroll()
+    .eventcalendar({
+      clickToCreate: false,
+      dragToCreate: false,
+      dragToMove: false,
+      dragToResize: false,
+      eventDelete: false,
+      view: {
+        calendar: { labels: true },
+      },
+      onEventClick: function (args) {
+        mobiscroll.toast({
+          message: args.event.title,
+        });
+      },
+    })
+    .mobiscroll('getInst');
+
+  $.getJSON(
+    'https://trial.mobiscroll.com/events/?vers=5&callback=?',
+    function (events) {
+      inst.setEvents(events);
+    },
+    'jsonp',
+  );
+});
+  
+    
     </script>
 @endpush

@@ -24,7 +24,7 @@
                 </select>
               </div>
               <div class="single_large_selectBox">
-                <input value="" name="month" class="form-control ot-input" type="month" placeholder="Search month">
+                <input value="" name="date" class="form-control ot-input" type="date">
               </div>
               <div class="single_large_selectBox">
                 <input value="" name="date" class="form-control ot-input" type="date">
@@ -118,10 +118,10 @@
                     <th>28</th>
                     <th>29</th>
                     <th>30</th>
-                    <th class="font-weight-bold" style="color: #386e42;">P</th>
-                    <th class="font-weight-bold" style="color: #d1ba21;">L</th>
-                    <th class="font-weight-bold" style="color: #cc2121;">A</th>
-                    <th class="font-weight-bold" style="color: #217fcc;">F</th>
+                    <th class="font-weight-bold" style="color: #386e42;" title="Present" data-toggle="tooltip">P</th>
+                    <th class="font-weight-bold" style="color: #d1ba21;" title="Late" data-toggle="tooltip">L</th>
+                    <th class="font-weight-bold" style="color: #cc2121;" title="Absent" data-toggle="tooltip">A</th>
+                    <th class="font-weight-bold" style="color: #217fcc;" title="Test" data-toggle="tooltip">F</th>
                   </tr>
                 </thead>
                 <tbody>

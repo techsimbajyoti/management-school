@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-md-4">
                             <span style="color:red">*</span>
-                            <label class="form-label">{{ __('Email address:') }}</label>
+                            <label class="form-label">{{ __('Email address:') }} <span class="text-info" style="text-size:0.85rem;">(Username)</span></label>
 
                              <div class="form-group">
                                  <input type="text" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Email Address" required value="admin@gmail.com">

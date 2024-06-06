@@ -51,6 +51,12 @@ class HomeController extends Controller
         return view('students.students-dashboard');
     }
 
+    public function change_password()
+    {
+        return view('admin.change-password');
+    }
+
+
     public function parent_dashboard()
     {
         return view('parents.parents');
