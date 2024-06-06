@@ -33,7 +33,7 @@
                             <label for="exampleDataList" class="form-label">Name <span class="fillable">*</span></label> <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="text" placeholder="Enter name" value="">
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label for="exampleDataList" class="form-label">Upload Images <span class="fillable">*</span></label>
+                            <label for="exampleDataList" class="form-label">Upload Images <span class="text-info">(Accepted Images: jpg,jpeg,png. Max file size 2Mb )</span><span class="fillable">*</span></label>
                              <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="file" placeholder="Enter name" value="">
                           </div>
                           <div class="col-md-6">

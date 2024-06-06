@@ -165,6 +165,12 @@
                     </select>
                 </td>
                 <td>
+                    <select class="form-control" name="document_name[]">
+                    <option>Please select one of these</option>
+                    <option>Class Teacher</option>
+                    </select>
+                </td>
+                <td>
                     <button type="button" class="btn btn-danger remove-document">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </button>

@@ -150,6 +150,7 @@
 
                 newRow.innerHTML = `
                     <td>
+                        <label>Subject</label>
                         <select class="form-control" name="document_name[]">
                             <option>Please select one of these</option>
                             <option>Hindi</option>
@@ -169,6 +170,7 @@
                         <input type="checkbox" name="document_file[]" class="toggle-select">
                         <label>Monday</label>
                         <select class="form-control hidden" name="document_name[]">
+                            <option>Lecture No.</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -185,6 +187,7 @@
                         <input type="checkbox" name="document_file[]" class="toggle-select">
                         <label>Tuesday</label>
                         <select class="form-control hidden" name="document_name[]">
+                            <option>Lecture No.</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -201,6 +204,7 @@
                         <input type="checkbox" name="document_file[]" class="toggle-select">
                         <label>Wednesday</label>
                         <select class="form-control hidden" name="document_name[]">
+                            <option>Lecture No.</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -217,6 +221,7 @@
                         <input type="checkbox" name="document_file[]" class="toggle-select">
                         <label>Thursday</label>
                         <select class="form-control hidden" name="document_name[]">
+                            <option>Lecture No.</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -233,6 +238,7 @@
                         <input type="checkbox" name="document_file[]" class="toggle-select">
                         <label>Friday</label>
                         <select class="form-control hidden" name="document_name[]">
+                            <option>Lecture No.</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -249,6 +255,7 @@
                         <input type="checkbox" name="document_file[]" class="toggle-select">
                         <label>Saturday</label>
                         <select class="form-control hidden" name="document_name[]">
+                            <option>Lecture No.</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>

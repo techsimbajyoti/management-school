@@ -22,85 +22,205 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-md-12 card">
-                <div class="page-content">
-                <div class="profile-content">
-                    <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-0">
-                        <div class="profile-menu">
-                            <div class="profile-menu-head">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <img class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Admin"></div>
-                                <div class="flex-grow-1">
-                                <div class="body">
-                                    <h2 class="title">Admin</h2>
-                                    <p class="paragraph">Admin</p>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="profile-menu-body">
-                                <nav>
-                                    <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="">My Profile</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link update-admin-password">Update Password</a>
-                                    </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="profile-body edit">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h2 class="title">My Profile</h2>
-                                <a class="btn btn-lg ot-btn-primary mb-5" id="edit-admin-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
-                            </div>
-                            <div class="profile-body-form">
-                            <div class="form-item border-bottom-0 pb-0">
-                                <div class="image-box">
-                                <img id="id-profile-image" class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Admin"></div>
-                            </div>
-                            <div class="form-item">
-                                <div class="d-flex justify-content-between align-content-center">
-                                <div class="align-self-center">
-                                    <h2 class="title">Name</h2>
-                                    <p class="paragraph">Admin</p>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="form-item">
-                                <div class="d-flex justify-content-between align-content-center">
-                                <div class="align-self-center">
-                                    <h2 class="title">E-mail Address<span class="text-info" style="font-size:0.85rem;"> (Note: Login Id)</span></h2>
-                                    <p class="paragraph"><a href="">admin@gmail.com</a></p>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="form-item">
-                                <div class="d-flex justify-content-between align-content-center">
-                                <div class="align-self-center">
-                                    <h2 class="title">Date of Birth</h2>
-                                    <p class="paragraph">2022-09-07</p>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="form-item">
-                                <div class="d-flex justify-content-between align-content-center">
-                                <div class="align-self-center">
-                                    <h2 class="title">Phone</h2>
-                                    <p class="paragraph">01811000000</p>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-
-                        @include('admin.edit-admin-profile')
-                        @include('admin.change-password')
+            <div class="col-lg-4">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-body text-center">
+                        <img src="{{ asset('paper') }}/img/dummy-image.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">Admin</h5>
+                        <p class="text-muted mb-1">Contact Number : 0000000000</p>
+                        <p class="text-muted mb-4">Address : Dummy</p>
                     </div>
                 </div>
+            
+                {{-- <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Documents Uploaded</h4>
+                    </div>
+                    <hr>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p class="mb-0">Transfer Certificate</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p class="mb-0">Attested Copy of Adhaar Card</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p class="mb-0">Previous Year Marksheet</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> --}}
+            </div>
+                <div class="col-lg-8">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 title">{{ __('General Information') }}</h5>
+                        <a href="{{route('admin-edit')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">John Smith</p>
+                            </div>
+                            {{-- <div class="col-sm-3">
+                                <p class="mb-0">Blood Group</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">O+</p>
+                            </div> --}}
+                        </div>
+                        
+                        <hr>
+                        <div class="row">
+                            {{-- <div class="col-sm-3">
+                                <p class="mb-0">Class </p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">Two</p>
+                            </div> --}}
+                            <div class="col-sm-3">
+                                <p class="mb-0">Gender</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">Male</p>
+                            </div>
+                        </div>
+                        <hr>
+                        {{-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Section</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">A</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="mb-0">Religion</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">Hindu</p>
+                            </div>
+                        </div> --}}
+                        {{-- <hr> --}}
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Date Of Birth</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">05 April, 2014</p>
+                            </div>
+                            {{-- <div class="col-sm-3">
+                                <p class="mb-0">Category</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">OBC</p>
+                            </div> --}}
+                        </div>
+                        <hr>
+                        {{-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Admission Date</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">12 Aug, 2021</p>
+                            </div>
+                        </div>
+                        <hr> --}}
+                        {{-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Parent Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">Steve Smith</p>
+                            </div>
+                        </div>
+                        <hr> --}}
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Contact Information</h4>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">Bay Area</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Country</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">United States Of America</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">State</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">California</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">City</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">San Francisco</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Pin Code</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">125896</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Contact</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">(097) 234-5678</p>
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">example@example.com</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Password</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">123456789</p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
