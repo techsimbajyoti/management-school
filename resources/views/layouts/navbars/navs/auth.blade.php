@@ -34,7 +34,7 @@
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item" id="change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
@@ -95,7 +95,6 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
-                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Change Password</a>
                         </div>
                     </div>
                 </li>
@@ -115,7 +114,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('Change Password') }}</a>
+                           
                         </div>
                     </div>
                 </li>
@@ -192,7 +191,7 @@
   @push('scripts')
   <script>
     $(document).ready(function() {
-        $('#change-password').click(function(){
+        $('.change-password').click(function(){
             $('#exampleModal').modal('show');
             $('#myForm')[0].reset();
         });

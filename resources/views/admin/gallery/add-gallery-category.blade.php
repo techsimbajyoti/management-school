@@ -3,6 +3,11 @@
     'elementActive' => 'add-gallery-category'
 ])
 @section('content')
+<style>
+  input#exampleDataList {
+  margin-left: 10px;
+}
+</style>
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -35,6 +40,19 @@
                           <div class="col-md-6 mb-3">
                             <label for="exampleDataList" class="form-label">Upload Images <span class="text-info">(Accepted Images: jpg,jpeg,png. Max file size 2Mb )</span><span class="fillable">*</span></label>
                              <input class="form-control ot-input" name="name" list="datalistOptions" id="exampleDataList" type="file" placeholder="Enter name" value="">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="exampleDataList" class="form-label">Gallery For <span class="fillable">*</span></label> 
+                            <br><input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                          <label for="">All</label>
+                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                          <label for="">Student's</label>
+                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                          <label for="">Teacher's</label>
+                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                          <label for="">Parent's</label>
+                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                          <label for="">Open Event</label>
                           </div>
                           <div class="col-md-6">
                             <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">

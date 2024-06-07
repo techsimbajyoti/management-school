@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'image'
+    'elementActive' => 'video'
 ])
 
 @section('content')
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Add Images</h4><a href="{{route('image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                        <h4 class="mb-0">Add Video Link</h4><a href="{{route('video')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                     </div>
                     <hr>
                     <div class="card-body">
@@ -64,12 +64,11 @@
 
                               <div class="col-md-12">
                                 <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
-                                  <h5>Upload Images</h5>
+                                  <h5>Upload Video</h5>
                                   <a id="add-document" class="btn btn-lg ot-btn-primary">
                                       <i class="fa fa-plus" aria-hidden="true"></i> Add
                                   </a>
                                 </div>
-                                <p class="text-info">Accepted Images : jpeg, jpg, png, svg and Max file size is 2Mb</p>
                               </div>
 
                               <div class="col-md-12">
@@ -78,7 +77,7 @@
                                       <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
                                           <tr>
                                               <th scope="col">Name <span class="text-danger"></span></th>
-                                              <th scope="col">Images <span class="text-danger"></span></th>
+                                              <th scope="col">Video <span class="text-danger"></span></th>
                                               <th scope="col">Action</th>
                                           </tr>
                                       </thead>
@@ -92,7 +91,7 @@
                                <div class="card-footer">
                                 <div class="d-flex justify-content-end">
                                     <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
-                                    <a href="{{ route('image') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                                    <a href="{{ route('video') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
                                 </div>
                             </div>
                               </div>
@@ -119,10 +118,10 @@
 
             newRow.innerHTML = `
                 <td>
-                    <input type="text" class="form-control" name="document_name[]" placeholder="Enter Image Name">
+                    <input type="text" class="form-control" name="document_name[]" placeholder="Enter Video Name">
                 </td>
                 <td>
-                    <input type="file" class="form-control" name="document_file[]">
+                    <input type="text" class="form-control" name="document_file[]">
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger remove-document">

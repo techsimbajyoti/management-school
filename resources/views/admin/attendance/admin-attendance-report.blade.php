@@ -59,15 +59,16 @@
                                 </option>
                               </select>
                             </div>
-                            <div class="single_large_selectBox">
+                            {{-- <div class="single_large_selectBox">
                               <input value="" name="month" class="form-control ot-input" type="month" placeholder="Search month">
-                            </div>
+                            </div> --}}
                             <div class="single_large_selectBox">
                               <input value="" name="date" class="form-control ot-input" type="date">
                             </div>
-                            <div class="single_large_selectBox">
+                            {{-- <div class="single_large_selectBox">
                               <input value="" name="roll" class="form-control ot-input" type="number" placeholder="Roll number">
-                            </div><a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-search"></i> Search</a>
+                            </div> --}}
+                            <a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-search"></i> Search</a>
                           </div>
                         </div>
                       </form>
@@ -82,12 +83,6 @@
                       <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
                           @csrf
-                          <div class="input-check-radio mb-3">
-                            <div class="form-check d-flex align-items-center">
-                              <input type="checkbox" id="holiday" class="form-check-input mt-0 mr-4 read common-key" name="holiday"> 
-                              <label class="custom-control-label">Holiday</label>
-                            </div>
-                          </div>
                           <div class="table-responsive">
                             <table class="table table-bordered role-table" id="students_table">
                               <thead class="thead">
@@ -148,7 +143,7 @@
                             </strong>
                             </div>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="myTable">
                               <thead>
                                 <tr>
                                   <th class="purchase">Name</th>
@@ -246,6 +241,10 @@
         $(document).ready(function() {
             $('.detail-view').hide();
             $('.short-view').hide();    
+
+          var table = $('#myTable').DataTable({
+              fixedHeader: true
+          });
 
             $('.search-student').click(function(){
                 var niceSelect = $('.niceSelect').val();

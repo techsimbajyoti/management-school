@@ -89,10 +89,19 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/tokenize2/1.1.0/js/tokenize2.min.js"></script>
 
-   
+   <!-- jQuery -->
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<!-- DataTables FixedHeader CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.1/css/fixedHeader.dataTables.min.css">
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<!-- DataTables FixedHeader JS -->
+<script src="https://cdn.datatables.net/fixedheader/3.2.1/js/dataTables.fixedHeader.min.js"></script>
     @stack('scripts')
 
     @include('layouts.navbars.fixed-plugin-js')

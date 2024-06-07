@@ -110,6 +110,10 @@ class ParentController extends Controller
         return view('parents.exam');
 
     }
+
+    public function parent_profile_view(){
+        return view('students.parent-profile-view');
+    }
     
 }
 

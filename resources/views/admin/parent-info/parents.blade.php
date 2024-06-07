@@ -168,7 +168,7 @@
     <!-- Modal content -->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="text-left">Student Details</h4>
+        <h4 class="text-left">Parent Details</h4>
         <span class="close">&times;</span>
       </div>
       <div class="modal-body">

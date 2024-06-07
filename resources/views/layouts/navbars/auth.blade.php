@@ -195,12 +195,12 @@
                 </a>
                 <div class="collapse {{ in_array($elementActive, ['manage-attendance','attendance','admin-attendance-report']) ? 'show' : '' }}" id="laravelExamplessss">
                     <ul class="nav">
-                        <li class="{{ $elementActive == 'attendance' ? 'active' : '' }}">
+                        {{-- <li class="{{ $elementActive == 'attendance' ? 'active' : '' }}">
                             <a href="{{ route('admin-attendance') }}">
                                 <span class="sidebar-mini-icon">{{ __('A') }}</span>
                                 <span class="sidebar-normal">{{ __(' Attendance ') }}</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="{{ $elementActive == 'admin-attendance-report' ? 'active' : '' }}">
                             <a href="{{ route('admin-attendance-report') }}">
@@ -212,15 +212,15 @@
                 </div>
             </li>
 
-            <li class="{{ in_array($elementActive, ['gallery','gallery-category','image']) ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['gallery','gallery-category','image']) ? 'true' : 'false' }}" href="#laravelExampl">
+            <li class="{{ in_array($elementActive, ['video','gallery','gallery-category','image']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['video','gallery','gallery-category','image']) ? 'true' : 'false' }}" href="#laravelExampl">
                     <i class="fas fa-images"></i>
                     <p>
                         {{ __('Gallery') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ in_array($elementActive, ['gallery','gallery-category','image']) ? 'show' : '' }}" id="laravelExampl">
+                <div class="collapse {{ in_array($elementActive, ['video','gallery','gallery-category','image']) ? 'show' : '' }}" id="laravelExampl">
                     <ul class="nav">
                         <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
                             <a href="{{ route('gallery-category') }}">
@@ -232,7 +232,14 @@
                         <li class="{{ $elementActive == 'image' ? 'active' : '' }}">
                             <a href="{{ route('image') }}">
                                 <span class="sidebar-mini-icon">{{ __('IV') }}</span>
-                                <span class="sidebar-normal">{{ __(' Image & Video ') }}</span>
+                                <span class="sidebar-normal">{{ __(' Image ') }}</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $elementActive == 'video' ? 'active' : '' }}">
+                            <a href="{{ route('video') }}">
+                                <span class="sidebar-mini-icon">{{ __('V') }}</span>
+                                <span class="sidebar-normal">{{ __(' Video ') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -478,9 +485,6 @@
                 </a>
             </li>
 
-
-
-
             
             @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
             <li class="{{ $elementActive == 'student-dashboard' ? 'active' : '' }}">
@@ -537,10 +541,6 @@
                     <p>{{ __('Notification') }}</p>
                 </a>
             </li>
-
-
-
-
 
 
                 @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)

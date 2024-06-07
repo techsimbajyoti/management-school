@@ -267,6 +267,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('update-password', [HomeController::class, 'update_password'])->name('update-password');
 
 	Route::get('view-video', [HomeController::class, 'view_video'])->name('view-video');
+
+	Route::get('video', [HomeController::class, 'video'])->name('video');
+
+	Route::get('add-video', [HomeController::class, 'add_video'])->name('add-video');
+
+	Route::get('edit-video', [HomeController::class, 'edit_video'])->name('edit-video');
+
+	Route::get('delete-video', [HomeController::class, 'delete_video'])->name('delete-video');
+
+	Route::get('parent-profile-view', [ParentController::class, 'parent_profile_view'])->name('parent-profile-view');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

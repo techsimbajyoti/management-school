@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Models\State;
 
 class HomeController extends Controller
 {
@@ -105,7 +107,19 @@ class HomeController extends Controller
     }
 
     public function add_event(){
-        return view('admin.event.add-event');
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+
+        return view('admin.event.add-event',compact('test','testing','country','state'));
     }
 
     public function calender(){
@@ -194,5 +208,21 @@ class HomeController extends Controller
 
     public function view_video(){
         return view('admin.gallery.view-video');
+    }
+
+    public function video(){
+        return view('admin.gallery.video');
+    }
+
+    public function add_video(){
+        return view('admin.gallery.add-video');
+    }
+
+    public function edit_video(){
+        return view('admin.gallery.edit-video');
+    }
+
+    public function delete_video(){
+        
     }
 }
