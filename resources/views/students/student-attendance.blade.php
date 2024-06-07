@@ -6,7 +6,7 @@
 <div class="content">
   <div class="row">
     <div class="col-12 p-0 search-form">
-      <form action="" method="post" id="marksheed" enctype="multipart/form-data" name="marksheed">
+      <form action="" method="" id="marksheed" enctype="multipart/form-data" name="marksheed">
         <input type="hidden" name="_token" value="fE3jhMKUFkldbNrDIJ5XZv8piyHC35HDe5tRxIwb">
         <div class="card ot-card mb-24 position-relative z_1">
           <div class="card-header d-flex align-items-center gap-4 flex-wrap">
@@ -46,7 +46,7 @@
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-30">
+              <table class="table table-bordered table-striped mb-30" id="myTable1">
                 <thead class="thead-light">
                   <tr>
                     <th>Date</th>
@@ -85,7 +85,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-30">
+              <table class="table table-bordered table-striped mb-30" id="myTable">
                 <thead>
                   <tr>
                     <th>1</th>
@@ -170,6 +170,8 @@
     </div>
   </div>
 </div>@endsection @push('scripts') 
+<script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
+<script type="text/javascript"  charset="utf8" src="paper/js/dataTable.js"></script>
 <script>
 
 
@@ -190,4 +192,12 @@
       }
     });
    });
+
+
+$(function() {
+$("#myTable").dataTable();
+$("#myTable1").dataTable();
+});
+
+
 </script> @endpush

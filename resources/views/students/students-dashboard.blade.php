@@ -111,7 +111,7 @@
          </div>
      </div>
  </div>
-  <div class="row">
+  {{-- <div class="row">
     <div class="col-md-6">
       <div class="card card-chart">
         <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap_10 card_header_border">
@@ -177,13 +177,99 @@
         </div>
       </div>
     </div>
-  </div>
-</div>@endsection @push('scripts') 
+  </div> --}}
+
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card ot-card mb-24">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{ asset('paper') }}/img/environment.jpeg" alt="image">
+                        </div>
+                        <div class="card-footer text-center">
+                            Word Environment Day
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image">
+                        </div>
+                        <div class="card-footer text-center">
+                            Word Oceans Day
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image">
+                        </div>
+                        <div class="card-footer text-center">
+                            World Milk Day
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image">
+                        </div>
+                        <div class="card-footer text-center">
+                            World Blood Donor Day
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card ot-card mb-24">
+            <div id='calendar'></div>
+        </div>
+    </div>    
+</div>
+</div>
+@endsection 
+
+@push('scripts')
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
 
+$(document).ready(function() {
+         
 
-        $(document).ready(function() {
-            // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-            demo.initChartsPages();
-        });
-</script> @endpush
+var calendarEl = document.getElementById('calendar');
+var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    events: [
+        {
+            title: 'Buddha Purnima',
+            start: '2024-05-23'
+        },
+        {
+            title: 'World Environment Day',
+            start: '2024-06-05'
+        },
+        {
+            title: 'World Oceans Day',
+            start: '2024-06-08',
+            end: '2024-06-03'
+        }
+        // more events here
+    ]
+});
+calendar.render();
+});
+</script>
+@endpush
+
+
+
+
+       

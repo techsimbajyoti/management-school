@@ -41,9 +41,10 @@
                 </li>
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 <li class="nav-item btn-rotate dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webteachers')->user()->first_name }}
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
                         </p>
@@ -53,17 +54,20 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            
                             <a class="dropdown-item" href="{{ route('edit-teacher') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
                 </li>
 
                 @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
                     <li class="nav-item btn-rotate dropdown">
-                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                        <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="nc-icon nc-settings-gear-65"></i>
+                            {{ auth()->guard('webaccountants')->user()->accountant_name }}
                             <p>
                                 <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
                             </p>
@@ -73,17 +77,19 @@
                                 @csrf
                             </form>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                                 <a class="dropdown-item" href="{{ route('accountant-edit') }}">{{ __('My profile') }}</a>
+                                <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                                <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             </div>
                         </div>
                     </li>
 
                 @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
                 <li class="nav-item btn-rotate dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary"  href="" id="navbarDropdownMenuLink2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webstudents')->user()->first_name }}
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
                         </p>
@@ -93,17 +99,19 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            
                             <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
-                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Change Password</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
                 </li>
                 @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
                 <li class="nav-item btn-rotate dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink2"
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webparents')->user()->father_name }}
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
                         </p>
@@ -113,9 +121,9 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
                 </li>
@@ -192,7 +200,7 @@
   @push('scripts')
   <script>
     $(document).ready(function() {
-        $('#change-password').click(function(){
+        $('.change-password').click(function(){
             $('#exampleModal').modal('show');
             $('#myForm')[0].reset();
         });

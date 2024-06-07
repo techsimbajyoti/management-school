@@ -440,14 +440,16 @@
                     <p>{{ __('Marksheet') }}</p>
                 </a>
             </li>
+            
+
             <li class="{{ $elementActive == 'fees' ? 'active' : '' }}">
                 <a href="{{ route('student-fees') }}">
                     <i class="fa fa-rupee"></i>
                     <p>{{ __('Fees') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'events' ? 'active' : '' }}">
-                <a href="{{ route('parent-dashboard') }}">
+            <li class="{{ $elementActive == 'parent-event' ? 'active' : '' }}">
+                <a href="{{ route('parent-event') }}">
                     <i class="fas fa-calendar-alt"></i>
                     <p>{{ __('Events') }}</p>
                 </a>
@@ -465,8 +467,8 @@
                     <p>{{ __('Attendance') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'gallary' ? 'active' : '' }}">
-                <a href="{{ route('gallary') }}">
+            <li class="{{ $elementActive == 'parent-gallary' ? 'active' : '' }}">
+                <a href="{{ route('parent-gallary') }}">
                     <i class="fa fa-camera"></i>
                     <p>{{ __('Gallary') }}</p>
                 </a>
@@ -501,8 +503,33 @@
                     <p>{{ __('Marksheet') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'events' ? 'active' : '' }}">
-                <a href="{{ route('student-dashboard') }}">
+            <li class="{{ in_array($elementActive, ['subject','class-routine']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['subject','class-routine']) ? 'true' : 'false' }}" href="#laravelExa">
+                    <i class="fas fa-cog"></i>
+                    <p>
+                        {{ __('Academics') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['subject','class-routine']) ? 'show' : '' }}" id="laravelExa">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'subject' ? 'active' : '' }}">
+                            <a href="{{ route('subject') }}">
+                                <span class="sidebar-mini-icon">{{ __('S') }}</span>
+                                <span class="sidebar-normal">{{ __(' Subject ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'class-routine' ? 'active' : '' }}">
+                            <a href="{{ route('class-routine') }}">
+                                <span class="sidebar-mini-icon">{{ __('CS') }}</span>
+                                <span class="sidebar-normal">{{ __(' Class Routine ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="{{ $elementActive == 'student-event' ? 'active' : '' }}">
+                <a href="{{ route('student-event') }}">
                     <i class="fas fa-calendar-alt"></i>
                     <p>{{ __('Events') }}</p>
                 </a>

@@ -81,15 +81,15 @@ class ParentController extends Controller
 
     }
     
-    public function events(){
+    public function parent_event(){
         
-        return view('parents.events');
+        return view('parents.parent-event');
 
     }
     
-    public function gallary(){
+    public function parent_gallary(){
         
-        return view('parents.gallary');
+        return view('parents.parent-gallary');
 
     }
     

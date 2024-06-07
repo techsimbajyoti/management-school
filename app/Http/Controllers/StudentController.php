@@ -230,6 +230,11 @@ class StudentController extends Controller
         return view('students.student-gallary');
     }
 
+    public function view_student_image(){
+        return view('students.view-student-image');
+    }
+
+
     public function student_notification(){
         return view('students.student-notification');
     }
@@ -248,5 +253,14 @@ class StudentController extends Controller
 
     public function admin_student_profile(){
         return view('admin.student-info.student-profile');
+    }
+
+
+    public function subject(){
+        return view('students.subject');
+    }
+
+    public function class_routine(){
+        return view('students.class-routine');
     }
 }

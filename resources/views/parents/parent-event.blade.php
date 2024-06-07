@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'student-event'
+    'elementActive' => 'parent-event'
 ])
 @section('content')
 <div class="content">
