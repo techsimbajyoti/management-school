@@ -115,7 +115,7 @@
                                                 <td class="serial">1</td>
                                                 <td>
                                                 <div class>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalCustomizeWidth" id="myBtn">
+                                                    <a href="{{route('parent-profile-view')}}" target="_blank">
                                                 <div class="user-card">
                                                 <div class="user-avatar">
                                                 <img src="{{ asset('paper') }}/img/demo.png" alt> 
@@ -161,119 +161,10 @@
             </div>
         </div>
     </div>
-
-    <!-- The Modal -->
-<div id="myModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="text-left">Parent Details</h4>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <div class="col-lg-12 marksheet-form">
-            <div class="card ot-card mb-24" id="printableArea">
-              <div class="routine_wrapper">
-                <div class="routine_wrapper_body">
-                  <div class="student_info_wrapper">
-                    <div class="student_info_single">
-                      <span>Parent name :</span>
-                      <h5>Parent 1114</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Parent Number :</span>
-                      <h5>00000000000</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Date of Birth :</span>
-                      <h5>02 Oct 2023</h5>
-                    </div>
-                    <div class="student_info_single">
-                      <span>Email Id :</span>
-                      <h5>parent@gmail.com</h5>
-                    </div>
-                    {{-- <div class="student_info_single">
-                      <span>Class (Section) :</span>
-                      <h5>Two (A)</h5>
-                    </div> --}}
-                    {{-- <div class="student_info_single">
-                      <span>Admission Date :</span>
-                      <h5>00/00/0000</h5>
-                    </div> --}}
-                    <div class="student_info_single">
-                      <span>Address :</span>
-                      <h5>Demo Demo</h5>
-                    </div>
-                    {{-- <div class="student_info_single">
-                      <span>GPA :</span>
-                      <h5>0.00</h5>
-                    </div> --}}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" onclick="document.getElementById('myModal').style.display='none'" class="cancelbtn">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-
- 
 @endsection
 
 @push('scripts')
     <script>
-      // Get the modal
-var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-  // Get the modal
-  var modal1 = document.getElementById("myModal1");
-
-// Get the button that opens the modal
-var btn1 = document.getElementById("myBtn1");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-var span1 = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-btn1.onclick = function() {
-  modal1.style.display = "block";
-}
-
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-span1.onclick = function() {
-  modal1.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-window.onclick = function(event) {
-  if (event.target == modal1) {
-    modal1.style.display = "none";
-  }
-}
 </script>
 @endpush

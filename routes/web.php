@@ -291,7 +291,7 @@ Route::group(['middleware' => 'auth.webstudents'], function () {
 
 	Route::get('student-marksheet', [StudentController::class, 'student_marksheet'])->name('student-marksheet');
 
-	Route::get('events', [StudentController::class, 'student_event'])->name('events');
+	Route::get('student-event', [StudentController::class, 'student_event'])->name('student-event');
 
 	Route::get('student-gallary', [StudentController::class, 'student_gallary'])->name('student-gallary');
 
@@ -300,6 +300,12 @@ Route::group(['middleware' => 'auth.webstudents'], function () {
 	Route::get('student-attendance', [StudentController::class, 'student_attendance'])->name('student-attendance');
 
 	Route::get('student-exam', [StudentController::class, 'student_exam'])->name('student-exam');
+
+	Route::get('subject', [StudentController::class, 'subject'])->name('subject');
+
+	Route::get('class-routine', [StudentController::class, 'class_routine'])->name('class-routine');
+
+	Route::get('view-student-image', [StudentController::class, 'view_student_image'])->name('view-student-image');
 
 });
 
@@ -326,7 +332,7 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::get('marksheet', [ParentController::class, 'marksheet'])->name('marksheet');
 	
-	Route::get('events', [ParentController::class, 'events'])->name('events');
+	Route::get('parent-event', [ParentController::class, 'parent_event'])->name('parent-event');
 	
 	Route::get('exam-routine', [ParentController::class, 'exam_routine'])->name('exam-routine');
 	
@@ -334,7 +340,7 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::get('messages', [ParentController::class, 'messages'])->name('messages');
 	
-	Route::get('gallary', [ParentController::class, 'gallary'])->name('gallary');
+	Route::get('parent-gallary', [ParentController::class, 'parent_gallary'])->name('parent-gallary');
 
 });
 
