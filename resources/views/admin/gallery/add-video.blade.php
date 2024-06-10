@@ -29,7 +29,7 @@
                           <div class="col-lg-12">
                             <div class="row">
                               <div class="col-md-6">
-                                <label for="validationServer04" class="form-label">Gallery category <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="category" id="validationServer04" aria-describedby="validationServer04Feedback">
+                                <label for="validationServer04" class="form-label">Gallery Category <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="category" id="validationServer04" aria-describedby="validationServer04Feedback">
                                   <option value="">
                                     Select Category
                                   </option>

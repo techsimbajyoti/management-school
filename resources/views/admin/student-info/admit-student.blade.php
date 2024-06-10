@@ -501,6 +501,7 @@
   }
   
   var countries = <?php echo json_encode($test); ?>;
+
   /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
   autocomplete(document.getElementById("country"), countries);
 

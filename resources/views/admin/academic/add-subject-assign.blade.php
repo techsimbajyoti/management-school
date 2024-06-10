@@ -29,7 +29,7 @@
                     <div class="row mb-3">
                       <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="validationServer04" class="form-label">Class <span class="fillable">*</span></label>
                                 <select id="getSections" class="nice-select select-class niceSelect bordered_style wide " name="class" aria-describedby="validationServer04Feedback">
                                 <option value>Select class</option>
@@ -39,21 +39,13 @@
                                 <option value="4">Four A</option>
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div id="show_sections">
                                 <label for="validationServer04" class="form-label">Section <span class="fillable">*</span></label>
                                 <select class="nice-select niceSelect bordered_style sections wide " name="section" id="validationServer04" aria-describedby="validationServer04Feedback">
                                 <option value>Select section</option>
                                 </select>
                                 </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label>
-                                <select class="nice-select niceSelect bordered_style wide " name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
-                                <option value="1">Active</option>
-                                <option value="0">Inactive
-                                </option>
-                                </select>
                             </div>
 
                           <div class="col-md-12 mt-3">
@@ -71,7 +63,7 @@
                                         <tr>
                                             <th scope="col">Subject <span class="text-danger"></span></th>
                                             <th scope="col">Teacher <span class="text-danger"></span></th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Class Teacher</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -165,10 +157,7 @@
                     </select>
                 </td>
                 <td>
-                    <select class="form-control" name="document_name[]">
-                    <option>Please select one of these</option>
-                    <option>Class Teacher</option>
-                    </select>
+                    <input type="radio" name="document_name[]">
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger remove-document">

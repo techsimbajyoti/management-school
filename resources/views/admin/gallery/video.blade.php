@@ -43,7 +43,7 @@
                                 <td>Awards</td>
                                 <td>Demo</td>
                                 <td>
-                                  <div class="user-avatar"><img src="https://school.onesttech.com/frontend/img/gallery/23.webp" alt="Photo"></div>
+                                  <div class="user-avatar"><img src="{{ asset('paper') }}/img/124.jpg" alt="Photo"></div>
                                 </td>
                                 <td><a href="#">http://example.com</a></td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
@@ -52,8 +52,8 @@
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a href="{{ route('edit-video') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <a href="{{ route('delete-video') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                                {{-- <a href="{{ route('edit-video') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a> --}}
+                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                                 <td>Awards</td>
                                 <td>Demo</td>
                                 <td>
-                                  <div class="user-avatar"><img src="https://school.onesttech.com/frontend/img/gallery/22.webp" alt="Photo"></div>
+                                  <div class="user-avatar"><img src="{{ asset('paper') }}/img/124.jpg" alt="Photo"></div>
                                 </td>
                                 <td><a href="#">http://example.com</a></td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
@@ -73,8 +73,8 @@
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a href="{{ route('edit-image') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <a href="{{ route('delete-image') }}" class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                                {{-- <a href="{{ route('edit-image') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a> --}}
+                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                             </div>
                                         </div>
                                     </div>

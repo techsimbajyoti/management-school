@@ -23,6 +23,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FeesController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+	Route::get('edit-admin', [AdminController::class, 'edit_admin'])->name('edit-admin');
 
 	Route::get('admin-edit', [AdminController::class, 'admin_edit'])->name('admin-edit');
 
@@ -116,7 +119,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('section', [UserController::class, 'section'])->name('section');
 
-	Route::get('subject', [UserController::class, 'subject'])->name('subject');
+	Route::get('admin-subject', [UserController::class, 'subject'])->name('admin-subject');
 
 	Route::get('assign-subject', [UserController::class, 'assign_subject'])->name('assign-subject');
 
@@ -168,7 +171,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('calender', [HomeController::class, 'calender'])->name('calender');
 
-	Route::get('type', [HomeController::class, 'type'])->name('type');
+	Route::get('examination-type', [HomeController::class, 'type'])->name('examination-type');
 
 	Route::get('add-type', [HomeController::class, 'add_type'])->name('add-type');
 
@@ -260,7 +263,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('add-fees-assign', [FeesController::class, 'add_fees_assign'])->name('add-fees-assign');
 
-	Route::get('student-payment', [FeesController::class, 'student_payment'])->name('student-payment');
+	Route::get('student-fees-payment', [FeesController::class, 'student_payment'])->name('student-fees-payment');
 
 	Route::get('admin-manage-payment', [FeesController::class, 'admin_manage_payment'])->name('admin-manage-payment');
 
@@ -277,6 +280,25 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('delete-video', [HomeController::class, 'delete_video'])->name('delete-video');
 
 	Route::get('parent-profile-view', [ParentController::class, 'parent_profile_view'])->name('parent-profile-view');
+
+	Route::get('report-marksheet', [ReportController::class, 'report_marksheet'])->name('report-marksheet');
+
+	Route::get('report-merit-list', [ReportController::class, 'report_merit_list'])->name('report-merit-list');
+
+	Route::get('report-progress-card', [ReportController::class, 'report_progress_card'])->name('report-progress-card');
+
+	Route::get('report-due-fees', [ReportController::class, 'report_due_fees'])->name('report-due-fees');
+
+	Route::get('report-fees-collection', [ReportController::class, 'report_fees_collection'])->name('report-fees-collection');
+
+	Route::get('report-account', [ReportController::class, 'report_account'])->name('report-account');
+
+	Route::get('report-class-routine', [ReportController::class, 'report_class_routine'])->name('report-class-routine');
+
+	Route::get('report-exam-routine', [ReportController::class, 'report_exam_routine'])->name('report-exam-routine');
+
+	Route::get('report-attendance', [ReportController::class, 'report_attendance'])->name('report-attendance');
+
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

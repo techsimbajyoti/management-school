@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'add-shift'
+    'elementActive' => 'shift'
 ])
 @section('content')
 <div class="content">
@@ -30,14 +30,7 @@
                         <div class="row">
                           <div class="col-md-6 mb-3">
                             <label for="exampleDataList" class="form-label"> Shift Name <span class="fillable">*</span></label> 
-                            <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">
-                                <option value="1">
-                                  Morning Shift
-                                </option>
-                                <option value="0">
-                                  Noon Shift
-                                </option>
-                              </select>
+                            <input type="text" placeholder="Enter Shift" class="nice-select niceSelect bordered_style wide" name="status">
                           </div>
                           <div class="col-md-6">
                             <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label> <select class="nice-select niceSelect bordered_style wide" name="status" id="validationServer04" aria-describedby="validationServer04Feedback">

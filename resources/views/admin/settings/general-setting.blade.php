@@ -3,6 +3,7 @@
     'elementActive' => 'general-setting'
 ])
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -56,14 +57,15 @@
                             <input type="text" name="city" class="nice-select niceSelect bordered_style wide" value="Indore" placeholder="Enter your school contact number">
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                            <label for="inputname" class="form-label">GST Exemptions <span class="fillable">*</span></label> 
-                            {{-- <input type="text" name="city" class="nice-select niceSelect bordered_style wide" value="demo" placeholder="Enter your school contact number"> --}}
-                          <select name="city" class="nice-select niceSelect bordered_style wide">
-                            <option value="">Please select one of these</option>
-                            <option value="">Yes</option>
-                            <option value="">No</option>
-                          </select>
+                          <label for="inputname" class="form-label">GST Exemptions <span class="fillable">*</span></label> 
+                          <br>
+                          <input type="radio" value="yes" name="yes_exemptions">
+                          <label for="">Yes</label>
+                          <input type="radio" value="no" name="yes_exemptions">
+                          <label for="">No</label><br>
+                          <input type="text" id="exemptions" placeholder="Enter GST Number">
                           </div>
+                          
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
                             <label for="inputname" class="form-label">Registration Number/Affiliation Code <span class="fillable">*</span></label> 
                             <input type="text" name="city" class="nice-select niceSelect bordered_style wide" value="demo" placeholder="Enter your school contact number">
@@ -82,17 +84,8 @@
 
                           <div class="col-md-6 default-langauge mb-3">
                             <div class="d-flex flex-column">
-                              <label for="currency_code" class="form-label">Currency <span class="fillable">*</span></label> <select name="currency_code" id="currency_code" class="form-select ot-input flag_icon_list">
-                                <option value="USD">
-                                  USD — $
-                                </option>
-                                <option value="EUR">
-                                  EUR — €
-                                </option>
-                                <option selected value="INR">
-                                  INR — ₹
-                                </option>
-                              </select>
+                              <label for="currency_code" class="form-label">Currency <span class="fillable">*</span></label>
+                              <input type="text" name="currency_code" id="currency" value="Rupees" class="form-control ot-input">
                             </div>
                           </div>
 
@@ -105,15 +98,15 @@
 
                         <div class="row mb-3">
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                            <label class="form-label" for="light_logo">Light Logo (155 x 40 px)</label><br>
+                            <label class="form-label" for="light_logo">Logo <span class="text-info"> (Accepted Images: jpg,jpeg,png. Max file size 100Kb)</span></label><br>
                             <div class="d-flex justify-content-center align-items-center">
                             <img class="img-thumbnail mb-10 ot-input full-logo setting-image" src="{{ asset('paper') }}/img/d.png" alt="light logo"></div>
                             <div class="ot_fileUploader left-side mb-3">
-                              <input class="form-control" type="text" placeholder="Browse Light Logo" readonly id="placeholder"> <button class="primary-btn-small-input" type="button"><label class="btn btn-lg ot-btn-primary" for="fileBrouse">Browse</label> <input type="file" class="d-none form-control" name="light_logo" id="fileBrouse" accept="image/*"></button>
+                              <input class="form-control" type="text" placeholder="Browse Logo" readonly id="placeholder"> <button class="primary-btn-small-input" type="button"><label class="btn btn-lg ot-btn-primary" for="fileBrouse">Browse</label> <input type="file" class="d-none form-control" name="light_logo" id="fileBrouse" accept="image/*"></button>
                             </div>
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                              <label class="form-label" for="favicon">Favicon (40 x 40 px)</label><br>
+                              <label class="form-label" for="favicon">Favicon <span class="text-info"> (Accepted Images: jpeg,jpg,png. Max file size 80Kb)</span></label><br>
                               <div class="d-flex align-items-center gap-3 justify-content-center">
                               <img class="img-thumbnail mb-10 ot-input full-logo setting-image" src="{{ asset('paper') }}/img/d.png" alt="favicon"></div>
                               <div class="ot_fileUploader left-side mb-3">
@@ -126,8 +119,14 @@
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
                             <label for="inputname" class="form-label">Footer Text <span class="fillable">*</span></label> 
-                            <input type="text" name="footer_text" class="nice-select niceSelect bordered_style wide" value="made with  by Tech Simba and UPDIVISION" placeholder="Enter your footer text">
+                            <input type="text" name="footer_text" class="nice-select niceSelect bordered_style wide" value="Made with by Tech Simba" placeholder="Enter your footer text">
                           </div>
+
+                          <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
+                            <label for="inputname" class="form-label">Medium <span class="fillable">*</span></label> 
+                            <input type="text" id="tagsInput" class="nice-select niceSelect bordered_style wide" value="" placeholder="Enter school medium">
+                          </div>
+
                         </div>
 
                         <div class="col-md-12 mt-24">
@@ -148,8 +147,31 @@
 @endsection
 
 @push('scripts')
-{{-- <script src="{{ asset('paper') }}/js/custom.js"></script> --}}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+
     <script>
+
+
+        $(document).ready(function() {
+          $('#tagsInput').select2({
+        tags: true,
+        placeholder: 'Enter tags',
+    });
+
+          $('#exemptions').hide();
+          $('input[name="yes_exemptions"]').click(function() {
+            var yes_exemptions = $('input[name="yes_exemptions"]:checked').val();
+
+            if (yes_exemptions === 'yes') {
+                $('#exemptions').show();
+            } else {
+                $('#exemptions').hide();
+            }
+        });
+      });
+
         function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -248,13 +270,13 @@
   }
   
   var countries = <?php echo json_encode($test); ?>;
-  /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
   autocomplete(document.getElementById("country"), countries);
 
   var st = <?php echo json_encode($testing); ?>;
-
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
   autocomplete(document.getElementById("state"), st);
+
+  var cutt = <?php echo json_encode($current); ?>;
+  autocomplete(document.getElementById("currency"), cutt);
 
   </script>
 @endpush

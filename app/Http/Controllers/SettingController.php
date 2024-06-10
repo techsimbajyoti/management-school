@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\Currency;
 
 class SettingController extends Controller
 {
     public function general_setting(){
         $country = Country::get();
+
+        $currency = Currency::get();
+        $current = [];
+
+        foreach($currency as $currencies){
+            $current[] = $currencies->name;
+        }
 
         $test = [];
         foreach($country as $count){
@@ -21,6 +29,6 @@ class SettingController extends Controller
             $testing[] = $sta->state;
         }
 
-        return view('admin.settings.general-setting',compact('test','testing','country','state'));
+        return view('admin.settings.general-setting',compact('current','test','testing','country','state'));
     }
 }

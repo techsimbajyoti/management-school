@@ -27,7 +27,7 @@
                     <div class="profile-body edit-admin">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="title">Edit My Profile</h4>
-                            <a href="{{route('profile.edit')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                            <a href="{{route('edit-admin')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                         </div>
                         <div class="profile-body-form">
                             <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">

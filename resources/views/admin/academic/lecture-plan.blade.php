@@ -150,9 +150,9 @@
 
                 newRow.innerHTML = `
                     <td>
-                        <label>Subject</label>
+                        <label>Please Select </label>
                         <select class="form-control" name="document_name[]">
-                            <option>Please select one of these</option>
+                            <option></option>
                             <option>Hindi</option>
                             <option>English</option>
                             <option>Math</option>
