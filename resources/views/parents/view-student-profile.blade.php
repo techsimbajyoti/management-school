@@ -16,6 +16,45 @@
             </div>
         @endif
         <div class="row">
+        <div class="col-12 p-0 search-form">
+            <form action="" method="" id="marksheed" enctype="multipart/form-data" name="marksheed">
+              <input type="hidden" name="_token" value="fE3jhMKUFkldbNrDIJ5XZv8piyHC35HDe5tRxIwb">
+              <div class="card ot-card mb-24 position-relative z_1">
+                <div class="card-header d-flex align-items-center gap-4 flex-wrap">
+                  <h3 class="mb-0">Filtering</h3>
+                  <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
+                    <div class="single_large_selectBox">
+                      <select class="nice-select niceSelect bordered_style wide" name="student">
+                        <option value="">
+                          Select student
+                        </option>
+                        <option selected value="2">
+                          Student 112
+                        </option>
+                        <option value="17">
+                          Student 123
+                        </option>
+                        <option value="29">
+                          Student 211
+                        </option>
+                        <option value="54">
+                          Student 2212
+                        </option>
+                        <option value="65">
+                          Student 319
+                        </option>
+                        <option value="79">
+                          Student 329
+                        </option>
+                      </select>
+                    </div>
+                    <button class="btn btn-lg ot-btn-primary" type="submit">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        
             @include('admin.student-info.profile-inc')
            </div>
     </div>

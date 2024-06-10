@@ -234,7 +234,9 @@ class StudentController extends Controller
         return view('students.view-student-image');
     }
 
-
+    public function view_student_video(){
+        return view('students.view-student-video');
+    }
     public function student_notification(){
         return view('students.student-notification');
     }
@@ -262,5 +264,9 @@ class StudentController extends Controller
 
     public function class_routine(){
         return view('students.class-routine');
+    }
+
+    public function view_event(){
+        return view('students.view-event');
     }
 }

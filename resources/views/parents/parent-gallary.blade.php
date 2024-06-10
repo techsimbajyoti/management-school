@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'parent-gallery'
+    'elementActive' => 'parent-gallary'
 ])
 
 @section('content')
@@ -39,13 +39,13 @@
                               <tr id="row_3">
                                 <td class="serial">3</td>
                                 <td>Awards</td>
-                                <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                <td><a href="{{route('view-parent-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-parent-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
                                
                               </tr>
                               <tr id="row_2">
                                 <td class="serial">4</td>
                                 <td>Annual Program</td>
-                                <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                <td><a href="{{route('view-parent-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-parent-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
                                
                               </tr>
                             </tbody>
