@@ -12,14 +12,14 @@
       <div class="card-body">
         <div class="row">
             <div class="gallery">
-                <a href="{{ asset('paper') }}/img/1.jpeg" data-lightbox="image-gallery" data-title="Image 1">
-                    <img src="{{ asset('paper') }}/img/1.jpeg" alt="Image 1" class="zoom">
+                <a href="{{ asset('paper') }}/img/124.jpg" data-lightbox="image-gallery" data-title="Image 1">
+                    <img src="{{ asset('paper') }}/img/124.jpg" alt="Image 1" class="zoom">
                 </a>
-                <a href="{{ asset('paper') }}/img/11.jpeg" data-lightbox="image-gallery" data-title="Image 2">
-                    <img src="{{ asset('paper') }}/img/11.jpeg" alt="Image 2" class="zoom">
+                <a href="{{ asset('paper') }}/img/123.jpg" data-lightbox="image-gallery" data-title="Image 2">
+                    <img src="{{ asset('paper') }}/img/123.jpg" alt="Image 2" class="zoom">
                 </a>
-                <a href="{{ asset('paper') }}/img/111.jpeg" data-lightbox="image-gallery" data-title="Image 2">
-                    <img src="{{ asset('paper') }}/img/111.jpeg" alt="Image 2" class="zoom">
+                <a href="{{ asset('paper') }}/img/125.jpg" data-lightbox="image-gallery" data-title="Image 2">
+                    <img src="{{ asset('paper') }}/img/125.jpg" alt="Image 2" class="zoom">
                 </a>
             </div>
         </div>
@@ -33,15 +33,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
 <!-- Include Lightbox JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-<script>
-    $(document).ready(function(){
-            $('.zoom').elevateZoom({
-                zoomType: "lens",
-                lensShape: "round",
-                lensSize: 200,
-                scrollZoom: true
-            });
-            
-        });
-</script>
 @endpush

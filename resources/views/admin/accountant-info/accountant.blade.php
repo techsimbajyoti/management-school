@@ -69,7 +69,7 @@
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                 <a href="{{ route('view-accountant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                                 <a href="{{ route('edit-accountant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <a href="{{ route('delete-accountant') }}" class="dropdown-item"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                 <a href="{{ route('view-accountant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                                 <a href="{{ route('edit-accountant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <a href="{{ route('delete-accountant') }}" class="dropdown-item"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                             </div>
                                         </div>
                                     </div>

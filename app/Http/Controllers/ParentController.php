@@ -20,7 +20,21 @@ class ParentController extends Controller
     }
 
     public function admit_parents(){
-        return view('admin.parent-info.admit-parents');
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+        return view('admin.parent-info.admit-parents',compact('test','testing','country','state'));
     }
 
     public function view_parents(){

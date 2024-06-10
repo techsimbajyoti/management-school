@@ -8,6 +8,10 @@ use App\Models\State;
 
 class AdminController extends Controller
 {
+    public function edit_admin(){
+        return view('profile.edit-admin');
+    }
+
     public function admin_edit(){
         $country = Country::get();
 
