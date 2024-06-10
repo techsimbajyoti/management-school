@@ -329,6 +329,10 @@ Route::group(['middleware' => 'auth.webstudents'], function () {
 
 	Route::get('view-student-image', [StudentController::class, 'view_student_image'])->name('view-student-image');
 
+	Route::get('view-student-video', [StudentController::class, 'view_student_video'])->name('view-student-video');
+
+	Route::get('view-event', [StudentController::class, 'view_event'])->name('view-event');
+
 });
 
 Route::group(['middleware' => 'auth.webteachers'], function () {
@@ -363,6 +367,11 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 	Route::get('messages', [ParentController::class, 'messages'])->name('messages');
 	
 	Route::get('parent-gallary', [ParentController::class, 'parent_gallary'])->name('parent-gallary');
+  
+	Route::get('view-parent-image', [ParentController::class, 'view_parent_image'])->name('view-parent-image');
+
+	Route::get('view-parent-video', [ParentController::class, 'view_parent_video'])->name('view-parent-video');
+
 
 });
 

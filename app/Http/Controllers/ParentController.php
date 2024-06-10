@@ -106,6 +106,17 @@ class ParentController extends Controller
         return view('parents.parent-gallary');
 
     }
+
+    public function view_parent_image(){
+        
+        return view('parents.view-parent-image');
+
+    }
+    public function view_parent_video(){
+        
+        return view('parents.view-parent-video');
+
+    }
     
     public function attendance(){
         

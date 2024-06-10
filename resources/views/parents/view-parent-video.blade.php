@@ -1,7 +1,8 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'student-gallary'
+    'elementActive' => 'parent-gallary'
 ])
+
 @section('content')
 <style>
     .gallery img {
@@ -21,12 +22,12 @@
             <div class="alert alert-success" role="alert">
                 {{ session('password_status') }}
             </div>
-        @endif 
+        @endif
         <div class="row">
             <div class="col-md-12">
-              @include('admin.gallery.view-image-all')
+                @include('admin.gallery.view-video-all')
             </div>
         </div>
-        
-
+    </div>
 @endsection
+

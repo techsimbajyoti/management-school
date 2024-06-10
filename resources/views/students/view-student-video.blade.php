@@ -24,9 +24,9 @@
         @endif 
         <div class="row">
             <div class="col-md-12">
-              @include('admin.gallery.view-image-all')
+                @include('admin.gallery.view-video-all')
             </div>
         </div>
-        
+    </div>
 
 @endsection

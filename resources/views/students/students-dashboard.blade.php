@@ -180,52 +180,7 @@
   </div> --}}
 
   <div class="row">
-    <div class="col-md-12">
-        <div class="card ot-card mb-24">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="{{ asset('paper') }}/img/environment.jpeg" alt="image">
-                        </div>
-                        <div class="card-footer text-center">
-                            Word Environment Day
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image">
-                        </div>
-                        <div class="card-footer text-center">
-                            Word Oceans Day
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image">
-                        </div>
-                        <div class="card-footer text-center">
-                            World Milk Day
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image">
-                        </div>
-                        <div class="card-footer text-center">
-                            World Blood Donor Day
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="col-md-12">
         <div class="card ot-card mb-24">
             <div id='calendar'></div>

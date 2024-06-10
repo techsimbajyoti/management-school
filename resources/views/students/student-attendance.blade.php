@@ -21,6 +21,9 @@
                   <option value="1">
                     Detail view
                   </option>
+                  <option value="2">
+                  Percentage view
+                  </option>
                 </select>
               </div>
               <div class="single_large_selectBox">
@@ -168,6 +171,47 @@
         </div>
       </div>
     </div>
+    <div class="col-md-12 percentage-view" style="display:none;">
+      <div class="table-content table-basic mt-20">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Percentage View</h4>
+            <div>
+              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span> <span class="font-weight-bold" style="color: #217fcc;">Test = F</span> <span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
+            </div>
+          </div>
+          <hr>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped mb-30" id="myTable1">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Overall Classes Percentage</th>
+                    <th>Present Percentage</th>
+                    <th>Absent Percentage</th>
+                    <th>Net Percentage</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="4" class="text-center gray-color">
+                      <img src="https://school.onesttech.com/images/no_data.svg" alt="no_data" class="mb-primary" width="100">
+                      <p class="mb-0 text-center">No data available</p>
+                      <p class="mb-0 text-center text-secondary font-size-90">Please add new entity regarding this table</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="ot-pagination pagination-content d-flex justify-content-end align-content-center py-3">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-between"></ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>@endsection @push('scripts') 
 <script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
@@ -186,9 +230,16 @@
       if (view == "0") {
         $('.short-view').show();
         $('.detail-view').hide();
+        $('.percentage-view').hide();
       } else if (view == "1") {
         $('.detail-view').show();
         $('.short-view').hide();
+        $('.percentage-view').hide();
+      }
+      else if (view == "2") {
+        $('.detail-view').hide();
+        $('.short-view').hide();
+        $('.percentage-view').show();
       }
     });
    });

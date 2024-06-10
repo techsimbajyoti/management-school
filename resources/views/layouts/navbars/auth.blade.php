@@ -618,7 +618,7 @@
                     <p>{{ __('Attendance') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'gallary' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'student-gallary' ? 'active' : '' }}">
                 <a href="{{ route('student-gallary') }}">
                     <i class="fa fa-camera"></i>
                     <p>{{ __('Gallary') }}</p>

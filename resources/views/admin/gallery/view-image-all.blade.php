@@ -2,7 +2,11 @@
     <div class="card ot-card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Annual Function</h4>
+        @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
         <a href="{{route('gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+        @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+        <a href="{{route('student-gallary')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+        @endif
       </div>
       <hr>
       <div class="card-body">
