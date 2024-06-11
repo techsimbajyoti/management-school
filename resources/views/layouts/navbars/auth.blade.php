@@ -246,16 +246,23 @@
                 </div>
             </li>
 
-            <li class="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'active' : '' }}">
-                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#laravelExam">
+            <li class="{{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#laravelExam">
                     <i class="fas fa-calendar-alt"></i>
                     <p>
                         {{ __('Event') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ in_array($elementActive, ['school-calender','add-event','calender']) ? 'show' : '' }}" id="laravelExam">
+                <div class="collapse {{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'show' : '' }}" id="laravelExam">
                     <ul class="nav">
+                        <li class="{{ $elementActive == 'admin-event' ? 'active' : '' }}">
+                            <a href="{{ route('admin-event') }}">
+                                <span class="sidebar-mini-icon">{{ __('E') }}</span>
+                                <span class="sidebar-normal">{{ __(' Event ') }}</span>
+                            </a>
+                        </li>
+
                         <li class="{{ $elementActive == 'add-event' ? 'active' : '' }}">
                             <a href="{{ route('add-event') }}">
                                 <span class="sidebar-mini-icon">{{ __('AE') }}</span>
@@ -470,20 +477,22 @@
                 </li>
                 <li class="{{ $elementActive == '' ? 'active' : '' }}">
                     <a href="{{ route('teacher-dashboard') }}">
-                        <i class="nc-icon nc-bank"></i>
+                        <i class="fas fa-calendar-alt"></i>
+
                         <p>{{ __('Routine') }}</p>
                     </a>
                 </li>
 
                 <li class="{{ $elementActive == '' ? 'active' : '' }}">
                     <a href="{{ route('teacher-dashboard') }}">
-                        <i class="nc-icon nc-bank"></i>
+                        <i class="fas fa-user-check"></i>   
                         <p>{{ __('Attendance') }}</p>
                     </a>
                 </li>
                 <li class="{{ $elementActive == '' ? 'active' : '' }}">
                     <a href="{{ route('teacher-dashboard') }}">
-                        <i class="nc-icon nc-bank"></i>
+                        <i class="fas fa-pencil-alt"></i>
+                        
                         <p>{{ __('Examination') }}</p>
                     </a>
                 </li>
@@ -491,6 +500,12 @@
                     <a href="{{ route('teacher-dashboard') }}">
                         <i class="nc-icon nc-bank"></i>
                         <p>{{ __('Report') }}</p>
+                    </a>
+                </li>
+                <li class="{{ $elementActive == '' ? 'active' : '' }}">
+                    <a href="{{ route('teacher-dashboard') }}">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>{{ __('Gallery') }}</p>
                     </a>
                 </li>
 

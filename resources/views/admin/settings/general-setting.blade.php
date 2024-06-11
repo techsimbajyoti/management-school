@@ -3,7 +3,33 @@
     'elementActive' => 'general-setting'
 ])
 @section('content')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<style>
+  .tag {
+    display: inline-block;
+    padding: 5px;
+    background-color: #d1e7dd;
+    border-radius: 3px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+  .tag .remove-tag {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  #tagsInput {
+    width: calc(100% - 20px);
+    border: none;
+    outline: none;
+  }
+  .tags-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+</style>
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -45,19 +71,20 @@
                             <input type="text" name="address." class="nice-select niceSelect bordered_style wide" value="0000000000" placeholder="Enter your school contact number">
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                            <label for="inputname" class="form-label">Country <span class="fillable">*</span></label> 
-                            <input type="text" name="country" id="country" class="nice-select niceSelect bordered_style wide" value="India" placeholder="Enter your school contact number">
+                              <label for="country" class="form-label">Country <span class="fillable">*</span></label> 
+                              <input type="text" name="country" id="country" class="form-control" value="India" placeholder="Enter your country">
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                            <label for="inputname" class="form-label">State <span class="fillable">*</span></label> 
-                            <input type="text" name="state" id="state" class="nice-select niceSelect bordered_style wide" value="Madhya Pradesh" placeholder="Enter your school contact number">
+                              <label for="state" class="form-label">State <span class="fillable">*</span></label> 
+                              <input type="text" name="state" id="state" class="form-control" value="Madhya Pradesh" placeholder="Enter your state">
                           </div>
+
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
                             <label for="inputname" class="form-label">City <span class="fillable">*</span></label> 
                             <input type="text" name="city" class="nice-select niceSelect bordered_style wide" value="Indore" placeholder="Enter your school contact number">
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                          <label for="inputname" class="form-label">GST Exemptions <span class="fillable">*</span></label> 
+                          <label for="inputname" class="form-label">GST Applicable<span class="fillable">*</span></label> 
                           <br>
                           <input type="radio" value="yes" name="yes_exemptions">
                           <label for="">Yes</label>
@@ -74,6 +101,7 @@
                             <label for="inputname" class="form-label">Board <span class="fillable">*</span></label> 
                             <select name="city" class="nice-select niceSelect bordered_style wide">
                               <option value="">Please select one of these</option>
+                              <option value="">State Board</option>
                               <option value="">CBSE</option>
                               <option value="">ICSE</option>
                               <option value="">IB</option>
@@ -85,7 +113,7 @@
                           <div class="col-md-6 default-langauge mb-3">
                             <div class="d-flex flex-column">
                               <label for="currency_code" class="form-label">Currency <span class="fillable">*</span></label>
-                              <input type="text" name="currency_code" id="currency" value="Rupees" class="form-control ot-input">
+                              <input type="text" name="currency_code" id="currency" value="Indian Rupee (INR)" class="form-control ot-input">
                             </div>
                           </div>
 
@@ -126,7 +154,6 @@
                             <label for="inputname" class="form-label">Medium <span class="fillable">*</span></label> 
                             <input type="text" id="tagsInput" class="nice-select niceSelect bordered_style wide" value="" placeholder="Enter school medium">
                           </div>
-
                         </div>
 
                         <div class="col-md-12 mt-24">
@@ -148,18 +175,60 @@
 
 @push('scripts')
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 
     <script>
 
+$( function() {
+    var availableTags = [
+      "Hindi",
+      "English",
+      "Gujrati",
+      "Marathi",
+    ];
+    function split( val ) {
+      return val.split( /,\s*/ );
+    }
+    function extractLast( term ) {
+      return split( term ).pop();
+    }
+ 
+    $( "#tagsInput" )
+      // don't navigate away from the field on tab when selecting an item
+      .on( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).autocomplete( "instance" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+      .autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          // delegate back to autocomplete, but extract the last term
+          response( $.ui.autocomplete.filter(
+            availableTags, extractLast( request.term ) ) );
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        }
+      });
+  } );
+
 
         $(document).ready(function() {
-          $('#tagsInput').select2({
-        tags: true,
-        placeholder: 'Enter tags',
-    });
-
           $('#exemptions').hide();
           $('input[name="yes_exemptions"]').click(function() {
             var yes_exemptions = $('input[name="yes_exemptions"]:checked').val();
@@ -170,113 +239,107 @@
                 $('#exemptions').hide();
             }
         });
-      });
 
-        function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
-    var currentFocus;
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
-        closeAllLists();
-        if (!val) { return false;}
-        currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
-        /*for each item in the array...*/
-        for (i = 0; i < arr.length; i++) {
-          /*check if the item starts with the same letters as the text field value:*/
-          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            /*create a DIV element for each matching element:*/
-            b = document.createElement("DIV");
-            /*make the matching letters bold:*/
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
-            /*insert a input field that will hold the current array item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-            /*execute a function when someone clicks on the item value (DIV element):*/
-            b.addEventListener("click", function(e) {
-                /*insert the value for the autocomplete text field:*/
-                inp.value = this.getElementsByTagName("input")[0].value;
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
-                closeAllLists();
-            });
-            a.appendChild(b);
-          }
-        }
-    });
-    /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function(e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-          /*If the arrow DOWN key is pressed,
-          increase the currentFocus variable:*/
-          currentFocus++;
-          /*and and make the current item more visible:*/
-          addActive(x);
-        } else if (e.keyCode == 38) { //up
-          /*If the arrow UP key is pressed,
-          decrease the currentFocus variable:*/
-          currentFocus--;
-          /*and and make the current item more visible:*/
-          addActive(x);
-        } else if (e.keyCode == 13) {
-          /*If the ENTER key is pressed, prevent the form from being submitted,*/
-          e.preventDefault();
-          if (currentFocus > -1) {
-            /*and simulate a click on the "active" item:*/
-            if (x) x[currentFocus].click();
-          }
-        }
-    });
-    function addActive(x) {
-      /*a function to classify an item as "active":*/
-      if (!x) return false;
-      /*start by removing the "active" class on all items:*/
-      removeActive(x);
-      if (currentFocus >= x.length) currentFocus = 0;
-      if (currentFocus < 0) currentFocus = (x.length - 1);
-      /*add class "autocomplete-active":*/
-      x[currentFocus].classList.add("autocomplete-active");
-    }
-    function removeActive(x) {
-      /*a function to remove the "active" class from all autocomplete items:*/
-      for (var i = 0; i < x.length; i++) {
-        x[i].classList.remove("autocomplete-active");
-      }
-    }
-    function closeAllLists(elmnt) {
-      /*close all autocomplete lists in the document,
-      except the one passed as an argument:*/
-      var x = document.getElementsByClassName("autocomplete-items");
-      for (var i = 0; i < x.length; i++) {
-        if (elmnt != x[i] && elmnt != inp) {
-          x[i].parentNode.removeChild(x[i]);
-        }
-      }
-    }
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-  }
-  
-  var countries = <?php echo json_encode($test); ?>;
-  autocomplete(document.getElementById("country"), countries);
 
-  var st = <?php echo json_encode($testing); ?>;
-  autocomplete(document.getElementById("state"), st);
+       
 
-  var cutt = <?php echo json_encode($current); ?>;
-  autocomplete(document.getElementById("currency"), cutt);
+
+             var countries = <?php echo json_encode($test); ?>;
+    autocomplete(document.getElementById("country"), countries);  
+
+    var cutt = ['US Dollar (USD)','Euro (EUR)','British Pound Sterling (GBP)','Australian Dollar (AUD)','Canadian Dollar (CAD)','Chinese Yuan (CNY)','Singapore Dollar (SGD)','Hong Kong Dollar (HKD)','Turkish Lira (TRY)','Russian Ruble (RUB)','Indian Rupee (INR)'];
+    autocomplete(document.getElementById("currency"), cutt);
+
+    function autocomplete(inp, arr) {
+        var currentFocus;
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                        if (inp.id === 'country') {
+                            fetchStates(inp.value);
+                        }
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) {
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+    function fetchStates(country) {
+
+        $.ajax({
+            url: "{{ route('json-country') }}",
+            type: 'POST',
+            data: {
+                country_id: country,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                var states = data.states.map(function(state) { return state.state; });
+                autocomplete(document.getElementById("state"), states);
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+  });
+
+ 
 
   </script>
 @endpush

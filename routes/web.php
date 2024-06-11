@@ -213,6 +213,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('json-state', [UserController::class, 'json-state'])->name('json-state');
 
+	Route::post('json-country', [UserController::class, 'json_country'])->name('json-country');
+
 	Route::post('delete-shift', [UserController::class, 'delete_shift'])->name('delete-shift');
 
 	Route::get('class-setup', [UserController::class, 'class_setup'])->name('class-setup');
@@ -228,8 +230,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::view('/specific-student', 'admin.student-info.specific-student');
 
 	Route::get('/general-setting', [SettingController::class, 'general_setting'])->name('general-setting');
-
-
 
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 
@@ -299,6 +299,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('report-attendance', [ReportController::class, 'report_attendance'])->name('report-attendance');
 
+	Route::get('admin-event',[HomeController::class, 'admin_event'])->name('admin-event');
+
+	Route::get('edit-admin-event',[HomeController::class, 'edit_admin_event'])->name('edit-admin-event');
+
+	Route::get('admin-event-detail-view',[HomeController::class, 'admin_event_detail_view'])->name('admin-event-detail-view');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

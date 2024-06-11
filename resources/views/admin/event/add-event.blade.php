@@ -25,13 +25,14 @@
             <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Add Event</h4>
+                    <a href="{{ route('admin-event') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <hr>
                 <div class="card-body">
                   <form action="" enctype="multipart/form-data" method="post" id="visitForm" name="visitForm">
                     @csrf
                     <div class="row mb-3">
-                      <div class="col-lg-12">
+                      <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-6 mb-3">
                             <label for="exampleDataList" class="form-label">Event Name <span class="fillable">*</span></label> 
@@ -44,37 +45,21 @@
                           <div class="col-md-6 mb-3">
                             <label for="exampleDataList" class="form-label">Event For <span class="fillable">*</span></label> 
                             <br><input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">All</label>
-                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Student's</label>
-                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Teacher's</label>
-                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Parent's</label>
-                          <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Open Event</label>
+                            <label for="">All</label>
+                            <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                            <label for="">Students</label>
+                            <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                            <label for="">Teachers</label>
+                            <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                            <label for="">Parents</label>
+                            <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
+                            <label for="">Open Event</label>
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label for="validationServer04" class="form-label">Event Poster <span class="fillable">*</span></label>
+                            <label for="validationServer04" class="form-label">Event Poster <span class="text-info">(Accepted Images: jpg,jpeg,png.Max file size 2Mb)</span> <span class="fillable">*</span></label>
                             <input class="form-control ot-input" name="event_date" list="datalistOptions" type="file" value="">
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="validationServer04" class="form-label">Start Date <span class="fillable">*</span></label>
-                            <input class="form-control ot-input" name="event_date" id="start_date" list="datalistOptions" type="date" value="">
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="validationServer04" class="form-label">End Date <span class="fillable">*</span></label>
-                            <input class="form-control ot-input" name="event_date" id="end_date" list="datalistOptions" type="date" value="">
-                          </div>
-                          
-                          <div class="col-md-6 mb-3">
-                            <label for="startTime" class="form-label">Start Time <span class="fillable">*</span></label>
-                            <input type="time" class="form-control ot-input" id="startTime" name="start_time" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="endTime" class="form-label">End Time <span class="fillable">*</span></label>
-                            <input type="time" class="form-control ot-input" id="endTime" name="end_time" required>
-                        </div>
+
                           <div class="col-md-6 mb-3">
                             <label for="validationServer04" class="form-label">Status <span class="fillable">*</span></label>
                             <select class="nice-select bordered_style wide" name="event_date" list="datalistOptions" type="date" value="">
@@ -82,6 +67,34 @@
                             <option value="">Inactive</option>
                             </select>
                             </div>
+
+                          <hr style="margin-top: 50px">
+                            <div class="col-md-12 d-flex justify-content-between align-items-center" style="margin-top:30px;">
+
+                                <h5>Add Date & Time</h5>
+                                <a id="add-document" class="btn btn-lg ot-btn-primary">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add
+                                </a>
+                            </div>
+
+                              <div class="col-md-12">
+                                  <div class="table-responsive">
+                                      <table class="table school_borderLess_table table_border_hide2" id="student-document">
+                                          <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
+                                              <tr>
+                                                  <th scope="col">Date <span class="text-danger"></span></th>
+                                                  <th scope="col">Start Time <span class="text-danger"></span></th>
+                                                  <th scope="col">End Time <span class="text-danger"></span></th>
+                                                  <th scope="col">Action</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+
+                         
 
                           <div class="col-md-12 mb-3">
                             <label for="exampleDataList" class="form-label">Event Description<span class="fillable">*</span></label> 
@@ -109,17 +122,45 @@
   // Initialize CKEditor
   CKEDITOR.replace('editor');
 
-  $(document).ready(function() {
+  document.getElementById('add-document').addEventListener('click', function() {
+        var tableBody = document.querySelector('#student-document tbody');
+        var newRow = document.createElement('tr');
 
-    $('#start_date, #end_date').change(function(){
-    var start_date = new Date($('#start_date').val());
-    var end_date = new Date($('#end_date').val());  
+        newRow.innerHTML = `
+            <td>
+                <input type="date" class="form-control" name="document_name[]">
+            </td>
+            <td>
+                <input type="time" class="form-control" name="document_file[]">
+            </td>
+            <td>
+                <input type="time" class="form-control" name="document_file[]">
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger remove-document">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </td>
+        `;
 
-    var timeDiff = end_date - start_date;
-
-    var diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
+        tableBody.appendChild(newRow);
     });
-  });
+
+    document.querySelector('#student-document tbody').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-document')) {
+            event.target.closest('tr').remove();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2); // Add leading zero
+        var day = ('0' + today.getDate()).slice(-2); // Add leading zero
+
+        var currentDate = year + '-' + month + '-' + day;
+        document.getElementById('admission_date').value = currentDate;
+    });
+
 </script>
 @endpush

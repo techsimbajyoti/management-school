@@ -88,8 +88,8 @@
                                   <th class="purchase">Roll NO</th>
                                   <th class="purchase">Class (Section)</th>
                                   <th class="purchase">Subject</th>
-                                  <th class="purchase">Total Class's</th>
-                                  <th class="purchase">Attempt Class's</th>
+                                  <th class="purchase">Total Classes</th>
+                                  <th class="purchase">Attempt Classes</th>
                                   <th class="purchase">Note</th>
                                 </tr>
                               </thead>
@@ -139,9 +139,9 @@
                               <tr>
                                 <th class="purchase">Student name</th>
                                 <th class="purchase">Class (Section)</th>
-                                <th class="purchase">Total Class's</th>
-                                <th class="purchase">Class's Done</th>
-                                <th class="purchase">Student's classes done?</th>
+                                <th class="purchase">Total Classes</th>
+                                <th class="purchase">Classes Done</th>
+                                <th class="purchase">Students classes done?</th>
                                 <th class="purchase">Percentage</th>
                                 <th class="purchase">Action</th>
                               </tr>

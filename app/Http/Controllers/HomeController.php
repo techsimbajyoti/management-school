@@ -225,4 +225,16 @@ class HomeController extends Controller
     public function delete_video(){
         
     }
+
+    public function admin_event(){
+        return view('admin.event.admin-event');
+    }
+
+    public function edit_admin_event(){
+        return view('admin.event.edit-admin-event');
+    }
+
+    public function admin_event_detail_view(){
+        return view('admin.event.admin-event-detail-view');
+    }
 }

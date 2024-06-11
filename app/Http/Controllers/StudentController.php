@@ -38,9 +38,14 @@ class StudentController extends Controller
 
         $Religion = Religion::get();
         $BloodGroup = BloodGroup::get();
-        $Language = Language::get();
 
-        return view('admin.student-info.admit-student',compact('Language','BloodGroup','Religion','test','testing','country','state'));
+        $Language = Language::get();
+        $lang = [];
+        foreach($Language as $lng){
+            $lang[] = $lng->name;
+        }
+
+        return view('admin.student-info.admit-student',compact('lang','BloodGroup','Religion','test','testing','country','state'));
     }
 
     public function view_student(){

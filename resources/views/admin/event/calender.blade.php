@@ -22,7 +22,7 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <img src="{{ asset('paper') }}/img/environment.jpeg" alt="image">
+                                <a href="{{'admin-event-detail-view'}}"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
                             </div>
                             <div class="card-footer text-center">
                                 Word Environment Day
@@ -32,7 +32,7 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image">
+                                <a href="{{'admin-event-detail-view'}}"><img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image"></a>
                             </div>
                             <div class="card-footer text-center">
                                 Word Oceans Day
@@ -42,7 +42,7 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image">
+                                <a href="{{'admin-event-detail-view'}}"> <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image"></a>
                             </div>
                             <div class="card-footer text-center">
                                 World Milk Day
@@ -52,7 +52,7 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image">
+                                <a href="{{'admin-event-detail-view'}}"> <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image"></a>
                             </div>
                             <div class="card-footer text-center">
                                 World Blood Donor Day

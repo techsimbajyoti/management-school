@@ -12,28 +12,44 @@
       <div class="card-body">
         <div class="row">
             <div class="gallery">
-                <a href="{{ asset('paper') }}/img/123.jpg" data-lightbox="image-gallery" data-title="Image 1">
-                    <img src="{{ asset('paper') }}/img/123.jpg" alt="Image 1" class="zoom">
+              <a href="{{ asset('paper/img/1.mp4') }}" data-lightbox="video-gallery" data-title="Video 1">
+                <video width="250" controls>
+                    <source src="{{ asset('paper/img/1.mp4') }}" type="video/mp4">
+                </video>
+            </a>
+
+                <a href="{{ asset('paper/img/2.mp4') }}" data-lightbox="video-gallery" data-title="Video 2">
+                    <video width="250" controls>
+                        <source src="{{ asset('paper/img/2.mp4') }}" type="video/mp4">
+                    </video>
                 </a>
-                <a href="{{ asset('paper') }}/img/124.jpg" data-lightbox="image-gallery" data-title="Image 2">
-                    <img src="{{ asset('paper') }}/img/124.jpg" alt="Image 2" class="zoom">
-                </a>
-                <a href="{{ asset('paper') }}/img/125.jpg" data-lightbox="image-gallery" data-title="Image 2">
-                    <img src="{{ asset('paper') }}/img/125.jpg" alt="Image 2" class="zoom">
+
+                <a href="{{ asset('paper/img/3.mp4') }}" data-lightbox="video-gallery" data-title="Video 3">
+                    <video width="250" controls>
+                        <source src="{{ asset('paper/img/3.mp4') }}" type="video/mp4">
+                    </video>
                 </a>
             </div>
-            
         </div>
-      </div>
+    </div>
     </div>
   </div>
 
   @push('scripts')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Include ElevateZoom JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
-<!-- Include Lightbox JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-@endpush
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Include Lightbox JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          // Initialize Lightbox
+          lightbox.option({
+              'resizeDuration': 200,
+              'wrapAround': true,
+              'alwaysShowNavOnTouchDevices': true,
+              'video': true // This option might be required depending on the Lightbox version
+          });
+      });
+  </script>
+  @endpush

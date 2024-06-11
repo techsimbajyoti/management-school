@@ -14,7 +14,6 @@ class SettingController extends Controller
 
         $currency = Currency::get();
         $current = [];
-
         foreach($currency as $currencies){
             $current[] = $currencies->name;
         }
@@ -24,6 +23,7 @@ class SettingController extends Controller
             $test[] = $count->country;
         }
         $state = State::get();
+        
         $testing = [];
         foreach($state as $sta){
             $testing[] = $sta->state;
