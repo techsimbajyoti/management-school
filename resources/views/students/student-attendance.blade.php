@@ -43,27 +43,25 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Attendance Report</h4>
             <div>
-              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span> <span class="font-weight-bold" style="color: #217fcc;">Test = F</span> <span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
+              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span> <span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
             </div>
           </div>
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-30" id="myTable1">
-                <thead class="thead-light">
+              <table class="table table-bordered" id="myTable">
+                <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Attendance</th>
-                    <th>Note</th>
+                    <th class="purchase">Date</th>
+                    <th class="purchase">Attendance</th>
+                    <th class="purchase">Note</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td colspan="3" class="text-center gray-color">
-                      <img src="https://school.onesttech.com/images/no_data.svg" alt="no_data" class="mb-primary" width="100">
-                      <p class="mb-0 text-center">No data available</p>
-                      <p class="mb-0 text-center text-secondary font-size-90">Please add new entity regarding this table</p>
-                    </td>
+                    <td>25-02-2015</td>
+                    <td>Present</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -83,12 +81,12 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Attendance Report</h4>
             <div class="text-dark">
-              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span> <span class="font-weight-bold" style="color: #217fcc;">Test = F</span> <span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
+              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span><span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
             </div>
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-30" id="myTable">
+              <table class="table table-bordered" id="myTable">
                 <thead>
                   <tr>
                     <th>1</th>
@@ -124,11 +122,25 @@
                     <th class="font-weight-bold" style="color: #386e42;" title="Present" data-toggle="tooltip">P</th>
                     <th class="font-weight-bold" style="color: #d1ba21;" title="Late" data-toggle="tooltip">L</th>
                     <th class="font-weight-bold" style="color: #cc2121;" title="Absent" data-toggle="tooltip">A</th>
-                    <th class="font-weight-bold" style="color: #217fcc;" title="Test" data-toggle="tooltip">F</th>
+                   
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>A</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>H</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>P</td>
+                    <td>H</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -145,24 +157,10 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><span class="font-weight-bold" style="color: #386e42;">0</span></td>
+                    <td><span class="font-weight-bold" style="color: #386e42;">11</span></td>
                     <td><span class="font-weight-bold" style="color: #d1ba21;">0</span></td>
-                    <td><span class="font-weight-bold" style="color: #cc2121;">0</span></td>
-                    <td><span class="font-weight-bold" style="color: #217fcc;">0</span></td>
+                    <td><span class="font-weight-bold" style="color: #cc2121;">1</span></td>
+                  
                   </tr>
                 </tbody>
               </table>
@@ -177,28 +175,33 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Percentage View</h4>
             <div>
-              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span> <span class="font-weight-bold" style="color: #217fcc;">Test = F</span> <span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
+              <small><span class="font-weight-bold" style="color: #386e42;">Present = P</span> <span class="font-weight-bold" style="color: #d1ba21;">Late = L</span> <span class="font-weight-bold" style="color: #cc2121;">Absent = A</span> <span class="font-weight-bold" style="color: #343a40;">Holiday = H</span></small>
             </div>
           </div>
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-30" id="myTable1">
-                <thead class="thead-light">
+              <table class="table table-bordered role-table" id="myTable">
+                <thead class="thead">
                   <tr>
-                    <th>Overall Classes Percentage</th>
-                    <th>Present Percentage</th>
-                    <th>Absent Percentage</th>
-                    <th>Net Percentage</th>
+                    <th class="purchase">Student name</th> 
+                    <th class="purchase">Class (Section)</th>
+                    <th class="purchase">Total Class's</th>
+                    <th class="purchase">Class's Done</th>
+                    <th class="purchase">Student's classes done?</th>
+                    <th class="purchase">Percentage</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td colspan="4" class="text-center gray-color">
-                      <img src="https://school.onesttech.com/images/no_data.svg" alt="no_data" class="mb-primary" width="100">
-                      <p class="mb-0 text-center">No data available</p>
-                      <p class="mb-0 text-center text-secondary font-size-90">Please add new entity regarding this table</p>
-                    </td>
+                  <tr id="document-file">
+                    <td>Student 1112</td>
+                    <td>One (A)</td>
+                    <td>120</td>
+                    <td>100</td>
+                    <td>90</td>
+                    <td>90%</td>
+                   
                   </tr>
                 </tbody>
               </table>
@@ -247,7 +250,7 @@
 
 $(function() {
 $("#myTable").dataTable();
-$("#myTable1").dataTable();
+// $("#myTable1").dataTable();
 });
 
 

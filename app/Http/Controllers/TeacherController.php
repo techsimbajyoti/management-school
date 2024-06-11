@@ -29,6 +29,9 @@ class TeacherController extends Controller
         return view('teachers.edit-teacher');
     }
 
+    public function teacher_attendance(){
+        return view('teachers.teacher-attendance');
+    }
 
 }
 

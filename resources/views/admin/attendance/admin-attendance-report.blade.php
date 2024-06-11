@@ -137,7 +137,7 @@
                           <table class="table table-bordered role-table" id="students_table">
                             <thead class="thead">
                               <tr>
-                                <th class="purchase">Student name</th>
+                                <th class="purchase">Student name</th> 
                                 <th class="purchase">Class (Section)</th>
                                 <th class="purchase">Total Classes</th>
                                 <th class="purchase">Classes Done</th>

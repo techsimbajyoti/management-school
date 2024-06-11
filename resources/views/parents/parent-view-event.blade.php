@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'student-event'
+    'elementActive' => 'parent-event'
 ])
 @section('content')
 <div class="content">
@@ -58,7 +58,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
-                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
                 </div>
                 
             </div>
@@ -81,7 +81,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
-                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
                 </div>
                 
             </div>
@@ -105,7 +105,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
-                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
                 </div>
                 
             </div>
@@ -128,7 +128,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
-                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
                 </div>
                 
             </div>
