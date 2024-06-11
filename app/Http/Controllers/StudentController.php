@@ -269,4 +269,8 @@ class StudentController extends Controller
     public function view_event(){
         return view('students.view-event');
     }
+    public function detail_student_attendance(){
+        return view('students.detail-student-attendance');
+    }
+
 }

@@ -6,6 +6,8 @@
         <a href="{{route('gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
         @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
         <a href="{{route('student-gallary')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+        @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+        <a href="{{route('parent-gallary')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
         @endif
       </div>
       <hr>

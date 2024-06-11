@@ -6,19 +6,21 @@
         <a href="{{route('gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
         @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
         <a href="{{route('student-gallary')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+        @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+        <a href="{{route('parent-gallary')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
         @endif
       </div>
       <hr>
       <div class="card-body">
         <div class="row">
             <div class="gallery">
-                <a href="{{ asset('paper') }}/img/124.jpg" data-lightbox="image-gallery" data-title="Image 1">
+                <a href="{{ asset('paper') }}/img/124.jpg" data-lightbox="image-gallery" data-title="Nursury Dance Performance">
                     <img src="{{ asset('paper') }}/img/124.jpg" alt="Image 1" class="zoom">
                 </a>
-                <a href="{{ asset('paper') }}/img/123.jpg" data-lightbox="image-gallery" data-title="Image 2">
+                <a href="{{ asset('paper') }}/img/123.jpg" data-lightbox="image-gallery" data-title="Class III Performance">
                     <img src="{{ asset('paper') }}/img/123.jpg" alt="Image 2" class="zoom">
                 </a>
-                <a href="{{ asset('paper') }}/img/125.jpg" data-lightbox="image-gallery" data-title="Image 2">
+                <a href="{{ asset('paper') }}/img/125.jpg" data-lightbox="image-gallery" data-title="Bharatnatyam Performance">
                     <img src="{{ asset('paper') }}/img/125.jpg" alt="Image 2" class="zoom">
                 </a>
             </div>

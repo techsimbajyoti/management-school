@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Class</p>
+                                    <p class="card-category" style="font-weight: 700;">No.Of Children</p>
                                     <p class="card-title">5
                                         <p>
                                 </div>
@@ -39,12 +39,12 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-book" style='font-size:40px;color:#76e39e'></i>
+                                    <i class="fas fa-mug-hot" style='font-size:40px;color:#76e39e'></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Subject</p>
+                                    <p class="card-category" style="font-weight: 700;">Holiday</p>
                                     <p class="card-title">13
                                         <p>
                                 </div>
@@ -59,32 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-chalkboard-teacher" style='font-size:40px;color:#e38a76'></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Teacher</p>
-                                    <p class="card-title">8
-                                        <p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer ">
-                        
-                        <div class="stats">
-                            <i class=""></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">

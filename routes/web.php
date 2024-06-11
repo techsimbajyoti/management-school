@@ -333,6 +333,8 @@ Route::group(['middleware' => 'auth.webstudents'], function () {
 
 	Route::get('view-event', [StudentController::class, 'view_event'])->name('view-event');
 
+	Route::get('detail-student-attendance', [StudentController::class, 'detail_student_attendance'])->name('detail-student-attendance');
+
 });
 
 Route::group(['middleware' => 'auth.webteachers'], function () {
