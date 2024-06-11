@@ -25,7 +25,12 @@
             <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Add Event</h4>
+                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                     <a href="{{ route('admin-event') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                    <a href="{{ route('teacher-event') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    @endif
+                    
                 </div>
                 <hr>
                 <div class="card-body">
@@ -103,7 +108,11 @@
 
                           <div class="col-md-12 mt-24">
                             <div class="text-right">
-                              <a href="" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                              <a href="{{ route('admin-event') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                              <a href="{{ route('teacher-event') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> Submit</a>
+                              @endif
                             </div>
                           </div>
                         </div>

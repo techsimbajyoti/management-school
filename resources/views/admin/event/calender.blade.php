@@ -22,7 +22,12 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <a href="{{'admin-event-detail-view'}}"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <a href="{{'teacher-event-detail-view'}}"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                @endif
+                               
                             </div>
                             <div class="card-footer text-center">
                                 Word Environment Day

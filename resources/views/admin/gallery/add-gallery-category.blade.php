@@ -25,7 +25,11 @@
             <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Add Gallery Category</h4>
+                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                     <a href="{{ route('gallery-category') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                    <a href="{{ route('teacher-gallery-category') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                    @endif
                 </div>
                 <hr>
                 <div class="card-body">

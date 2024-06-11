@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'teacher-attendance'
+    'elementActive' => 'teacher-mark-sheet'
 ])
 @section('content')
 <div class="content">
@@ -17,8 +17,9 @@
     
     <div class="row">
         <div class="col-md-12">
-            
+
         </div>    
     </div>
 </div>
 @endsection 
+

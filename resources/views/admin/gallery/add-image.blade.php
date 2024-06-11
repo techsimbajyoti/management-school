@@ -19,7 +19,13 @@
             <div class="col-md-12">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Add Images</h4><a href="{{route('image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                        <h4 class="mb-0">Add Images</h4>
+                        @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                        <a href="{{route('image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                        @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                        <a href="{{route('teacher-image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                        @endif
+                       
                     </div>
                     <hr>
                     <div class="card-body">
@@ -92,9 +98,14 @@
                               <div class="col-md-12 mt-24">
                                <div class="card-footer">
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</button>
-                                    <a href="{{ route('image') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
-                                </div>
+                                    <a class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save $ Continue') }}</a>
+
+                                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                                    <a href="{{route('image')}}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                    <a href="{{route('teacher-image')}}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                                    @endif
+                                  </div>
                             </div>
                               </div>
                             </div>

@@ -469,46 +469,211 @@
             
             
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                
                 <li class="{{ $elementActive == 'teacher-dashboard' ? 'active' : '' }}">
                     <a href="{{ route('teacher-dashboard') }}">
                         <i class="nc-icon nc-bank"></i>
                         <p>{{ __('Dashboard') }}</p>
                     </a>
                 </li>
-                <li class="{{ $elementActive == '' ? 'active' : '' }}">
-                    <a href="{{ route('teacher-dashboard') }}">
+
+                <li class="{{ in_array($elementActive, ['teacher-routine','teacher-class-routine','teacher-exam-routine']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['teacher-routine','teacher-class-routine','teacher-exam-routine']) ? 'true' : 'false' }}" href="#laravelExa-teacher">
                         <i class="fas fa-calendar-alt"></i>
-
-                        <p>{{ __('Routine') }}</p>
+                        <p>
+                            {{ __('Routine') }}
+                            <b class="caret"></b>
+                        </p>
                     </a>
+                    <div class="collapse {{ in_array($elementActive, ['teacher-routine','teacher-class-routine','teacher-exam-routine']) ? 'show' : '' }}" id="laravelExa-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'teacher-class-routine' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-class-routine') }}">
+                                    <span class="sidebar-mini-icon">{{ __('CR') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Class Routine ') }}</span>
+                                </a>
+                            </li>
+
+                            <li class="{{ $elementActive == 'teacher-exam-routine' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-exam-routine') }}">
+                                    <span class="sidebar-mini-icon">{{ __('ER') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Exam Routine ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+               
+                <li class="{{ in_array($elementActive, ['teacher-attendance','teacher-attendance-list','teacher-attendance-report']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['teacher-attendance','teacher-attendance-list','teacher-attendance-report']) ? 'true' : 'false' }}" href="#laravelEx-teacher">
+                        <i class="fas fa-user-check"></i> 
+                        <p>
+                            {{ __('Attendance') }}
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse {{ in_array($elementActive, ['teacher-attendance','teacher-attendance-list','teacher-attendance-report']) ? 'show' : '' }}" id="laravelEx-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'teacher-attendance-list' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-attendance-list') }}">
+                                    <span class="sidebar-mini-icon">{{ __('A') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Attendance ') }}</span>
+                                </a>
+                            </li>
+
+                            <li class="{{ $elementActive == 'teacher-attendance-report' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-attendance-report') }}">
+                                    <span class="sidebar-mini-icon">{{ __('AR') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Attendance Report ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
-                <li class="{{ $elementActive == '' ? 'active' : '' }}">
-                    <a href="{{ route('teacher-dashboard') }}">
-                        <i class="fas fa-user-check"></i>   
-                        <p>{{ __('Attendance') }}</p>
-                    </a>
-                </li>
-                <li class="{{ $elementActive == '' ? 'active' : '' }}">
-                    <a href="{{ route('teacher-dashboard') }}">
+                <li class="{{ in_array($elementActive, ['teacher-examination','teacher-mark-sheet']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['teacher-examination','teacher-mark-sheet']) ? 'true' : 'false' }}" href="#laravelE-teacher">
                         <i class="fas fa-pencil-alt"></i>
-                        
-                        <p>{{ __('Examination') }}</p>
+                        <p>
+                            {{ __('Examination') }}
+                            <b class="caret"></b>
+                        </p>
                     </a>
+                    <div class="collapse {{ in_array($elementActive, ['teacher-examination','teacher-mark-sheet']) ? 'show' : '' }}" id="laravelE-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'teacher-mark-sheet' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-mark-sheet') }}">
+                                    <span class="sidebar-mini-icon">{{ __('MS') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Mark Sheet ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+
                 <li class="{{ $elementActive == '' ? 'active' : '' }}">
                     <a href="{{ route('teacher-dashboard') }}">
-                        <i class="nc-icon nc-bank"></i>
+                        <i class="fas fa-chart-bar"></i>
                         <p>{{ __('Report') }}</p>
                     </a>
                 </li>
-                <li class="{{ $elementActive == '' ? 'active' : '' }}">
-                    <a href="{{ route('teacher-dashboard') }}">
-                        <i class="nc-icon nc-bank"></i>
-                        <p>{{ __('Gallery') }}</p>
+                
+                <li class="{{ in_array($elementActive, ['video','teacher-gallery','gallery-category','image']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['teacher-video','teacher-gallery','teacher-gallery-category','teacher-image']) ? 'true' : 'false' }}" href="#laravel-teacher">
+                        <i class="fas fa-images"></i>
+                        <p>
+                            {{ __('Gallery') }}
+                            <b class="caret"></b>
+                        </p>
                     </a>
+                    <div class="collapse {{ in_array($elementActive, ['video','teacher-gallery','gallery-category','image']) ? 'show' : '' }}" id="laravel-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-gallery-category') }}">
+                                    <span class="sidebar-mini-icon">{{ __('GC') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Gallery Category ') }}</span>
+                                </a>
+                            </li>
+    
+                            <li class="{{ $elementActive == 'image' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-image') }}">
+                                    <span class="sidebar-mini-icon">{{ __('I') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Image ') }}</span>
+                                </a>
+                            </li>
+    
+                            <li class="{{ $elementActive == 'video' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-video') }}">
+                                    <span class="sidebar-mini-icon">{{ __('V') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Video ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
+                <li class="{{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#larave-teacher">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>
+                            {{ __('Event') }}
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse {{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'show' : '' }}" id="larave-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'admin-event' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-event') }}">
+                                    <span class="sidebar-mini-icon">{{ __('E') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Event ') }}</span>
+                                </a>
+                            </li>
+    
+                            <li class="{{ $elementActive == 'add-event' ? 'active' : '' }}">
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                                <a href="{{route('add-event')}}">
+                                    <span class="sidebar-mini-icon">{{ __('AE') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Add Event ') }}</span>
+                                </a>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <a href="{{route('teacher-add-event')}}">
+                                    <span class="sidebar-mini-icon">{{ __('AE') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Add Event ') }}</span>
+                                </a>
+                                @endif
+                            </li>
+    
+                            <li class="{{ $elementActive == 'calender' ? 'active' : '' }}">
+                                <a href="{{ route('teacher-calender') }}">
+                                    <span class="sidebar-mini-icon">{{ __('EC') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Event Calender ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="{{ in_array($elementActive, ['teacher-parent','parent-detail']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['teacher-parent','parent-detail']) ? 'true' : 'false' }}" href="#larav-teacher">
+                        <i class="fa fa-user-friends"></i>
+
+                        <p>
+                            {{ __('Parent') }}
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse {{ in_array($elementActive, ['teacher-parent','parent-detail']) ? 'show' : '' }}" id="larav-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'parent-detail' ? 'active' : '' }}">
+                                <a href="{{ route('parent-detail') }}">
+                                    <span class="sidebar-mini-icon">{{ __('P') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Parent ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li class="{{ in_array($elementActive, ['teacher-student','student-detail']) ? 'active' : '' }}">
+                    <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['teacher-student','student-detail']) ? 'true' : 'false' }}" href="#lara-teacher">
+                        <i class="fa fa-user-graduate"></i>
+                        <p>
+                            {{ __('Student') }}
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse {{ in_array($elementActive, ['teacher-student','student-detail']) ? 'show' : '' }}" id="lara-teacher">
+                        <ul class="nav">
+                            <li class="{{ $elementActive == 'student-detail' ? 'active' : '' }}">
+                                <a href="{{ route('student-detail') }}">
+                                    <span class="sidebar-mini-icon">{{ __('S') }}</span>
+                                    <span class="sidebar-normal">{{ __(' Student ') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">

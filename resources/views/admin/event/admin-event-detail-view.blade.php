@@ -56,7 +56,12 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
+                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                     <a href="{{ route('calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                    <a href="{{ route('teacher-calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @endif
+                   
                 </div>
                 
             </div>

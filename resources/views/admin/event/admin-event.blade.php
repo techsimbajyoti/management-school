@@ -21,7 +21,12 @@
                     <div class="card ot-card">
                       <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Events</h4>
+                        @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                         <a href="{{route('add-event')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                        <a href="{{route('teacher-add-event')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        @endif
+                       
                       </div>
                       <hr>
                       <div class="card-body">
@@ -55,7 +60,12 @@
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                
+                                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                                 <a href="{{ route('edit-admin-event') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                                <a href="{{ route('edit-teacher-event') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                @endif
                                                 <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                             </div>
                                         </div>
