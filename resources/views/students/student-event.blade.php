@@ -18,17 +18,22 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card ot-card mb-24">
+                
+                    <h3 class="title">Upcoming Events</h3>
+        
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <a href="{{ route('view-event')}}?showForm=environmentlDayForm">
                                 <img src="{{ asset('paper') }}/img/environment.jpeg" alt="image">
-                                </a>
-                            </div>
+                            
+                            
                             <div class="card-footer text-center">
                                 Word Environment Day
                             </div>
+                        </div>
+                    </a>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -36,10 +41,12 @@
                             <div class="card-body">
                                 <a href="{{ route('view-event')}}?showForm=oceanDayForm">
                                 <img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image">
-                            </div>
+                            
                             <div class="card-footer text-center">
                                 Word Oceans Day
                             </div>
+                        </a>
+                        </div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -47,20 +54,23 @@
                             <div class="card-body">
                                 <a href="{{ route('view-event')}}?showForm=milkDayForm">
                                 <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image">
-                            </div>
+                        
                             <div class="card-footer text-center">
                                 World Milk Day
                             </div>
+                        </a>
+                        </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <a href="{{ route('view-event')}}?showForm=bloodDayForm">
-                                <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image">
-                            </div>
-                            <div class="card-footer text-center">
-                                World Blood Donor Day
+                                <img src = "{{ asset('paper') }}/img/blood.jpeg" height="227px"  alt="image">
+                                <div class="card-footer text-center">
+                                Blood Donor Day
+                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -94,15 +104,18 @@
             {
                 title: 'Buddha Purnima',
                 start: '2024-05-23'
+              
             },
             {
                 title: 'World Environment Day',
-                start: '2024-06-05'
+                start: '2024-06-05',
+                url: '{{ route("view-event")}}?showForm=environmentlDayForm',
             },
             {
                 title: 'World Oceans Day',
                 start: '2024-06-08',
-                end: '2024-06-03'
+                end: '2024-06-03',
+                url: '{{ route("view-event")}}?showForm=oceanDayForm',
             }
             // more events here
         ]

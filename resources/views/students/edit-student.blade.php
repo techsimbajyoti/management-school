@@ -23,7 +23,7 @@
         <div class="edit-student">
             <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="title">My Profile</h2>
+                <h3 class="title">My Profile</h3>
                 <a class="btn btn-lg ot-btn-primary mb-5" id="student-edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
             </div>
            </div>
@@ -51,21 +51,16 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
-        $('.change-password').hide();
-        $('.student-edit-profile').hide();
+    
+    $('.student-edit-profile').hide();
 
     $('#student-edit-profile').click(function(){
         $('.student-edit-profile').show();
         $('.edit-student').hide();
-        $('.change-password').hide();
+    
     })
 
-    $('.update-admin-password').click(function(){
-        $('.student-edit-profile').hide();
-        $('.edit-student').hide();
-        $('.change-password').show();
-
-    })
+   
 
     $('.nav-link').click(function() {
             // Remove active class from all buttons

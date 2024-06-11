@@ -139,6 +139,10 @@ class ParentController extends Controller
     public function parent_profile_view(){
         return view('admin.parent-info.parent-profile-view');
     }
-    
+   
+    public function parent_view_event(){
+        return view('parents.parent-view-event');
+    }
+
 }
 

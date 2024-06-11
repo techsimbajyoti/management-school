@@ -20,14 +20,14 @@
                 {{ session('password_status') }}
             </div>
         @endif
-                <div class="edit-student">
+                <div class="edit-teacher">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h2 class="title">My Profile</h2>
-                            <a class="btn btn-lg ot-btn-primary mb-5" id="student-edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+                            <a class="btn btn-lg ot-btn-primary mb-5" id="edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
                         </div>
                     </div>
-                </div>        
+                  
                           
                 <div class="row">
                         <div class="col-lg-4">
@@ -192,93 +192,7 @@
                             </div>
                         </div>
                     </div>
-
-
-
-                        {{-- <div class="profile-body edit-teacher">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h2 class="title">My Profile</h2>
-                                <a class="btn btn-lg ot-btn-primary mb-5" id="edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
-                            </div>
-                            <div class="profile-body-form">
-                                <div class="form-item border-bottom-0 pb-0">
-                                    <div class="image-box">
-                                    <img id="id-profile-image" class="img-fluid rounded-circle" src="{{ url('paper/img/demo.png') }}" alt="Teacher"></div>
-                                </div>
-                                <div class="form-item">
-                                    <div class="d-flex justify-content-between align-content-center">
-                                    <div class="align-self-center">
-                                        <h2 class="title">Designations</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h2 class="title">Departments</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="form-item">
-                                    <div class="d-flex justify-content-between align-content-center">
-                                    <div class="align-self-center">
-                                        <h2 class="title">First Name</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h2 class="title">Last Name</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="form-item">
-                                    <div class="d-flex justify-content-between align-content-center">
-                                    <div class="align-self-center">
-                                        <h2 class="title">Father Name</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h2 class="title">Mother Name</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="form-item">
-                                    <div class="d-flex justify-content-between align-content-center">
-                                    <div class="align-self-center">
-                                        <h2 class="title">Email</h2>
-                                        <p class="paragraph">demo@demo.com</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h2 class="title">Gender</h2>
-                                        <p class="paragraph">Demo</p>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="form-item">
-                                    <div class="d-flex justify-content-between align-content-center">
-                                    <div class="align-self-center">
-                                        <h2 class="title">Date Of Birth</h2>
-                                        <p class="paragraph">00/00/0000</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h2 class="title">Joining Date</h2>
-                                        <p class="paragraph">00/00/0000</p>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="form-item">
-                                    <div class="d-flex justify-content-between align-content-center">
-                                    <div class="align-self-center">
-                                        <h2 class="title">Phone</h2>
-                                        <p class="paragraph">0000000000</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h2 class="title">Basic salary</h2>
-                                        <p class="paragraph">00000</p>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+                </div>
                         <div class="row">
                             <div class="col-md-12 card">
                             <div class="page-content">
