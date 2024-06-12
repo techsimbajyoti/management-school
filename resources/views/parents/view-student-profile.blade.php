@@ -29,24 +29,12 @@
                           Select student
                         </option>
                         <option selected value="2">
-                          Student 112
+                        Child 1 - Student 112
                         </option>
                         <option value="17">
-                          Student 123
+                        Child 2-  Student 123
                         </option>
-                        <option value="29">
-                          Student 211
-                        </option>
-                        <option value="54">
-                          Student 2212
-                        </option>
-                        <option value="65">
-                          Student 319
-                        </option>
-                        <option value="79">
-                          Student 329
-                        </option>
-                      </select>
+                     </select>
                     </div>
                     <button class="btn btn-lg ot-btn-primary" type="submit">Search</button>
                   </div>

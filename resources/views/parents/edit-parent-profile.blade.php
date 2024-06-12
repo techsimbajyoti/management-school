@@ -22,13 +22,15 @@
             </div>
         @endif
         <div class="edit-parent-profile">
-        <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h2 class="title">My Profile</h2>
-            <a class="btn btn-lg ot-btn-primary mb-5" id="edit-parent"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
-        </div>
-       </div>
-       <div class="row">
+        <div class="row">
+        <div class="col-12">
+            <div class="card ot-card mb-24 position-relative z_1">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="title mb-0">My Profile</h3>
+                    <a class="btn btn-lg ot-btn-primary mb-4" id="edit-parent"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+                </div>
+             </div>
+         </div>
         @include('students.parent-profile')
        
       </div>
@@ -42,7 +44,7 @@
                         
 
                         @include('parents.edit-parent')
-                        @include('admin.change-password')
+    
                     </div>
                 </div>
                 </div>
@@ -53,21 +55,16 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
-        $('.change-password').hide();
+        
         $('.edit-parent').hide();
 
     $('#edit-parent').click(function(){
         $('.edit-parent-profile').hide();
         $('.edit-parent').show();
-        $('.change-password').hide();
-    })
-
-    $('.update-admin-password').click(function(){
-        $('.edit-parent-profile').hide();
-        $('.edit-parent').hide();
-        $('.change-password').show();
 
     })
+
+   
 
     $('.nav-link').click(function() {
             // Remove active class from all buttons

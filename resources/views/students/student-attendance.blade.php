@@ -5,7 +5,7 @@
 @section('content')
 <div class="content">
   <div class="row">
-    <div class="col-12 p-0 search-form">
+    <div class="col-12 search-form">
       <form action="" method="" id="marksheed" enctype="multipart/form-data" name="marksheed">
         <input type="hidden" name="_token" value="fE3jhMKUFkldbNrDIJ5XZv8piyHC35HDe5tRxIwb">
         <div class="card ot-card mb-24 position-relative z_1">
@@ -52,16 +52,30 @@
               <table class="table table-bordered" id="myTable">
                 <thead>
                   <tr>
-                    <th class="purchase">Date</th>
-                    <th class="purchase">Attendance</th>
-                    <th class="purchase">Note</th>
+                    <th class="purchase">Name</th>
+                    <th class="purchase">Class</th>
+                    <th class="purchase">Subject</th>
+                    <th class="purchase">Total Classes</th>
+                    <th class="purchase">Classes Conducted</th>
+                    <th class="purchase">Classes Attended</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>25-02-2015</td>
-                    <td>Present</td>
-                    <td></td>
+                    <td>Student 112</td>
+                    <td>One (A)</td>
+                    <td>English</td>
+                    <td>60</td>
+                    <td>53</td>
+                    <td>50</td>
+                  </tr>
+                  <tr>
+                    <td>Student 112</td>
+                    <td>One (A)</td>
+                    <td>Chemistry</td>
+                    <td>60</td>
+                    <td>57</td>
+                    <td>55</td>
                   </tr>
                 </tbody>
               </table>
@@ -190,6 +204,7 @@
                     <th class="purchase">Class's Done</th>
                     <th class="purchase">Student's classes done?</th>
                     <th class="purchase">Percentage</th>
+                    <th class="purchase">Action</th>
                     
                   </tr>
                 </thead>
@@ -201,7 +216,16 @@
                     <td>100</td>
                     <td>90</td>
                     <td>90%</td>
-                   
+                    <td class="action">
+                      <div class="dropdown dropdown-action">
+                          <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                  <a href="{{ route('detail-student-attendance') }}" class="dropdown-item student-details"><i class="fa fa-eye"></i>  {{ __('View student detail') }}</a>
+                              </div>
+                          </div>
+                      </div>
+                  </td>
                   </tr>
                 </tbody>
               </table>

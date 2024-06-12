@@ -20,17 +20,19 @@
                 {{ session('password_status') }}
             </div>
         @endif
-        <div class="edit-student">
-            <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="title">My Profile</h3>
-                <a class="btn btn-lg ot-btn-primary mb-5" id="student-edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+    <div class="edit-student">
+        <div class="row">
+            <div class="col-12">
+                 <div class="card ot-card mb-24 position-relative z_1">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h3 class="title mb-0">View Student Details</h3>
+                      <a class="btn btn-lg ot-btn-primary mb-4" id="student-edit-profile"><span class=""><i class="fa fa-edit"></i>  Edit</span></a>
+                    </div>
+                  </div>
             </div>
-           </div>
-            <div class="row">
-                @include('admin.student-info.profile-inc')
-               </div>
-            </div>
+            @include('admin.student-info.profile-inc')
+        </div>
+    </div>
         <div class="row">
             <div class="col-md-12 card">
             <div class="page-content">

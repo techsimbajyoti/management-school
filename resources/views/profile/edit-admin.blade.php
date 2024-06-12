@@ -229,19 +229,11 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
-        $('.change-password').hide();
         $('.edit-admin').hide();
 
     $('#edit-admin-profile').click(function(){
         $('.edit-admin').show();
         $('.edit').hide();
-    })
-
-    $('.update-admin-password').click(function(){
-        $('.edit-admin').hide();
-        $('.edit').hide();
-        $('.change-password').show();
-
     })
 
     $('.nav-link').click(function() {
