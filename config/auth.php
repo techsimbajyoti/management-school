@@ -61,6 +61,11 @@ return [
             'provider' => 'accountants',
         ],
 
+        'webadmissions' => [
+            'driver' => 'session',
+            'provider' => 'admissions',
+        ],
+
     ],
 
     /*
@@ -104,12 +109,12 @@ return [
         'accountants' => [
             'driver' => 'eloquent',
             'model' => App\Models\Accountant::class,
-        ]
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admissions' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admission::class, // Ensure this model exists
+        ],
     ],
 
     /*

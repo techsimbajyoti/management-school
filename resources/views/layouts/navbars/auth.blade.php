@@ -854,16 +854,24 @@
                         </ul>
                     </div>
                 </li>
-                    <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
-                        <a href="{{ route('accountant-fees-challans') }}">
-                            <i class="fa-solid fa-receipt"></i>
-                            <p>{{ __('Fees Challans') }}</p>
-                        </a>
-                    </li>
-                    <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
-                        <a href="{{ route('accountant-report') }}">
-                            <i class="fa-solid fa-file-invoice"></i>
-                            <p>{{ __('Reports') }}</p>
+                <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
+                    <a href="{{ route('accountant-fees-challans') }}">
+                        <i class="fa-solid fa-receipt"></i>
+                        <p>{{ __('Fees Challans') }}</p>
+                    </a>
+                </li>
+                <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
+                    <a href="{{ route('accountant-report') }}">
+                        <i class="fa-solid fa-file-invoice"></i>
+                        <p>{{ __('Reports') }}</p>
+                    </a>
+                </li>
+
+                @elseif(auth()->guard('webadmissions')->check() && auth()->guard('webadmissions')->user()->role_id == 6)
+                    <li class="{{ $elementActive == 'admission-dashboard' ? 'active' : '' }}">
+                        <a href="{{ route('admission-dashboard') }}">
+                            <i class="nc-icon nc-bank"></i>
+                            <p>{{ __('Dashboard') }}</p>
                         </a>
                     </li>
                 @endif

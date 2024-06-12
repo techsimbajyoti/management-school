@@ -443,6 +443,13 @@ Route::group(['middleware' => 'auth.webaccountants'], function () {
 	Route::get('student-payment', [AccountantController::class, 'student_payment'])->name('student-payment');
 });
 
+
+Route::group(['middleware' => 'auth.webadmissions'], function () {
+
+	Route::get('admission-dashboard', [HomeController::class, 'admission_dashboard'])->name('admission-dashboard');
+
+});
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });

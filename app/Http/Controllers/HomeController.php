@@ -30,6 +30,9 @@ class HomeController extends Controller
             }elseif ($user && $user->role_id == 5) { 
                 // If the user's role_id is not 1, add the 'webcontactuser' middleware
                 $this->middleware('webparents');
+            }elseif ($user && $user->role_id == 6) { 
+                // If the user's role_id is not 1, add the 'webcontactuser' middleware
+                $this->middleware('webadmissions');
             }else{
                 $this->middleware('auth');
             }
@@ -72,6 +75,11 @@ class HomeController extends Controller
     public function accountant_dashboard()
     {
         return view('accountants.accountants');
+    }
+
+    public function admission_dashboard()
+    {
+        return view('admissions.admissions');
     }
 
     public function gallery_category(){

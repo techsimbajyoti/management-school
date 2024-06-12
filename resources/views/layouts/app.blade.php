@@ -63,7 +63,7 @@ The above copyright notice and this permission notice shall be included in all c
 </head>
 
 <body class="{{ $class }}">
-    @if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check())
+    @if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check() || auth()->guard('webadmissions')->check())
         @include('layouts.page_templates.auth')
        
     @else
@@ -93,7 +93,7 @@ The above copyright notice and this permission notice shall be included in all c
      <script src="https://cdnjs.cloudflare.com/ajax/libs/tokenize2/1.1.0/js/tokenize2.min.js"></script>
 
    <!-- jQuery -->
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <!-- DataTables FixedHeader CSS -->
