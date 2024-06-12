@@ -4,16 +4,13 @@
 ])
 
 @section('content')
-<link rel="stylesheet" href="">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     .card-stats .numbers p {
         margin: 0;
     }
 </style>
-
-
-
 <div class="content">
     <!-- Teacher Info Cards -->
     <div class="row">

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Country;
+use App\Models\State;
 
 class UserController extends Controller
 {
@@ -158,5 +161,15 @@ class UserController extends Controller
         return view('admin.academic.lass-setup');
     }
 
+    public function json_country(Request $request)
+    {
+        $country = Country::where('country', $request->country_id)->first();
+        if ($country) {
+            $states = State::where('country_id', $country->id)->get(['id', 'state']);
+            return response()->json(['states' => $states]);
+        } else {
+            return response()->json(['states' => []]);
+        }
+    }
 
 }

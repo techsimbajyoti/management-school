@@ -20,7 +20,13 @@
                 <div class="table-content table-basic mt-20">
                     <div class="card ot-card">
                       <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Images</h4><a href="{{route('add-image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        <h4 class="mb-0">Images</h4>
+                        @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                        <a href="{{route('add-image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                        <a href="{{route('teacher-add-image')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        @endif
+                       
                       </div>
                       <hr>
                       <div class="card-body">

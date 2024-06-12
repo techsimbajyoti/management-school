@@ -21,8 +21,13 @@
                     <div class="card ot-card">
                       <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Gallery Category</h4>
+
+                        @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                         <a href="{{route('add-gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
-                      </div>
+                        @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                        <a href="{{route('teacher-add-gallery-category')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        @endif
+                    </div>
                       <hr>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -40,7 +45,11 @@
                               <tr id="row_3">
                                 <td class="serial">3</td>
                                 <td>Awards</td>
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <td><a href="{{route('teacher-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @endif
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">

@@ -46,11 +46,11 @@
                             <br><input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
                           <label for="">All</label>
                           <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Student's</label>
+                          <label for="">Students</label>
                           <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Teacher's</label>
+                          <label for="">Teachers</label>
                           <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
-                          <label for="">Parent's</label>
+                          <label for="">Parents</label>
                           <input name="event" list="datalistOptions" id="exampleDataList" type="radio" placeholder="Enter name" value="">
                           <label for="">Open Event</label>
                           </div>

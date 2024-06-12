@@ -16,7 +16,7 @@
             </div>
         @endif
         <div class="row">
-        <div class="col-12 p-0 search-form">
+        <div class="col-12 search-form">
             <form action="" method="" id="marksheed" enctype="multipart/form-data" name="marksheed">
               <input type="hidden" name="_token" value="fE3jhMKUFkldbNrDIJ5XZv8piyHC35HDe5tRxIwb">
               <div class="card ot-card mb-24 position-relative z_1">

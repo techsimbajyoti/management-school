@@ -28,11 +28,11 @@
                   </div>
                   <div class="d-flex align-items-center gap-3">
                       <div class="single_large_selectBox d-flex align-items-center gap-2">
-                          <label for="fromDate">From</label>
+                          <label for="fromDate" style="margin-right: 8px;">From</label>
                           <input id="fromDate" value="" name="date" class="form-control ot-input" type="date">
                       </div>
                       <div class="single_large_selectBox d-flex align-items-center gap-2">
-                          <label for="toDate">To</label>
+                          <label for="toDate"style="margin-right: 4px;">To</label>
                           <input id="toDate" value="" name="date" class="form-control ot-input" type="date">
                       </div>
                       <button type="submit" class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-search"></i> Search</button>

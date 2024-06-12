@@ -67,15 +67,15 @@
                             </div>
                             <h6>Mother Information</h6><hr>
                             <div class="row">
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-4 mb-3">
                                 <label for="exampleDataList" class="form-label">Mother Name <span class="fillable">*</span></label> 
                                 <input class="nice-select niceSelect bordered_style wide" name="mother_name" list="datalistOptions" id="exampleDataList" placeholder="Enter mother Name" type="text" value="">
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-4 mb-3">
                                 <label for="exampleDataList" class="form-label">Mother Mobile</label> 
                                 <input class="nice-select niceSelect bordered_style wide" name="mother_mobile" list="datalistOptions" id="exampleDataList" placeholder="Enter mother Mobile" type="text" value="">
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-4 mb-3">
                                 <label for="exampleDataList" class="form-label">Mother Profession</label> 
                                 <input class="nice-select niceSelect bordered_style wide" name="mother_profession" list="datalistOptions" id="exampleDataList" placeholder="Enter father profession" type="text" value="">
                                 </div>

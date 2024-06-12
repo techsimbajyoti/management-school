@@ -213,6 +213,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('json-state', [UserController::class, 'json-state'])->name('json-state');
 
+	Route::post('json-country', [UserController::class, 'json_country'])->name('json-country');
+
 	Route::post('delete-shift', [UserController::class, 'delete_shift'])->name('delete-shift');
 
 	Route::get('class-setup', [UserController::class, 'class_setup'])->name('class-setup');
@@ -228,8 +230,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::view('/specific-student', 'admin.student-info.specific-student');
 
 	Route::get('/general-setting', [SettingController::class, 'general_setting'])->name('general-setting');
-
-
 
 	Route::get('admin-student-profile', [StudentController::class, 'admin_student_profile'])->name('admin-student-profile');
 
@@ -299,6 +299,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('report-attendance', [ReportController::class, 'report_attendance'])->name('report-attendance');
 
+	Route::get('admin-event',[HomeController::class, 'admin_event'])->name('admin-event');
+
+	Route::get('edit-admin-event',[HomeController::class, 'edit_admin_event'])->name('edit-admin-event');
+
+	Route::get('admin-event-detail-view',[HomeController::class, 'admin_event_detail_view'])->name('admin-event-detail-view');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
@@ -346,6 +351,42 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 	Route::get('edit-teacher-profile',[TeacherController::class, 'edit_teacher_profile'])->name('edit-teacher-profile');
 
 	Route::get('teacher-attendance',[TeacherController::class, 'teacher_attendance'])->name('teacher-attendance');
+
+	Route::get('teacher-event',[TeacherController::class, 'teacher_event'])->name('teacher-event');
+
+	Route::get('teacher-class-routine',[TeacherController::class, 'teacher_class_routine'])->name('teacher-class-routine');
+
+	Route::get('teacher-exam-routine',[TeacherController::class, 'teacher_exam_routine'])->name('teacher-exam-routine');
+
+	Route::get('teacher-attendance-list',[TeacherController::class, 'teacher_attendance_list'])->name('teacher-attendance-list');
+
+	Route::get('teacher-attendance-report',[TeacherController::class, 'teacher_attendance_report'])->name('teacher-attendance-report');
+
+	Route::get('teacher-mark-sheet',[TeacherController::class, 'teacher_mark_sheet'])->name('teacher-mark-sheet');
+
+	Route::get('teacher-gallery-category',[TeacherController::class, 'teacher_gallery_category'])->name('teacher-gallery-category');
+
+	Route::get('teacher-image',[TeacherController::class, 'teacher_image'])->name('teacher-image');
+
+	Route::get('teacher-video',[TeacherController::class, 'teacher_video'])->name('teacher-video');
+
+	Route::get('teacher-add-image',[HomeController::class, 'add_image'])->name('teacher-add-image');
+
+	Route::get('teacher-add-video',[HomeController::class, 'add_video'])->name('teacher-add-video');
+
+	Route::get('teacher-add-gallery-category', [HomeController::class, 'add_gallery_category'])->name('teacher-add-gallery-category');
+
+	Route::get('teacher-add-event', [HomeController::class, 'add_event'])->name('teacher-add-event');
+
+	Route::get('edit-teacher-event',[HomeController::class, 'edit_admin_event'])->name('edit-teacher-event');
+
+	Route::get('teacher-calender', [TeacherController::class, 'teacher_calender'])->name('teacher-calender');
+
+	Route::get('teacher-event-detail-view',[HomeController::class, 'admin_event_detail_view'])->name('teacher-event-detail-view');
+
+	Route::get('parent-detail',[TeacherController::class, 'parent_detail'])->name('parent-detail');
+
+	Route::get('student-detail',[TeacherController::class, 'student_detail'])->name('student-detail');
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {

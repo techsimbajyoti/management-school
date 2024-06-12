@@ -4,6 +4,33 @@
 ])
 
 @section('content')
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<style>
+  .tag {
+    display: inline-block;
+    padding: 5px;
+    background-color: #d1e7dd;
+    border-radius: 3px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+  .tag .remove-tag {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  #tagsInput {
+    width: calc(100% - 20px);
+    border: none;
+    outline: none;
+  }
+  .tags-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+</style>
     <div class="content">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
@@ -222,15 +249,7 @@
                                 <div class="row mb-3">
                                  <div class="col-md-4">
                                     <label class="form-label">{{ __('Student Language:') }}</label>
-                                    <select class="nice-select niceSelect bordered_style wide" id="student_language"  name="student_language"  data-fouc data-placeholder="Choose..">
-                                        <option value="">Select one of these</option>
-                                        @foreach($Language as $Languages)
-                                        <option value="{{ $Languages->lang_code }}">{{ $Languages->name }}</option>
-                                        @endforeach
-                                        <option value="other">Other</option>
-                                    </select>
-                                    <input type="text" id="other-language" name="other_gender" class="nice-select niceSelect bordered_style wide" placeholder="Please specify">
-                                   
+                                    <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Language type" id="student_language"  name="student_language">
                                     @if ($errors->has('student_language'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('student_language') }}</strong>
@@ -401,118 +420,50 @@
 @endsection
 
 @push('scripts')
-{{-- <script src="{{ asset('paper') }}/js/custom.js"></script> --}}
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     <script>
-        function autocomplete(inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
-    var currentFocus;
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
-        /*close any already open lists of autocompleted values*/
-        closeAllLists();
-        if (!val) { return false;}
-        currentFocus = -1;
-        /*create a DIV element that will contain the items (values):*/
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
-        /*for each item in the array...*/
-        for (i = 0; i < arr.length; i++) {
-          /*check if the item starts with the same letters as the text field value:*/
-          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            /*create a DIV element for each matching element:*/
-            b = document.createElement("DIV");
-            /*make the matching letters bold:*/
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
-            /*insert a input field that will hold the current array item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-            /*execute a function when someone clicks on the item value (DIV element):*/
-            b.addEventListener("click", function(e) {
-                /*insert the value for the autocomplete text field:*/
-                inp.value = this.getElementsByTagName("input")[0].value;
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
-                closeAllLists();
-            });
-            a.appendChild(b);
-          }
-        }
-    });
-    /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function(e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-          /*If the arrow DOWN key is pressed,
-          increase the currentFocus variable:*/
-          currentFocus++;
-          /*and and make the current item more visible:*/
-          addActive(x);
-        } else if (e.keyCode == 38) { //up
-          /*If the arrow UP key is pressed,
-          decrease the currentFocus variable:*/
-          currentFocus--;
-          /*and and make the current item more visible:*/
-          addActive(x);
-        } else if (e.keyCode == 13) {
-          /*If the ENTER key is pressed, prevent the form from being submitted,*/
-          e.preventDefault();
-          if (currentFocus > -1) {
-            /*and simulate a click on the "active" item:*/
-            if (x) x[currentFocus].click();
-          }
-        }
-    });
-    function addActive(x) {
-      /*a function to classify an item as "active":*/
-      if (!x) return false;
-      /*start by removing the "active" class on all items:*/
-      removeActive(x);
-      if (currentFocus >= x.length) currentFocus = 0;
-      if (currentFocus < 0) currentFocus = (x.length - 1);
-      /*add class "autocomplete-active":*/
-      x[currentFocus].classList.add("autocomplete-active");
+        $( function() {
+    var availableTags = <?php echo json_encode($lang); ?>;
+    function split( val ) {
+      return val.split( /,\s*/ );
     }
-    function removeActive(x) {
-      /*a function to remove the "active" class from all autocomplete items:*/
-      for (var i = 0; i < x.length; i++) {
-        x[i].classList.remove("autocomplete-active");
-      }
+    function extractLast( term ) {
+      return split( term ).pop();
     }
-    function closeAllLists(elmnt) {
-      /*close all autocomplete lists in the document,
-      except the one passed as an argument:*/
-      var x = document.getElementsByClassName("autocomplete-items");
-      for (var i = 0; i < x.length; i++) {
-        if (elmnt != x[i] && elmnt != inp) {
-          x[i].parentNode.removeChild(x[i]);
+ 
+    $( "#student_language" )
+      // don't navigate away from the field on tab when selecting an item
+      .on( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).autocomplete( "instance" ).menu.active ) {
+          event.preventDefault();
         }
-      }
-    }
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-  }
-  
-  var countries = <?php echo json_encode($test); ?>;
-
-  /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-  autocomplete(document.getElementById("country"), countries);
-
-  var st = <?php echo json_encode($testing); ?>;
-
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-  autocomplete(document.getElementById("state"), st);
-
-  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
-  autocomplete(document.getElementById("parent_name"), parent);
-
+      })
+      .autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          // delegate back to autocomplete, but extract the last term
+          response( $.ui.autocomplete.filter(
+            availableTags, extractLast( request.term ) ) );
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        }
+      });
+  } );
 
         $(document).ready(function() {
             $('#other-gender').hide();
@@ -531,13 +482,13 @@
             }
         });
 
-        $('#student_language').change(function() {
-            if (this.value === 'other') {
-                $('#other-language').show();
-            } else {
-                $('#other-language').hide();
-            }
-        });
+        // $('#student_language').change(function() {
+        //     if (this.value === 'other') {
+        //         $('#other-language').show();
+        //     } else {
+        //         $('#other-language').hide();
+        //     }
+        // });
 
         $('#category').change(function(){
             if (this.value === 'other') {
@@ -573,6 +524,102 @@
                     });
                 }
             });
+
+
+
+            var countries = <?php echo json_encode($test); ?>;
+    autocomplete(document.getElementById("country"), countries);  
+
+  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
+  autocomplete(document.getElementById("parent_name"), parent);
+
+    function autocomplete(inp, arr) {
+        var currentFocus;
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                        if (inp.id === 'country') {
+                            fetchStates(inp.value);
+                        }
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) {
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+    function fetchStates(country) {
+
+        $.ajax({
+            url: "{{ route('json-country') }}",
+            type: 'POST',
+            data: {
+                country_id: country,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                var states = data.states.map(function(state) { return state.state; });
+                autocomplete(document.getElementById("state"), states);
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
         });
         
     document.getElementById('add-document').addEventListener('click', function() {
