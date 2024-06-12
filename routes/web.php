@@ -378,6 +378,12 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::get('parent-view-event', [ParentController::class, 'parent_view_event'])->name('parent-view-event');
 
+	Route::get('detail-student-parent', [ParentController::class, 'detail_student_parent'])->name('detail-student-parent');
+
+	Route::get('student-subject', [ParentController::class, 'student_subject'])->name('student-subject');
+
+	Route::get('student-class-routine', [ParentController::class, 'student_class_routine'])->name('student-class-routine');
+
 
 });
 

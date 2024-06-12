@@ -9,36 +9,36 @@
       <form action="" enctype="multipart/form-data" method="post" id="marksheed">
           @csrf
           <div class="card-header d-flex align-items-center gap-4 flex-wrap">
-            <h3 class="mb-0">Filtering</h3>
-            <div class="d-flex align-items-center gap-3 flex-fill justify-content-between flex-wrap">
-                <div class="d-flex gap-3">
-                    <div class="single_large_selectBox">
-                        <select class="class nice-select niceSelect bordered_style wide" name="view">
-                            <option value="0">Short view</option>
-                            <option value="1">Detail view</option>
-                            <option value="2">Percentage View</option>
-                        </select>
-                    </div>
-                    <div class="single_large_selectBox">
-                        <select id="getSections" class="class nice-select niceSelect bordered_style wide" name="class">
-                            <option value="">Child 1: Student 112</option>
-                            <option value="1">Child 2: Student 113</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="single_large_selectBox d-flex align-items-center gap-2">
-                        <label for="fromDate">From</label>
-                        <input id="fromDate" value="" name="date" class="form-control ot-input" type="date">
-                    </div>
-                    <div class="single_large_selectBox d-flex align-items-center gap-2">
-                        <label for="toDate">To</label>
-                        <input id="toDate" value="" name="date" class="form-control ot-input" type="date">
-                    </div>
-                    <a class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-search"></i> Search</a>
-                </div>
-            </div>
-        </div>
+              <h3 class="mb-0">Filtering</h3>
+              <div class="d-flex align-items-center gap-3 flex-fill justify-content-between flex-wrap">
+                  <div class="d-flex gap-3">
+                      <div class="single_large_selectBox">
+                          <select class="class nice-select niceSelect bordered_style wide" name="view">
+                              <option value="0">Short view</option>
+                              <option value="1">Detail view</option>
+                              <option value="2">Percentage View</option>
+                          </select>
+                      </div>
+                      <div class="single_large_selectBox">
+                          <select id="getSections" class="class nice-select niceSelect bordered_style wide" name="class">
+                              <option value="">Child 1: Student 112</option>
+                              <option value="1">Child 2: Student 113</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                      <div class="single_large_selectBox d-flex align-items-center gap-2">
+                          <label for="fromDate">From</label>
+                          <input id="fromDate" value="" name="date" class="form-control ot-input" type="date">
+                      </div>
+                      <div class="single_large_selectBox d-flex align-items-center gap-2">
+                          <label for="toDate">To</label>
+                          <input id="toDate" value="" name="date" class="form-control ot-input" type="date">
+                      </div>
+                      <button type="submit" class="btn btn-lg ot-btn-primary search-student"><i class="fa fa-search"></i> Search</button>
+                  </div>
+              </div>
+          </div>
       </form>
   </div>
     <div class="col-md-12 detail-view" style="display:none;">
@@ -225,7 +225,7 @@
                           <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                  <a href="{{ route('detail-student-attendance') }}" class="dropdown-item student-details"><i class="fa fa-eye"></i>  {{ __('View student detail') }}</a>
+                                  <a href="{{ route('detail-student-parent') }}" class="dropdown-item student-details"><i class="fa fa-eye"></i>  {{ __('View student detail') }}</a>
                               </div>
                           </div>
                       </div>
@@ -248,29 +248,28 @@
 <script>
 
 
-   $(document).ready(function(){
-    $('.short-view').hide();
+$(document).ready(function() {
     $('.detail-view').hide();
-    $('.search-form').show();
     $('.percentage-view').hide();
 
     $('#marksheed').on('submit', function(e) {
-      e.preventDefault();
-      var view = $('select[name="view"]').val();
-      if (view == "0") {
-        $('.short-view').show();
-        $('.detail-view').hide();
-        $('.percentage-view').hide();
-      } else if (view == "1") {
-        $('.detail-view').show();
-        $('.short-view').hide();
-        $('.percentage-view').hide();
-      }
-      else if (view == "2") {
-        $('.detail-view').hide();
-        $('.short-view').hide();
-        $('.percentage-view').show();
-      }
+        e.preventDefault();
+        var view = $('select[name="view"]').val();
+
+        if (view == "0") {
+            $('.short-view').show();
+            $('.detail-view').hide();
+            $('.percentage-view').hide();
+        } else if (view == "1") {
+            $('.detail-view').show();
+            $('.short-view').hide();
+            $('.percentage-view').hide();
+        } else if (view == "2") {
+            $('.detail-view').hide();
+            $('.short-view').hide();
+            $('.percentage-view').show();
+        }
     });
-   });
+});
+
 </script> @endpush
