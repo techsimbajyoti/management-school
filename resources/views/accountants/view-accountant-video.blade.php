@@ -27,6 +27,6 @@
                 @include('admin.gallery.view-video-all')
             </div>
         </div>
-    </div>
+        
 
 @endsection

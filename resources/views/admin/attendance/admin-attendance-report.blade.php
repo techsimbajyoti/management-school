@@ -81,7 +81,7 @@
                         <form action="" method="post" enctype="multipart/form-data">
                           @csrf
                           <div class="table-responsive">
-                            <table class="table table-bordered role-table" id="students_table">
+                            <table class="table table-bordered role-table myTable" id="students_table">
                               <thead class="thead">
                                 <tr>
                                   <th class="purchase">Student name</th>
@@ -134,7 +134,7 @@
                       <form action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="table-responsive">
-                          <table class="table table-bordered role-table" id="students_table">
+                          <table class="table table-bordered role-table myTable" id="students_table">
                             <thead class="thead">
                               <tr>
                                 <th class="purchase">Student name</th> 
@@ -310,9 +310,7 @@
             $('.detail-view').hide();
             $('.short-view').hide();    
 
-          var table = $('#myTable').DataTable({
-              fixedHeader: true
-          });
+       
 
             $('.search-student').click(function(){
                 var niceSelect = $('.niceSelect').val();

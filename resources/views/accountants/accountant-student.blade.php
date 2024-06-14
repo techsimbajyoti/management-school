@@ -1,8 +1,11 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'student-list'
+    'elementActive' => 'accountant-student'
 ])
 @section('content')
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css"> --}}
 <style>
   /* The Modal (background) */
   .modal{
@@ -54,6 +57,8 @@
     padding: 2px 16px;
     color: black;
   }
+  
+  
   </style>
 <div class="content">
     @if (session('status'))
@@ -111,7 +116,7 @@
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">Active Student list</h4>
-                        <a href="{{ route('admit-student') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                        
                     </div>
                     <hr>
                     <div class="card-body">
@@ -125,11 +130,9 @@
                                         <th class="purchase">Student name</th>
                                         <th class="purchase">Class (Section)</th>
                                         <th class="purchase">Parent name</th>
-                                        <th class="action">Date Of Birth</th>
-                                        <th class="action">Gender</th>
                                         <th class="action">Contact</th>
-                                        <th class="action">Password</th>
                                         <th class="action">Status</th>
+                                        <th class="action">Payment Status</th>
                                         <th class="action">Action</th>
 
                                         </tr>
@@ -141,22 +144,40 @@
                                             <td>OneA110</td>
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                                <a href="{{ route('accountant-general-info-student')}}" target="_blank">John</a></td>
                                             <td>Two (A)</td>
                                             <td>Parent5</td>
-                                            <td>12 Apr 2021</td>
-                                            <td>Male</td>
+                                           
                                             <td>658932654</td>
-                                            <td>123456789</td>
+                                            
                                             <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td>
+                                                <input type="hidden" name="items[]" value="2">
+                                                <input type="hidden" name="students[]" value="2">
+                                                <input type="hidden" name="studentsRoll[]" value="2">
+                                                <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                                    <div class="form-check d-flex align-items-center mt-6">
+                                                        <input class="form-check-input" type="radio" id="flexRadioDefault1" name="payment[1]" value="1">
+                                                        <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center mt-6">
+                                                        <input class="form-check-input" type="radio" id="flexRadioDefault2" name="payment[1]" value="2">
+                                                        <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center mt-6">
+                                                        <input class="form-check-input" type="radio" id="flexRadioDefault3" name="payment[1]" value="3" checked>
+                                                        <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Unpaid</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            
+                                            
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,22 +189,39 @@
                                             <td>OneA110</td>
                                            
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                              <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                              <a href="{{ route('accountant-general-info-student')}}" target="_blank">William</a></td>
                                             <td>Two (A)</td>
                                             <td>Parent8</td>
-                                            <td>10 Jan 2024</td>
-                                            <td>Male</td>
+                                            
                                             <td>0147852111</td>
-                                            <td>123456789</td>
+                                           
                                             <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td>
+                                                <input type="hidden" name="items[]" value="2">
+                                                <input type="hidden" name="students[]" value="2">
+                                                <input type="hidden" name="studentsRoll[]" value="2">
+                                                <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                                    <div class="form-check d-flex align-items-center mt-6">
+                                                        <input class="form-check-input" type="radio" id="flexRadioDefault1" name="payment[2]" value="1">
+                                                        <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center mt-6">
+                                                        <input class="form-check-input" type="radio" id="flexRadioDefault2" name="payment[2]" value="2">
+                                                        <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center mt-6">
+                                                        <input class="form-check-input" type="radio" id="flexRadioDefault3" name="payment[2]" value="3" checked>
+                                                        <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Unpaid</label>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                            <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('Payment Info') }}</a>
+                                                        
                                                         </div>
 
                                                     </div>
@@ -202,7 +240,7 @@
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">Inactive Student list</h4>
-                        <a href="{{ route('admit-student') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                      
                     </div>
                     <hr>
                     <div class="card-body">
@@ -216,11 +254,9 @@
                                         <th class="purchase">Student name</th>
                                         <th class="purchase">Class (Section)</th>
                                         <th class="purchase">Parent name</th>
-                                        <th class="action">Date Of Birth</th>
-                                        <th class="action">Gender</th>
-                                        <th class="action">Password</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Status</th>
+                                        <th class="action">Payment Status</th>
                                         <th class="action">Action</th>
                                     </tr>
                                 </thead>
@@ -230,20 +266,37 @@
                                         <td>20231114</td>
                                         <td>OneA110</td>
                                         <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                          <a href="{{ route('admin-student-profile')}}" target="_blank">Herry</a></td>
+                                          <a href="{{ route('accountant-general-info-student')}}" target="_blank">Herry</a></td>
                                         <td>Three (A)</td>
                                         <td>Parent2</td>
-                                        <td>12 Apr 2019</td>
-                                        <td>Male</td>
-                                        <td>123456789</td>
+                                      
                                         <td>6589326562</td>
                                         <td><span class="badge-basic-danger-text">Inactive</span></td>
+                                        <td>
+                                            <input type="hidden" name="items[]" value="2">
+                                            <input type="hidden" name="students[]" value="2">
+                                            <input type="hidden" name="studentsRoll[]" value="2">
+                                            <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                                <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault1" name="payment[3]" value="1">
+                                                    <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="payment[3]" value="2">
+                                                    <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault3" name="payment[3]" value="3" checked>
+                                                    <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Unpaid</label>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td class="action">
                               <div class="dropdown dropdown-action">
                                   <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                          <a href="{{ route('edit-inactive-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                          <a href="{{ route('view-payment-info') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('Payment Info') }}</a>
                                       </div>
                                   </div>
                               </div>
@@ -260,7 +313,7 @@
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">All Student list</h4>
-                        <a href="{{ route('admit-student') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                      
                     </div>
                     <hr>
                     <div class="card-body">
@@ -274,11 +327,9 @@
                                         <th class="purchase">Student name</th>
                                         <th class="purchase">Class (Section)</th>
                                         <th class="purchase">Parent name</th>
-                                        <th class="action">Date Of Birth</th>
-                                        <th class="action">Gender</th>
-                                        <th class="action">Password</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Status</th>
+                                        <th class="action">Payment Status</th>
                                         <th class="action">Action</th>
                                     </tr>
                                 </thead>
@@ -288,22 +339,37 @@
                                     <td>20231114</td>
                                     <td>OneA110</td>
                                     <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                      <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                      <a href="{{ route('accountant-general-info-student')}}" target="_blank">John</a></td>
                                     <td>Two (A)</td>
                                     <td>Parent5</td>
-                                    <td>12 Apr 2021</td>
-                                    <td>Male</td>
-                                    <td>123456789</td>
+                                  
                                     <td>658932654</td>
                                     <td><span class="badge-basic-success-text">Active</span></td>
+                                    <td>
+                                        <input type="hidden" name="items[]" value="2">
+                                        <input type="hidden" name="students[]" value="2">
+                                        <input type="hidden" name="studentsRoll[]" value="2">
+                                        <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                            <div class="form-check d-flex align-items-center mt-6">
+                                                <input class="form-check-input" type="radio" id="flexRadioDefault1" name="payment[4]" value="1">
+                                                <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                            </div>
+                                            <div class="form-check d-flex align-items-center mt-6">
+                                                <input class="form-check-input" type="radio" id="flexRadioDefault2" name="payment[4]" value="2">
+                                                <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                            </div>
+                                            <div class="form-check d-flex align-items-center mt-6">
+                                                <input class="form-check-input" type="radio" id="flexRadioDefault3" name="payment[4]" value="3" checked>
+                                                <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Unpaid</label>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="action">
                                         <div class="dropdown dropdown-action">
                                             <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                    <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                    <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                    <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                    <a href="{{ route('view-payment-info') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('Payment Info') }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,22 +380,37 @@
                                     <td>2023111</td>
                                     <td>OneA110</td>
                                     <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                      <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                      <a href="{{ route('accountant-general-info-student')}}" target="_blank">William</a></td>
                                     <td>Two (A)</td>
                                     <td>Parent8</td>
-                                    <td>10 Jan 2024</td>
-                                    <td>Male</td>
-                                    <td>123456789</td>
+                                    
                                     <td>0147852111</td>
                                     <td><span class="badge-basic-success-text">Active</span></td>
+                                    <td>
+                                        <input type="hidden" name="items[]" value="2">
+                                        <input type="hidden" name="students[]" value="2">
+                                        <input type="hidden" name="studentsRoll[]" value="2">
+                                        <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                            <div class="form-check d-flex align-items-center mt-6">
+                                                <input class="form-check-input" type="radio" id="flexRadioDefault1" name="payment[5]" value="1">
+                                                <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                            </div>
+                                            <div class="form-check d-flex align-items-center mt-6">
+                                                <input class="form-check-input" type="radio" id="flexRadioDefault2" name="payment[5]" value="2">
+                                                <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                            </div>
+                                            <div class="form-check d-flex align-items-center mt-6">
+                                                <input class="form-check-input" type="radio" id="flexRadioDefault3" name="payment[5]" value="3" checked>
+                                                <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Unpaid</label>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="action">
                                         <div class="dropdown dropdown-action">
                                             <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                    <a href="{{ route('view-student') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                    <a href="{{ route('edit-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                    <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                    <a href="{{ route('view-payment-info') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('Payment Info') }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,20 +421,37 @@
                                   <td>20231114</td>
                                   <td>OneA110</td>
                                   <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                    <a href="{{ route('admin-student-profile')}}" target="_blank">Herry</a></td>
+                                    <a href="{{ route('accountant-general-info-student')}}" target="_blank">Herry</a></td>
                                   <td>Three (A)</td>
                                   <td>Parent2</td>
-                                  <td>12 Apr 2019</td>
-                                  <td>Male</td>
-                                  <td>123456789</td>
+                                
                                   <td>6589326562</td>
                                   <td><span class="badge-basic-danger-text">Inactive</span></td>
+                                  <td>
+                                    <input type="hidden" name="items[]" value="2">
+                                    <input type="hidden" name="students[]" value="2">
+                                    <input type="hidden" name="studentsRoll[]" value="2">
+                                    <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault1" name="payment[6]" value="1">
+                                            <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault2" name="payment[6]" value="2">
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault3" name="payment[6]" value="3" checked>
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Unpaid</label>
+                                        </div>
+                                    </div>
+                                </td>
                                   <td class="action">
                                   <div class="dropdown dropdown-action">
                                       <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                              <a href="{{ route('edit-inactive-student') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                              <a href="{{ route('view-payment-info') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('Payment Info') }}</a>
                                           </div>
                                       </div>
                                   </div>
@@ -373,6 +471,16 @@
 </div>
 @endsection 
 @push('scripts')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- Include DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
+    <!-- Include JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <!-- Include pdfmake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script>
     $(document).ready(function() {
         $('.activeStudentList').hide();

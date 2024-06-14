@@ -1,6 +1,6 @@
 <div class="profile-body edit-teacher-profile" style="display:none;">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h2 class="title">Edit Profile</h2>
+        <h3 class="title">Edit Profile</h3>
     </div>
     <div class="profile-body-form" style="margin-top:25px">
         <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">
@@ -106,7 +106,7 @@
             
            
             <div class="col-lg-3 col-md-6 mb-3">
-                <label class="form-label" for="inputImage">Photo (95 x 95 px)</label>
+                <label class="form-label" for="inputImage">Image (95 x 95 px)</label>
                 <div class="ot_fileUploader left-side">
                 <input class="form-control" type="text" placeholder="Photo" readonly id="placeholder"> 
                 <button class="btn ot-btn-primary" type="button">Browse</button>
@@ -139,8 +139,8 @@
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
-                    <a href="{{ route('teachers') }}" class="btn btn-lg ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</a>
+                    <button type="submit" class="btn btn-lg ot-btn-primary"><i class="fa fa-refresh"></i> {{ __('Update') }}</button>
+                  
                 </div>
             </div>
             

@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'teacher'
+    'elementActive' => 'accountant-teacher'
 ])
 
 @section('content')
@@ -20,7 +20,7 @@
             <div class="table-content table-basic mt-20">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 title">Staff</h4><a href="{{ route('admit-teachers') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                    <h4 class="mb-0 title">Staff</h4>
                     </div>
                     <hr>
                     <div class="card-body">
@@ -34,9 +34,9 @@
                             <th class="purchase">Roles</th>
                             <th class="purchase">Departments</th>
                             <th class="purchase">Email</th>
-                            <th class="purchase">Password</th>
                             <th class="purchase">Contact</th>
                             <th class="purchase">Status</th>
+                            <th class="purchase">Payment Status</th>
                             <th class="action">Action</th>
                             </tr>
                         </thead>
@@ -60,17 +60,35 @@
                                 <td>
                                     <a href="" >demo@gmail.com</a>
                                 </td>
-                                <td>123456789</td>
+                             
                                 <td>0706526451</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
+                                <td>
+                                    <input type="hidden" name="items[]" value="2">
+                                    <input type="hidden" name="students[]" value="2">
+                                    <input type="hidden" name="studentsRoll[]" value="2">
+                                    <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault1" name="teacher[1]" value="1">
+                                            <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault2" name="teacher[1]" value="2">
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault3" name="teacher[1]" value="3" checked>
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Outstanding</label>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a href="{{ route('view-teachers') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                <a href="{{ route('edit-teachers') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                <a href="{{ route('view-teachers-detail') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -95,17 +113,34 @@
                                 <td>
                                     <a href="">demo@gmail.com</a>
                                 </td>
-                                <td>123456789</td>
+                               
                                 <td>09178880009</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
+                                <td>
+                                    <input type="hidden" name="items[]" value="2">
+                                    <input type="hidden" name="students[]" value="2">
+                                    <input type="hidden" name="studentsRoll[]" value="2">
+                                    <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault1" name="teacher[2]" value="1">
+                                            <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault2" name="teacher[2]" value="2">
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault3" name="teacher[2]" value="3" checked>
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Outstanding</label>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                 <a href="{{ route('view-teachers') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                <a href="{{ route('edit-teachers') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -130,17 +165,34 @@
                                 <td>
                                     <a href="" >demo@gmail.com</a>
                                 </td>
-                                <td>123456789</td>
+                                
                                 <td>02263264461</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
+                                <td>
+                                    <input type="hidden" name="items[]" value="2">
+                                    <input type="hidden" name="students[]" value="2">
+                                    <input type="hidden" name="studentsRoll[]" value="2">
+                                    <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault1" name="teacher[3]" value="1">
+                                            <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault2" name="teacher[3]" value="2">
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault3" name="teacher[3]" value="3" checked>
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Outstanding</label>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a href="{{ route('view-teachers') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                <a href="{{ route('edit-teachers') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                <a href="{{ route('view-teachers-detail') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -165,17 +217,34 @@
                                 <td>
                                     <a href="" >demo@gmail.com</a>
                                 </td>
-                                <td>123456789</td>
+                                
                                 <td>065837778514</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
+                                <td>
+                                    <input type="hidden" name="items[]" value="2">
+                                    <input type="hidden" name="students[]" value="2">
+                                    <input type="hidden" name="studentsRoll[]" value="2">
+                                    <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault1" name="teacher[4]" value="1">
+                                            <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault2" name="teacher[4]" value="2">
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault3" name="teacher[4]" value="3" checked>
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Outstanding</label>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a href="{{ route('view-teachers') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                <a href="{{ route('edit-teachers') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                <a href="{{ route('view-teachers-detail') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -200,17 +269,35 @@
                                 <td>
                                     <a href="" >demo@gmail.com</a>
                                 </td>
-                                <td>123456789</td>
+                               
                                 <td>02283777851</td>
                                 <td><span class="badge-basic-success-text">Active</span></td>
+                                <td>
+                                    <input type="hidden" name="items[]" value="2">
+                                    <input type="hidden" name="students[]" value="2">
+                                    <input type="hidden" name="studentsRoll[]" value="2">
+                                    <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault1" name="teacher[5]" value="1">
+                                            <label class="form-check-label ms-1" for="flexRadioDefault1"  style="padding-left:3px;">Full Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault2" name="teacher[5]" value="2">
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault2">Partially Paid</label>
+                                        </div>
+                                        <div class="form-check d-flex align-items-center mt-6">
+                                            <input class="form-check-input" type="radio" id="flexRadioDefault3" name="teacher[5]" value="3" checked>
+                                            <label class="form-check-label ms-1"  style="padding-left:3px;" for="flexRadioDefault3">Outstanding</label>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                <a href="{{ route('view-teachers') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                <a href="{{ route('edit-teachers') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                <a href="{{ route('view-teachers-detail') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
+                                               
                                             </div>
                                         </div>
                                     </div>

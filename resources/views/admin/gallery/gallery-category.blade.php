@@ -31,14 +31,16 @@
                       <hr>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <table class="table table-bordered class-table">
+                          <table class="table table-bordered class-table myTable">
                             <thead class="thead">
                               <tr>
                                 <th class="serial">SR No.</th>
                                 <th class="purchase">Name</th>
                                 <th class="purchase">Image / Video</th>
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <th class="purchase">Status</th>
                                 <th class="action">Action</th>
+                                @endif
                               </tr>
                             </thead>
                             <tbody class="tbody">
@@ -48,8 +50,16 @@
                                 @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
                                 @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
-                                <td><a href="{{route('teacher-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                <td><a href="{{route('view-teacher-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-teacher-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                                <td><a href="{{route('view-accountant-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-accountant-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                                <td><a href="{{route('view-student-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-student-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                                <td><a href="{{route('view-parent-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-parent-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
                                 @endif
+
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
@@ -62,11 +72,23 @@
                                         </div>
                                     </div>
                                 </td>
+                                @endif
                               </tr>
                               <tr id="row_2">
                                 <td class="serial">4</td>
                                 <td>Annual Program</td>
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <td><a href="{{route('view-teacher-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-teacher-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                                <td><a href="{{route('view-accountant-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-accountant-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                                <td><a href="{{route('view-student-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-student-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                                <td><a href="{{route('view-parent-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-parent-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @endif
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">
@@ -79,6 +101,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                @endif
                               </tr>
                             </tbody>
                           </table>
@@ -92,6 +115,7 @@
 @endsection
 
 @push('scripts')
+
     <script>
         $(document).ready(function() {
             $('.detail-view').hide();

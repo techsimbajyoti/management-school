@@ -304,6 +304,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('edit-admin-event',[HomeController::class, 'edit_admin_event'])->name('edit-admin-event');
 
 	Route::get('admin-event-detail-view',[HomeController::class, 'admin_event_detail_view'])->name('admin-event-detail-view');
+
+	Route::get('add-notification',[HomeController::class, 'add_notification'])->name('add-notification');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
@@ -343,6 +345,8 @@ Route::group(['middleware' => 'auth.webstudents'], function () {
 });
 
 Route::group(['middleware' => 'auth.webteachers'], function () {
+
+    Route::get('teacher-admin-student-profile',[StudentController::class,'admin_student_profile'])->name('teacher-admin-student-profile');
 
 	Route::get('teacher-dashboard', [HomeController::class, 'teacher_dashboard'])->name('teacher-dashboard');
 
@@ -387,6 +391,10 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 	Route::get('parent-detail',[TeacherController::class, 'parent_detail'])->name('parent-detail');
 
 	Route::get('student-detail',[TeacherController::class, 'student_detail'])->name('student-detail');
+
+	Route::get('view-teacher-video',[TeacherController::class, 'view_teacher_video'])->name('view-teacher-video');
+
+	Route::get('view-teacher-image',[TeacherController::class, 'view_teacher_image'])->name('view-teacher-image');
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
@@ -447,6 +455,28 @@ Route::group(['middleware' => 'auth.webaccountants'], function () {
 	Route::get('manage-payment', [AccountantController::class, 'manage_payment'])->name('manage-payment');
 
 	Route::get('student-payment', [AccountantController::class, 'student_payment'])->name('student-payment');
+
+	Route::get('accountant-gallery', [AccountantController::class, 'accountant_gallery'])->name('accountant-gallery');
+
+	Route::get('accountant-event', [AccountantController::class, 'accountant_event'])->name('accountant-event');
+
+	Route::get('accountant-student', [AccountantController::class, 'accountant_student'])->name('accountant-student');
+
+	Route::get('accountant-teacher', [AccountantController::class, 'accountant_teacher'])->name('accountant-teacher');
+
+	Route::get('accountant-event-detail-view', [AccountantController::class, 'accountant_event_detail_view'])->name('accountant-event-detail-view');
+
+	Route::get('view-accountant-image', [AccountantController::class, 'view_accountant_image'])->name('view-accountant-image');
+
+	Route::get('view-accountant-video', [AccountantController::class, 'view_accountant_video'])->name('view-accountant-video');
+
+	Route::get('accountant-general-info-student', [AccountantController::class, 'accountant_general_info_student'])->name('accountant-general-info-student');
+
+	Route::get('view-payment-info', [AccountantController::class, 'view_payment_info'])->name('view-payment-info');
+
+	Route::get('view-teachers-detail', [AccountantController::class, 'view_teachers_detail'])->name('view-teachers-detail');
+
+
 });
 
 Route::group(['middleware' => 'auth'], function () {

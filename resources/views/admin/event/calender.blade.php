@@ -23,9 +23,15 @@
                         <div class="card">
                             <div class="card-body">
                                 @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
-                                <a href="{{'admin-event-detail-view'}}"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                <a href="{{'admin-event-detail-view'}}?showForm=oceanDayForm"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
                                 @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
-                                <a href="{{'teacher-event-detail-view'}}"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                <a href="{{'teacher-event-detail-view'}}?showForm=environmentlDayForm"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                                <a href="{{'accountant-event-detail-view'}}?showForm=environmentlDayForm"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                                <a href="{{'view-event'}}?showForm=environmentlDayForm"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
+                                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                                <a href="{{'parent-view-event'}}?showForm=environmentlDayForm"><img src="{{ asset('paper') }}/img/environment.jpeg" alt="image"></a>
                                 @endif
                                
                             </div>
@@ -37,7 +43,17 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{'admin-event-detail-view'}}"><img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image"></a>
+                            @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                                <a href="{{'admin-event-detail-view'}}?showForm=oceanDayForm"><img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image"></a>
+                            @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <a href="{{'teacher-event-detail-view'}}?showForm=oceanDayForm"><img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                                <a href="{{'accountant-event-detail-view'}}?showForm=oceanDayForm"><img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                                <a href="{{'view-event'}}?showForm=oceanDayForm"><img src="{{ asset('paper') }}/img/oceans.jpeg"  height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                                <a href="{{'parent-view-event'}}?showForm=oceanDayForm"><img src="{{ asset('paper') }}/img/oceans.jpeg" height="227px" alt="image"></a>
+                                @endif
                             </div>
                             <div class="card-footer text-center">
                                 Word Oceans Day
@@ -47,7 +63,17 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{'admin-event-detail-view'}}"> <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image"></a>
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                                <a href="{{'admin-event-detail-view'}}?showForm=milkDayForm"> <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image"></a>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <a href="{{'teacher-event-detail-view'}}?showForm=milkDayForm"> <img src="{{ asset('paper') }}/img/milk.jpeg" alt="image"></a></a>
+                                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                                <a href="{{'accountant-event-detail-view'}}?showForm=milkDayForm"><img src="{{ asset('paper') }}/img/milk.jpeg" alt="image"></a>
+                                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                                <a href="{{'view-event'}}?showForm=milkDayForm"><img src="{{ asset('paper') }}/img/milk.jpeg"  alt="image"></a>
+                                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                                <a href="{{'parent-view-event'}}?showForm=milkDayForm"><img src="{{ asset('paper') }}/img/milk.jpeg" alt="image"></a>
+                                @endif
                             </div>
                             <div class="card-footer text-center">
                                 World Milk Day
@@ -57,7 +83,17 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{'admin-event-detail-view'}}"> <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image"></a>
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+                                <a href="{{'admin-event-detail-view'}}?showForm=bloodDayForm"> <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <a href="{{'teacher-event-detail-view'}}?showForm=bloodDayForm"> <img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                                <a href="{{'accountant-event-detail-view'}}?showForm=bloodDayForm"><img src="{{ asset('paper') }}/img/blood.jpeg" height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                                <a href="{{'view-event'}}?showForm=bloodDayForm"><img src="{{ asset('paper') }}/img/blood.jpeg"  height="227px" alt="image"></a>
+                                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                                <a href="{{'parent-view-event'}}?showForm=bloodDayForm"><img src="{{ asset('paper') }}/img/blood.jpeg"  height="227px" alt="image"></a>
+                                @endif
                             </div>
                             <div class="card-footer text-center">
                                 World Blood Donor Day
@@ -67,6 +103,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="card ot-card mb-24">
                 <div id='calendar'></div>
@@ -90,21 +128,53 @@
         events: [
             {
                 title: 'Buddha Purnima',
-                start: '2024-05-23'
+                start: '2024-05-23',
+                
             },
             {
                 title: 'World Environment Day',
-                start: '2024-06-05'
+                start: '2024-06-05',
+                url: getEventUrl('environmentlDayForm')
             },
             {
                 title: 'World Oceans Day',
                 start: '2024-06-08',
-                end: '2024-06-03'
+                end: '2024-06-03',
+                url: getEventUrl('oceanDayForm')
             }
-            // more events here
+            
         ]
     });
     calendar.render();
     });
+
+    var userRole = parseInt(@json(
+        auth()->guard('web')->check() ? auth()->user()->role_id : (
+        auth()->guard('webteachers')->check() ? auth()->guard('webteachers')->user()->role_id : (
+        auth()->guard('webstudents')->check() ? auth()->guard('webstudents')->user()->role_id : (
+        auth()->guard('webparents')->check() ? auth()->guard('webparents')->user()->role_id : (
+        auth()->guard('webaccountants')->check() ? auth()->guard('webaccountants')->user()->role_id : null
+    )))), 10));
+    console.log('User Role:', userRole);
+
+function getEventUrl(formName) {
+    var baseUrl = '';
+    console.log('Determining base URL for user role:', userRole);
+    if (userRole === 1) {
+        baseUrl = '{{ route("view-event") }}';
+    } else if (userRole === 2) {
+        baseUrl = '{{ route("teacher-event-detail-view") }}';
+    } else if (userRole === 3) {
+        baseUrl = '{{ route("accountant-event-detail-view") }}';
+    } else if (userRole === 4) {
+        baseUrl = '{{ route("view-event") }}';
+    } else if (userRole === 5) {
+        baseUrl = '{{ route("parent-view-event") }}';
+    } else {
+        console.error('Unknown user role:', userRole);
+    }
+    console.log('Generated URL:', baseUrl + '?showForm=' + formName);
+    return baseUrl + '?showForm=' + formName;
+}
 </script>
 @endpush

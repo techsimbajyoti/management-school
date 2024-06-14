@@ -44,6 +44,9 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="{{ asset('paper') }}/demo/demo.css" rel="stylesheet" />
     <link href="{{ asset('paper') }}/css/style.css" rel="stylesheet" />
     <link href="{{ asset('paper') }}/css/style2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css">
 
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css' rel='stylesheet' />
     <!-- jQuery (necessary for FullCalendar) -->
@@ -91,6 +94,10 @@ The above copyright notice and this permission notice shall be included in all c
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/tokenize2/1.1.0/js/tokenize2.min.js"></script>
+     <script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
+    <script type="text/javascript"  charset="utf8" src="paper/js/dataTable.js"></script>
+    <script type="text/javascript"  charset="utf8" src="paper/js/dataTable-init.js"></script>
+    
 
    <!-- jQuery -->
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
@@ -103,7 +110,16 @@ The above copyright notice and this permission notice shall be included in all c
 <!-- DataTables FixedHeader JS -->
 <script src="https://cdn.datatables.net/fixedheader/3.2.1/js/dataTables.fixedHeader.min.js"></script>
     @stack('scripts')
-
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- Include DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
+    <!-- Include JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <!-- Include pdfmake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     @include('layouts.navbars.fixed-plugin-js')
 </body>
 

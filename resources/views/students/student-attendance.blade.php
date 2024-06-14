@@ -53,7 +53,7 @@
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="myTable">
+              <table class="table table-bordered myTable">
                 <thead>
                   <tr>
                     <th class="purchase">Name</th>
@@ -104,7 +104,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="myTable">
+              <table class="table table-bordered myTable">
                 <thead>
                   <tr>
                     <th>1</th>
@@ -199,7 +199,7 @@
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered role-table" id="myTable">
+              <table class="table table-bordered role-table myTable">
                 <thead class="thead">
                   <tr>
                     <th class="purchase">Student name</th> 
@@ -244,12 +244,10 @@
       </div>
     </div>
   </div>
-</div>@endsection @push('scripts') 
-<script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
-<script type="text/javascript"  charset="utf8" src="paper/js/dataTable.js"></script>
+</div>
+@endsection
+ @push('scripts') 
 <script>
-
-
    $(document).ready(function(){
     $('.short-view').hide();
     $('.detail-view').hide();
@@ -275,11 +273,5 @@
     });
    });
 
-
-$(function() {
-$("#myTable").dataTable();
-// $("#myTable1").dataTable();
-});
-
-
-</script> @endpush
+</script>
+ @endpush

@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-12">  
                             <div class="table-responsive">
-                                <table class="table school_borderLess_table table_border_hide2" id="student-document">
+                                <table class="table school_borderLess_table table_border_hide2 myTable" id="student-document">
                                     <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
                                         <tr>
                                             <th scope="col">Subject <span class="text-danger"></span></th>

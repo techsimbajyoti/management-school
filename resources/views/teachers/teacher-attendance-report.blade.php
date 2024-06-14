@@ -81,7 +81,7 @@
                         <form action="" method="post" enctype="multipart/form-data">
                           @csrf
                           <div class="table-responsive">
-                            <table class="table table-bordered role-table" id="students_table">
+                            <table class="table table-bordered role-table myTable" id="students_table">
                               <thead class="thead">
                                 <tr>
                                   <th class="purchase">Student name</th>
@@ -134,7 +134,7 @@
                       <form action="" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="table-responsive">
-                          <table class="table table-bordered role-table" id="students_table">
+                          <table class="table table-bordered role-table myTable" id="students_table">
                             <thead class="thead">
                               <tr>
                                 <th class="purchase">Student name</th> 
@@ -305,6 +305,7 @@
 @endsection
 
 @push('scripts')
+
     <script>
         $(document).ready(function() {
             $('.detail-view').hide();
@@ -353,5 +354,8 @@
                 }
             });
         });
+
+
+
     </script>
 @endpush

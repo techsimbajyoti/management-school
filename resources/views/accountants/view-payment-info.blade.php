@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'manage-payment'
+    'elementActive' => 'accountant-student'
 ])
 @section('content')
 <div class="content">
@@ -14,9 +14,7 @@
             {{ session('password_status') }}
         </div>
     @endif
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"> --}}
+    
     <style>
       .pay-now-container {
         display: flex;
@@ -43,32 +41,57 @@
           <form action="" method="" id="marksheed">
               @csrf
               <div class="card ot-card mb-24 position-relative z_1">
-                  <div class="card-header d-flex align-items-center gap-4 flex-wrap">
-                      <h3 class="mb-0 title">Filtering</h3>
-                      <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
-                          <div class="single_large_selectBox">
-                              <select id="getSections" class="class nice-select niceSelect bordered_style wide" name="class">
-                                  <option value>Payment Status</option>
-                                  <option value="1">Completed Payment</option>
-                                  <option value="2">Incomplete Payment</option>
-                              </select>
-                          </div>
-                         
-                          
-                          <div class="form-group single_large_selectBox">
-                              <button class="btn btn-lg ot-btn-primary equal-dimensions search-student" type="submit" id="search">
-                                  <i class="fa fa-search"></i> Search
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="title">Student Detail</h3>
+                    <a href="{{route('accountant-student')}}" class="btn btn-lg ot-btn-primary mb-4"><span class=""><i class="fa fa-arrow-left"></i>  Back</span></a>
+                </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-1" style="font-size:1rem;">Full Name  :</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">John Smith</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-1" style="font-size:1rem;">Parent Name  :</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">Demo</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">Class $ Section :</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">One (A)</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">Email :</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">john@demo.com</p>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">Contact :</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="mb-0"  style="font-size:1rem;">1234785236 (A)</p>
+                        </div>
+                        
+                    </div>
+                
+            </div>
+            
           </form>
      
           <div class="table-content table-basic mt-20" id="incompleteStudent">
             <div class="card ot-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 title">Manage Students Payment Records</h4>
+                    <h4 class="mb-0 title">Student Payment Records</h4>
                 </div>
                 <hr>
                 <div class="card-body">
@@ -134,24 +157,7 @@
                                     </tr>
 
 
-                                    {{-- <tr id="row_7">
-                                        <td class="serial">2</td>
-                                        <td>2023111</td>
-                            
-                                       
-                                        <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                          <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
-                                        <td>Two (A)</td>
-                                        <td>Parent8</td>
-                                
-                                    
-                    
-                                       
-                                        <td class="action">
-                                           <a href="{{route('student-payment')}}" class="btn btn-lg ot-btn-primary equal-dimensions" >Payment</a>
-                                        </div>
-                                    </td>
-                                </tr> --}}
+                                   
                             </tbody>
                         </table>
                     </div>
@@ -274,7 +280,7 @@
         </div>
       </div>
 
-    </div>
+
 </div>
 </div>
 
@@ -286,9 +292,7 @@
     </div>
     @endsection
     @push('scripts')
-   <script>
-
-  
+    <script>
   document.getElementById('print-receipt').addEventListener('click', function(event) {
     event.preventDefault();
 

@@ -31,7 +31,7 @@
                       <hr>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <table class="table table-bordered class-table">
+                          <table class="table table-bordered class-table myTable">
                             <thead class="thead">
                               <tr>
                                 <th class="serial">SR No.</th>
