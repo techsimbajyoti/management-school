@@ -3,58 +3,7 @@
     'elementActive' => 'student-list'
 ])
 @section('content')
-<style>
-  /* The Modal (background) */
-  .modal{
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  
-  /* Modal Content */
-  .modal-content {
-    background-color: #fefefe !important;
-    margin: auto !important;
-    padding: 20px !important;
-    border: 1px solid #888 !important;
-    width: 80% !important;
-  }
-  
-  /* The Close Button */
-  .close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .modal-header {
-    padding: 2px 16px;
-    color: black;
-  }
-  
-  .modal-body {padding: 2px 16px;}
-  
-  .modal-footer {
-    padding: 2px 16px;
-    color: black;
-  }
-  </style>
+
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">

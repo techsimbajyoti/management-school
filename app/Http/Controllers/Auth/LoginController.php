@@ -104,6 +104,12 @@ class LoginController extends Controller
             }
         }
 
+        if (Auth::guard('webadmissions')->attempt($credentials)) {
+            if (Auth::guard('webadmissions')->user()->role_id == 6) {
+                return redirect()->route('admission-dashboard');
+            }
+        }
+
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role_id == 1) {
                 return redirect('/dashboard');

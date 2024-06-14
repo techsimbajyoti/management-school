@@ -24,6 +24,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FeesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ApplicantController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,11 +39,25 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 
+Route::get('register', 'App\Http\Controllers\Auth\RegisterController@register')->name('register');
+
+Route::post('json-state', [UserController::class, 'json-state'])->name('json-state');
+
+Route::post('json-country', [UserController::class, 'json_country'])->name('json-country');
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+	Route::get('applicant', [ApplicantController::class, 'applicant'])->name('applicant');
+
+	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
+
+	Route::get('view-applicant', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
+
+	Route::get('edit-applicant', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
 
 	Route::get('edit-admin', [AdminController::class, 'edit_admin'])->name('edit-admin');
 
@@ -211,9 +226,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('edit-shift', [UserController::class, 'edit_shift'])->name('edit-shift');
 
-	Route::post('json-state', [UserController::class, 'json-state'])->name('json-state');
 
-	Route::post('json-country', [UserController::class, 'json_country'])->name('json-country');
 
 	Route::post('delete-shift', [UserController::class, 'delete_shift'])->name('delete-shift');
 
@@ -476,6 +489,13 @@ Route::group(['middleware' => 'auth.webaccountants'], function () {
 
 	Route::get('view-teachers-detail', [AccountantController::class, 'view_teachers_detail'])->name('view-teachers-detail');
 
+
+});
+
+
+Route::group(['middleware' => 'auth.webadmissions'], function () {
+
+	Route::get('admission-dashboard', [HomeController::class, 'admission_dashboard'])->name('admission-dashboard');
 
 });
 

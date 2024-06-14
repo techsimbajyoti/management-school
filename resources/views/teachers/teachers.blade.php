@@ -4,7 +4,6 @@
 ])
 
 @section('content')
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     .card-stats .numbers p {

@@ -28,6 +28,30 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+            
+            @if(in_array($elementActive, ['applicant', 'applicant-list']) ? 'active' : '' )
+            <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
+                <a href="{{ route('applicant') }}">
+                    <i class="fa fa-user-circle"></i>
+                    <p>{{ __('Applicant') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'applicant-list' ? 'active' : '' }}">
+                <a href="{{ route('applicant-list') }}">
+                    <i class="fas fa-list"></i>
+                    <p>{{ __('Applicant List') }}</p>
+                </a>
+            </li>
+
+            @else
+            <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
+                <a href="{{ route('applicant') }}" target="_blank">
+                    <i class="fa fa-user-circle"></i>
+                    <p>{{ __('Applicant') }}</p>
+                </a>
+            </li>
+
             <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('page.index', 'dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
@@ -465,6 +489,7 @@
                     </ul>
                 </div>
             </li>
+
             <li class="{{ $elementActive == 'notification' ? 'active' : '' }}">
                 <a href="{{ route('add-notification') }}">
                     <i class="fa fa-bell"></i>
@@ -472,6 +497,7 @@
                 </a>
             </li>
             
+
             
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 
@@ -680,7 +706,12 @@
                     </div>
                 </li>
 
-            @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+           
+           
+           
+           
+           
+             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('parent-dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
@@ -883,12 +914,8 @@
                         </ul>
                     </div>
                 </li>
-                    {{-- <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
-                        <a href="{{ route('accountant-fees-challans') }}">
-                            <i class="fa-solid fa-receipt"></i>
-                            <p>{{ __('Fees Challans') }}</p>
-                        </a>
-                    </li> --}}
+
+                  
                     <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
                         <a href="{{ route('accountant-gallery') }}">
                             <i class="fa fa-camera"></i>
@@ -913,10 +940,22 @@
                             <p>{{ __('Staff') }}</p>
                         </a>
                     </li>
-                    <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
-                        <a href="{{ route('accountant-report') }}">
-                            <i class="fa-solid fa-file-invoice"></i>
-                            <p>{{ __('Reports') }}</p>
+                   
+
+              
+                <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
+                    <a href="{{ route('accountant-report') }}">
+                        <i class="fa-solid fa-file-invoice"></i>
+                        <p>{{ __('Reports') }}</p>
+                    </a>
+                </li>
+
+                @elseif(auth()->guard('webadmissions')->check() && auth()->guard('webadmissions')->user()->role_id == 6)
+                    <li class="{{ $elementActive == 'admission-dashboard' ? 'active' : '' }}">
+                        <a href="{{ route('admission-dashboard') }}">
+                            <i class="nc-icon nc-bank"></i>
+                            <p>{{ __('Dashboard') }}</p>
+
                         </a>
                     </li>
                 @endif

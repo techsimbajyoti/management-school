@@ -87,12 +87,6 @@
                                     <div class="autocomplete">
                                         <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name">
                                     </div>
-                                    {{-- <select class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name"  data-fouc data-placeholder="Choose.." >
-                                        <option value="">Select one of these</option>
-                                        <option  value="Parent1">Parent1</option>
-                                        <option  value="Parent2">Parent2</option>
-                                      
-                                    </select> --}}
                                 </div>
                                 </div>
                                         @if ($errors->has('parent_name')) 
@@ -114,12 +108,7 @@
                                             </span>
                                         @endif
                                 </div>
-
-                               
-                                         
-                               
                             </div>
-                            
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <span style="color:red">*</span>
@@ -202,7 +191,6 @@
                                     </div>
                                 </div>           
                             </div>
-
                             <div class="row mb-3">
                                  <div class="col-md-4">
                                     <div class="form-group">
@@ -246,8 +234,8 @@
                                 </div>
 
                             </div>
-                                <div class="row mb-3">
-                                 <div class="col-md-4">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
                                     <label class="form-label">{{ __('Student Language:') }}</label>
                                     <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Language type" id="student_language"  name="student_language">
                                     @if ($errors->has('student_language'))
@@ -256,7 +244,6 @@
                                         </span>
                                     @endif
                                 </div>
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <span style="color:red">*</span>
@@ -264,22 +251,22 @@
                                         <input type="date" name="admission_date" id="admission_date" class="form-control">
                                     </div>
                                 </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">{{ __('Student Photo:') }}</label>
-                                        <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
-                                        <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ __('Student Photo:') }}</label>
+                                    <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
+                                    <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label"><span class="fillable">* </span>Status:</label>
+                                        <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
+                                            <option value="">Select one of these</option>
+                                            <option  value="active">Active</option>
+                                            <option  value="deactive">deactive</option>
+                                        </select>
+                                        
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label"><span class="fillable">* </span>Status:</label>
-                                            <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
-                                                <option value="">Select one of these</option>
-                                                <option  value="active">Active</option>
-                                                <option  value="deactive">deactive</option>
-                                            </select>
-                                            
-                                        </div>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                             <hr style="margin-top: 50px">

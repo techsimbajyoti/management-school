@@ -127,6 +127,28 @@
                         </div>
                     </div>
                 </li>
+                @elseif(auth()->guard('webadmissions')->check() && auth()->guard('webadmissions')->user()->role_id == 6)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webadmissions')->user()->admission_name }}
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            
+                            <a class="dropdown-item" href="">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                        </div>
+                    </div>
+                </li>
                 @endif
             </ul>
         </div>
@@ -198,9 +220,11 @@
   </div>
 
   @push('scripts')
+
   <script>
+    jQuery.noConflict();
     $(document).ready(function() {
-        $('.change-password').click(function(){
+    $('.change-password').click(function(){
             $('#exampleModal').modal('show');
             $('#myForm')[0].reset();
         });

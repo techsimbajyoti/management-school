@@ -50,13 +50,9 @@ The above copyright notice and this permission notice shall be included in all c
 
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css' rel='stylesheet' />
     <!-- jQuery (necessary for FullCalendar) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- FullCalendar JS -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js'></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Include Tokenize2 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tokenize2/1.1.0/css/tokenize2.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
@@ -66,7 +62,7 @@ The above copyright notice and this permission notice shall be included in all c
 </head>
 
 <body class="{{ $class }}">
-    @if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check())
+    @if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check() || auth()->guard('webadmissions')->check())
         @include('layouts.page_templates.auth')
        
     @else
@@ -91,16 +87,17 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper') }}/demo/demo.js"></script>
     <!-- Sharrre libray -->
     <script src="../assets/demo/jquery.sharrre.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
      <script src="https://cdnjs.cloudflare.com/ajax/libs/tokenize2/1.1.0/js/tokenize2.min.js"></script>
      <script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
     <script type="text/javascript"  charset="utf8" src="paper/js/dataTable.js"></script>
     <script type="text/javascript"  charset="utf8" src="paper/js/dataTable-init.js"></script>
     
 
+
    <!-- jQuery -->
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <!-- DataTables FixedHeader CSS -->
