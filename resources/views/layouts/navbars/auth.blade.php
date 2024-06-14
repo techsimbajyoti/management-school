@@ -498,6 +498,8 @@
             </li>
             
 
+            @endif
+
             
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 
@@ -706,12 +708,7 @@
                     </div>
                 </li>
 
-           
-           
-           
-           
-           
-             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+            @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('parent-dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
@@ -915,7 +912,12 @@
                     </div>
                 </li>
 
-                  
+                    {{-- <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-fees-challans') }}">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>{{ __('Fees Challans') }}</p>
+                        </a>
+                    </li> --}}
                     <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
                         <a href="{{ route('accountant-gallery') }}">
                             <i class="fa fa-camera"></i>
@@ -940,9 +942,17 @@
                             <p>{{ __('Staff') }}</p>
                         </a>
                     </li>
-                   
+                    <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-report') }}">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <p>{{ __('Reports') }}</p>
 
-              
+                <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
+                    <a href="{{ route('accountant-fees-challans') }}">
+                        <i class="fa-solid fa-receipt"></i>
+                        <p>{{ __('Fees Challans') }}</p>
+                    </a>
+                </li>
                 <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
                     <a href="{{ route('accountant-report') }}">
                         <i class="fa-solid fa-file-invoice"></i>
