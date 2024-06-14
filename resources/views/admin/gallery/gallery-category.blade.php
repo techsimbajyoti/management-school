@@ -45,7 +45,11 @@
                               <tr id="row_3">
                                 <td class="serial">3</td>
                                 <td>Awards</td>
+                                @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                                 <td><a href="{{route('view-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('view-video')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                                <td><a href="{{route('teacher-image')}}" class="ot-btn-primary"><i class="fa fa-image"></i></a> <a href="{{route('')}}" class="ot-btn-primary"><i class="fa fa-video"></i></a></td>
+                                @endif
                                 <td><span class="badge-basic-success-text">Active</span></td>
                                 <td class="action">
                                     <div class="dropdown dropdown-action">

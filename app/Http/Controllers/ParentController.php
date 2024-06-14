@@ -144,5 +144,18 @@ class ParentController extends Controller
         return view('parents.parent-view-event');
     }
 
+    public function detail_student_parent(){
+        return view('parents.detail-student-parent');
+    }
+
+    public function student_subject(){
+        return view('parents.student-subject');
+    }
+
+    public function student_class_routine(){
+        return view('parents.student-class-routine');
+    }
+
+
 }
 

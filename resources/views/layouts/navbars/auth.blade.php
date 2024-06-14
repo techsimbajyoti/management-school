@@ -28,6 +28,30 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
+            
+            @if(in_array($elementActive, ['applicant', 'applicant-list']) ? 'active' : '' )
+            <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
+                <a href="{{ route('applicant') }}">
+                    <i class="fa fa-user-circle"></i>
+                    <p>{{ __('Applicant') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'applicant-list' ? 'active' : '' }}">
+                <a href="{{ route('applicant-list') }}">
+                    <i class="fas fa-list"></i>
+                    <p>{{ __('Applicant List') }}</p>
+                </a>
+            </li>
+
+            @else
+            <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
+                <a href="{{ route('applicant') }}" target="_blank">
+                    <i class="fa fa-user-circle"></i>
+                    <p>{{ __('Applicant') }}</p>
+                </a>
+            </li>
+
             <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('page.index', 'dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
@@ -466,7 +490,7 @@
                 </div>
             </li>
 
-            
+            @endif
             
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 
@@ -688,7 +712,31 @@
                     <p>{{ __('Student Profile') }}</p>
                 </a>
             </li>
-            
+            <li class="{{ in_array($elementActive, ['student-subject','student-class-routine']) ? 'active' : '' }}">
+                <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['student-subject','subject-class-routine']) ? 'true' : 'false' }}" href="#laravelExa">
+                    <i class="fas fa-cog"></i>
+                    <p>
+                        {{ __('Academics') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse {{ in_array($elementActive, ['student-subject','student-class-routine']) ? 'show' : '' }}" id="laravelExa">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'student-subject' ? 'active' : '' }}">
+                            <a href="{{ route('student-subject') }}">
+                                <span class="sidebar-mini-icon">{{ __('S') }}</span>
+                                <span class="sidebar-normal">{{ __(' Subject ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'student-class-routine' ? 'active' : '' }}">
+                            <a href="{{ route('student-class-routine') }}">
+                                <span class="sidebar-mini-icon">{{ __('CS') }}</span>
+                                <span class="sidebar-normal">{{ __(' Class Routine ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="{{ $elementActive == 'marksheet' ? 'active' : '' }}">
                 <a href="{{ route('marksheet') }}">
                     <i class="fa fa-graduation-cap"></i>

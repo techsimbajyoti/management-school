@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\BloodGroup;
+use App\Models\Language;
+use App\Models\Religion;
+use App\Models\State;
+use App\Models\Country;
 
 class RegisterController extends Controller
 {
@@ -69,5 +74,32 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(){
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+
+        $Language = Language::get();
+        $lang = [];
+        foreach($Language as $lng){
+            $lang[] = $lng->name;
+        }
+
+        return view('auth.register',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
     }
 }

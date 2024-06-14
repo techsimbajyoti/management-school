@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1255298de14e76c162f462a61b8740f2",
+    "content-hash": "b936bad66e47d10285e7ffd9dff2b7b0",
     "packages": [
         {
             "name": "brick/math",
@@ -578,6 +578,54 @@
             "time": "2023-10-12T05:21:21+00:00"
         },
         {
+            "name": "genealabs/laravel-multi-step-progressbar",
+            "version": "10.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeneaLabs/laravel-multi-step-progressbar.git",
+                "reference": "87020c4323c1644995a8e90b941c95dcb6ee031c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeneaLabs/laravel-multi-step-progressbar/zipball/87020c4323c1644995a8e90b941c95dcb6ee031c",
+                "reference": "87020c4323c1644995a8e90b941c95dcb6ee031c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0",
+                "illuminate/view": "^10.0",
+                "jenssegers/model": "^1.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GeneaLabs\\LaravelMultiStepProgressbar\\Providers\\Service"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GeneaLabs\\LaravelMultiStepProgressbar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Bronner",
+                    "email": "hello@genealabs.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/GeneaLabs/laravel-multi-step-progressbar/issues",
+                "source": "https://github.com/GeneaLabs/laravel-multi-step-progressbar/tree/10.0.0"
+            },
+            "time": "2023-05-20T20:58:56+00:00"
+        },
+        {
             "name": "graham-campbell/result-type",
             "version": "v1.1.2",
             "source": {
@@ -1049,6 +1097,57 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "jenssegers/model",
+            "version": "v1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/model.git",
+                "reference": "2f91457d2efa7f0440ed8703a0d85ba65ee31b94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/model/zipball/2f91457d2efa7f0440ed8703a0d85ba65ee31b94",
+                "reference": "2f91457d2efa7f0440ed8703a0d85ba65ee31b94",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "^4.0|^5.0|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "*",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jenssegers\\Model\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "https://jenssegers.com"
+                }
+            ],
+            "description": "An Laravel eloquent-like model class, for Laravel and other frameworks",
+            "homepage": "https://github.com/jenssegers/model",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "model"
+            ],
+            "support": {
+                "issues": "https://github.com/jenssegers/model/issues",
+                "source": "https://github.com/jenssegers/model/tree/v1.5.2"
+            },
+            "time": "2024-04-03T13:39:07+00:00"
         },
         {
             "name": "laravel-frontend-presets/paper",

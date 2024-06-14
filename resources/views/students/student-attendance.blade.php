@@ -26,12 +26,16 @@
                   </option>
                 </select>
               </div>
-              <div class="single_large_selectBox">
+              <div class="d-flex align-items-center gap-3">
+              <div class="single_large_selectBox d-flex align-items-center gap-2">
+                <label for="fromDate" style="margin-right: 8px;">From</label>
                 <input value="" name="date" class="form-control ot-input" type="date">
               </div>
-              <div class="single_large_selectBox">
+              <div class="single_large_selectBox d-flex align-items-center gap-2">
+                <label for="fromDate" style="margin-right: 8px;">To</label>
                 <input value="" name="date" class="form-control ot-input" type="date">
               </div><button class="btn btn-lg ot-btn-primary" type="submit">Search</button>
+            </div>
             </div>
           </div>
         </div>

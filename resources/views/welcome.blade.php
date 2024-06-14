@@ -43,16 +43,14 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mr-auto">
-                    <div class="card card-signup text-center">
+                    <div class="card card-signup text-center" style="margin-bottom: 0px !important;">
                         <div class="card-body ">
                             <form class="form" method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <div class="card-login">
-                                    <div class="card-header">
+                                
                                         <div class="card-header">
                                             <h3 class="header text-center">{{ __('Login') }}</h3>
                                         </div>
-                                    </div>
                                     <div class="card-body">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -60,7 +58,7 @@
                                                     <i class="nc-icon nc-single-02"></i>
                                                 </span>
                                             </div>
-                                            <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required autofocus>
+                                            <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required>
                                             
                                             @if ($errors->has('email'))
                                                 <span class="invalid-feedback" style="display: block;" role="alert">
@@ -85,25 +83,25 @@
                                         </div>
             
                                         <div class="form-group">
-                                            <div class="form-check">
+                                            {{-- <div class="form-check"> --}}
                                                  <label class="form-check-label">
-                                                    <input class="form-check-input" name="remember" type="checkbox" value="" {{ old('remember') ? 'checked' : '' }}>
+                                                    <input name="remember" type="checkbox" value="" {{ old('remember') ? 'checked' : '' }}>
                                                     <span class="form-check-sign"></span>
                                                     {{ __('Remember me') }}
                                                 </label>
-                                            </div>
+                                            {{-- </div> --}}
                                         </div>
                                     </div>
             
-                                    <div class="card-footer">
+                                    <div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-warning btn-round mb-3">{{ __('Sign in') }}</button>
                                         </div>
-                                        <a href="{{ route('password.request') }}" class="btn btn-link" style="margin-button:20px;">
+                                        <a href="{{ route('password.request') }}" class="btn btn-link" style="margin-button:10px;">
                                             {{ __('Forgot password') }}
                                         </a>
                                     </div>
-                                </div>
+                                
                             </form>
                             <div>
                             </div>

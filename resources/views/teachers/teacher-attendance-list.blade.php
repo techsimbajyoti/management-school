@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                   <div class="card ot-card mb-24 position-relative z_1">
-                    <form action="" enctype="multipart/form-data" method="post">
+                    <form action="" enctype="multipart/form-data" method="">
                       @csrf
                       <div class="card-header d-flex align-items-center gap-4 flex-wrap">
                         <h3 class="mb-0">Filtering</h3>
@@ -137,7 +137,7 @@
                         </table>
                       </div>
                       <div class="ot-pagination pagination-content d-flex justify-content-end align-content-center py-3">
-                        <a class="btn btn-lg ot-btn-primary" type="submit"><i class="fa fa-save"></i> Submit</a>
+                        <a class="btn btn-lg ot-btn-primary" type="submit"><i class="fa fa-save"></i>  Save</a>
                       </div>
                     </form>
                   </div>
