@@ -65,6 +65,7 @@
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                                             <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('schedule-meeting') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
                                                     </div>
@@ -90,6 +91,7 @@
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                                             <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('schedule-meeting') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
 

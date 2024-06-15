@@ -44,6 +44,14 @@
                 </a>
             </li>
 
+            <li class="{{ $elementActive == 'meeting' ? 'active' : '' }}">
+                <a href="{{ route('applicant-list') }}">
+                    <i class="fa fa-handshake "></i>
+                    <p>{{ __('Schedule Meeting') }}</p>
+                </a>
+            </li>
+
+
             @else
             <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
                 <a href="{{ route('applicant') }}" target="_blank">

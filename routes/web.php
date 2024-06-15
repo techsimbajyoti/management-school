@@ -319,6 +319,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('admin-event-detail-view',[HomeController::class, 'admin_event_detail_view'])->name('admin-event-detail-view');
 
 	Route::get('add-notification',[HomeController::class, 'add_notification'])->name('add-notification');
+
+	Route::get('schedule-meeting',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {

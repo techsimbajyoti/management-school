@@ -50,4 +50,8 @@ class ApplicantController extends Controller
     public function edit_applicant(){
         return view('admin.applicant.edit-applicant');
     }
+
+    public function schedule_meeting(){
+        return view('admin.applicant.schedule-meeting');
+    }
 }
