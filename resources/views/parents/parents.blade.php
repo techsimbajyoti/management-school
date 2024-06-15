@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">No.Of Children</p>
+                                    <p class="card-category" style="font-weight: 700;">Children</p>
                                     <p class="card-title">5
                                         <p>
                                 </div>
@@ -72,6 +72,33 @@
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
                                     <p class="card-category" style="font-weight: 700;">Event</p>
+                                    <p class="card-title">0
+                                        <p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        
+                        <div class="stats">
+                            <i class=""></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="fas fa-handshake" style="color:#586ff1;"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category" style="font-weight: 700;">Meeting</p>
                                     <p class="card-title">0
                                         <p>
                                 </div>

@@ -20,7 +20,8 @@
             <div class="table-content table-basic mt-20">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 title">Accountant</h4><a href="{{ route('admit-accountant') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
+                    <h4 class="mb-0 title">Accountant</h4>
+                    <a href="{{ route('admit-accountant') }}" class="btn btn-lg ot-btn-primary"><i class="fa fa-plus"></i> Add</a>
                     </div>
                     <hr>
                     <div class="card-body">

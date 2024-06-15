@@ -48,6 +48,33 @@ class ApplicantController extends Controller
     }
 
     public function edit_applicant(){
-        return view('admin.applicant.edit-applicant');
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+
+        $Language = Language::get();
+        $lang = [];
+        foreach($Language as $lng){
+            $lang[] = $lng->name;
+        }
+        
+        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
+    }
+
+    public function applicant_profile(){
+        return view('admin.applicant.applicant-profile');
     }
 }

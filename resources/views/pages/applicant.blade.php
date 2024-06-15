@@ -77,7 +77,7 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-users text-warning"></i>
+                                    <i class="fas fa-user-edit text-warning"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
@@ -102,12 +102,12 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-handshake text-success"></i>
+                                    <i class="fas fa-check-circle text-success"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Meeting</p>
+                                    <p class="card-category">Total Accepted</p>
                                     <p class="card-title">15
                                         <p>
                                 </div>
@@ -128,13 +128,13 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-coins text-danger"></i>
+                                    <i class="fas fa-times-circle text-danger"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Token Amount</p>
-                                    <p class="card-title">23000
+                                    <p class="card-category">Token Rejected</p>
+                                    <p class="card-title">23
                                         <p>
                                 </div>
                             </div>
@@ -154,13 +154,66 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-calendar text-primary"></i>
+                                    <i class="fas fa-hourglass-half text-info"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Session</p>
-                                    <p class="card-title">2024
+                                    <p class="card-category">Pendding</p>
+                                    <p class="card-title">20<p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <hr>
+                        <div class="stats">
+                            <i class="fa fa-refresh"></i> Update now
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="fa fa-handshake text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category">Invitation</p>
+                                    <p class="card-title">20
+                                        <p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <hr>
+                        <div class="stats">
+                            <i class="fa fa-refresh"></i> Update now
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="fas fa-money-check-alt text-secondary"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category">Amount Paid</p>
+                                    <p class="card-title">20000
                                         <p>
                                 </div>
                             </div>

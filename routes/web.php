@@ -403,6 +403,9 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
+	Route::get('applicant-edit', [ApplicantController::class, 'edit_applicant'])->name('applicant-edit');
+
+	Route::get('applicant-profile', [ApplicantController::class, 'applicant_profile'])->name('applicant-profile');
 
 	Route::get('parent-dashboard', [HomeController::class, 'parent_dashboard'])->name('parent-dashboard');
 
