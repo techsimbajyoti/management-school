@@ -245,4 +245,9 @@ class HomeController extends Controller
     public function admin_event_detail_view(){
         return view('admin.event.admin-event-detail-view');
     }
+
+    public function add_notification(){
+        return view('admin.notification.add-notification');
+    }
+
 }

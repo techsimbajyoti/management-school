@@ -8,8 +8,8 @@
         </div>
     </div>
 
-    <div class="card mb-4">
-        <div class="card-header">
+    <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header" >
             <h4 class="mb-0">Documents Uploaded</h4>
         </div>
         <hr>
@@ -27,7 +27,45 @@
             </ul>
         </div>
     </div>
-</div>
+
+        @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+        <div class="card  mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">Class Attendance</h4>
+            </div>
+            <hr>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="mb-0">Total Classes</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted mb-0">120</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="mb-0">Classes Conducted</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted mb-0">100</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="mb-0">Classes Attended</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-muted mb-0">90</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        @endif
+    </div>
     <div class="col-lg-8">
     <div class="card" style="margin-bottom: 20px;">
         <div class="card-header">

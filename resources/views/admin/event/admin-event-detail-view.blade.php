@@ -52,7 +52,7 @@
         </style>
   
     
-        <div class="container" id="environmentlDayForm">
+        <div class="container" id="environmentlDayForm" style="display:none;">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
@@ -60,6 +60,12 @@
                     <a href="{{ route('calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
                     @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                     <a href="{{ route('teacher-calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <a href="{{ route('accountant-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
                     @endif
                    
                 </div>
@@ -80,11 +86,22 @@
             </div>
         </div>
 
-        <div class="container" id="oceanDayForm" style="display: none;">
+        <div class="container" id="oceanDayForm" style="display:none;">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
+                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                     <a href="{{ route('calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                    <a href="{{ route('teacher-calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <a href="{{ route('accountant-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @endif
+                   
                 </div>
                 
             </div>
@@ -104,11 +121,22 @@
         </div>
  
 
-        <div class="container"  id="milkDayForm" style="display: none;">
+        <div class="container"  id="milkDayForm" style="display:none;">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
+                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                     <a href="{{ route('calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                    <a href="{{ route('teacher-calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <a href="{{ route('accountant-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @endif
+                   
                 </div>
                 
             </div>
@@ -127,11 +155,22 @@
             </div>
         </div>
 
-        <div class="container" id="bloodDayForm" style="display: none;">
+        <div class="container" id="bloodDayForm" style="display:none;">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 title">{{ __('View Event Details') }}</h5>
+                    @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                     <a href="{{ route('calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                    <a href="{{ route('teacher-calender')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                    <a href="{{ route('parent-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                    <a href="{{ route('student-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <a href="{{ route('accountant-event')}}" class="btn btn-md ot-btn-primary"><i class="	fa fa-angle-double-left"></i> All Events</a>
+                    @endif
+                   
                 </div>
                 
             </div>
@@ -155,6 +194,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
     
     function getUrlParameter(name) {
@@ -172,7 +212,7 @@
         document.getElementById('environmentlDayForm').style.display = 'block';
     }
 
-    var showForm = getUrlParameter('showForm');
+    var showForm = getUrlParameter('showForm'); 
     if (showForm === 'oceanDayForm') {
         document.getElementById('oceanDayForm').style.display = 'block';
     }

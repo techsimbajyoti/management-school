@@ -54,7 +54,7 @@
                     <hr>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered role-table">
+                            <table class="table table-bordered role-table myTable">
                                 <thead class="thead">
                                     <tr>
                                         <th class="serial">SR No.</th>
@@ -74,7 +74,7 @@
                                     
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                                <a href="{{ route('accountant-general-info-student')}}" target="_blank">John</a></td>
                                             <td>Two (A)</td>
                                             <td>Parent5</td>
                                                                         
@@ -88,7 +88,7 @@
                                 
                                            
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                              <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                              <a href="{{ route('accountant-general-info-student')}}" target="_blank">William</a></td>
                                             <td>Two (A)</td>
                                             <td>Parent8</td>
                                     

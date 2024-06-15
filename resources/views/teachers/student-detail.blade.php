@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                   <div class="card ot-card mb-24 position-relative z_1">
-                    <form action="" enctype="multipart/form-data" method="post">
+                    <form action="" enctype="multipart/form-data" method="">
                       @csrf
                       <div class="card-header d-flex align-items-center gap-4 flex-wrap">
                         <h3 class="mb-0">Filtering</h3>
@@ -73,7 +73,7 @@
                         <hr>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered role-table">
+                                <table class="table table-bordered role-table myTable">
                                     <thead class="thead">
                                         <tr>
                                             <th class="serial">SR No.</th>
@@ -98,7 +98,7 @@
                                                 <td>OneA110</td>
                                                 
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                    <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                                    <a href="{{ route('teacher-admin-student-profile')}}" target="_blank">John</a></td>
                                                 <td>Two (A)</td>
                                                 <td>Parent5</td>
                                                 <td>12 Apr 2021</td>
@@ -162,6 +162,7 @@
 @endsection 
 
 @push('scripts')
+
 <script>
     $(document).ready(function() {
     var previousState = {};

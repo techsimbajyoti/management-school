@@ -72,7 +72,7 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                          <table class="table table-bordered role-table" id="students_table">
+                          <table class="table table-bordered role-table myTable" id="students_table">
                             <thead class="thead">
                               <tr>
                                 <th class="purchase">Student name</th>

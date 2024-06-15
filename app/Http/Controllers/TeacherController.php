@@ -69,6 +69,14 @@ class TeacherController extends Controller
         return view('teachers.teacher-video');
     }
 
+    public function view_teacher_video(){
+        return view('teachers.view-teacher-video');
+    }
+
+    public function view_teacher_image(){
+        return view('teachers.view-teacher-image');
+    }
+
     public function teacher_add_image(){
         return view('teachers.teacher-gallery-category');
     }

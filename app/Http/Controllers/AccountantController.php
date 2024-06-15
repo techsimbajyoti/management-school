@@ -55,6 +55,43 @@ class AccountantController extends Controller
     public function student_payment(){
         return view('accountants.student-payment');
     }
+
+    public function accountant_gallery(){
+        return view('accountants.accountant-gallery');
+    }
+
+    public function accountant_event(){
+        return view('accountants.accountant-event');
+    }
+
+    public function accountant_student(){
+        return view('accountants.accountant-student');
+    }
+
+    public function accountant_teacher(){
+        return view('accountants.accountant-teacher');
+    }
+    public function accountant_event_detail_view(){
+        return view('accountants.accountant-event-detail-view');
+    }
+
+    public function view_accountant_image(){
+        return view('accountants.view-accountant-image');
+    }
+    public function view_accountant_video(){
+        return view('accountants.view-accountant-video');
+    }
+    public function accountant_general_info_student(){
+        return view('accountants.accountant-general-info-student');
+    }
+    
+    public function view_payment_info(){
+        return view('accountants.view-payment-info');
+    }
+  
+    public function view_teachers_detail(){
+        return view('accountants.view-teachers-detail');
+    }
 }
 
 

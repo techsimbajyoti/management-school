@@ -47,7 +47,7 @@
             <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0 title">{{ __('Admit Student') }}</h5>
+                            <h3 class="mb-0 title">{{ __('Admit Student') }}</h3>
                             <a href="{{ route('students')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                         </div>
                         

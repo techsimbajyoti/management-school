@@ -44,6 +44,14 @@
                 </a>
             </li>
 
+            <li class="{{ $elementActive == 'meeting' ? 'active' : '' }}">
+                <a href="{{ route('applicant-list') }}">
+                    <i class="fa fa-handshake "></i>
+                    <p>{{ __('Schedule Meeting') }}</p>
+                </a>
+            </li>
+
+
             @else
             <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
                 <a href="{{ route('applicant') }}" target="_blank">
@@ -490,7 +498,16 @@
                 </div>
             </li>
 
+            <li class="{{ $elementActive == 'notification' ? 'active' : '' }}">
+                <a href="{{ route('add-notification') }}">
+                    <i class="fa fa-bell"></i>
+                    <p>{{ __('Notification') }}</p>
+                </a>
+            </li>
+            
+
             @endif
+
             
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 
@@ -618,7 +635,7 @@
 
                 <li class="{{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'active' : '' }}">
                     <a data-toggle="collapse" aria-expanded="{{ in_array($elementActive, ['admin-event','school-calender','add-event','calender']) ? 'true' : 'false' }}" href="#larave-teacher">
-                        <i class="fas fa-calendar-alt"></i>
+                        <i class="fas fa-calendar"></i>
                         <p>
                             {{ __('Event') }}
                             <b class="caret"></b>
@@ -776,7 +793,7 @@
                     <p>{{ __('Fees') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'parent-event' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'calender' ? 'active' : '' }}">
                 <a href="{{ route('parent-event') }}">
                     <i class="fas fa-calendar-alt"></i>
                     <p>{{ __('Events') }}</p>
@@ -795,7 +812,7 @@
                     <p>{{ __('Attendance') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'parent-gallary' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
                 <a href="{{ route('parent-gallary') }}">
                     <i class="fa fa-camera"></i>
                     <p>{{ __('Gallary') }}</p>
@@ -854,7 +871,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="{{ $elementActive == 'student-event' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'calender' ? 'active' : '' }}">
                 <a href="{{ route('student-event') }}">
                     <i class="fas fa-calendar-alt"></i>
                     <p>{{ __('Events') }}</p>
@@ -872,7 +889,7 @@
                     <p>{{ __('Attendance') }}</p>
                 </a>
             </li>
-            <li class="{{ $elementActive == 'student-gallary' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
                 <a href="{{ route('student-gallary') }}">
                     <i class="fa fa-camera"></i>
                     <p>{{ __('Gallary') }}</p>
@@ -928,6 +945,42 @@
                         </ul>
                     </div>
                 </li>
+
+                    {{-- <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-fees-challans') }}">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>{{ __('Fees Challans') }}</p>
+                        </a>
+                    </li> --}}
+                    <li class="{{ $elementActive == 'gallery-category' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-gallery') }}">
+                            <i class="fa fa-camera"></i>
+                            <p>{{ __('Gallery') }}</p>
+                        </a>
+                    </li>
+                    <li class="{{ $elementActive == 'calender' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-event') }}">
+                            <i class="fa fa-calendar-alt"></i>
+                            <p>{{ __('Event') }}</p>
+                        </a>
+                    </li>
+                    <li class="{{ $elementActive == 'accountant-student' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-student') }}">
+                            <i class="fa fa-user"></i>
+                            <p>{{ __('Student') }}</p>
+                        </a>
+                    </li>
+                    <li class="{{ $elementActive == 'accountant-teacher' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-teacher') }}">
+                            <i class="fa fa-chalkboard-teacher"></i>
+                            <p>{{ __('Staff') }}</p>
+                        </a>
+                    </li>
+                    <li class="{{ $elementActive == 'accountant-report' ? 'active' : '' }}">
+                        <a href="{{ route('accountant-report') }}">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <p>{{ __('Reports') }}</p>
+
                 <li class="{{ $elementActive == 'accountant-fees-challans' ? 'active' : '' }}">
                     <a href="{{ route('accountant-fees-challans') }}">
                         <i class="fa-solid fa-receipt"></i>
@@ -946,6 +999,7 @@
                         <a href="{{ route('admission-dashboard') }}">
                             <i class="nc-icon nc-bank"></i>
                             <p>{{ __('Dashboard') }}</p>
+
                         </a>
                     </li>
                 @endif

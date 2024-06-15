@@ -77,4 +77,8 @@ class ApplicantController extends Controller
     public function applicant_profile(){
         return view('admin.applicant.applicant-profile');
     }
+
+    public function schedule_meeting(){
+        return view('admin.applicant.schedule-meeting');
+    }
 }

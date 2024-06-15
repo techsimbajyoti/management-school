@@ -12,13 +12,13 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center global-warning">
-                                    <i class="nc-icon nc-money-coins text-success"></i>
+                                    <i class="fa fa-users"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Capacity</p>
-                                    <p class="card-title">1500
+                                    <p class="card-category">Students</p>
+                                    <p class="card-title">2000
                                         <p>
                                 </div>
                             </div>
@@ -64,13 +64,13 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-vector text-danger"></i>
+                                    <i class="fa fa-chalkboard-teacher  text-danger"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Errors</p>
-                                    <p class="card-title">23
+                                    <p class="card-category">Staff</p>
+                                    <p class="card-title">100
                                         <p>
                                 </div>
                             </div>
@@ -90,12 +90,12 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-favourite-28 text-primary"></i>
+                                    <i class="fa fa-money text-primary"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Followers</p>
+                                    <p class="card-category">Fees Collected</p>
                                     <p class="card-title">+45K
                                         <p>
                                 </div>

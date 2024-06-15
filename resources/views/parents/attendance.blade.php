@@ -6,7 +6,7 @@
 <div class="content">
   <div class="row">
     <div class="card ot-card mb-24 position-relative z_1">
-      <form action="" enctype="multipart/form-data" method="post" id="marksheed">
+      <form action="" enctype="multipart/form-data" method="" id="marksheed">
           @csrf
           <div class="card-header d-flex align-items-center gap-4 flex-wrap">
               <h3 class="mb-0">Filtering</h3>
@@ -53,7 +53,7 @@
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="myTable">
+              <table class="table table-bordered myTable">
                 <thead>
                   <tr>
                     <th class="purchase">Name</th>
@@ -104,7 +104,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-striped mb-30">
+              <table class="table table-bordered table-striped mb-30 myTable">
                 <thead>
                   <tr>
                     <th>1</th>
@@ -140,7 +140,7 @@
                     <th class="font-weight-bold" style="color: #386e42;" title="Present" data-toggle="tooltip">P</th>
                     <th class="font-weight-bold" style="color: #d1ba21;" title="Late" data-toggle="tooltip">L</th>
                     <th class="font-weight-bold" style="color: #cc2121;" title="Absent" data-toggle="tooltip">A</th>
-                    <th class="font-weight-bold" style="color: #217fcc;" title="Test" data-toggle="tooltip">F</th>
+                   
                   </tr>
                 </thead>
                 <tbody>
@@ -199,7 +199,7 @@
           <hr>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered role-table" id="myTable">
+              <table class="table table-bordered role-table myTable">
                 <thead class="thead">
                   <tr>
                     <th class="purchase">Student name</th> 
@@ -245,6 +245,7 @@
     </div>
   </div>
 </div>@endsection @push('scripts') 
+
 <script>
 
 

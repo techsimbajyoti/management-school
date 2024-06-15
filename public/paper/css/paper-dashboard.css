@@ -6979,6 +6979,10 @@ License - nucleoapp.com/license/
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
+  
+  .paginate_disabled_previous {
+    margin-right: 20px;
+  }
 
   
  

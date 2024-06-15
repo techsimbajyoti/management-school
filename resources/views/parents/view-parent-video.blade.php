@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'parent-gallary'
+    'elementActive' => 'gallery-category'
 ])
 
 @section('content')
