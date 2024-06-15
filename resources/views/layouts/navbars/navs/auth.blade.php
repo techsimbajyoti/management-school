@@ -121,9 +121,14 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            @if(auth()->guard('webparents')->user()->applicant_id == 'applicant')
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            @else
                             <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
                             <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            @endif
                         </div>
                     </div>
                 </li>
@@ -223,6 +228,7 @@
 
   <script>
     jQuery.noConflict();
+    
     $(document).ready(function() {
     $('.change-password').click(function(){
             $('#exampleModal').modal('show');

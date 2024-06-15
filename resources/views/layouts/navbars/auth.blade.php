@@ -717,6 +717,31 @@
                 </li>
 
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+            
+            @if(auth()->guard('webparents')->user()->applicant_id == 'applicant')
+
+            <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
+                <a href="{{ route('parent-dashboard') }}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>{{ __('Dashboard') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'applicant-profile' ? 'active' : '' }}">
+                <a href="{{ route('applicant-profile') }}">
+                    <i class="fas fa-user-tie"></i> 
+                    <p>{{ __('Profile') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'parent-meeting' ? 'active' : '' }}">
+                <a href="{{ route('applicant-profile') }}">
+                    <i class="fas fa-handshake"></i> 
+                    <p>{{ __('Meeting') }}</p>
+                </a>
+            </li>
+
+            @else
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('parent-dashboard') }}">
                     <i class="nc-icon nc-bank"></i>
@@ -800,6 +825,7 @@
                 </a>
             </li>
 
+            @endif
             
             @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
             <li class="{{ $elementActive == 'student-dashboard' ? 'active' : '' }}">

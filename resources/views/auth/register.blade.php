@@ -97,18 +97,6 @@
                             <div class="row ">
                                 <div class="col-md-6">
                                     <span style="color:red">*</span>
-                                    <label class="form-label">{{ __('Admission No.:') }}</label>
-                                        <div class="form-group">
-                                            <input type="text" name="admission_no" class="nice-select sections niceSelect bordered_style wide" placeholder="Admission No." required>
-                                        </div>
-                                        @if ($errors->has('admission_no'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('admission_no') }}</strong>
-                                            </span>
-                                        @endif
-                                </div>
-                                <div class="col-md-6">
-                                    <span style="color:red">*</span>
                                     <label class="form-label">{{ __('Parent Name:') }}</label>
                                     <div class="form-group">
                                         <div class="autocomplete">
@@ -151,7 +139,7 @@
 
                                 <div class="col-md-6">
                                     <span style="color:red">*</span>
-                                    <label class="form-label">{{ __('Password:') }}</label>
+                                    <label class="form-label">{{ __('Confirm Password:') }}</label>
     
                                         <div class="form-group">
                                             <input type="password" name="password" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
