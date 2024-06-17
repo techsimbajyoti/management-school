@@ -13,7 +13,35 @@
 
 
 @section('content')
+<style>
+    #book-appointment-wizard #header {
+     background: #324AAA;
+}
 
+#book-appointment-wizard #available-hours .selected-hour {
+    background-color: #324AAA;
+    border-color: #324AAA;
+    color: #fff;
+}
+.selected-hour {
+    background-color: #324AAA;
+    border-color: #324AAA;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 2px solid #324AAA !important;
+    color: #324AAA;
+    
+}
+.btn-outline-primary:hover {
+    background-color: #324AAA !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border-color: #324AAA !important;
+    
+}
+    </style>
 <div class="content">
 <div class="row">
     <div id="book-appointment-wizard" class="col-12 col-xl-8">
@@ -107,201 +135,8 @@
                             <div id="select-time">
                                 <div class="form-group">
                                     <label for="select-timezone">Timezone</label>
-                                <select id="select-timezone" class="nice-select niceSelect bordered_style wide" value="UTC">
-                                    <optgroup label="UTC">
-                                            <option value="UTC">UTC</option>
-                                    </optgroup>
-                                    <optgroup label="America">
-                                            <option value="America/Adak">Adak (-10:00)</option>
-                                            <option value="America/Atka">Atka (-10:00)</option>
-                                            <option value="America/Anchorage">Anchorage (-9:00)</option>
-                                            <option value="America/Juneau">Juneau (-9:00)</option>
-                                            <option value="America/Nome">Nome (-9:00)</option>
-                                            <option value="America/Yakutat">Yakutat (-9:00)</option>
-                                            <option value="America/Dawson">Dawson (-8:00)</option>
-                                            <option value="America/Ensenada">Ensenada (-8:00)</option>
-                                            <option value="America/Los_Angeles">Los_Angeles (-8:00)</option>
-                                            <option value="America/Tijuana">Tijuana (-8:00)</option>
-                                            <option value="America/Vancouver">Vancouver (-8:00)</option>
-                                            <option value="America/Whitehorse">Whitehorse (-8:00)</option>
-                                            <option value="America/Boise">Boise (-7:00)</option>
-                                            <option value="America/Cambridge_Bay">Cambridge_Bay (-7:00)</option>
-                                            <option value="America/Chihuahua">Chihuahua (-7:00)</option>
-                                            <option value="America/Dawson_Creek">Dawson_Creek (-7:00)</option>
-                                            <option value="America/Denver">Denver (-7:00)</option>
-                                            <option value="America/Edmonton">Edmonton (-7:00)</option>
-                                            <option value="America/Hermosillo">Hermosillo (-7:00)</option>
-                                            <option value="America/Inuvik">Inuvik (-7:00)</option>
-                                            <option value="America/Mazatlan">Mazatlan (-7:00)</option>
-                                            <option value="America/Phoenix">Phoenix (-7:00)</option>
-                                            <option value="America/Shiprock">Shiprock (-7:00)</option>
-                                            <option value="America/Yellowknife">Yellowknife (-7:00)</option>
-                                            <option value="America/Belize">Belize (-6:00)</option>
-                                            <option value="America/Cancun">Cancun (-6:00)</option>
-                                            <option value="America/Chicago">Chicago (-6:00)</option>
-                                            <option value="America/Costa_Rica">Costa_Rica (-6:00)</option>
-                                            <option value="America/El_Salvador">El_Salvador (-6:00)</option>
-                                            <option value="America/Guatemala">Guatemala (-6:00)</option>
-                                            <option value="America/Knox_IN">Knox_IN (-6:00)</option>
-                                            <option value="America/Managua">Managua (-6:00)</option>
-                                            <option value="America/Menominee">Menominee (-6:00)</option>
-                                            <option value="America/Merida">Merida (-6:00)</option>
-                                            <option value="America/Mexico_City">Mexico_City (-6:00)</option>
-                                            <option value="America/Monterrey">Monterrey (-6:00)</option>
-                                            <option value="America/Rainy_River">Rainy_River (-6:00)</option>
-                                            <option value="America/Rankin_Inlet">Rankin_Inlet (-6:00)</option>
-                                            <option value="America/Regina">Regina (-6:00)</option>
-                                            <option value="America/Swift_Current">Swift_Current (-6:00)</option>
-                                            <option value="America/Tegucigalpa">Tegucigalpa (-6:00)</option>
-                                            <option value="America/Winnipeg">Winnipeg (-6:00)</option>
-                                            <option value="America/Atikokan">Atikokan (-5:00)</option>
-                                            <option value="America/Bogota">Bogota (-5:00)</option>
-                                            <option value="America/Cayman">Cayman (-5:00)</option>
-                                            <option value="America/Coral_Harbour">Coral_Harbour (-5:00)</option>
-                                            <option value="America/Detroit">Detroit (-5:00)</option>
-                                            <option value="America/Fort_Wayne">Fort_Wayne (-5:00)</option>
-                                            <option value="America/Grand_Turk">Grand_Turk (-5:00)</option>
-                                            <option value="America/Guayaquil">Guayaquil (-5:00)</option>
-                                            <option value="America/Havana">Havana (-5:00)</option>
-                                            <option value="America/Indianapolis">Indianapolis (-5:00)</option>
-                                            <option value="America/Iqaluit">Iqaluit (-5:00)</option>
-                                            <option value="America/Jamaica">Jamaica (-5:00)</option>
-                                            <option value="America/Lima">Lima (-5:00)</option>
-                                            <option value="America/Louisville">Louisville (-5:00)</option>
-                                            <option value="America/Montreal">Montreal (-5:00)</option>
-                                            <option value="America/Nassau">Nassau (-5:00)</option>
-                                            <option value="America/New_York">New_York (-5:00)</option>
-                                            <option value="America/Nipigon">Nipigon (-5:00)</option>
-                                            <option value="America/Panama">Panama (-5:00)</option>
-                                            <option value="America/Pangnirtung">Pangnirtung (-5:00)</option>
-                                            <option value="America/Port-au-Prince">Port-au-Prince (-5:00)</option>
-                                            <option value="America/Resolute">Resolute (-5:00)</option>
-                                            <option value="America/Thunder_Bay">Thunder_Bay (-5:00)</option>
-                                            <option value="America/Toronto">Toronto (-5:00)</option>
-                                            <option value="America/Caracas">Caracas (-4:-30)</option>
-                                            <option value="America/Anguilla">Anguilla (-4:00)</option>
-                                            <option value="America/Antigua">Antigua (-4:00)</option>
-                                            <option value="America/Aruba">Aruba (-4:00)</option>
-                                            <option value="America/Asuncion">Asuncion (-4:00)</option>
-                                            <option value="America/Barbados">Barbados (-4:00)</option>
-                                            <option value="America/Blanc-Sablon">Blanc-Sablon (-4:00)</option>
-                                            <option value="America/Boa_Vista">Boa_Vista (-4:00)</option>
-                                            <option value="America/Campo_Grande">Campo_Grande (-4:00)</option>
-                                            <option value="America/Cuiaba">Cuiaba (-4:00)</option>
-                                            <option value="America/Curacao">Curacao (-4:00)</option>
-                                            <option value="America/Dominica">Dominica (-4:00)</option>
-                                            <option value="America/Eirunepe">Eirunepe (-4:00)</option>
-                                            <option value="America/Glace_Bay">Glace_Bay (-4:00)</option>
-                                            <option value="America/Goose_Bay">Goose_Bay (-4:00)</option>
-                                            <option value="America/Grenada">Grenada (-4:00)</option>
-                                            <option value="America/Guadeloupe">Guadeloupe (-4:00)</option>
-                                            <option value="America/Guyana">Guyana (-4:00)</option>
-                                            <option value="America/Halifax">Halifax (-4:00)</option>
-                                            <option value="America/La_Paz">La_Paz (-4:00)</option>
-                                            <option value="America/Manaus">Manaus (-4:00)</option>
-                                            <option value="America/Marigot">Marigot (-4:00)</option>
-                                            <option value="America/Martinique">Martinique (-4:00)</option>
-                                            <option value="America/Moncton">Moncton (-4:00)</option>
-                                            <option value="America/Montserrat">Montserrat (-4:00)</option>
-                                            <option value="America/Port_of_Spain">Port_of_Spain (-4:00)</option>
-                                            <option value="America/Porto_Acre">Porto_Acre (-4:00)</option>
-                                            <option value="America/Porto_Velho">Porto_Velho (-4:00)</option>
-                                            <option value="America/Puerto_Rico">Puerto_Rico (-4:00)</option>
-                                            <option value="America/Rio_Branco">Rio_Branco (-4:00)</option>
-                                            <option value="America/Santiago">Santiago (-4:00)</option>
-                                            <option value="America/Santo_Domingo">Santo_Domingo (-4:00)</option>
-                                            <option value="America/St_Barthelemy">St_Barthelemy (-4:00)</option>
-                                            <option value="America/St_Kitts">St_Kitts (-4:00)</option>
-                                            <option value="America/St_Lucia">St_Lucia (-4:00)</option>
-                                            <option value="America/St_Thomas">St_Thomas (-4:00)</option>
-                                            <option value="America/St_Vincent">St_Vincent (-4:00)</option>
-                                            <option value="America/Thule">Thule (-4:00)</option>
-                                            <option value="America/Tortola">Tortola (-4:00)</option>
-                                            <option value="America/Virgin">Virgin (-4:00)</option>
-                                            <option value="America/St_Johns">St_Johns (-3:-30)</option>
-                                            <option value="America/Araguaina">Araguaina (-3:00)</option>
-                                            <option value="America/Bahia">Bahia (-3:00)</option>
-                                            <option value="America/Belem">Belem (-3:00)</option>
-                                            <option value="America/Buenos_Aires">Buenos_Aires (-3:00)</option>
-                                            <option value="America/Catamarca">Catamarca (-3:00)</option>
-                                            <option value="America/Cayenne">Cayenne (-3:00)</option>
-                                            <option value="America/Cordoba">Cordoba (-3:00)</option>
-                                            <option value="America/Fortaleza">Fortaleza (-3:00)</option>
-                                            <option value="America/Godthab">Godthab (-3:00)</option>
-                                            <option value="America/Jujuy">Jujuy (-3:00)</option>
-                                            <option value="America/Maceio">Maceio (-3:00)</option>
-                                            <option value="America/Mendoza">Mendoza (-3:00)</option>
-                                            <option value="America/Miquelon">Miquelon (-3:00)</option>
-                                            <option value="America/Montevideo">Montevideo (-3:00)</option>
-                                            <option value="America/Paramaribo">Paramaribo (-3:00)</option>
-                                            <option value="America/Recife">Recife (-3:00)</option>
-                                            <option value="America/Rosario">Rosario (-3:00)</option>
-                                            <option value="America/Santarem">Santarem (-3:00)</option>
-                                            <option value="America/Sao_Paulo">Sao_Paulo (-3:00)</option>
-                                            <option value="America/Noronha">Noronha (-2:00)</option>
-                                            <option value="America/Scoresbysund">Scoresbysund (-1:00)</option>
-                                            <option value="America/Danmarkshavn">Danmarkshavn (+0:00)</option>
-                                    </optgroup>
-                                    <optgroup label="Europe">
-                                            <option value="Europe/Belfast">Belfast (+0:00)</option>
-                                            <option value="Europe/Dublin">Dublin (+0:00)</option>
-                                            <option value="Europe/Guernsey">Guernsey (+0:00)</option>
-                                            <option value="Europe/Isle_of_Man">Isle_of_Man (+0:00)</option>
-                                            <option value="Europe/Jersey">Jersey (+0:00)</option>
-                                            <option value="Europe/Lisbon">Lisbon (+0:00)</option>
-                                            <option value="Europe/London">London (+0:00)</option>
-                                            <option value="Europe/Amsterdam">Amsterdam (+1:00)</option>
-                                            <option value="Europe/Andorra">Andorra (+1:00)</option>
-                                            <option value="Europe/Belgrade">Belgrade (+1:00)</option>
-                                            <option value="Europe/Berlin">Berlin (+1:00)</option>
-                                            <option value="Europe/Bratislava">Bratislava (+1:00)</option>
-                                            <option value="Europe/Brussels">Brussels (+1:00)</option>
-                                            <option value="Europe/Budapest">Budapest (+1:00)</option>
-                                            <option value="Europe/Copenhagen">Copenhagen (+1:00)</option>
-                                            <option value="Europe/Gibraltar">Gibraltar (+1:00)</option>
-                                            <option value="Europe/Ljubljana">Ljubljana (+1:00)</option>
-                                            <option value="Europe/Luxembourg">Luxembourg (+1:00)</option>
-                                            <option value="Europe/Madrid">Madrid (+1:00)</option>
-                                            <option value="Europe/Malta">Malta (+1:00)</option>
-                                            <option value="Europe/Monaco">Monaco (+1:00)</option>
-                                            <option value="Europe/Oslo">Oslo (+1:00)</option>
-                                            <option value="Europe/Paris">Paris (+1:00)</option>
-                                            <option value="Europe/Podgorica">Podgorica (+1:00)</option>
-                                            <option value="Europe/Prague">Prague (+1:00)</option>
-                                            <option value="Europe/Rome">Rome (+1:00)</option>
-                                            <option value="Europe/San_Marino">San_Marino (+1:00)</option>
-                                            <option value="Europe/Sarajevo">Sarajevo (+1:00)</option>
-                                            <option value="Europe/Skopje">Skopje (+1:00)</option>
-                                            <option value="Europe/Stockholm">Stockholm (+1:00)</option>
-                                            <option value="Europe/Tirane">Tirane (+1:00)</option>
-                                            <option value="Europe/Vaduz">Vaduz (+1:00)</option>
-                                            <option value="Europe/Vatican">Vatican (+1:00)</option>
-                                            <option value="Europe/Vienna">Vienna (+1:00)</option>
-                                            <option value="Europe/Warsaw">Warsaw (+1:00)</option>
-                                            <option value="Europe/Zagreb">Zagreb (+1:00)</option>
-                                            <option value="Europe/Zurich">Zurich (+1:00)</option>
-                                            <option value="Europe/Athens">Athens (+2:00)</option>
-                                            <option value="Europe/Bucharest">Bucharest (+2:00)</option>
-                                            <option value="Europe/Chisinau">Chisinau (+2:00)</option>
-                                            <option value="Europe/Helsinki">Helsinki (+2:00)</option>
-                                            <option value="Europe/Istanbul">Istanbul (+2:00)</option>
-                                            <option value="Europe/Kaliningrad">Kaliningrad (+2:00)</option>
-                                            <option value="Europe/Kiev">Kiev (+2:00)</option>
-                                            <option value="Europe/Mariehamn">Mariehamn (+2:00)</option>
-                                            <option value="Europe/Minsk">Minsk (+2:00)</option>
-                                            <option value="Europe/Nicosia">Nicosia (+2:00)</option>
-                                            <option value="Europe/Riga">Riga (+2:00)</option>
-                                            <option value="Europe/Simferopol">Simferopol (+2:00)</option>
-                                            <option value="Europe/Sofia">Sofia (+2:00)</option>
-                                            <option value="Europe/Tallinn">Tallinn (+2:00)</option>
-                                            <option value="Europe/Tiraspol">Tiraspol (+2:00)</option>
-                                            <option value="Europe/Uzhgorod">Uzhgorod (+2:00)</option>
-                                            <option value="Europe/Vilnius">Vilnius (+2:00)</option>
-                                            <option value="Europe/Zaporozhye">Zaporozhye (+2:00)</option>
-                                            <option value="Europe/Moscow">Moscow (+3:00)</option>
-                                            <option value="Europe/Volgograd">Volgograd (+3:00)</option>
-                                            <option value="Europe/Samara">Samara (+4:00)</option>
-                                    </optgroup>
+                                <select id="timezone-select" class="nice-select niceSelect bordered_style wide" value="UTC">
+                                         
                                     <optgroup label="Asia">
                                             <option value="Asia/Amman">Amman (+2:00)</option>
                                             <option value="Asia/Beirut">Beirut (+2:00)</option>
@@ -389,23 +224,18 @@
                                             <option value="Asia/Anadyr">Anadyr (+12:00)</option>
                                             <option value="Asia/Kamchatka">Kamchatka (+12:00)</option>
                                     </optgroup>
-                                    <optgroup label="Indian">
-                                            <option value="Indian/Antananarivo">Antananarivo (+3:00)</option>
-                                            <option value="Indian/Comoro">Comoro (+3:00)</option>
-                                            <option value="Indian/Mayotte">Mayotte (+3:00)</option>
-                                            <option value="Indian/Mahe">Mahe (+4:00)</option>
-                                            <option value="Indian/Mauritius">Mauritius (+4:00)</option>
-                                            <option value="Indian/Reunion">Reunion (+4:00)</option>
-                                            <option value="Indian/Kerguelen">Kerguelen (+5:00)</option>
-                                            <option value="Indian/Maldives">Maldives (+5:00)</option>
-                                            <option value="Indian/Chagos">Chagos (+6:00)</option>
-                                            <option value="Indian/Cocos">Cocos (+6:30)</option>
-                                            <option value="Indian/Christmas">Christmas (+7:00)</option>
-                                    </optgroup>
+                                   
                                 </select>
                                 </div>
 
-                                <div id="available-hours"></div>
+                                <div id="available-hours"  style="display: none;">
+                                    <button class="btn btn-outline-primary  btn-block shadow-none available-hour selected-hour">1:30 pm </button>
+                                    <button class="btn btn-outline-primary  btn-block shadow-none available-hour">2:30 pm </button>
+                                    <button class="btn btn-outline-primary  btn-block shadow-none available-hour">3:30 pm </button>
+                                    <button class="btn btn-outline-primary  btn-block shadow-none available-hour">4:30 pm </button>
+                                    <button class="btn btn-outline-primary  btn-block shadow-none available-hour">5:30 pm </button>
+                                
+                                </div>
                             </div>
                          </div>
                     </div>
@@ -425,7 +255,7 @@
         <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
             <div class="frame-container">
 
-                <h2 class="frame-title">Parent Information</h2>
+                <h2 class="frame-title">Information</h2>
 
                 <div class="row frame-content">
                     <div class="col-12 col-md-6">
@@ -435,12 +265,7 @@
                             </label>
                             <input type="text" id="first-name" class="required form-control" maxlength="100"/>
                         </div>
-                        <div class="form-group">
-                            <label for="last-name" class="control-label">
-                                Last Name <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" id="last-name" class="required form-control" maxlength="120"/>
-                        </div>
+                        
                         <div class="form-group">
                             <label for="email" class="control-label">
                                 Email  <span class="text-danger">*</span>
@@ -453,15 +278,31 @@
                             <input type="text" id="phone-number" maxlength="60"
                                    class="required form-control"/>
                         </div>
+                        <div class="form-group">
+                            <label for="phone-number" class="control-label">
+                                Type  <span class="text-danger">*</span>                                </label>
+                            <select class="nice-select niceSelect bordered_style wide" name="type">
+                                <option>Student Interview</option>
+                                <option>Parent Interview</option>
+                                <option>School Visit</option>
+                                <option>Staff Interview</option>
+                            </select>
+                        </div>
                     </div>
-
+                    
                     <div class="col-12 col-md-6">
                         <div class="form-group">
+                            <label for="last-name" class="control-label">
+                                Last Name <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="last-name" class="required form-control" maxlength="120"/>
+                        </div>
+                        {{-- <div class="form-group">
                             <label for="address" class="control-label">
                                 Address  
                             </label>
                             <input type="text" id="address" class="form-control" maxlength="120"/>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="city" class="control-label">
                                 City  
@@ -479,6 +320,14 @@
                                 Notes  
                             </label>
                             <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="address" class="control-label">
+                                Address  
+                            </label>
+                            <input type="text" id="address" class="form-control" maxlength="120"/>
                         </div>
                     </div>
                 </div>
@@ -542,6 +391,28 @@
 @endsection
 @push('scripts')
 <script>
+ $(document).ready(function() {
+    $('#timezone-select').change(function() {
+        if ($(this).val() !== '') {
+            $('#available-hours').show();
+        } else {
+            $('#available-hours').hide();
+        }
+    });
+
+    $('#available-hours').on('click', '.available-hour', function() {
+        $('.available-hour').removeClass('selected-hour');
+        $(this).addClass('selected-hour');
+    });
+
+
+var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+       
+    });
+    calendar.render();
+});
 $('document').ready(function() {
     $('#wizard-frame-2').hide();
     $('#wizard-frame-3').hide();  
@@ -553,18 +424,21 @@ $('document').ready(function() {
         $('#wizard-frame-1').hide(); 
         $('#wizard-frame-3').hide();
         $('#wizard-frame-4').hide(); 
+        updateSteps(2);
     });
     $('#button-next-2').click(function() {
        $('#wizard-frame-3').show();
         $('#wizard-frame-2').hide(); 
         $('#wizard-frame-1').hide(); 
         $('#wizard-frame-4').hide(); 
+         updateSteps(3);
     });
     $('#button-next-3').click(function(e) {
         $('#wizard-frame-4').show(); 
         $('#wizard-frame-3').hide(); 
         $('#wizard-frame-2').hide(); 
         $('#wizard-frame-1').hide(); 
+        updateSteps(4);
     });
 
 
@@ -574,7 +448,7 @@ $('document').ready(function() {
             $('#wizard-frame-1').show(); 
             $('#wizard-frame-3').hide();
             $('#wizard-frame-4').hide(); 
-
+            updateSteps(1);
         })
 
         $('#button-back-3').click(function(e){
@@ -583,7 +457,7 @@ $('document').ready(function() {
             $('#wizard-frame-1').hide(); 
             $('#wizard-frame-3').hide();
             $('#wizard-frame-4').hide(); 
-
+            updateSteps(2);
         })
        
         $('#button-back-4').click(function(e){
@@ -592,17 +466,16 @@ $('document').ready(function() {
             $('#wizard-frame-1').hide(); 
             $('#wizard-frame-3').show();
             $('#wizard-frame-4').hide(); 
-
+            updateSteps(3);
         })
+
+        function updateSteps(step) {
+                $('.book-step').removeClass('active-step');
+                $('#step-' + step).addClass('active-step');
+            }
       
 });
     
-var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-       
-    });
-    calendar.render();
 
 </script>
 @endpush
