@@ -81,4 +81,31 @@ class ApplicantController extends Controller
     public function schedule_meeting(){
         return view('admin.applicant.schedule-meeting');
     }
+
+    public function post_applicant_data(Request $request){
+        $request->validate([
+            'parent_name' => 'required|min:3|max:50',
+            'email' => 'email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+    
+        // Process the form data and save to the database
+        $data = $request->all();
+    
+        // Assuming you have a model named `Applicant`
+        $applicant = new Applicant();
+        $applicant->parent_name = $data['parent_name'];
+        $applicant->email = $data['email'];
+        $applicant->password = bcrypt($data['password']);
+        $applicant->save();
+    
+        // Handle the different actions
+        if ($request->input('action') == 'save-continue') {
+            // Redirect to the next step in the process
+            return redirect()->route('next-step')->with('success', 'Data saved successfully, continue to the next step.');
+        } else {
+            // Redirect to a different page or show a success message
+            return redirect()->route('applicant-form')->with('success', 'Data saved successfully.');
+        }
+    }
 }
