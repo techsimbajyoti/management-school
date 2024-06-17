@@ -9,6 +9,7 @@ use App\Models\Language;
 use App\Models\Religion;
 use App\Models\State;
 use App\Models\Country;
+use App\Models\StudentParent;
 
 class ApplicantController extends Controller
 {
@@ -83,29 +84,29 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        $request->validate([
-            'parent_name' => 'required|min:3|max:50',
-            'email' => 'email',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    
-        // Process the form data and save to the database
-        $data = $request->all();
-    
-        // Assuming you have a model named `Applicant`
-        $applicant = new Applicant();
-        $applicant->parent_name = $data['parent_name'];
-        $applicant->email = $data['email'];
-        $applicant->password = bcrypt($data['password']);
+        // $request->validate([
+        //     'father_name' => 'required',
+        //     'father_mobile' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required|confirmed|min:3',
+        // ]);
+
+        $applicant = new StudentParent;
+
+        $applicant->father_name = $request->input('parent_name');
+        $applicant->father_mobile = $request->input('contact_number');
+        $applicant->email = $request->input('email');
+        $applicant->password = $request->input('password');
+        $applicant->father_profession = $request->input('profession');
+        $applicant->office_number = $request->input('office_number');
+        $applicant->office_address = $request->input('office_address');
+        $applicant->applicant_id = $request->input('applicant');
+        $applicant->role_id = $request->input('role_id');
+        $applicant->status = $request->input('status');
+        $applicant->created_by = 'null';
+
         $applicant->save();
-    
-        // Handle the different actions
-        if ($request->input('action') == 'save-continue') {
-            // Redirect to the next step in the process
-            return redirect()->route('next-step')->with('success', 'Data saved successfully, continue to the next step.');
-        } else {
-            // Redirect to a different page or show a success message
-            return redirect()->route('applicant-form')->with('success', 'Data saved successfully.');
-        }
+
+        return response()->json(['message'=>'parentName']);
     }
 }
