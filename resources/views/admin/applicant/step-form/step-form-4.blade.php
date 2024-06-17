@@ -1,4 +1,4 @@
-<form class="form4" method="POST">
+<form class="form-step" id="form4" style="display: none;" method="POST">
     @csrf
     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
 
@@ -28,7 +28,7 @@
     
     <div class="card-footer">
         <div class="d-flex justify-content-between">
-            <button type="button" class="btn ot-btn-primary back_3"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+            <button type="button" class="btn ot-btn-primary back_3" data-step="3"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
             <button type="submit" class="btn ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save') }}</button>
         </div>
     </div>

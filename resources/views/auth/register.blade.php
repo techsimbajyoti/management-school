@@ -170,26 +170,50 @@ $(document).ready(function() {
     }
 
     function showForm(step) {
-        $('.form1, .form2, .form3, .form4').hide();
-        $(`.form${step}`).show();
+        $('.form-step').hide();
+        $(`#form${step}`).show();
+    }
+
+    function saveFormDataAndContinue(step) {
+        const formData = $('#multiStepForm').serialize();
+        $.ajax({
+            url: "{{ route('post-applicant-data') }}",
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.next_step <= totalSteps) {
+
+                    $('#form1').removeClass('active');
+                    $('#form2').addClass('active');
+                    if ($('#form2').hasClass('active')) {
+                        $('#form2').show();
+                        $('#form3').hide();
+                        $('#form4').hide();
+                        $('#form1').hide();
+                    }
+
+                    // currentStep = step;
+                    // updateProgressBar(currentStep);
+                    // showForm(currentStep);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                // Handle the error, e.g., show an error message
+            }
+        });
     }
 
     $('.save_1').click(function() {
-        currentStep = 2;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
+        saveFormDataAndContinue(2);
     });
 
     $('.save_2').click(function() {
-        currentStep = 3;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
+        saveFormDataAndContinue(3);
     });
 
     $('.save_3').click(function() {
-        currentStep = 4;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
+        saveFormDataAndContinue(4);
     });
 
     $('.back_1').click(function() {
@@ -208,6 +232,11 @@ $(document).ready(function() {
         currentStep = 3;
         updateProgressBar(currentStep);
         showForm(currentStep);
+    });
+
+    $('#multiStepForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        saveFormDataAndContinue(4); // Submit the form via AJAX
     });
 
     updateProgressBar(currentStep);

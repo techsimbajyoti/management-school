@@ -1,4 +1,4 @@
-<form id="form1" method="POST" action="{{route('post-applicant-data')}}">
+<form class="form-step" id="form1" method="POST" action="{{route('post-applicant-data')}}">
     @csrf
     <h5>Parent Information</h5><br>
     <div class="row ">
@@ -112,11 +112,10 @@
 
     <div class="card-footer">
         <div class="d-flex justify-content-end">
-            <input type="hidden" name="action" id="form-action" value="save">
-            <button type="button" class="btn btn-lg ot-btn-primary" onclick="setActionAndSubmit('save-continue')">
+            <button type="submit" class="btn btn-lg ot-btn-primary" data-step="1">
                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
             </button>
-            <button type="button" class="btn btn-lg ot-btn-primary ml-3" onclick="setActionAndSubmit('save')">
+            <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
                 <i class="fa fa-save"></i> {{ __('Save') }}
             </button>
         </div>
@@ -125,37 +124,32 @@
 
 @push('scripts')
 <script>
-    function setActionAndSubmit(action) {
-        $('#form-action').val(action);
-        submitForm();
-    }
+    $(document).ready(function() {
+        $('#form1').submit(function(){
+            var formData = $('#form1').serialize();
 
-    function submitForm() {
-        var formData = $('#form1').serialize();
-
-        $.ajax({
-            url: "{{ route('post-applicant-data') }}",
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                console.log(response);
-                // Handle the response, e.g., redirect or show a success message
-                if ($('#form-action').val() === 'save-continue') {
-                    $('.form2').show();
-                } else {
-                    alert('Data saved successfully.');
+            $.ajax({
+                url: "{{ route('post-applicant-data') }}",
+                type: 'POST',
+                data: {
+                    formData: formData,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log(response);
+                    $('#step1').removeClass('active');
+                        $('#step2').addClass('active');
+                        if ($('#step2').hasClass('active')) {
+                            $('#form2').show();
+                            $('#form0').hide();
+                            $('#form1').hide();
+                        }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-                // Handle the error, e.g., show an error message
-            }
-        });
-    }
-
-    $('#form1').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
-        submitForm(); // Submit the form via AJAX
+            });
+        })
     });
 </script>
 @endpush

@@ -1,4 +1,4 @@
-<form class="form3" method="POST">
+<form class="form-step" id="form3" style="display: none;" method="POST">
     @csrf
     <h5>Contact Information</h5><br>
     <div class="row">
@@ -90,9 +90,9 @@
     </div>
     <div class="card-footer">
         <div class="d-flex justify-content-between">
-            <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+            <button type="button" class="btn ot-btn-primary back_2" data-step="2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
             <div>
-                <button type="button" class="btn ot-btn-primary save_3"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
+                <button type="button" class="btn ot-btn-primary save_3" data-step="3"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
                 <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
             </div>
         </div>
