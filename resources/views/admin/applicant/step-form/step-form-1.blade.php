@@ -1,4 +1,4 @@
-<form class="form1" method="POST" action="{{route('post-applicant-data')}}">
+<form id="form1" method="POST" action="{{route('post-applicant-data')}}">
     @csrf
     <h5>Parent Information</h5><br>
     <div class="row ">
@@ -106,15 +106,56 @@
                 @endif
         </div>
     </div>
+    <input type="hidden" name="applicant" value="applicant">
+    <input type="hidden" name="role_id" value="5">
+    <input type="hidden" name="status" value="active">
+
     <div class="card-footer">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">
-            <button type="submit" class="btn btn-lg ot-btn-primary" onclick="document.getElementById('form-action').value='save-continue'">
+            <button type="button" class="btn btn-lg ot-btn-primary" onclick="setActionAndSubmit('save-continue')">
                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
             </button>
-            <button type="submit" class="btn btn-lg ot-btn-primary ml-3" onclick="document.getElementById('form-action').value='save'">
+            <button type="button" class="btn btn-lg ot-btn-primary ml-3" onclick="setActionAndSubmit('save')">
                 <i class="fa fa-save"></i> {{ __('Save') }}
             </button>
         </div>
     </div>
 </form>
+
+@push('scripts')
+<script>
+    function setActionAndSubmit(action) {
+        $('#form-action').val(action);
+        submitForm();
+    }
+
+    function submitForm() {
+        var formData = $('#form1').serialize();
+
+        $.ajax({
+            url: "{{ route('post-applicant-data') }}",
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                console.log(response);
+                // Handle the response, e.g., redirect or show a success message
+                if ($('#form-action').val() === 'save-continue') {
+                    $('.form2').show();
+                } else {
+                    alert('Data saved successfully.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                // Handle the error, e.g., show an error message
+            }
+        });
+    }
+
+    $('#form1').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        submitForm(); // Submit the form via AJAX
+    });
+</script>
+@endpush
