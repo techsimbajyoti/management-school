@@ -44,7 +44,7 @@
                 </a>
             </li>
 
-            <li class="{{ $elementActive == 'meeting' ? 'active' : '' }}">
+            <li class="{{ $elementActive == 'schedule-meeting' ? 'active' : '' }}">
                 <a href="{{ route('schedule-meeting') }}">
                     <i class="fa fa-handshake "></i>
                     <p>{{ __('Schedule Meeting') }}</p>

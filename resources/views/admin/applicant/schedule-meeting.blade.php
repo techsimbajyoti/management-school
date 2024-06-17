@@ -41,6 +41,47 @@
     border-color: #324AAA !important;
     
 }
+
+#book-appointment-wizard .book-step strong {
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    color: white;
+    transition: all .3s linear;
+    cursor: default;
+}
+
+
+#book-appointment-wizard .active-step {
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+    float: left;
+    background: #33B4E8;
+    padding: 7px;
+    margin-right: 13px;
+    margin-top: 0;
+}
+
+#book-appointment-wizard .book-step {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    float: left;
+    background: #33B4E8;
+    padding: 8px;
+    margin-right: 12px;
+    margin-top: 6px;
+    border-radius: 0.25rem;
+    transition: all .3s linear;
+}
+
+
+#book-appointment-wizard .active-step strong {
+    color: white;
+    font-size: 21px;
+    
+}
     </style>
 <div class="content">
 <div class="row">
@@ -371,16 +412,12 @@
                 <button type="button" id="button-back-4" class="btn btn-lg ot-btn-primary"
                         data-step_index="4">
                     <i class="fas fa-chevron-left mr-2"></i>
-                    Back 
+                    Back  
                 </button>
-                <form id="book-appointment-form" style="display:inline-block" method="">
-                    @csrf
-                    <button id="book-appointment-submit" type="button" class="btn btn-lg ot-btn-primary">
-                        <i class="fas fa-check-square mr-2"></i>
-                        Confirm   
-                     </button>
-                  
-                </form>
+                <button type="button" id="button-next-3" class="btn btn-lg ot-btn-primary"
+                        data-step_index="3">
+                    Confirm  <i class="fas fa-check-square ml-2"></i>
+                </button>
             </div>
         </div>
         
