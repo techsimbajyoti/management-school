@@ -29,7 +29,7 @@
         <ul class="nav">
             @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
             
-            @if(in_array($elementActive, ['applicant', 'applicant-list']) ? 'active' : '' )
+            @if(in_array($elementActive, ['applicant', 'applicant-list','schedule-meeting','meeting-status']) ? 'active' : '' )
             <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
                 <a href="{{ route('applicant') }}">
                     <i class="fa fa-user-circle"></i>
@@ -50,7 +50,13 @@
                     <p>{{ __('Schedule Meeting') }}</p>
                 </a>
             </li>
-
+      
+            <li class="{{ $elementActive == 'meeting-status' ? 'active' : '' }}">
+                <a href="{{ route('meeting-status') }}">
+                    <i class="fa fa-handshake"></i>
+                    <p>{{ __('Meeting Status') }}</p>
+                </a>
+            </li>
 
             @else
             <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
