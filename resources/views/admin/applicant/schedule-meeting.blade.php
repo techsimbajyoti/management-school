@@ -2,87 +2,14 @@
     'class' => '',
     'elementActive' => 'schedule-meeting'
 ])
-@section('content')
-
   
-<link rel="stylesheet" type="text/css" href="https://demo.easyappointments.org/assets/ext/bootstrap/css/bootstrap.min.css?6398SW">
-<link rel="stylesheet" type="text/css" href="https://demo.easyappointments.org/assets/ext/jquery-ui/jquery-ui.min.css?6398SW">
-<link rel="stylesheet" type="text/css" href="https://demo.easyappointments.org/assets/ext/cookieconsent/cookieconsent.min.css?6398SW">
-<link rel="stylesheet" type="text/css" href="https://demo.easyappointments.org/assets/css/frontend.min.css?6398SW">
-<link rel="stylesheet" type="text/css" href="https://demo.easyappointments.org/assets/css/general.min.css?6398SW">
-
+<link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/cookieconsent.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/frontend.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/general.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/jquery-ui.min.css">
 
 @section('content')
-<style>
-    #book-appointment-wizard #header {
-     background: #324AAA;
-}
-
-#book-appointment-wizard #available-hours .selected-hour {
-    background-color: #324AAA;
-    border-color: #324AAA;
-    color: #fff;
-}
-.selected-hour {
-    background-color: #324AAA;
-    border-color: #324AAA;
-    color: #fff;
-}
-
-.btn-outline-primary {
-    background: transparent;
-    border: 2px solid #324AAA !important;
-    color: #324AAA;
-    
-}
-.btn-outline-primary:hover {
-    background-color: #324AAA !important;
-    color: rgba(255, 255, 255, 0.8) !important;
-    border-color: #324AAA !important;
-    
-}
-
-#book-appointment-wizard .book-step strong {
-    font-size: 12px;
-    display: block;
-    text-align: center;
-    color: white;
-    transition: all .3s linear;
-    cursor: default;
-}
-
-
-#book-appointment-wizard .active-step {
-    display: inline-block;
-    height: 45px;
-    width: 45px;
-    float: left;
-    background: #33B4E8;
-    padding: 7px;
-    margin-right: 13px;
-    margin-top: 0;
-}
-
-#book-appointment-wizard .book-step {
-    display: inline-block;
-    height: 35px;
-    width: 35px;
-    float: left;
-    background: #33B4E8;
-    padding: 8px;
-    margin-right: 12px;
-    margin-top: 6px;
-    border-radius: 0.25rem;
-    transition: all .3s linear;
-}
-
-
-#book-appointment-wizard .active-step strong {
-    color: white;
-    font-size: 21px;
-    
-}
-    </style>
 <div class="content">
 <div class="row">
     <div id="book-appointment-wizard" class="col-12 col-xl-8">
@@ -91,7 +18,6 @@
 
              <div id="header">
                 <span id="company-name">School Name</span>
-
                 <div id="steps">
                     <div id="step-1" class="book-step active-step"
                          data-tippy-content="Service & Provider">
@@ -118,7 +44,6 @@
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
                     <h2 class="frame-title">Service & Provider</h2>
-
                     <div class="row frame-content">
                         <div class="col">
                             <div class="form-group">
@@ -374,7 +299,6 @@
                             <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
                         </div>
                     </div>
-                   
                 </div>
             </div>
             <div class="command-buttons">
@@ -433,6 +357,9 @@
  
 @endsection
 @push('scripts')
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
  $(document).ready(function() {
     $('#timezone-select').change(function() {
