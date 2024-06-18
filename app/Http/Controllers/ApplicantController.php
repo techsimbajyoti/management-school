@@ -84,42 +84,29 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        $step = $request->input('current_step', 1);
+        // $request->validate([
+        //     'father_name' => 'required',
+        //     'father_mobile' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required|confirmed|min:3',
+        // ]);
 
-        // Validate data according to the current step
-        $validatedData = $request->validate([
-            'parent_name' => 'required_if:current_step,1|min:3|max:50',
-            'email' => 'required_if:current_step,1|email',
-            'contact_number' => 'required_if:current_step,2|numeric',
-            'profession' => 'required_if:current_step,2|string',
-            'office_address' => 'required_if:current_step,3|string',
-        ]);
+        $applicant = new StudentParent;
 
-        // Save data incrementally based on the step
-        if ($step == 1) {
-            $applicant = new StudentParent;
+        $applicant->father_name = $request->input('parent_name');
+        $applicant->father_mobile = $request->input('contact_number');
+        $applicant->email = $request->input('email');
+        $applicant->password = $request->input('password');
+        $applicant->father_profession = $request->input('profession');
+        $applicant->office_number = $request->input('office_number');
+        $applicant->office_address = $request->input('office_address');
+        $applicant->applicant_id = $request->input('applicant');
+        $applicant->role_id = $request->input('role_id');
+        $applicant->status = $request->input('status');
+        $applicant->created_by = 'null';
 
-            $applicant->father_name = $request->input('parent_name');
-            $applicant->father_mobile = $request->input('contact_number');
-            $applicant->email = $request->input('email');
-            $applicant->password = $request->input('password');
-            $applicant->father_profession = $request->input('profession');
-            $applicant->office_number = $request->input('office_number');
-            $applicant->office_address = $request->input('office_address');
-            $applicant->applicant_id = $request->input('applicant');
-            $applicant->role_id = $request->input('role_id');
-            $applicant->status = $request->input('status');
-            $applicant->created_by = 'null';
+        $applicant->save();
 
-            $applicant->save();
-
-        } elseif ($step == 2) {
-            $applicant->father_profession = $request->input('profession');
-            $applicant->father_mobile = $request->input('contact_number');
-        } elseif ($step == 3) {
-            $applicant->office_address = $request->input('office_address');
-        }
-
-        return response()->json(['success'=>'Candidate registered successfully','next_step' => $step + 1]);
+        return response()->json(['message'=>'parentName']);
     }
 }

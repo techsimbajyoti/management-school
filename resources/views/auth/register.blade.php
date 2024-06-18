@@ -91,7 +91,6 @@
                     </div>
                     <div class="card ot-card">
                         <div class="card-body">
-
                             @include('admin.applicant.step-form.step-form-1')
 
                             @include('admin.applicant.step-form.step-form-2')
@@ -99,7 +98,6 @@
                             @include('admin.applicant.step-form.step-form-3')
 
                             @include('admin.applicant.step-form.step-form-4')
-                           
                         </div>
                     </div>
                 </div>
@@ -170,50 +168,26 @@ $(document).ready(function() {
     }
 
     function showForm(step) {
-        $('.form-step').hide();
-        $(`#form${step}`).show();
-    }
-
-    function saveFormDataAndContinue(step) {
-        const formData = $('#multiStepForm').serialize();
-        $.ajax({
-            url: "{{ route('post-applicant-data') }}",
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                if (response.next_step <= totalSteps) {
-
-                    $('#form1').removeClass('active');
-                    $('#form2').addClass('active');
-                    if ($('#form2').hasClass('active')) {
-                        $('#form2').show();
-                        $('#form3').hide();
-                        $('#form4').hide();
-                        $('#form1').hide();
-                    }
-
-                    // currentStep = step;
-                    // updateProgressBar(currentStep);
-                    // showForm(currentStep);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-                // Handle the error, e.g., show an error message
-            }
-        });
+        $('.form1, .form2, .form3, .form4').hide();
+        $(`.form${step}`).show();
     }
 
     $('.save_1').click(function() {
-        saveFormDataAndContinue(2);
+        currentStep = 2;
+        updateProgressBar(currentStep);
+        showForm(currentStep);
     });
 
     $('.save_2').click(function() {
-        saveFormDataAndContinue(3);
+        currentStep = 3;
+        updateProgressBar(currentStep);
+        showForm(currentStep);
     });
 
     $('.save_3').click(function() {
-        saveFormDataAndContinue(4);
+        currentStep = 4;
+        updateProgressBar(currentStep);
+        showForm(currentStep);
     });
 
     $('.back_1').click(function() {
@@ -232,11 +206,6 @@ $(document).ready(function() {
         currentStep = 3;
         updateProgressBar(currentStep);
         showForm(currentStep);
-    });
-
-    $('#multiStepForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
-        saveFormDataAndContinue(4); // Submit the form via AJAX
     });
 
     updateProgressBar(currentStep);
