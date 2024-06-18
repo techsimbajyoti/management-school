@@ -1,4 +1,4 @@
- <form class="form1" method="POST" action="">
+ <form id="form1" class="form active" method="POST" action="">
     @csrf
     <h5>Parent Information</h5><br>
     <div class="row ">

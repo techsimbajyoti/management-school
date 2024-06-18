@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="command-buttons">
+                <div class="command-buttons text-right">
                     <button type="button" id="button-next-1" class="btn btn-lg ot-btn-primary" data-step_index="1">
                         Next <i class="fas fa-chevron-right ml-2"></i>
                     </button>
