@@ -1,4 +1,4 @@
-<form class="form4" method="POST">
+<form id="form4" class="form" method="POST">
     @csrf
     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
 

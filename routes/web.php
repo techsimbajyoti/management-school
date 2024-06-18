@@ -230,8 +230,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('edit-shift', [UserController::class, 'edit_shift'])->name('edit-shift');
 
-
-
 	Route::post('delete-shift', [UserController::class, 'delete_shift'])->name('delete-shift');
 
 	Route::get('class-setup', [UserController::class, 'class_setup'])->name('class-setup');

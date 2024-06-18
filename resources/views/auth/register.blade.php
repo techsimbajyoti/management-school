@@ -78,16 +78,6 @@
 
 </style>
     <div class="content">
-         @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-    @if (session('password_status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('password_status') }}
-        </div>
-    @endif
         <div class="container">
             <div class="row" style="margin-top: 40px;">
                 <div class="col-lg-10 col-md-10 offset-md-1 mr-auto">
@@ -182,27 +172,6 @@ $(document).ready(function() {
         $(`.form${step}`).show();
     }
 
-    
-    $('#form1').on('submit', function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: "{{ route('post-applicant-data') }}",
-            method: "POST",
-            data: $(this).serialize(),
-            success: function(response) {
-                if (response.success) {
-                    moveToNextStep(2); // Move to next step upon successful form submission
-                } else {
-                    console.error('Failed to save data:', response.errors);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-            }
-        });
-    });
-
-
     $('.save_1').click(function() {
         currentStep = 2;
         updateProgressBar(currentStep);
@@ -282,24 +251,24 @@ $(document).ready(function() {
             }
         })
 
-            // var sections = {
-            //     1: ["A", "B", "C"],
-            //     2: ["D", "E"],
-            //     3: ["F", "G", "H", "I"]
-            // };
+            var sections = {
+                1: ["A", "B", "C"],
+                2: ["D", "E"],
+                3: ["F", "G", "H", "I"]
+            };
 
-            // $('#getSections').change(function() {
-            //     var classId = $(this).val();
-            //     var $sectionsDropdown = $('.sections');
-            //     $sectionsDropdown.empty();
-            //     $sectionsDropdown.append('<option value="">Select section</option>');
+            $('#getSections').change(function() {
+                var classId = $(this).val();
+                var $sectionsDropdown = $('.sections');
+                $sectionsDropdown.empty();
+                $sectionsDropdown.append('<option value="">Select section</option>');
 
-            //     if (sections[classId]) {
-            //         sections[classId].forEach(function(section) {
-            //             $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
-            //         });
-            //     }
-            // });
+                if (sections[classId]) {
+                    sections[classId].forEach(function(section) {
+                        $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
+                    });
+                }
+            });
 
 
 
