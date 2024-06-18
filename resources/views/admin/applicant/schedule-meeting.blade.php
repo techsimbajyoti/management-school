@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'applicant-list'
+    'elementActive' => 'schedule-meeting'
 ])
 @section('content')
 
@@ -39,6 +39,47 @@
     background-color: #324AAA !important;
     color: rgba(255, 255, 255, 0.8) !important;
     border-color: #324AAA !important;
+    
+}
+
+#book-appointment-wizard .book-step strong {
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    color: white;
+    transition: all .3s linear;
+    cursor: default;
+}
+
+
+#book-appointment-wizard .active-step {
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+    float: left;
+    background: #33B4E8;
+    padding: 7px;
+    margin-right: 13px;
+    margin-top: 0;
+}
+
+#book-appointment-wizard .book-step {
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    float: left;
+    background: #33B4E8;
+    padding: 8px;
+    margin-right: 12px;
+    margin-top: 6px;
+    border-radius: 0.25rem;
+    transition: all .3s linear;
+}
+
+
+#book-appointment-wizard .active-step strong {
+    color: white;
+    font-size: 21px;
     
 }
     </style>
@@ -95,7 +136,7 @@
                                 </label>
 
                                 <select id="select-provider" class="nice-select niceSelect bordered_style wide" required>
-                                    <option value="1">John Doe</option>  
+                                    <option value="1">Administrator</option>  
                                 </select>
                             </div>
 
@@ -263,19 +304,19 @@
                             <label for="first-name" class="control-label">
                                 First Name <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="first-name" class="required form-control" maxlength="100"/>
+                            <input type="text" id="first-name" class="required form-control" placeholder="First Name"  maxlength="100"/>
                         </div>
                         
                         <div class="form-group">
                             <label for="email" class="control-label">
                                 Email  <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="email" class="required form-control" maxlength="120"/>
+                            <input type="text" id="email" class="required form-control"  placeholder="Email" maxlength="120"/>
                         </div>
                         <div class="form-group">
                             <label for="phone-number" class="control-label">
                                 Phone Number   <span class="text-danger">*</span>                                </label>
-                            <input type="text" id="phone-number" maxlength="60"
+                            <input type="text" id="phone-number" placeholder="Phone Number" maxlength="60"
                                    class="required form-control"/>
                         </div>
                         <div class="form-group">
@@ -288,6 +329,13 @@
                                 <option>Staff Interview</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="address" class="control-label">
+                                Address  
+                            </label>
+                            <textarea id="address" class="form-control" rows="1" maxlength="500" Placeholder="Address"></textarea>
+                        </div>
+                        
                     </div>
                     
                     <div class="col-12 col-md-6">
@@ -295,25 +343,29 @@
                             <label for="last-name" class="control-label">
                                 Last Name <span class="text-danger">*</span>
                             </label>
-                            <input type="text" id="last-name" class="required form-control" maxlength="120"/>
+                            <input type="text" id="last-name" class="required form-control"
+                             maxlength="120"/>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="address" class="control-label">
-                                Address  
-                            </label>
-                            <input type="text" id="address" class="form-control" maxlength="120"/>
-                        </div> --}}
+                        
                         <div class="form-group">
                             <label for="city" class="control-label">
                                 City  
                             </label>
-                            <input type="text" id="city" class="form-control" maxlength="120"/>
+                            <input type="text" id="city" class="form-control" Placeholder="City" maxlength="120"/>
                         </div>
                         <div class="form-group">
                             <label for="zip-code" class="control-label">
                                 Zip Code  
                             </label>
-                            <input type="text" id="zip-code" class="form-control" maxlength="120"/>
+                            <input type="text" id="zip-code" class="form-control"  Placeholder=" Zip Code" maxlength="120"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone-number" class="control-label">
+                                Meeting Mode  <span class="text-danger">*</span>                                </label>
+                            <select class="nice-select niceSelect bordered_style wide" name="type">
+                                <option>Online</option>
+                                <option>Offline</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="notes" class="control-label">
@@ -322,14 +374,7 @@
                             <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="address" class="control-label">
-                                Address  
-                            </label>
-                            <input type="text" id="address" class="form-control" maxlength="120"/>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
             <div class="command-buttons">
@@ -352,17 +397,19 @@
                     <div id="appointment-details" class="col-12 col-md-6">
                         <h4>Appointment</h4>
                         <p class="mb-0">Service: Service</p>
-                        <p class="mb-0">Provider: Jane Doe</p>
+                        <p class="mb-0">Provider: Administrator</p>
                         <p class="mb-0">Start: 01/07/2024 12:00 pm</p>
                         <p class="mb-0"> Timezone: Damascus (+2:00)</p>               
                     </div>
                     <div id="customer-details" class="col-12 col-md-6">
                         <h4>Customer</h4>
                         <p class="mb-0">Customer: demo</p>
-                        <p class="mb-0">Provider: Jane Doe</p>
                         <p class="mb-0">Phone Number: 1234567890</p>
                         <p class="mb-0"> Email: admin@gmail.com
-                        </p>     
+                        </p> 
+                        <p class="mb-0"> Meeting Mode: Offline</p> 
+                        <p class="mb-0"> Meeting Type: Student Interview</p> 
+
 
                     </div>
                 </div>
@@ -371,16 +418,12 @@
                 <button type="button" id="button-back-4" class="btn btn-lg ot-btn-primary"
                         data-step_index="4">
                     <i class="fas fa-chevron-left mr-2"></i>
-                    Back 
+                    Back  
                 </button>
-                <form id="book-appointment-form" style="display:inline-block" method="">
-                    @csrf
-                    <button id="book-appointment-submit" type="button" class="btn btn-lg ot-btn-primary">
-                        <i class="fas fa-check-square mr-2"></i>
-                        Confirm   
-                     </button>
-                  
-                </form>
+                <button type="button" id="button-next-3" class="btn btn-lg ot-btn-primary"
+                        data-step_index="3">
+                    Confirm  <i class="fas fa-check-square ml-2"></i>
+                </button>
             </div>
         </div>
         

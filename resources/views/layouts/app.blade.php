@@ -56,8 +56,8 @@ The above copyright notice and this permission notice shall be included in all c
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js">
-</script>
+{{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js">
+</script> --}}
 
 </head>
 
@@ -90,9 +90,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
      <script src="https://cdnjs.cloudflare.com/ajax/libs/tokenize2/1.1.0/js/tokenize2.min.js"></script>
-     <script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
-    <script type="text/javascript"  charset="utf8" src="paper/js/dataTable.js"></script>
-    <script type="text/javascript"  charset="utf8" src="paper/js/dataTable-init.js"></script>
+   
     
 
 
@@ -107,6 +105,9 @@ The above copyright notice and this permission notice shall be included in all c
 <!-- DataTables FixedHeader JS -->
 <script src="https://cdn.datatables.net/fixedheader/3.2.1/js/dataTables.fixedHeader.min.js"></script>
     @stack('scripts')
+    <script type="text/javascript" charset="utf8" src="paper/js/dataTable-jquery.js"></script>
+    <script type="text/javascript"  charset="utf8" src="paper/js/dataTable.js"></script>
+    <script type="text/javascript"  charset="utf8" src="paper/js/dataTable-init.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <!-- Include DataTables Buttons JS -->
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>

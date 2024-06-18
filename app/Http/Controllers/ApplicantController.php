@@ -109,4 +109,10 @@ class ApplicantController extends Controller
 
         return response()->json(['message'=>'parentName']);
     }
+
+    public function meeting_status(){
+        return view('admin.applicant.meeting-status');
+    }
+
+
 }
