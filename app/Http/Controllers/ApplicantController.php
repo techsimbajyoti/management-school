@@ -84,30 +84,84 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        // $request->validate([
-        //     'father_name' => 'required',
-        //     'father_mobile' => 'required',
-        //     'email' => 'required',
-        //     'password' => 'required|confirmed|min:3',
-        // ]);
-
+        // $data = $request->validate([
+        //         'parent_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+        //         'email' => 'required|email',
+        //         'password' => 'required',
+        //         'password_confirmation' => 'required|confirmed',
+        //         'contact_number' => 'required|min:10|max:10',
+        //         'profession' => 'required',
+        //         'office_number' => 'required|min:10|max:10',
+        //         'office_address' => 'required|min:3|max:255|',
+        //         'role_id'=>'required',
+        //         'applicant_id' => 'required',
+        //         'status' => 'required',
+        //         'created_by' => 'required',
+        //     ],
+        //     [
+        //     'parent_name.regex' => 'The name field is required and must contain only letters and spaces.',
+        //     ]           
+        // );
+        
         $applicant = new StudentParent;
 
-        $applicant->father_name = $request->input('parent_name');
-        $applicant->father_mobile = $request->input('contact_number');
-        $applicant->email = $request->input('email');
-        $applicant->password = $request->input('password');
-        $applicant->father_profession = $request->input('profession');
-        $applicant->office_number = $request->input('office_number');
-        $applicant->office_address = $request->input('office_address');
-        $applicant->applicant_id = $request->input('applicant');
-        $applicant->role_id = $request->input('role_id');
-        $applicant->status = $request->input('status');
+        $applicant->father_name = $request->parent_name;
+        $applicant->father_mobile = $request->contact_number;
+        $applicant->email = $request->email;
+        $applicant->password = $request->password;
+        $applicant->father_profession = $request->profession;
+        $applicant->office_number = $request->office_number;
+        $applicant->office_address = $request->office_address;
+        $applicant->applicant_id = $request->applicant_id;
+        $applicant->role_id = $request->role_id;
+        $applicant->status = $request->status;
         $applicant->created_by = 'null';
 
         $applicant->save();
+      
+        return response()->json(['success'=>'true']);
+    }
 
-        return response()->json(['message'=>'parentName']);
+    public function post_applicant_student_data(Request $request){
+        $data = $request->validate([
+                'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+                'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+                'email' => 'required|email',
+                'gender' => 'required',
+                'class' => 'required|confirmed',
+                'date_of_birth' => 'required',
+                'role_id'=>'required',
+                'applicant_id' => 'required',
+                'status' => 'required',
+                'created_by' => 'required',
+            ],
+            [
+            'first_name.regex' => 'The first name field is required and must contain only letters and spaces.',
+            'last_name.regex' => 'The last name field is required and must contain only letters and spaces.',
+            ]           
+        );
+        dd($request->all());
+        
+        $student = new Student;
+
+        $student->first_name = $request->first_name;
+        $student->last_name = $request->last_name;
+        $student->email = $request->email;
+        $student->gender = $request->gender   ;
+        $student->class = $request->class;
+        $student->date_of_birth = $request->date_of_birth;
+        $student->blood_group = $request->blood_group;
+        $student->religion = $request->religion;
+        $student->category = $request->category;
+        $student->student_language = $request->student_language;
+        $student->applicant_id = $request->applicant_id;
+        $student->role_id = $request->role_id;
+        $student->status = $request->status;
+        $student->created_by = 'null';
+
+        $student->save();
+      
+        return response()->json(['message'=>'']);
     }
 
     public function meeting_status(){

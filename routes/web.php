@@ -47,6 +47,8 @@ Route::post('json-country', [UserController::class, 'json_country'])->name('json
 
 Route::post('post-applicant-data',[ApplicantController::class,'post_applicant_data'])->name('post-applicant-data');
 
+Route::post('post-applicant-student-data',[ApplicantController::class,'post_applicant_student_data'])->name('post-applicant-student-data');
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);

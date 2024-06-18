@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('guardian_address');
             $table->string('guardian_relation');
             $table->string('father_nationality');
+            $table->string('office_number');
+            $table->string('office_address');
+            $table->string('applicant_id');
             $table->string('status');
             $table->string('role_id');
             $table->string('created_by');
