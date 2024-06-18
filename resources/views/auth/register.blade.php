@@ -91,7 +91,6 @@
                     </div>
                     <div class="card ot-card">
                         <div class="card-body">
-
                             @include('admin.applicant.step-form.step-form-1')
 
                             @include('admin.applicant.step-form.step-form-2')
@@ -99,7 +98,6 @@
                             @include('admin.applicant.step-form.step-form-3')
 
                             @include('admin.applicant.step-form.step-form-4')
-                           
                         </div>
                     </div>
                 </div>
