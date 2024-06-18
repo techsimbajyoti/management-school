@@ -158,6 +158,26 @@ $(document).ready(function() {
     let currentStep = 1;
     const totalSteps = 4;
 
+
+    function updateProgressBar(step) {
+        const percentage = (step - 1) / (totalSteps - 1) * 100;
+        $('.progress-bar').css('width', `${percentage}%`);
+        $('#progressbar li').removeClass('active');
+        for (let i = 1; i <= step; i++) {
+            $(`#step${i}`).addClass('active');
+        }
+    }
+
+    function showForm(step) {
+        $('#form1, #form2, #form3, #form4').hide();
+        $(`#form${step}`).show();
+    }
+
+    // $('#form2').hide();
+    // $('#form3').hide();
+    // $('#form4').hide();
+
+
     function updateProgressBar(step) {
         const percentage = (step - 1) / (totalSteps - 1) * 100;
         $('.progress-bar').css('width', `${percentage}%`);
@@ -195,6 +215,14 @@ $(document).ready(function() {
         updateProgressBar(currentStep);
         showForm(currentStep);
     });
+
+
+    $('.back_1').click(function() {
+        currentStep = 1;
+        updateProgressBar(currentStep);
+        showForm(currentStep);
+    });
+
 
     $('.back_2').click(function() {
         currentStep = 2;
