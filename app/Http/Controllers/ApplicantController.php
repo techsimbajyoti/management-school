@@ -88,22 +88,23 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        //     $data = $request->validate([
-        //         'parent_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-        //         'email' => 'required|email',
-        //         'password' => 'required',
-        //         'password_confirmation' => 'required|confirmed',
-        //         'contact_number' => 'required|digits:10',
-        //         'role_id'=>'required',
-        //         'applicant_id' => 'required',
-        //         'status' => 'required',
-        //         'created_by' => 'required',
-        //     ],
-        //     [
-        //     'parent_name.regex' => 'The name field is required and must contain only letters and spaces.',
-        //     ]           
-        // );
-    
+            $data = $request->validate([
+                'parent_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+                'email' => 'required|email',
+                'password' => 'required',
+                'password_confirmation' => 'required|confirmed',
+                'contact_number' => 'required|digits:10',
+                'role_id'=>'required',
+                'applicant_id' => 'required',
+                'status' => 'required',
+                'created_by' => 'required',
+            ],
+            [
+            'parent_name.regex' => 'The name field is required and must contain only letters and spaces.',
+            ]    
+           
+        );
+        
         $applicant = new StudentParent;
 
 
@@ -134,25 +135,25 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_student_data(Request $request){
-        // $data = $request->validate([
-        //         'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-        //         'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-        //         'user_name' => 'required',
-        //         'gender' => 'required',
-        //         'class' => 'required|confirmed',
-        //         'date_of_birth' => 'required',
-        //         'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
-        //         'role_id'=>'required',
-        //         'applicant_id' => 'required',
-        //         'status' => 'required',
-        //         'created_by' => 'required',
-        //     ],
-        //     [
-        //     'first_name.regex' => 'The first name field is required and must contain only letters and spaces.',
-        //     'last_name.regex' => 'The last name field is required and must contain only letters and spaces.',
-        //     ]           
-        // );
-        // dd($request->all());
+        $data = $request->validate([
+                'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+                'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+                'user_name' => 'required',
+                'gender' => 'required',
+                'class' => 'required|confirmed',
+                'date_of_birth' => 'required|date|before:' . now()->toDateString(),
+                'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
+                'role_id'=>'required',
+                'applicant_id' => 'required',
+                'status' => 'required',
+                'created_by' => 'required',
+            ],
+            [
+            'first_name.regex' => 'The first name field is required and must contain only letters and spaces.',
+            'last_name.regex' => 'The last name field is required and must contain only letters and spaces.',
+            ]           
+        );
+        dd($request->all());
         
         
         $parent_id = Session::get('parent_id');
@@ -183,6 +184,7 @@ class ApplicantController extends Controller
             $student->religion = $request->religion;
             $student->category = $request->category;
             $student->student_language = $request->student_language;
+            $student->previous_school = $request->previous_school;
             $student->parent_id = $parent_id;
             $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
@@ -190,7 +192,7 @@ class ApplicantController extends Controller
             $student->created_by = 'null';
 
             $student->save();
-            session(['student_id' => $student->id]);
+            Session::put(['student_id' => $student->id]);
 
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
@@ -201,21 +203,21 @@ class ApplicantController extends Controller
     }
     
     public function post_applicant_contact_data(Request $request){
-        // $data = $request->validate([
+        $data = $request->validate([
                
-        //         'address' => 'required',
-        //         'country' => 'required',
-        //         'state' => 'required',
-        //         'city' => 'required',
-        //         'pin_code' => 'required|digits:6',
-        //         'mobile' => 'required|digits:10',
-        //         'parent_mobile' => 'required|digits:10',
-        //     ],
+                'address' => 'required',
+                'country' => 'required',
+                'state' => 'required',
+                'city' => 'required',
+                'pin_code' => 'required|digits:6',
+                'mobile' => 'required|digits:10',
+                'parent_mobile' => 'required|digits:10',
+            ],
                   
-        // );
-        // dd($request->all());
+        );
+        dd($request->all());
          
-        $student_id = session('student_id');
+        $student_id = session::get('student_id');
 
         if (is_null($student_id)) {
           return response()->json(['success' => false, 'errors' => 'Student ID not found']);
@@ -245,7 +247,7 @@ class ApplicantController extends Controller
    
     public function post_applicant_document_data(Request $request)
 {
-    $student_id = session('student_id');
+    $student_id = session::get('student_id');
 
     if (is_null($student_id)) {
         return response()->json(['success' => false, 'errors' => 'Student ID not found']);

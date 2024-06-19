@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('User Id:') }}</label>
+                                        <label class="form-label">{{ __('User Name:') }}</label>
         
                                         <div class="form-group">
                                             <input type="text" name="user_name" class="nice-select niceSelect bordered_style wide" placeholder="User Name" required >
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Register For:') }}</label>
+                                            <label class="form-label">{{ __('Admission   For:') }}</label>
                                                 <div class="form-group">
                                                     <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
                                                         <option value>Select class</option>
@@ -141,19 +141,28 @@
                                         <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                     </div>
                                   
+                                    <div class="col-md-6">
+                                        <label class="form-label">{{ __('Previous School:') }}</label>
+                                        <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school">
+                                        @if ($errors->has('previous_school'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('previous_school') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                                 <input type="hidden" name="role_id" value="5">
                                 <input type="hidden" name="status" value="active">
                                
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+                                        <button type="button" class="btn ot-btn-primary back_1" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
                                         
-                                            <button type="submit" class="btn btn-lg ot-btn-primary save_2">
+                                            <button type="submit" class="btn btn-lg ot-btn-primary save_2" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
                                             </button>
-                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save') }}
                                             </button>
                                         </div>
