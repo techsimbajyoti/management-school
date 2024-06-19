@@ -33,14 +33,14 @@
                                     </div>
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Email address:') }}</label>
+                                        <label class="form-label">{{ __('User Id:') }}</label>
         
                                         <div class="form-group">
-                                            <input type="text" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Email Address" required value="admin@gmail.com">
+                                            <input type="text" name="user_name" class="nice-select niceSelect bordered_style wide" placeholder="User Name" required >
                                         </div>
-                                        @if ($errors->has('email'))
+                                        @if ($errors->has('user_name'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('email') }}</strong>
+                                                <strong>{{ $errors->first('user_name') }}</strong>
                                             </span>
                                         @endif
                                     </div> 
@@ -144,7 +144,7 @@
                                 </div>
                                 <input type="hidden" name="role_id" value="5">
                                 <input type="hidden" name="status" value="active">
-                                <input type="hidden" name="applicant_id" value="applicant">
+                               
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>

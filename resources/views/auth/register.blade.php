@@ -4,83 +4,14 @@
 ])
 
 @section('content')
-<style>
-    /* Progress Bar */
-.progress-container {
-    width: 100%;
-    position: relative;
-}
 
-#progressbar {
-    display: flex;
-    justify-content: space-between;
-    list-style-type: none;
-    counter-reset: step;
-    margin-bottom: 20px;
-}
-
-#progressbar li {
-    text-align: center;
-    position: relative;
-    flex: 1;
-    counter-increment: step;
-}
-
-#progressbar li::before {
-    content: counter(step);
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    display: block;
-    font-size: 14px;
-    color: #333;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-}
-
-#progressbar li::after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: #ddd;
-    position: absolute;
-    left: -50%;
-    top: 15px;
-    z-index: -1;
-}
-
-#progressbar li:first-child::after {
-    content: none;
-}
-
-#progressbar li.active::before, #progressbar li.active::after {
-    background: #0275d8;
-    color: white;
-    border-color: #0275d8;
-}
-
-/* Progress Bar Indicator */
-.progress {
-    height: 4px;
-    background: #ddd;
-    position: relative;
-    margin-top: 20px;
-}
-
-.progress-bar {
-    width: 0;
-    height: 100%;
-    background: #0275d8;
-    transition: width 0.4s ease;
-}
-
-</style>
     <div class="content">
+       
         <div class="container">
             <div class="row" style="margin-top: 40px;">
                 <div class="col-lg-10 col-md-10 offset-md-1 mr-auto">
+                    <div id="success-message" style="display:none;" class="alert alert-success"></div>
+                    <div id="error-message" style="display:none;" class="alert alert-danger"></div>
                     <div class="progress-container">
                         <ul id="progressbar">
                             <li class="step active" id="step1"><strong>Step 1</strong></li>
@@ -272,35 +203,43 @@ $(document).ready(function() {
             });
 
 
-            $('#form3').submit(function (event) {
-                    event.preventDefault();
-                    var formData = new FormData(this);
+        $('#form4').submit(function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
 
-                    $.ajax({
-                        url: "{{ route('post-applicant-document-data') }}",
-                        type: 'POST',
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        enctype: 'multipart/form-data',
-                        success: function(response) {
-                            console.log(response);
-                            $('#step3').removeClass('active');
-                            $('#step4').addClass('active');
-                            if ($('#step4').hasClass('active')) {
-                                $('#form4').show();
-                                $('#form3').hide();
-                                $('#form2').hide();
-                                $('#form1').hide();
-                                
-                                $('#success-message').text('Form submitted successfully!').show();
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Error:', error);
+            $.ajax({
+                url: "{{ route('post-applicant-document-data') }}",
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        // Reset the form fields
+                        $('#form1')[0].reset();
+                        
+                        // Move to the initial form
+                        $('#step4').removeClass('active');
+                        $('#step1').addClass('active');
+                        if ($('#step1').hasClass('active')) {
+                            $('#form1').show();
+                            $('#form3').hide();
+                            $('#form2').hide();
+                            $('#form4').hide();
+                            
+                            $('#success-message').text(response.message).show();
                         }
-                    });
-                });
+                    } else {
+                        $('#error-message').text(response.errors).show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                    $('#error-message').text('An error occurred while submitting the form. Please try again.').show();
+                }
+            });
+        });
 
 
     $('.back_1').click(function() {
@@ -469,7 +408,7 @@ document.getElementById('add-document').addEventListener('click', function() {
                 <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
             </td>
             <td>
-                <input type="file" class="form-control" name="document_file[]">
+                <input type="file" class="form-control" name="document_file[]" multiple>
             </td>
             <td>
                 <button type="button" class="btn btn-danger remove-document">
@@ -497,5 +436,5 @@ document.getElementById('add-document').addEventListener('click', function() {
         document.getElementById('admission_date').value = currentDate;
     });
 
-</script>
+    </script>
 @endpush

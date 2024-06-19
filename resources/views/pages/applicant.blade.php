@@ -83,7 +83,10 @@
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
                                     <p class="card-category">Total Applicant</p>
-                                    <p class="card-title">15<p>
+                                    @php
+                                    $total_applicant = App\Models\StudentParent::get();    
+                                    @endphp
+                                    <p class="card-title">{{ $total_applicant->count() }}<p>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +94,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-refresh"></i> Update Now
+                            {{-- <i class="fa fa-refresh"></i> Update Now --}}
                         </div>
                     </div>
                 </div>
@@ -117,7 +120,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-calendar-o"></i> Last day
+                            {{-- <i class="fa fa-calendar-o"></i> Last day --}}
                         </div>
                     </div>
                 </div>
@@ -133,7 +136,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Token Rejected</p>
+                                    <p class="card-category">Total Rejected</p>
                                     <p class="card-title">23
                                         <p>
                                 </div>
@@ -143,7 +146,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-clock-o"></i> In the last hour
+                            {{-- <i class="fa fa-clock-o"></i> In the last hour --}}
                         </div>
                     </div>
                 </div>
@@ -168,7 +171,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-refresh"></i> Update now
+                            {{-- <i class="fa fa-refresh"></i> Update now --}}
                         </div>
                     </div>
                 </div>
@@ -195,7 +198,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-refresh"></i> Update now
+                            {{-- <i class="fa fa-refresh"></i> Update now --}}
                         </div>
                     </div>
                 </div>
@@ -222,7 +225,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-refresh"></i> Update now
+                            {{-- <i class="fa fa-refresh"></i> Update now --}}
                         </div>
                     </div>
                 </div>
