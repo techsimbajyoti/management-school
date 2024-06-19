@@ -102,149 +102,152 @@
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <form class="form1" method="POST">
+                                <div class="text-right">
+                                    @if(auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_id == 'applicant')
+                                    <a href="{{route('applicant-profile')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                                    @else
+                                    <a href="{{route('applicant-list')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
+                                    @endif
+                                </div>
+                                <form clas="form active" method="POST" action="" id="form1">
                                     @csrf
-                                    <h5>Edit Parent Information</h5><br>
+                                    <h5>Parent Information</h5><br>
                                     <div class="row ">
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Parent Name:') }}</label>
-                                        <div class="form-group">
-                                            <div class="autocomplete">
-                                                <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name">
-                                            </div>
-                                        </div>
-                                        @if ($errors->has('parent_name')) 
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('parent_name') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Email:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('email'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-    
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Password:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('password'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-    
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Confirm Password:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="password" name="confirm_password" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('confirm_password'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('confirm_password') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-    
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Contact Number:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="number" name="contact_number" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('contact_number'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('contact_number') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-    
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Profession:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="text" name="profession" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('profession'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('profession') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-    
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Office Contact Number:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="number" name="office_number" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('office_number'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('office_number') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-    
-                                    <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Office Address:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="number" name="office_address" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
-                                            </div>
-                                            @if ($errors->has('office_address'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('office_address') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn ot-btn-primary save_1"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
-                                            <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                                <form class="form2" method="POST">
-                                    @csrf
-                                    <h5>Edit Student Information</h5><br>
-                                    <div class="row">
-                                    
                                         <div class="col-md-6">
-                                        
                                             <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Admission No.:') }}</label>
-            
-                                                <div class="form-group">
-                                                    <input type="text" name="admission_no" class="nice-select sections niceSelect bordered_style wide" placeholder="Admission No." required>
+                                            <label class="form-label">{{ __('Parent Name:') }}</label>
+                                            <div class="form-group">
+                                                <div class="autocomplete">
+                                                    <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name">
                                                 </div>
-                                                @if ($errors->has('admission_no'))
+                                          
+                                            @if ($errors->has('parent_name')) 
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('parent_name') }}</strong>
+                                            </span>
+                                            @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Email:') }}</label>
+                                                <div class="form-group">
+                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" >
+                                                
+                                                @if ($errors->has('email'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('admission_no') }}</strong>
+                                                        <strong>{{ $errors->first('email') }}</strong>
                                                     </span>
                                                 @endif
+                                                </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Password:') }}</label>
+                                        
+                                            <div class="form-group">
+                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password">
+                                            
+                                                @if ($errors->has('password'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('password') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Confirm Password:') }}</label>
+                                        
+                                            <div class="form-group">
+                                                <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password">
+                                            
+                                                @if ($errors->has('password_confirmation'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Contact Number:') }}</label>
+                                
+                                                <div class="form-group">
+                                                    <input type="number" name="contact_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Contact Number" >
+                                                    @if ($errors->has('contact_number'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('contact_number') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                               
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Profession:') }}</label>
+                                
+                                                <div class="form-group">
+                                                    <input type="text" name="profession" class="nice-select niceSelect bordered_style wide" placeholder="Enter Profession" >
+                                                
+                                                @if ($errors->has('profession'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('profession') }}</strong>
+                                                    </span>
+                                                @endif
+                                                </div>  
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Office Contact Number:') }}</label>
+                                                <div class="form-group">
+                                                    <input type="number" name="office_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Office Contact Number" >
+                                               
+                                                @if ($errors->has('office_number'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('office_number') }}</strong>
+                                                    </span>
+                                                @endif
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Office Address:') }}</label>
+                                
+                                                <div class="form-group">
+                                                    <input type="text" name="office_address" class="nice-select niceSelect bordered_style wide" placeholder="Enter Office Address" >
+                                              
+                                                @if ($errors->has('office_address'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('office_address') }}</strong>
+                                                    </span>
+                                                @endif
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="role_id" value="5">
+                                    <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_id" value="applicant">
+                                    <div class="card-footer">
+                                        <div class="d-flex justify-content-end">
+                                            <input type="hidden" name="action" id="form-action" value="save">
+                                            <button type="submit" class="btn btn-lg ot-btn-primary save_1">
+                                                <i class="fa fa-save"></i> {{ __('Save & Continue') }}
+                                            </button>
+                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                                <i class="fa fa-save"></i> {{ __('Save') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form> 
+
+                                <form class="form" method="POST" id="form2">
+                                    @csrf
+                                    <h5>Student Information</h5><br>
+                                    <div class="row">
+    
                                     
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
@@ -320,19 +323,6 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
-                                                <label class="form-label">Section:</label>
-                                                <select class="nice-select sections niceSelect bordered_style wide"  name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                                    <option value="">Select one of these</option>
-                                                    <option value="A">A</option>
-                                                    <option  value="B">B</option>
-                                                    <option  value="C">C</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <span style="color:red">*</span>
                                                 <label class="form-label">Date of Birth:</label>
                                                 <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth">
                 
@@ -389,44 +379,36 @@
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <span style="color:red">*</span>
-                                                <label class="form-label">{{ __('Admission Date:') }}</label>
-                                                <input type="date" name="admission_date" id="admission_date" class="form-control">
-                                            </div>
-                                        </div>
+                                       
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Student Photo:') }}</label>
                                             <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
                                             <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"><span class="fillable">* </span>Status:</label>
-                                                <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
-                                                    <option value="">Select one of these</option>
-                                                    <option  value="active">Active</option>
-                                                    <option  value="deactive">deactive</option>
-                                                </select>
-                                                
-                                            </div>
-                                        </div>
+                                      
                                     </div>
+                                    <input type="hidden" name="role_id" value="5">
+                                    <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_id" value="applicant">
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
-                                                <button type="button" class="btn ot-btn-primary save_2"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
-                                                <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
+                                                <input type="hidden" name="action" id="form-action" value="save">
+                                                <button type="submit" class="btn btn-lg ot-btn-primary save_2">
+                                                    <i class="fa fa-save"></i> {{ __('Save & Continue') }}
+                                                </button>
+                                                <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                                    <i class="fa fa-save"></i> {{ __('Save') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
 
-                                <form class="form3" method="POST">
+                                <form class="form" method="POST" id="form3">
                                     @csrf
-                                    <h5>Edit Contact Information</h5><br>
+                                    <h5>Contact Information</h5><br>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <span style="color:red">*</span>
@@ -522,21 +504,25 @@
                                                 <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
                                             </div>
                                         </div>
+                                        {{-- <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+                                            <button type="submit" class="btn ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save') }}</button>
+                                        </div> --}}
                                     </div>
                                 </form>
     
-                                <form class="form4" method="POST">
+                                <form id="form4" class="form" method="POST">
                                     @csrf
-                                    <div class="d-flex justify-content-between align-items-center">
-    
+                                    <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
+                                
                                         <h5>Upload Documents</h5>
                                         <a id="add-document" class="btn btn-lg ot-btn-primary">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Add
                                         </a>
                                     </div>
-    
+                                
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-12">
                                             <div class="table-responsive">
                                                 <table class="table school_borderLess_table table_border_hide2" id="student-document">
                                                     <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
@@ -632,8 +618,8 @@ $(document).ready(function() {
     }
 
     function showForm(step) {
-        $('.form1, .form2, .form3, .form4').hide();
-        $(`.form${step}`).show();
+        $('#form1, #form2, #form3, #form4').hide();
+        $(`#form${step}`).show();
     }
 
     $('.save_1').click(function() {

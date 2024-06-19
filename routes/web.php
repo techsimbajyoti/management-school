@@ -49,6 +49,10 @@ Route::post('post-applicant-data',[ApplicantController::class,'post_applicant_da
 
 Route::post('post-applicant-student-data',[ApplicantController::class,'post_applicant_student_data'])->name('post-applicant-student-data');
 
+Route::post('post-applicant-contact-data',[ApplicantController::class,'post_applicant_contact_data'])->name('post-applicant-contact-data');
+
+Route::post('post-applicant-document-data',[ApplicantController::class,'post_applicant_document_data'])->name('post-applicant-document-data');
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);

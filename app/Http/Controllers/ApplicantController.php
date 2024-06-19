@@ -105,7 +105,6 @@ class ApplicantController extends Controller
         // );
         
         $applicant = new StudentParent;
-     
 
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
@@ -120,8 +119,8 @@ class ApplicantController extends Controller
         $applicant->created_by = 'null';
 
         $applicant->save();
-      
-        return response()->json(['success'=>'true']);
+        Session::put('parent_id',$applicant->id);
+        return response()->json(['success'=>'true','action'=>$request->action]);
     }
 
     public function post_applicant_student_data(Request $request){
@@ -145,9 +144,8 @@ class ApplicantController extends Controller
         // );
         // dd($request->all());
         
-        $parent = StudentParent::orderBy('id', 'desc')->first();
-        $parent_id = $parent ? $parent->id : null;
-
+        
+        $parent_id = Session::get('parent_id');
 
         try {
             $student = new Student;
@@ -171,15 +169,55 @@ class ApplicantController extends Controller
             $student->religion = $request->religion;
             $student->category = $request->category;
             $student->student_language = $request->student_language;
-            $student->image = $request->image;
             $student->parent_id = $parent_id;
             $student->applicant_id = $request->applicant_id;
             $student->role_id = $request->role_id;
             $student->status = $request->status;
             $student->created_by = 'null';
+
+            $student->save();
+            session(['student_id' => $student->id]);
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+    }
     
-            // Use dd to inspect the student object before saving
+    public function post_applicant_contact_data(Request $request){
+        // $data = $request->validate([
+               
+        //         'address' => 'required',
+        //         'country' => 'required',
+        //         'state' => 'required',
+        //         'city' => 'required',
+        //         'pin_code' => 'required|digits:6',
+        //         'mobile' => 'required|digits:10',
+        //         'parent_mobile' => 'required|digits:10',
+        //     ],
+                  
+        // );
+        // dd($request->all());
+         
+        $student_id = session('student_id');
+
+        if (is_null($student_id)) {
+          return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+         }
+        try {
             
+            $student = Student::findOrFail($student_id);
+            
+            $student->address = $request->address;
+            $student->country = $request->country;
+            $student->state = $request->state;
+            $student->city = $request->city;
+            $student->pin_code = $request->pin_code;
+            $student->mobile = $request->mobile;
+            $student->parent_mobile = $request->parent_mobile;
+                    
     
             $student->save();
     
@@ -190,9 +228,41 @@ class ApplicantController extends Controller
             return response()->json(['success' => false, 'errors' => $e->getMessage()]);
         }
     }
-    public function meeting_status(){
-        return view('admin.applicant.meeting-status');
-    }
+   
+            public function post_applicant_document_data(Request $request){
+            
+                $student_id = session('student_id');
+
+                if (is_null($student_id)) {
+                return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+                }
+                try {
+                    
+                    if ($request->hasFile('document')) {
+                        $originalFileName = $request->file('document')->getClientOriginalName();
+                        $currentDateTime = now()->format('YmdHis');
+                        $documentPath = $request->file('document')->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
+                        $student->document = $documentPath;
+                    } else {
+                        $student->document = null;
+                    }
+                                        
+            
+                    $student->save();
+            
+                    return response()->json(['success' => true]);
+                } catch (\Exception $e) {
+                    // Log the error for debugging
+                    \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+                    return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+                }
+            }
 
 
+
+        public function meeting_status(){
+            return view('admin.applicant.meeting-status');
+        }
+
+ 
 }

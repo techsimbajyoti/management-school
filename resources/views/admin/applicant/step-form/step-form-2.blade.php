@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Class:') }}</label>
+                                            <label class="form-label">{{ __('Register For:') }}</label>
                                                 <div class="form-group">
                                                     <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
                                                         <option value>Select class</option>

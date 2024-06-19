@@ -172,63 +172,135 @@ $(document).ready(function() {
         $(`#form${step}`).show();
     }
 
-    // $('#form2').hide();
-    // $('#form3').hide();
-    // $('#form4').hide();
 
-    $('#form1').submit(function (event) {
+    $('#save').click(function(e) {
+        e.preventDefault();
+        $('#form-action').val('save');
+        submitForm();
+    });
 
-    event.preventDefault();
-    var formData = $('#form1').serialize(); 
+    $('#save-continue').click(function(e) {
+        e.preventDefault();
+        $('#form-action').val('save-continue');
+        submitForm();
+    });
 
-    $.ajax({
+    function submitForm() {
+        var formData = $('#form1').serialize();
+
+        $.ajax({
             url: "{{ route('post-applicant-data') }}",
             type: 'POST',
             data: formData,
             success: function(response) {
-                 // $(form).trigger("reset");
-            console.log(response);
-                $('#step1').removeClass('active');
-                $('#step2').addClass('active');
-                if ($('#step2').hasClass('active')) {
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form1').hide();
+                console.log(response);
+                if(response.action == 'save'){
+                    location.reload();
+                }else if(response.action == 'save-continue'){
+                    $('#step1').removeClass('active');
+                    $('#step2').addClass('active');
+                    if ($('#step2').hasClass('active')) {
+                        $('#form2').show();
+                        $('#form3').hide();
+                        $('#form1').hide();
+                        $('#form4').hide();
+                    }
                 }
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
             }
         });
-
-    });
+    }
 
     $('#form2').submit(function (event) {
+    event.preventDefault();
 
-        event.preventDefault();
-        var formData = $('#form2').serialize(); 
+    // Create a new FormData object
+    var formData = new FormData(this);
 
-        $.ajax({
-                url: "{{ route('post-applicant-student-data') }}",
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    // $(form).trigger("reset");
-                console.log(response);
-                    $('#step2').removeClass('active');
-                    $('#step3').addClass('active');
-                    if ($('#step3').hasClass('active')) {
-                        $('#form3').show();
-                        $('#form2').hide();
-                        $('#form1').hide();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error:', error);
-                }
-        });
-
+    $.ajax({
+        url: "{{ route('post-applicant-student-data') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false, // Important for file upload
+        processData: false, // Important for file upload
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            $('#step2').removeClass('active');
+            $('#step3').addClass('active');
+            if ($('#step3').hasClass('active')) {
+                $('#form3').show();
+                $('#form2').hide();
+                $('#form1').hide();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
     });
+});
+
+
+    $('#form3').submit(function (event) {
+
+            event.preventDefault();
+            var formData = $('#form3').serialize(); 
+
+            $.ajax({
+                    url: "{{ route('post-applicant-contact-data') }}",
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        // $(form).trigger("reset");
+                    console.log(response);
+                        $('#step3').removeClass('active');
+                        $('#step4').addClass('active');
+                        if ($('#step4').hasClass('active')) {
+                            $('#form4').show();
+                            $('#form3').hide();
+                            $('#form2').hide();
+                            $('#form1').hide();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+            });
+
+            });
+
+
+            $('#form3').submit(function (event) {
+                    event.preventDefault();
+                    var formData = new FormData(this);
+
+                    $.ajax({
+                        url: "{{ route('post-applicant-document-data') }}",
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        enctype: 'multipart/form-data',
+                        success: function(response) {
+                            console.log(response);
+                            $('#step3').removeClass('active');
+                            $('#step4').addClass('active');
+                            if ($('#step4').hasClass('active')) {
+                                $('#form4').show();
+                                $('#form3').hide();
+                                $('#form2').hide();
+                                $('#form1').hide();
+                                
+                                $('#success-message').text('Form submitted successfully!').show();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error:', error);
+                        }
+                    });
+                });
 
 
     $('.back_1').click(function() {

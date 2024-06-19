@@ -1,8 +1,4 @@
-
-
- 
- <form clas="form active" method="POST" action="" id="form1">
-
+<form clas="form active" method="POST" action="" id="form1">
     @csrf
     <h5>Parent Information</h5><br>
     <div class="row ">
@@ -79,7 +75,7 @@
                
         </div>
         <div class="col-md-6">
-            <span style="color:red">*</span>
+            
             <label class="form-label">{{ __('Profession:') }}</label>
 
                 <div class="form-group">
@@ -92,7 +88,7 @@
                 @endif
                 </div>  
         </div>
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
             <span style="color:red">*</span>
             <label class="form-label">{{ __('Office Contact Number:') }}</label>
                 <div class="form-group">
@@ -104,8 +100,8 @@
                     </span>
                 @endif
                 </div>
-        </div>
-        <div class="col-md-6">
+        </div> --}}
+        {{-- <div class="col-md-6">
             <span style="color:red">*</span>
             <label class="form-label">{{ __('Office Address:') }}</label>
 
@@ -118,7 +114,7 @@
                     </span>
                 @endif
                 </div>
-        </div>
+        </div> --}}
     </div>
     <input type="hidden" name="role_id" value="5">
     <input type="hidden" name="status" value="active">
@@ -126,12 +122,12 @@
     <div class="card-footer">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">
-            <button type="submit" class="btn btn-lg ot-btn-primary save_1">
+            <button type="submit" id="save-continue" class="btn btn-lg ot-btn-primary">
                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
             </button>
-            <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+            <button type="submit" id="save" class="btn btn-lg ot-btn-primary ml-3">
                 <i class="fa fa-save"></i> {{ __('Save') }}
             </button>
         </div>
-    </div>
+    </div>    
 </form> 

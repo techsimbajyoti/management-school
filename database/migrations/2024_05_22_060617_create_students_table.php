@@ -33,6 +33,9 @@ return new class extends Migration
             $table->string('parent_mobile');
             $table->string('place_of_birth');
             $table->string('country');
+            $table->string('state');
+            $table->string('city');
+            $table->string('pin_code');
             $table->string('student_language');
             $table->string('residance_address');
             $table->string('document');

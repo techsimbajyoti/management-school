@@ -62,7 +62,7 @@
                                                 </span>
                                             @endif
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <span style="color:red">*</span>
                                         <label class="form-label">{{ __('Contact Number:') }}</label>
                                             <div class="form-group">
@@ -86,13 +86,13 @@
                                                     <strong>{{ $errors->first('parent_mobile') }}</strong>
                                                 </span>
                                             @endif
-                                    </div> 
+                                    </div>  --}}
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
-                                            <button type="button" class="btn ot-btn-primary save_3"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
+                                            <button type="submit" class="btn ot-btn-primary save_3"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
                                             <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
                                         </div>
                                     </div>
