@@ -102,4 +102,6 @@ class RegisterController extends Controller
 
         return view('auth.register',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
     }
+
+   
 }

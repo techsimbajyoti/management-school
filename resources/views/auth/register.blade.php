@@ -172,36 +172,74 @@ $(document).ready(function() {
         $(`#form${step}`).show();
     }
 
-    // $('#form2').hide();
-    // $('#form3').hide();
-    // $('#form4').hide();
 
-    $('#form1').submit(function (event) {
+    $('#save').click(function(e) {
+        e.preventDefault();
+        $('#form-action').val('save');
+        submitForm();
+    });
 
-    event.preventDefault();
-    var formData = $('#form1').serialize(); 
+    $('#save-continue').click(function(e) {
+        e.preventDefault();
+        $('#form-action').val('save-continue');
+        submitForm();
+    });
 
-    $.ajax({
+    function submitForm() {
+        var formData = $('#form1').serialize();
+
+        $.ajax({
             url: "{{ route('post-applicant-data') }}",
             type: 'POST',
             data: formData,
             success: function(response) {
-                 // $(form).trigger("reset");
-            console.log(response);
-                $('#step1').removeClass('active');
-                $('#step2').addClass('active');
-                if ($('#step2').hasClass('active')) {
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form1').hide();
+                console.log(response);
+                if(response.action == 'save'){
+                    location.reload();
+                }else if(response.action == 'save-continue'){
+                    $('#step1').removeClass('active');
+                    $('#step2').addClass('active');
+                    if ($('#step2').hasClass('active')) {
+                        $('#form2').show();
+                        $('#form3').hide();
+                        $('#form1').hide();
+                        $('#form4').hide();
+                    }
                 }
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
             }
         });
+    }
+
+    $('#form2').submit(function (event) {
+
+        event.preventDefault();
+        var formData = $('#form2').serialize(); 
+
+        $.ajax({
+                url: "{{ route('post-applicant-student-data') }}",
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // $(form).trigger("reset");
+                console.log(response);
+                    $('#step2').removeClass('active');
+                    $('#step3').addClass('active');
+                    if ($('#step3').hasClass('active')) {
+                        $('#form3').show();
+                        $('#form2').hide();
+                        $('#form1').hide();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+        });
 
     });
+
 
     $('.back_1').click(function() {
         currentStep = 1;
@@ -265,28 +303,7 @@ $(document).ready(function() {
             }
         })
 
-            var sections = {
-                1: ["A", "B", "C"],
-                2: ["D", "E"],
-                3: ["F", "G", "H", "I"]
-            };
-
-            $('#getSections').change(function() {
-                var classId = $(this).val();
-                var $sectionsDropdown = $('.sections');
-                $sectionsDropdown.empty();
-                $sectionsDropdown.append('<option value="">Select section</option>');
-
-                if (sections[classId]) {
-                    sections[classId].forEach(function(section) {
-                        $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
-                    });
-                }
-            });
-
-
-
-            var countries = <?php echo json_encode($test); ?>;
+     var countries = <?php echo json_encode($test); ?>;
     autocomplete(document.getElementById("country"), countries);  
 
   var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];

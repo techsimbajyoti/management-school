@@ -1,4 +1,4 @@
-<form id="form3" class="form" method="POST">
+                <form class="form" method="POST" id="form3">
                                 @csrf
                                 <h5>Contact Information</h5><br>
                                 <div class="row">
