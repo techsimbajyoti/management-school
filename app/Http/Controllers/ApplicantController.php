@@ -106,6 +106,11 @@ class ApplicantController extends Controller
         
         $applicant = new StudentParent;
 
+        $email_exit = StudentParent::where('email', $request->email)->first();
+
+        if($email_exit){
+            return response()->json(['success'=>'true','action'=>$request->action]);
+        }else{
         // if ($request->hasFile('image')) {
         //     $originalFileName = $request->file('image')->getClientOriginalName();
         //     $currentDateTime = now()->format('YmdHis');
@@ -130,6 +135,7 @@ class ApplicantController extends Controller
         $applicant->save();
       
         return response()->json(['success'=>'true','action'=>$request->action]);
+        }
     }
 
     public function post_applicant_student_data(Request $request){
