@@ -3,8 +3,10 @@
     'backgroundImagePath' => 'img/bg/school2.jpg'
 ])
 
+@push('scripts')
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+@endpush
 @section('content')
-
     <div class="content">
        
         <div class="container">

@@ -1,10 +1,29 @@
 @extends('layouts.app', [
-    'class' => 'login-page',
-    'backgroundImagePath' => 'img/bg/school2.jpg'
+    'class' => '',
+    'elementActive' => 'dashboard'
 ])
 
 @section('content')
-    <div class="content">
+@if(auth()->guard('web')->check() || auth()->guard('webstudents')->check() || auth()->guard('webteachers')->check() || auth()->guard('webparents')->check() || auth()->guard('webaccountants')->check())
+<div class="content col-md-12 ml-auto mr-auto">
+    <div class="header py-5 pb-7 pt-lg-9">
+        <div class="container col-md-10">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-12 pt-5">
+                        <h1 class="@if(Auth::guest()) text-black @endif">{{ __('Welcome to School Management System.') }}</h1>
+
+                        <p class="@if(Auth::guest()) text-black @endif text-lead mt-3 mb-0">
+                            {{ __('Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
+    <div class="content" style="margin-top: 40px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-md-5 ml-auto">
@@ -111,6 +130,7 @@
              </div>
         </div>
     </div>
+    @endif
 @endsection
 
 @push('scripts')
