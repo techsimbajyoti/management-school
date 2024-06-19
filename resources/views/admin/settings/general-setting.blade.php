@@ -121,6 +121,15 @@
                             <label for="inputname" class="form-label">School Establish Date <span class="fillable">*</span></label> 
                             <input type="date" name="city" class="form-control ot-input" value="demo" placeholder="Enter your school contact number">
                           </div>
+
+                          <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
+                            <label for="inputname" class="form-label">Admission Open<span class="fillable">*</span></label> 
+                            <input type="date" name="admission_open" class="form-control ot-input">
+                          </div>
+                          <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
+                            <label for="inputname" class="form-label">Admission Close <span class="fillable">*</span></label> 
+                            <input type="date" name="admission_close" class="form-control ot-input">
+                          </div>
                         </div>
 
 
@@ -155,6 +164,32 @@
                             <input type="text" id="tagsInput" class="nice-select niceSelect bordered_style wide" value="" placeholder="Enter school medium">
                           </div>
                         </div>
+
+                        <hr style="margin-top: 50px">
+                        <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
+
+                            <h5>Upload Page Content</h5>
+                            <a id="add-document" class="btn btn-lg ot-btn-primary">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Add
+                            </a>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                              <div class="table-responsive">
+                                  <table class="table school_borderLess_table table_border_hide2" id="student-document">
+                                      <thead class="table-header" style="border-bottom: 2px solid #dee2e6;">
+                                          <tr>
+                                              <th scope="col">Heading <span class="text-danger"></span></th>
+                                              <th scope="col">List <span class="text-danger"></span></th>
+                                              <th scope="col">Action</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
 
                         <div class="col-md-12 mt-24">
                           <div class="card-footer">
@@ -226,6 +261,44 @@ $( function() {
         }
       });
   } );
+
+
+  document.getElementById('add-document').addEventListener('click', function() {
+        var tableBody = document.querySelector('#student-document tbody');
+        var newRow = document.createElement('tr');
+
+        newRow.innerHTML = `
+            <td>
+                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Heading">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="document_name[]" placeholder="Enter List">
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger remove-document">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(newRow);
+    });
+
+    document.querySelector('#student-document tbody').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-document')) {
+            event.target.closest('tr').remove();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2); // Add leading zero
+        var day = ('0' + today.getDate()).slice(-2); // Add leading zero
+
+        var currentDate = year + '-' + month + '-' + day;
+        document.getElementById('admission_date').value = currentDate;
+    });
 
 
         $(document).ready(function() {
