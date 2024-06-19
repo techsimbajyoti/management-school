@@ -83,10 +83,10 @@
                 <div class="col-lg-10 col-md-10 offset-md-1 mr-auto">
                     <div class="progress-container">
                         <ul id="progressbar">
-                            <li class="active" id="step1"><strong>Step 1</strong></li>
-                            <li id="step2"><strong>Step 2</strong></li>
-                            <li id="step3"><strong>Step 3</strong></li>
-                            <li id="step4"><strong>Step 4</strong></li>
+                            <li class="step active" id="step1"><strong>Step 1</strong></li>
+                            <li class="step" id="step2"><strong>Step 2</strong></li>
+                            <li class="step" id="step3"><strong>Step 3</strong></li>
+                            <li class="step" id="step4"><strong>Step 4</strong></li>
                         </ul>
                     </div>
                     <div class="card ot-card">
@@ -158,7 +158,6 @@ $(document).ready(function() {
     let currentStep = 1;
     const totalSteps = 4;
 
-
     function updateProgressBar(step) {
         const percentage = (step - 1) / (totalSteps - 1) * 100;
         $('.progress-bar').css('width', `${percentage}%`);
@@ -177,52 +176,66 @@ $(document).ready(function() {
     // $('#form3').hide();
     // $('#form4').hide();
 
+    $('#form1').submit(function (event) {
 
-    function updateProgressBar(step) {
-        const percentage = (step - 1) / (totalSteps - 1) * 100;
-        $('.progress-bar').css('width', `${percentage}%`);
-        $('#progressbar li').removeClass('active');
-        for (let i = 1; i <= step; i++) {
-            $(`#step${i}`).addClass('active');
-        }
-    }
+    event.preventDefault();
+    var formData = $('#form1').serialize(); 
 
-    function showForm(step) {
-        $('.form1, .form2, .form3, .form4').hide();
-        $(`.form${step}`).show();
-    }
+    $.ajax({
+            url: "{{ route('post-applicant-data') }}",
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                 // $(form).trigger("reset");
+            console.log(response);
+                $('#step1').removeClass('active');
+                $('#step2').addClass('active');
+                if ($('#step2').hasClass('active')) {
+                    $('#form2').show();
+                    $('#form3').hide();
+                    $('#form1').hide();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
 
-    $('.save_1').click(function() {
-        currentStep = 2;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
     });
 
-    $('.save_2').click(function() {
-        currentStep = 3;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
+    $('#form2').submit(function (event) {
+
+        event.preventDefault();
+        var formData = $('#form2').serialize(); 
+
+        $.ajax({
+                url: "{{ route('post-applicant-student-data') }}",
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // $(form).trigger("reset");
+                console.log(response);
+                    $('#step2').removeClass('active');
+                    $('#step3').addClass('active');
+                    if ($('#step3').hasClass('active')) {
+                        $('#form3').show();
+                        $('#form2').hide();
+                        $('#form1').hide();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+        });
+
     });
 
-    $('.save_3').click(function() {
-        currentStep = 4;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
-    });
 
     $('.back_1').click(function() {
         currentStep = 1;
         updateProgressBar(currentStep);
         showForm(currentStep);
     });
-
-
-    $('.back_1').click(function() {
-        currentStep = 1;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
-    });
-
 
     $('.back_2').click(function() {
         currentStep = 2;
@@ -238,6 +251,7 @@ $(document).ready(function() {
 
     updateProgressBar(currentStep);
     showForm(currentStep);
+
 
     $('#other-gender').hide();
             $('#other-language').hide();
@@ -279,28 +293,7 @@ $(document).ready(function() {
             }
         })
 
-            var sections = {
-                1: ["A", "B", "C"],
-                2: ["D", "E"],
-                3: ["F", "G", "H", "I"]
-            };
-
-            $('#getSections').change(function() {
-                var classId = $(this).val();
-                var $sectionsDropdown = $('.sections');
-                $sectionsDropdown.empty();
-                $sectionsDropdown.append('<option value="">Select section</option>');
-
-                if (sections[classId]) {
-                    sections[classId].forEach(function(section) {
-                        $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
-                    });
-                }
-            });
-
-
-
-            var countries = <?php echo json_encode($test); ?>;
+     var countries = <?php echo json_encode($test); ?>;
     autocomplete(document.getElementById("country"), countries);  
 
   var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];

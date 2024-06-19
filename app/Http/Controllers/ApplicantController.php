@@ -10,6 +10,7 @@ use App\Models\Religion;
 use App\Models\State;
 use App\Models\Country;
 use App\Models\StudentParent;
+use App\Models\Student;
 
 class ApplicantController extends Controller
 {
@@ -105,6 +106,15 @@ class ApplicantController extends Controller
         
         $applicant = new StudentParent;
 
+        if ($request->hasFile('image')) {
+            $originalFileName = $request->file('image')->getClientOriginalName();
+            $currentDateTime = now()->format('YmdHis');
+            $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+            $student->image = 'storage/student_photos/' . $currentDateTime . '_' . $originalFileName;
+        } else {
+            $student->image = null;
+        }
+
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
         $applicant->email = $request->email;
@@ -123,31 +133,31 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_student_data(Request $request){
-        $data = $request->validate([
-                'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-                'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-                'email' => 'required|email',
-                'gender' => 'required',
-                'class' => 'required|confirmed',
-                'date_of_birth' => 'required',
-                'role_id'=>'required',
-                'applicant_id' => 'required',
-                'status' => 'required',
-                'created_by' => 'required',
-            ],
-            [
-            'first_name.regex' => 'The first name field is required and must contain only letters and spaces.',
-            'last_name.regex' => 'The last name field is required and must contain only letters and spaces.',
-            ]           
-        );
-        dd($request->all());
+        // $data = $request->validate([
+        //         'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+        //         'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
+        //         'email' => 'required|email',
+        //         'gender' => 'required',
+        //         'class' => 'required|confirmed',
+        //         'date_of_birth' => 'required',
+        //         'role_id'=>'required',
+        //         'applicant_id' => 'required',
+        //         'status' => 'required',
+        //         'created_by' => 'required',
+        //     ],
+        //     [
+        //     'first_name.regex' => 'The first name field is required and must contain only letters and spaces.',
+        //     'last_name.regex' => 'The last name field is required and must contain only letters and spaces.',
+        //     ]           
+        // );
+        // dd($request->all());
         
         $student = new Student;
 
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
         $student->email = $request->email;
-        $student->gender = $request->gender   ;
+        $student->gender = $request->gender;
         $student->class = $request->class;
         $student->date_of_birth = $request->date_of_birth;
         $student->blood_group = $request->blood_group;
@@ -161,7 +171,7 @@ class ApplicantController extends Controller
 
         $student->save();
       
-        return response()->json(['message'=>'']);
+        return response()->json(['success'=>'true']);
     }
 
     public function meeting_status(){

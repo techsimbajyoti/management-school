@@ -1,22 +1,8 @@
-<form class="form2" method="POST">
+                    <form class="form" method="POST" id="form2">
                                 @csrf
                                 <h5>Student Information</h5><br>
                                 <div class="row">
-                                
-                                    <div class="col-md-6">
-                                    
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('Admission No.:') }}</label>
-        
-                                            <div class="form-group">
-                                                <input type="text" name="admission_no" class="nice-select sections niceSelect bordered_style wide" placeholder="Admission No." required>
-                                            </div>
-                                            @if ($errors->has('admission_no'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('admission_no') }}</strong>
-                                                </span>
-                                            @endif
-                                    </div>
+
                                 
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
@@ -92,19 +78,6 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <span style="color:red">*</span>
-                                            <label class="form-label">Section:</label>
-                                            <select class="nice-select sections niceSelect bordered_style wide"  name="section" required data-fouc data-placeholder="Choose.." name="section">
-                                                <option value="">Select one of these</option>
-                                                <option value="A">A</option>
-                                                <option  value="B">B</option>
-                                                <option  value="C">C</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <span style="color:red">*</span>
                                             <label class="form-label">Date of Birth:</label>
                                             <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth">
             
@@ -161,36 +134,28 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Admission Date:') }}</label>
-                                            <input type="date" name="admission_date" id="admission_date" class="form-control">
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-md-6">
                                         <label class="form-label">{{ __('Student Photo:') }}</label>
                                         <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
                                         <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label"><span class="fillable">* </span>Status:</label>
-                                            <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
-                                                <option value="">Select one of these</option>
-                                                <option  value="active">Active</option>
-                                                <option  value="deactive">deactive</option>
-                                            </select>
-                                            
-                                        </div>
-                                    </div>
+                                  
                                 </div>
+                                <input type="hidden" name="role_id" value="5">
+                                <input type="hidden" name="status" value="active">
+                                <input type="hidden" name="applicant_id" value="applicant">
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
-                                            <button type="button" class="btn ot-btn-primary save_2"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
-                                            <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
+                                            <input type="hidden" name="action" id="form-action" value="save">
+                                            <button type="submit" class="btn btn-lg ot-btn-primary save_2">
+                                                <i class="fa fa-save"></i> {{ __('Save & Continue') }}
+                                            </button>
+                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                                <i class="fa fa-save"></i> {{ __('Save') }}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

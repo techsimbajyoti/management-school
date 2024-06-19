@@ -1,7 +1,7 @@
 
-<div id="form-section-1" class="form-section">
+
  
- <form class="form1" method="POST" action="" id="form1">
+ <form clas="form active" method="POST" action="" id="form1">
 
     @csrf
     <h5>Parent Information</h5><br>
@@ -135,4 +135,3 @@
         </div>
     </div>
 </form> 
-</div>
