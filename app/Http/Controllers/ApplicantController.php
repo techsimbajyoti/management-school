@@ -84,12 +84,12 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        // $request->validate([
-        //     'father_name' => 'required',
-        //     'father_mobile' => 'required',
-        //     'email' => 'required',
-        //     'password' => 'required|confirmed|min:3',
-        // ]);
+        $request->validate([
+            'father_name' => 'required',
+            'father_mobile' => 'required',
+            'email' => 'required',
+            'password' => 'required|confirmed|min:3',
+        ]);
 
         $applicant = new StudentParent;
 
