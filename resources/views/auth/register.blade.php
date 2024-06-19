@@ -4,79 +4,7 @@
 ])
 
 @section('content')
-<style>
-    /* Progress Bar */
-.progress-container {
-    width: 100%;
-    position: relative;
-}
 
-#progressbar {
-    display: flex;
-    justify-content: space-between;
-    list-style-type: none;
-    counter-reset: step;
-    margin-bottom: 20px;
-}
-
-#progressbar li {
-    text-align: center;
-    position: relative;
-    flex: 1;
-    counter-increment: step;
-}
-
-#progressbar li::before {
-    content: counter(step);
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    display: block;
-    font-size: 14px;
-    color: #333;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-}
-
-#progressbar li::after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: #ddd;
-    position: absolute;
-    left: -50%;
-    top: 15px;
-    z-index: -1;
-}
-
-#progressbar li:first-child::after {
-    content: none;
-}
-
-#progressbar li.active::before, #progressbar li.active::after {
-    background: #0275d8;
-    color: white;
-    border-color: #0275d8;
-}
-
-/* Progress Bar Indicator */
-.progress {
-    height: 4px;
-    background: #ddd;
-    position: relative;
-    margin-top: 20px;
-}
-
-.progress-bar {
-    width: 0;
-    height: 100%;
-    background: #0275d8;
-    transition: width 0.4s ease;
-}
-
-</style>
     <div class="content">
         <div class="container">
             <div class="row" style="margin-top: 40px;">

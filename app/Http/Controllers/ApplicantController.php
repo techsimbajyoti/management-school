@@ -19,6 +19,7 @@ class ApplicantController extends Controller
     }
 
     public function applicant_list(){
+        
         return view('admin.applicant.applicant-list');
     }
 
