@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('mobile');
             $table->string('email');
+            $table->string('user_name');
             $table->string('password');
             $table->string('class');
             $table->string('section');
@@ -33,10 +34,14 @@ return new class extends Migration
             $table->string('parent_mobile');
             $table->string('place_of_birth');
             $table->string('country');
-            $table->string('CPR_number');
+            $table->string('state');
+            $table->string('city');
+            $table->string('pin_code');
             $table->string('student_language');
             $table->string('residance_address');
             $table->string('document');
+            $table->string('parent_id');
+            $table->string('applicant_id');
             $table->string('status');
             $table->string('role_id');
             $table->string('created_by');

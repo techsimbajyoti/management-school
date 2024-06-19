@@ -30,9 +30,11 @@
                 @endif
                 </div>
         </div>
+              
+       
         <div class="col-md-6">
             <span style="color:red">*</span>
-            <label class="form-label">{{ __('Password:') }}</label>
+            <label for="password" class="form-label">{{ __('Password:') }}</label>
         
             <div class="form-group">
                 <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password">
@@ -47,7 +49,7 @@
         
         <div class="col-md-6">
             <span style="color:red">*</span>
-            <label class="form-label">{{ __('Confirm Password:') }}</label>
+            <label for="password-confirmation" class="form-label">{{ __('Confirm Password:') }}</label>
         
             <div class="form-group">
                 <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password">
@@ -75,7 +77,7 @@
                
         </div>
         <div class="col-md-6">
-            <span style="color:red">*</span>
+            
             <label class="form-label">{{ __('Profession:') }}</label>
 
                 <div class="form-group">
@@ -88,7 +90,7 @@
                 @endif
                 </div>  
         </div>
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
             <span style="color:red">*</span>
             <label class="form-label">{{ __('Office Contact Number:') }}</label>
                 <div class="form-group">
@@ -100,8 +102,8 @@
                     </span>
                 @endif
                 </div>
-        </div>
-        <div class="col-md-6">
+        </div> --}}
+        {{-- <div class="col-md-6">
             <span style="color:red">*</span>
             <label class="form-label">{{ __('Office Address:') }}</label>
 
@@ -114,11 +116,11 @@
                     </span>
                 @endif
                 </div>
-        </div>
+        </div> --}}
     </div>
     <input type="hidden" name="role_id" value="5">
     <input type="hidden" name="status" value="active">
-    <input type="hidden" name="applicant_id" value="applicant">
+   
     <div class="card-footer">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">

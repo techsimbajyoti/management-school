@@ -11,6 +11,8 @@ use App\Models\State;
 use App\Models\Country;
 use App\Models\StudentParent;
 use App\Models\Student;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class ApplicantController extends Controller
 {
@@ -86,15 +88,12 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        // $data = $request->validate([
+        //     $data = $request->validate([
         //         'parent_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
         //         'email' => 'required|email',
         //         'password' => 'required',
         //         'password_confirmation' => 'required|confirmed',
-        //         'contact_number' => 'required|min:10|max:10',
-        //         'profession' => 'required',
-        //         'office_number' => 'required|min:10|max:10',
-        //         'office_address' => 'required|min:3|max:255|',
+        //         'contact_number' => 'required|digits:10',
         //         'role_id'=>'required',
         //         'applicant_id' => 'required',
         //         'status' => 'required',
@@ -104,37 +103,32 @@ class ApplicantController extends Controller
         //     'parent_name.regex' => 'The name field is required and must contain only letters and spaces.',
         //     ]           
         // );
-        
+    
         $applicant = new StudentParent;
+
 
         $email_exit = StudentParent::where('email', $request->email)->first();
 
         if($email_exit){
             return response()->json(['success'=>'true','action'=>$request->action]);
         }else{
-        // if ($request->hasFile('image')) {
-        //     $originalFileName = $request->file('image')->getClientOriginalName();
-        //     $currentDateTime = now()->format('YmdHis');
-        //     $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
-        //     $student->image = 'storage/student_photos/' . $currentDateTime . '_' . $originalFileName;
-        // } else {
-        //     $student->image = null;
-        // }
+      
 
+        $randomApplicantId = Str::random(5);
+                
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
         $applicant->email = $request->email;
-        $applicant->password = $request->password;
+        $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
-        $applicant->office_number = $request->office_number;
-        $applicant->office_address = $request->office_address;
-        $applicant->applicant_id = $request->applicant_id;
+        $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status;
         $applicant->created_by = 'null';
 
         $applicant->save();
-      
+        Session::put('parent_id',$applicant->id);
+        Session::put('applicant_id',$applicant->applicant_id);
         return response()->json(['success'=>'true','action'=>$request->action]);
         }
     }
@@ -143,10 +137,11 @@ class ApplicantController extends Controller
         // $data = $request->validate([
         //         'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
         //         'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-        //         'email' => 'required|email',
+        //         'user_name' => 'required',
         //         'gender' => 'required',
         //         'class' => 'required|confirmed',
         //         'date_of_birth' => 'required',
+        //         'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
         //         'role_id'=>'required',
         //         'applicant_id' => 'required',
         //         'status' => 'required',
@@ -159,31 +154,146 @@ class ApplicantController extends Controller
         // );
         // dd($request->all());
         
-        $student = new Student;
+        
+        $parent_id = Session::get('parent_id');
+        $applicant_id = Session::get('applicant_id');
+        try {
+            $student = new Student;
+    
+            if ($request->hasFile('image')) {
+                $originalFileName = $request->file('image')->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+                $student->image = $originalFileName;
+            } else {
+                $student->image = null;
+            }
+    
+            $randomPassword = Str::random(8);
+            $hashPassword = Hash::make($randomPassword);
 
-        $student->first_name = $request->first_name;
-        $student->last_name = $request->last_name;
-        $student->email = $request->email;
-        $student->gender = $request->gender;
-        $student->class = $request->class;
-        $student->date_of_birth = $request->date_of_birth;
-        $student->blood_group = $request->blood_group;
-        $student->religion = $request->religion;
-        $student->category = $request->category;
-        $student->student_language = $request->student_language;
-        $student->applicant_id = $request->applicant_id;
-        $student->role_id = $request->role_id;
-        $student->status = $request->status;
-        $student->created_by = 'null';
+            $student->first_name = $request->first_name;
+            $student->last_name = $request->last_name;
+            $student->user_name = $request->user_name;
+            $student->password = $hashPassword;
+            $student->gender = $request->gender;
+            $student->class = $request->class;
+            $student->date_of_birth = $request->date_of_birth;
+            $student->blood_group = $request->blood_group;
+            $student->religion = $request->religion;
+            $student->category = $request->category;
+            $student->student_language = $request->student_language;
+            $student->parent_id = $parent_id;
+            $student->applicant_id = $applicant_id;
+            $student->role_id = $request->role_id;
+            $student->status = $request->status;
+            $student->created_by = 'null';
+
+            $student->save();
+            session(['student_id' => $student->id]);
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+    }
+    
+    public function post_applicant_contact_data(Request $request){
+        // $data = $request->validate([
+               
+        //         'address' => 'required',
+        //         'country' => 'required',
+        //         'state' => 'required',
+        //         'city' => 'required',
+        //         'pin_code' => 'required|digits:6',
+        //         'mobile' => 'required|digits:10',
+        //         'parent_mobile' => 'required|digits:10',
+        //     ],
+                  
+        // );
+        // dd($request->all());
+         
+        $student_id = session('student_id');
+
+        if (is_null($student_id)) {
+          return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+         }
+        try {
+            
+            $student = Student::findOrFail($student_id);
+            
+            $student->address = $request->address;
+            $student->country = $request->country;
+            $student->state = $request->state;
+            $student->city = $request->city;
+            $student->pin_code = $request->pin_code;
+            $student->mobile = $request->mobile;
+            $student->parent_mobile = $request->parent_mobile;
+                    
+    
+            $student->save();
+    
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+    }
+   
+    public function post_applicant_document_data(Request $request)
+{
+    $student_id = session('student_id');
+
+    if (is_null($student_id)) {
+        return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+    }
+
+    try {
+        $student = Student::find($student_id);
+        if (!$student) {
+            return response()->json(['success' => false, 'errors' => 'Student not found']);
+        }
+
+        $documents = [];
+
+        if ($request->hasFile('document_file')) {
+            foreach ($request->file('document_file') as $file) {
+                $originalFileName = $file->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
+
+                $documents[] = [
+                    'name' => $originalFileName,
+                ];
+            }
+
+            // If documents already exist, merge them
+            if (!is_null($student->document)) {
+                $existingDocuments = json_decode($student->document, true);
+                if (is_array($existingDocuments)) {
+                    $documents = array_merge($existingDocuments, $documents);
+                }
+            }
+
+            $student->document = json_encode($documents);
+        }
 
         $student->save();
-      
-        return response()->json(['success'=>'true']);
+
+        return response()->json(['success' => true, 'message' => 'Form submitted successfully!']);
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+        return response()->json(['success' => false, 'errors' => $e->getMessage()]);
     }
+}
 
     public function meeting_status(){
-        return view('admin.applicant.meeting-status');
+     return view('admin.applicant.meeting-status');
     }
 
-
+ 
 }

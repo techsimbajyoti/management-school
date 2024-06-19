@@ -8,9 +8,12 @@
 @endpush
 @section('content')
     <div class="content">
+       
         <div class="container">
             <div class="row" style="margin-top: 40px;">
                 <div class="col-lg-10 col-md-10 offset-md-1 mr-auto">
+                    <div id="success-message" style="display:none;" class="alert alert-success"></div>
+                    <div id="error-message" style="display:none;" class="alert alert-danger"></div>
                     <div class="progress-container">
                         <ul id="progressbar">
                             <li class="step active" id="step1"><strong>Step 1</strong></li>
@@ -144,31 +147,101 @@ $(document).ready(function() {
     }
 
     $('#form2').submit(function (event) {
+    event.preventDefault();
 
-        event.preventDefault();
-        var formData = $('#form2').serialize(); 
+    // Create a new FormData object
+    var formData = new FormData(this);
 
-        $.ajax({
-                url: "{{ route('post-applicant-student-data') }}",
+    $.ajax({
+        url: "{{ route('post-applicant-student-data') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false, // Important for file upload
+        processData: false, // Important for file upload
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            $('#step2').removeClass('active');
+            $('#step3').addClass('active');
+            if ($('#step3').hasClass('active')) {
+                $('#form3').show();
+                $('#form2').hide();
+                $('#form1').hide();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+});
+
+
+    $('#form3').submit(function (event) {
+
+            event.preventDefault();
+            var formData = $('#form3').serialize(); 
+
+            $.ajax({
+                    url: "{{ route('post-applicant-contact-data') }}",
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        // $(form).trigger("reset");
+                    console.log(response);
+                        $('#step3').removeClass('active');
+                        $('#step4').addClass('active');
+                        if ($('#step4').hasClass('active')) {
+                            $('#form4').show();
+                            $('#form3').hide();
+                            $('#form2').hide();
+                            $('#form1').hide();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+            });
+
+            });
+
+
+        $('#form4').submit(function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: "{{ route('post-applicant-document-data') }}",
                 type: 'POST',
                 data: formData,
+                contentType: false,
+                processData: false,
                 success: function(response) {
-                    // $(form).trigger("reset");
-                console.log(response);
-                    $('#step2').removeClass('active');
-                    $('#step3').addClass('active');
-                    if ($('#step3').hasClass('active')) {
-                        $('#form3').show();
-                        $('#form2').hide();
-                        $('#form1').hide();
+                    console.log(response);
+                    if (response.success) {
+                        // Reset the form fields
+                        $('#form1')[0].reset();
+                        
+                        // Move to the initial form
+                        $('#step4').removeClass('active');
+                        $('#step1').addClass('active');
+                        if ($('#step1').hasClass('active')) {
+                            $('#form1').show();
+                            $('#form3').hide();
+                            $('#form2').hide();
+                            $('#form4').hide();
+                            
+                            $('#success-message').text(response.message).show();
+                        }
+                    } else {
+                        $('#error-message').text(response.errors).show();
                     }
                 },
                 error: function(xhr, status, error) {
                     console.log('Error:', error);
+                    $('#error-message').text('An error occurred while submitting the form. Please try again.').show();
                 }
+            });
         });
-
-    });
 
 
     $('.back_1').click(function() {
@@ -337,7 +410,7 @@ document.getElementById('add-document').addEventListener('click', function() {
                 <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
             </td>
             <td>
-                <input type="file" class="form-control" name="document_file[]">
+                <input type="file" class="form-control" name="document_file[]" multiple>
             </td>
             <td>
                 <button type="button" class="btn btn-danger remove-document">
@@ -365,5 +438,5 @@ document.getElementById('add-document').addEventListener('click', function() {
         document.getElementById('admission_date').value = currentDate;
     });
 
-</script>
+    </script>
 @endpush
