@@ -182,7 +182,6 @@ class StudentController extends Controller
         $student->parent_mobile = $request->parent_mobile;
         $student->place_of_birth = $request->place_of_birth;
         $student->country = $request->country;
-        $student->CPR_number = $request->CPR_number;
         $student->student_language = $request->student_language;
         $student->residence_address = $request->residence_address;
         $student->image = $request->image;

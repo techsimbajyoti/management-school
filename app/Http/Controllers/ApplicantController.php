@@ -105,15 +105,7 @@ class ApplicantController extends Controller
         // );
         
         $applicant = new StudentParent;
-
-        if ($request->hasFile('image')) {
-            $originalFileName = $request->file('image')->getClientOriginalName();
-            $currentDateTime = now()->format('YmdHis');
-            $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
-            $student->image = 'storage/student_photos/' . $currentDateTime . '_' . $originalFileName;
-        } else {
-            $student->image = null;
-        }
+     
 
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
@@ -140,6 +132,7 @@ class ApplicantController extends Controller
         //         'gender' => 'required',
         //         'class' => 'required|confirmed',
         //         'date_of_birth' => 'required',
+         //         'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
         //         'role_id'=>'required',
         //         'applicant_id' => 'required',
         //         'status' => 'required',
@@ -152,28 +145,51 @@ class ApplicantController extends Controller
         // );
         // dd($request->all());
         
-        $student = new Student;
+        $parent = StudentParent::orderBy('id', 'desc')->first();
+        $parent_id = $parent ? $parent->id : null;
 
-        $student->first_name = $request->first_name;
-        $student->last_name = $request->last_name;
-        $student->email = $request->email;
-        $student->gender = $request->gender;
-        $student->class = $request->class;
-        $student->date_of_birth = $request->date_of_birth;
-        $student->blood_group = $request->blood_group;
-        $student->religion = $request->religion;
-        $student->category = $request->category;
-        $student->student_language = $request->student_language;
-        $student->applicant_id = $request->applicant_id;
-        $student->role_id = $request->role_id;
-        $student->status = $request->status;
-        $student->created_by = 'null';
 
-        $student->save();
-      
-        return response()->json(['success'=>'true']);
+        try {
+            $student = new Student;
+    
+            if ($request->hasFile('image')) {
+                $originalFileName = $request->file('image')->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+                $student->image = 'storage/student_photos/' . $currentDateTime . '_' . $originalFileName;
+            } else {
+                $student->image = null;
+            }
+    
+            $student->first_name = $request->first_name;
+            $student->last_name = $request->last_name;
+            $student->email = $request->email;
+            $student->gender = $request->gender;
+            $student->class = $request->class;
+            $student->date_of_birth = $request->date_of_birth;
+            $student->blood_group = $request->blood_group;
+            $student->religion = $request->religion;
+            $student->category = $request->category;
+            $student->student_language = $request->student_language;
+            $student->image = $request->image;
+            $student->parent_id = $parent_id;
+            $student->applicant_id = $request->applicant_id;
+            $student->role_id = $request->role_id;
+            $student->status = $request->status;
+            $student->created_by = 'null';
+    
+            // Use dd to inspect the student object before saving
+            
+    
+            $student->save();
+    
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
     }
-
     public function meeting_status(){
         return view('admin.applicant.meeting-status');
     }

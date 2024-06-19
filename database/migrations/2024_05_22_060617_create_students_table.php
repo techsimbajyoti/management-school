@@ -33,10 +33,11 @@ return new class extends Migration
             $table->string('parent_mobile');
             $table->string('place_of_birth');
             $table->string('country');
-            $table->string('CPR_number');
             $table->string('student_language');
             $table->string('residance_address');
             $table->string('document');
+            $table->string('parent_id');
+            $table->string('applicant_id');
             $table->string('status');
             $table->string('role_id');
             $table->string('created_by');

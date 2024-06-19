@@ -39,10 +39,11 @@ class Student extends Authenticatable
         'parent_mobile',
         'place_of_birth',
         'country',
-        'CPR_number',
         'student_language',
         'residence_address',
         'document',
+        'parent_id',
+        'applicant_id',
         'status',
         'role_id',
         'created_by'
