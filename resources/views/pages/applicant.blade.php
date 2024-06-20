@@ -111,8 +111,7 @@
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
                                     <p class="card-category">Total Accepted</p>
-                                    <p class="card-title">15
-                                        <p>
+                                    <p class="card-title">15<p>
                                 </div>
                             </div>
                         </div>
@@ -231,18 +230,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header ">
-                        <h5 class="card-title">Token Amount Collection (2024)</h5>
-                    </div>
-                    <div class="card-body ">
-                        <canvas id=myChart width="400" height="100"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         <div class="row">
             <div class="col-md-12">
