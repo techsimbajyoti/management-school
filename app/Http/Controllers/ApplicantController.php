@@ -88,26 +88,21 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-            $data = $request->validate([
-                'parent_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-                'email' => 'required|email',
-                'password' => 'required',
-                'password_confirmation' => 'required|confirmed',
-                'contact_number' => 'required|digits:10',
-                'role_id'=>'required',
-                'applicant_id' => 'required',
-                'status' => 'required',
-                'created_by' => 'required',
-            ],
-            [
-            'parent_name.regex' => 'The name field is required and must contain only letters and spaces.',
-            ]    
-           
-        );
         
+        $validatedData = $request->validate([
+            'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+            'password_confirmation' => 'required|same:password',
+            'contact_number' => 'required|digits_between:10,15',
+            'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
+        ]);
+      
+        // \Log::info('Validated Data:', ['data' => $data]);
+   
         $applicant = new StudentParent;
 
-
+        
         $email_exit = StudentParent::where('email', $request->email)->first();
 
         if($email_exit){
@@ -135,26 +130,23 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_student_data(Request $request){
-        $data = $request->validate([
-                'first_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-                'last_name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]+$/'],
-                'user_name' => 'required',
-                'gender' => 'required',
-                'class' => 'required|confirmed',
-                'date_of_birth' => 'required|date|before:' . now()->toDateString(),
-                'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
-                'role_id'=>'required',
-                'applicant_id' => 'required',
-                'status' => 'required',
-                'created_by' => 'required',
-            ],
-            [
-            'first_name.regex' => 'The first name field is required and must contain only letters and spaces.',
-            'last_name.regex' => 'The last name field is required and must contain only letters and spaces.',
-            ]           
-        );
-        dd($request->all());
-        
+        $validatedData = $request->validate([
+            'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
+            'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
+            'user_name' => 'required',
+            'gender' => 'required',
+            'class' => 'required',
+            'date_of_birth' => 'required|date|before:' . now()->toDateString(),
+            'student_language'=>'nullable|string',
+            'category'=>'nullable|string',
+            'blood_group'=>'nullable|string',
+            'religion'=>'nullable|string',
+            'previous_school'=>'nullable|string',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
+            
+        ]);
+    
+       
         
         $parent_id = Session::get('parent_id');
         $applicant_id = Session::get('applicant_id');
@@ -205,17 +197,16 @@ class ApplicantController extends Controller
     public function post_applicant_contact_data(Request $request){
         $data = $request->validate([
                
-                'address' => 'required',
-                'country' => 'required',
+                'residence_address' =>'required|string|regex:/^[A-Za-z ]+$/',
+                'country' => 'required|string|regex:/^[A-Za-z ]+$/',
                 'state' => 'required',
                 'city' => 'required',
                 'pin_code' => 'required|digits:6',
-                'mobile' => 'required|digits:10',
-                'parent_mobile' => 'required|digits:10',
+               
             ],
                   
         );
-        dd($request->all());
+        
          
         $student_id = session::get('student_id');
 
@@ -226,14 +217,12 @@ class ApplicantController extends Controller
             
             $student = Student::findOrFail($student_id);
             
-            $student->address = $request->address;
+            $student->address = $request->residence_address;
             $student->country = $request->country;
             $student->state = $request->state;
             $student->city = $request->city;
             $student->pin_code = $request->pin_code;
-            $student->mobile = $request->mobile;
-            $student->parent_mobile = $request->parent_mobile;
-                    
+                          
     
             $student->save();
     
@@ -262,13 +251,14 @@ class ApplicantController extends Controller
         $documents = [];
 
         if ($request->hasFile('document_file')) {
-            foreach ($request->file('document_file') as $file) {
+            foreach ($request->file('document_file') as $key => $file) {
                 $originalFileName = $file->getClientOriginalName();
                 $currentDateTime = now()->format('YmdHis');
                 $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
 
                 $documents[] = [
-                    'name' => $originalFileName,
+                    'name' => $request->input('document_name')[$key],
+                    'file' => $originalFileName,
                 ];
             }
 
@@ -292,6 +282,7 @@ class ApplicantController extends Controller
         return response()->json(['success' => false, 'errors' => $e->getMessage()]);
     }
 }
+
 
     public function meeting_status(){
      return view('admin.applicant.meeting-status');

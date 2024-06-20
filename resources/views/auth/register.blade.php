@@ -119,64 +119,82 @@ $(document).ready(function() {
     });
 
     function submitForm() {
-        var formData = $('#form1').serialize();
-
-        $.ajax({
-            url: "{{ route('post-applicant-data') }}",
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                console.log(response);
-                if(response.action == 'save'){
-                    location.reload();
-                }else if(response.action == 'save-continue'){
-                    $('#step1').removeClass('active');
-                    $('#step2').addClass('active');
-                    if ($('#step2').hasClass('active')) {
-                        $('#form2').show();
-                        $('#form3').hide();
-                        $('#form1').hide();
-                        $('#form4').hide();
-                    }
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-            }
-        });
-    }
-
-    $('#form2').submit(function (event) {
-    event.preventDefault();
-
-    // Create a new FormData object
-    var formData = new FormData(this);
+    var formData = $('#form1').serialize();
 
     $.ajax({
-        url: "{{ route('post-applicant-student-data') }}",
+        url: "{{ route('post-applicant-data') }}",
         type: 'POST',
         data: formData,
-        contentType: false, // Important for file upload
-        processData: false, // Important for file upload
-        enctype: 'multipart/form-data',
         success: function(response) {
             console.log(response);
-            $('#step2').removeClass('active');
-            $('#step3').addClass('active');
-            if ($('#step3').hasClass('active')) {
-                $('#form3').show();
-                $('#form2').hide();
-                $('#form1').hide();
+            if (response.action == 'save') {
+                location.reload();
+            } else if (response.action == 'save-continue') {
+                $('#step1').removeClass('active');
+                $('#step2').addClass('active');
+                if ($('#step2').hasClass('active')) {
+                    $('#form2').show();
+                    $('#form3').hide();
+                    $('#form1').hide();
+                    $('#form4').hide();
+                }
             }
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);
+            if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                displayValidationErrors(errors);
+            }
         }
     });
-});
+}
+
+function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
 
 
-    $('#form3').submit(function (event) {
+    $('#form2').submit(function(event) {
+        event.preventDefault();
+
+        // Create a new FormData object
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "{{ route('post-applicant-student-data') }}",
+            type: 'POST',
+            data: formData,
+            contentType: false, 
+            processData: false, 
+            enctype: 'multipart/form-data',
+            success: function(response) {
+                console.log(response);
+                $('#step2').removeClass('active');
+                $('#step3').addClass('active');
+                if ($('#step3').hasClass('active')) {
+                    $('#form3').show();
+                    $('#form2').hide();
+                    $('#form1').hide();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
+            }
+        });
+    });
+
+
+   $('#form3').submit(function (event) {
 
             event.preventDefault();
             var formData = $('#form3').serialize(); 
@@ -198,11 +216,14 @@ $(document).ready(function() {
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.log('Error:', error);
-                    }
-            });
-
-            });
+                console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
+            }
+        });
+    });
 
 
         $('#form4').submit(function (event) {
@@ -402,25 +423,25 @@ $(document).ready(function() {
 });
 
 document.getElementById('add-document').addEventListener('click', function() {
-        var tableBody = document.querySelector('#student-document tbody');
-        var newRow = document.createElement('tr');
+    var tableBody = document.querySelector('#student-document tbody');
+    var newRow = document.createElement('tr');
 
-        newRow.innerHTML = `
-            <td>
-                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
-            </td>
-            <td>
-                <input type="file" class="form-control" name="document_file[]" multiple>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger remove-document">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-            </td>
-        `;
+    newRow.innerHTML = `
+        <td>
+            <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
+        </td>
+        <td>
+            <input type="file" class="form-control" name="document_file[]" multiple>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger remove-document">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </td>
+    `;
 
-        tableBody.appendChild(newRow);
-    });
+    tableBody.appendChild(newRow);
+});
 
     document.querySelector('#student-document tbody').addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-document')) {
