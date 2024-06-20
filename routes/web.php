@@ -329,6 +329,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('schedule-meeting',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
 
 	Route::get('meeting-status',[ApplicantController::class, 'meeting_status'])->name('meeting-status');
+
+	Route::get('change-meeting-status',[ApplicantController::class, 'change_meeting_status'])->name('change-meeting-status');
+
+	Route::get('meeting-tracking',[ApplicantController::class, 'meeting_tracking'])->name('meeting-tracking');
 });
 
 Route::group(['middleware' => 'auth.webstudents'], function () {
@@ -421,6 +425,14 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
+	Route::get('parent-meeting-status', [ApplicantController::class, 'parent_meeting_status'])->name('parent-meeting-status');
+
+	Route::get('parent-meeting-track', [ApplicantController::class, 'parent_meeting_track'])->name('parent-meeting-track');
+
+	Route::get('add-applicant', [ApplicantController::class, 'add_applicant'])->name('add-applicant');
+
+	Route::get('applicant-parent-list', [ApplicantController::class, 'applicant_parent_list'])->name('applicant-parent-list');
+
 	Route::get('applicant-edit', [ApplicantController::class, 'edit_applicant'])->name('applicant-edit');
 
 	Route::get('applicant-profile', [ApplicantController::class, 'applicant_profile'])->name('applicant-profile');

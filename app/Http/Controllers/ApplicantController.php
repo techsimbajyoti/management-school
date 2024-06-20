@@ -297,5 +297,52 @@ class ApplicantController extends Controller
      return view('admin.applicant.meeting-status');
     }
 
+    public function change_meeting_status(){
+        return view('admin.applicant.change-meeting-status');
+    }
+
+    public function meeting_tracking(){
+        return view('admin.applicant.meeting-tracking');
+    }
+
+    public function applicant_parent_list(){
+        return view('admin.applicant.applicant-parent-list');
+    }
+
+    public function add_applicant(){
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+
+        $Language = Language::get();
+        $lang = [];
+        foreach($Language as $lng){
+            $lang[] = $lng->name;
+        }
+
+        return view('admin.applicant.add-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
+    }
+
+    public function parent_meeting_status(){
+        return view('admin.applicant.parent-meeting-status');
+    }
+
+    public function parent_meeting_track(){
+        return view('admin.applicant.parent-meeting-track');
+    }
+ 
  
 }

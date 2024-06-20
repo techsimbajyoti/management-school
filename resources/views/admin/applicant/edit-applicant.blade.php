@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'applicant-list'
+    'elementActive' => 'applicant-profile'
 ])
 @section('content')
 <style>
@@ -198,33 +198,6 @@
                                                     </span>
                                                 @endif
                                                 </div>  
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Office Contact Number:') }}</label>
-                                                <div class="form-group">
-                                                    <input type="number" name="office_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Office Contact Number" >
-                                               
-                                                @if ($errors->has('office_number'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('office_number') }}</strong>
-                                                    </span>
-                                                @endif
-                                                </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Office Address:') }}</label>
-                                
-                                                <div class="form-group">
-                                                    <input type="text" name="office_address" class="nice-select niceSelect bordered_style wide" placeholder="Enter Office Address" >
-                                              
-                                                @if ($errors->has('office_address'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('office_address') }}</strong>
-                                                    </span>
-                                                @endif
-                                                </div>
                                         </div>
                                     </div>
                                     <input type="hidden" name="role_id" value="5">

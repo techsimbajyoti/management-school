@@ -7,7 +7,7 @@
             <label class="form-label">{{ __('Parent Name:') }}</label>
             <div class="form-group">
                 <div class="autocomplete">
-                    <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name">
+                    <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name" required>
                 </div>
           
             @if ($errors->has('parent_name')) 

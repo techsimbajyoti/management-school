@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'meeting-status'
+    'elementActive' => 'parent-meeting-status'
 ])
 @section('content')
 <div class="content">
@@ -86,8 +86,7 @@
                                             <td class="serial">1</td>
                                             <td>2023114</td>
                                             
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px"></td>
                                             <td>Two (A)</td>
                                             <td>Parent5</td>
                                            
@@ -98,23 +97,25 @@
                                             <td>Student Interview</td>
                                             <td>Offline</td>
                                             <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
-                                            <td class="action">
-                                                <div class="dropdown dropdown-action">
-                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('change-meeting-status') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Change Meeting Status') }}</a> 
-                                                        </div>
-                                                    </div>    
+                                            <td>
+                                                <input type="hidden" name="items[]" value="1"> <input type="hidden" name="students[]" value="1"> <input type="hidden" name="studentsRoll[]" value="1">
+                                                <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                                  <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault1" name="attendance[1]" value="1"> 
+                                                    <label for="flexRadioDefault1" class="ml-2">Accepted</label>
+                                                  </div>
+                                                  <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="attendance[1]" value="2">
+                                                     <label for="flexRadioDefault2" class="ml-2">Rejected</label>
+                                                  </div>
                                                 </div>
-                                            </td>
+                                              </td>
                                         </tr>
                                         <tr id="row_7">
                                             <td class="serial">2</td>
                                             <td>2023111</td>
                                            
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                              <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">William</td>
                                             <td>Two (A)</td>
                                             <td>Parent8</td>
                                            
@@ -124,19 +125,25 @@
                                             <td>Student Interview</td>
                                             <td>Offline</td>
                                             <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
-                                            <td class="action">
-                                                <div class="dropdown dropdown-action">
-                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('change-meeting-status') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Change Meeting Status') }}</a> 
-                                                        </div>
-                                                    </div>    
+                                            <td>
+                                                <input type="hidden" name="items[]" value="1"> <input type="hidden" name="students[]" value="1"> <input type="hidden" name="studentsRoll[]" value="1">
+                                                <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
+                                                  <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault1" name="attendance[1]" value="1"> 
+                                                    <label for="flexRadioDefault1" class="ml-2">Accepted</label>
+                                                  </div>
+                                                  <div class="form-check d-flex align-items-center mt-6">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="attendance[1]" value="2"> 
+                                                    <label for="flexRadioDefault2" class="ml-2">Rejected</label>
+                                                  </div>
                                                 </div>
-                                        </td>
+                                            </td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn ot-btn-primary"><i class="fa fa-save"></i> Save</button>
                         </div>
                     </div>
                 </div>

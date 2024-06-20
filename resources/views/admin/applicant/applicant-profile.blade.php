@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'applicant-list'
+    'elementActive' => 'applicant-profile'
 ])
 @section('content')
 <div class="content">
@@ -71,21 +71,6 @@
                             </div>
                             <div class="col-sm-3">
                                 <p class="text-muted mb-0">0000000000</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="mb-0">Office Number</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="text-muted mb-0">000000000</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Office Address</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="text-muted mb-0">Demo</p>
                             </div>
                         </div>
                         <hr>

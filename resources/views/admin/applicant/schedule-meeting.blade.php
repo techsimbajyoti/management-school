@@ -39,32 +39,49 @@
             </div> 
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
-                    <h2 class="frame-title">Service & Provider</h2>
+                    <h4 class="frame-title">Purpose</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Applicant Number : <span>Demo</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Father Name : <span>Demo</span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Student Name : <span>Demo</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Class : <span>One</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row frame-content">
                         <div class="col">
                             <div class="form-group">
-                                <label for="select-service">
-                                <strong>Service</strong>
-                                </label>
-                                <select id="select-service" class="nice-select niceSelect bordered_style wide"required>
-                                    <option value="1">Service</option>                                
+                                <label for="select-service">Meeting Type <span class="fillable">*</span></label>
+                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" required>
+                                    <option value="1">School Type</option>  
+                                    <option value="">Entrance Exam</option> 
+                                    <option value="">Interview</option>    
+                                    <option value="">Document Submission</option> 
+                                    <option value="other">Other</option>                        
                                 </select>
+
+                                <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
                             </div>
                             <div class="form-group">
-                                <label for="select-provider">
-                                    <strong>Provider</strong>
-                                </label>
-                                <select id="select-provider" class="nice-select niceSelect bordered_style wide" required>
-                                    <option value="1">Administrator</option>  
+                                <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
+                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" required>
+                                    <option value="office">Offline</option>  
+                                    <option value="online">Online</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="select-provider" style="margin-bottom:0;">
-                                    <strong>Service</strong>
-                                </label><br>
-                                <label for="select-provider">
-                                    [Duration 30 Minutes]
-                                </label>
+
+                                <input type="text" placeholder="Enter Meeting Mode Url" class="nice-select niceSelect bordered_style wide" name="meeting_mode_other" id="meeting_mode_other">
                             </div>
                         </div>
                     </div>
@@ -77,7 +94,7 @@
             </div>
             <div id="wizard-frame-2" class="wizard-frame">
                 <div class="frame-container">
-                    <h2 class="frame-title">Appointment Date & Time</h2>
+                    <h4 class="frame-title">Meeting Date & Time</h4>
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <div id="calendar"></div>
@@ -88,91 +105,12 @@
                                     <label for="select-timezone">Timezone</label>
                                     <select id="timezone-select" class="nice-select niceSelect bordered_style wide" value="UTC">
                                         <optgroup label="Asia">
-                                                <option value="Asia/Amman">Amman (+2:00)</option>
-                                                <option value="Asia/Beirut">Beirut (+2:00)</option>
-                                                <option value="Asia/Damascus">Damascus (+2:00)</option>
-                                                <option value="Asia/Gaza">Gaza (+2:00)</option>
-                                                <option value="Asia/Istanbul">Istanbul (+2:00)</option>
-                                                <option value="Asia/Jerusalem">Jerusalem (+2:00)</option>
-                                                <option value="Asia/Nicosia">Nicosia (+2:00)</option>
-                                                <option value="Asia/Tel_Aviv">Tel_Aviv (+2:00)</option>
-                                                <option value="Asia/Aden">Aden (+3:00)</option>
-                                                <option value="Asia/Baghdad">Baghdad (+3:00)</option>
-                                                <option value="Asia/Bahrain">Bahrain (+3:00)</option>
-                                                <option value="Asia/Kuwait">Kuwait (+3:00)</option>
-                                                <option value="Asia/Qatar">Qatar (+3:00)</option>
-                                                <option value="Asia/Tehran">Tehran (+3:30)</option>
-                                                <option value="Asia/Baku">Baku (+4:00)</option>
-                                                <option value="Asia/Dubai">Dubai (+4:00)</option>
-                                                <option value="Asia/Muscat">Muscat (+4:00)</option>
-                                                <option value="Asia/Tbilisi">Tbilisi (+4:00)</option>
-                                                <option value="Asia/Yerevan">Yerevan (+4:00)</option>
-                                                <option value="Asia/Kabul">Kabul (+4:30)</option>
-                                                <option value="Asia/Aqtau">Aqtau (+5:00)</option>
-                                                <option value="Asia/Aqtobe">Aqtobe (+5:00)</option>
-                                                <option value="Asia/Ashgabat">Ashgabat (+5:00)</option>
-                                                <option value="Asia/Ashkhabad">Ashkhabad (+5:00)</option>
-                                                <option value="Asia/Dushanbe">Dushanbe (+5:00)</option>
-                                                <option value="Asia/Karachi">Karachi (+5:00)</option>
-                                                <option value="Asia/Oral">Oral (+5:00)</option>
-                                                <option value="Asia/Samarkand">Samarkand (+5:00)</option>
-                                                <option value="Asia/Tashkent">Tashkent (+5:00)</option>
-                                                <option value="Asia/Yekaterinburg">Yekaterinburg (+5:00)</option>
-                                                <option value="Asia/Calcutta">Calcutta (+5:30)</option>
-                                                <option value="Asia/Colombo">Colombo (+5:30)</option>
-                                                <option value="Asia/Kolkata">Kolkata (+5:30)</option>
-                                                <option value="Asia/Katmandu">Katmandu (+5:45)</option>
-                                                <option value="Asia/Almaty">Almaty (+6:00)</option>
-                                                <option value="Asia/Bishkek">Bishkek (+6:00)</option>
-                                                <option value="Asia/Dacca">Dacca (+6:00)</option>
-                                                <option value="Asia/Dhaka">Dhaka (+6:00)</option>
-                                                <option value="Asia/Novosibirsk">Novosibirsk (+6:00)</option>
-                                                <option value="Asia/Omsk">Omsk (+6:00)</option>
-                                                <option value="Asia/Qyzylorda">Qyzylorda (+6:00)</option>
-                                                <option value="Asia/Thimbu">Thimbu (+6:00)</option>
-                                                <option value="Asia/Thimphu">Thimphu (+6:00)</option>
-                                                <option value="Asia/Rangoon">Rangoon (+6:30)</option>
-                                                <option value="Asia/Bangkok">Bangkok (+7:00)</option>
-                                                <option value="Asia/Ho_Chi_Minh">Ho_Chi_Minh (+7:00)</option>
-                                                <option value="Asia/Hovd">Hovd (+7:00)</option>
-                                                <option value="Asia/Jakarta">Jakarta (+7:00)</option>
-                                                <option value="Asia/Krasnoyarsk">Krasnoyarsk (+7:00)</option>
-                                                <option value="Asia/Phnom_Penh">Phnom_Penh (+7:00)</option>
-                                                <option value="Asia/Pontianak">Pontianak (+7:00)</option>
-                                                <option value="Asia/Saigon">Saigon (+7:00)</option>
-                                                <option value="Asia/Vientiane">Vientiane (+7:00)</option>
-                                                <option value="Asia/Brunei">Brunei (+8:00)</option>
-                                                <option value="Asia/Choibalsan">Choibalsan (+8:00)</option>
-                                                <option value="Asia/Chongqing">Chongqing (+8:00)</option>
-                                                <option value="Asia/Chungking">Chungking (+8:00)</option>
-                                                <option value="Asia/Harbin">Harbin (+8:00)</option>
-                                                <option value="Asia/Hong_Kong">Hong_Kong (+8:00)</option>
-                                                <option value="Asia/Irkutsk">Irkutsk (+8:00)</option>
-                                                <option value="Asia/Kashgar">Kashgar (+8:00)</option>
-                                                <option value="Asia/Kuala_Lumpur">Kuala_Lumpur (+8:00)</option>
-                                                <option value="Asia/Kuching">Kuching (+8:00)</option>
-                                                <option value="Asia/Macao">Macao (+8:00)</option>
-                                                <option value="Asia/Macau">Macau (+8:00)</option>
-                                                <option value="Asia/Makassar">Makassar (+8:00)</option>
-                                                <option value="Asia/Manila">Manila (+8:00)</option>
-                                                <option value="Asia/Shanghai">Shanghai (+8:00)</option>
-                                                <option value="Asia/Singapore">Singapore (+8:00)</option>
-                                                <option value="Asia/Taipei">Taipei (+8:00)</option>
-                                                <option value="Asia/Ujung_Pandang">Ujung_Pandang (+8:00)</option>
-                                                <option value="Asia/Ulaanbaatar">Ulaanbaatar (+8:00)</option>
-                                                <option value="Asia/Ulan_Bator">Ulan_Bator (+8:00)</option>
-                                                <option value="Asia/Urumqi">Urumqi (+8:00)</option>
-                                                <option value="Asia/Dili">Dili (+9:00)</option>
-                                                <option value="Asia/Jayapura">Jayapura (+9:00)</option>
-                                                <option value="Asia/Pyongyang">Pyongyang (+9:00)</option>
-                                                <option value="Asia/Seoul">Seoul (+9:00)</option>
-                                                <option value="Asia/Tokyo">Tokyo (+9:00)</option>
-                                                <option value="Asia/Yakutsk">Yakutsk (+9:00)</option>
-                                                <option value="Asia/Sakhalin">Sakhalin (+10:00)</option>
-                                                <option value="Asia/Vladivostok">Vladivostok (+10:00)</option>
-                                                <option value="Asia/Magadan">Magadan (+11:00)</option>
-                                                <option value="Asia/Anadyr">Anadyr (+12:00)</option>
-                                                <option value="Asia/Kamchatka">Kamchatka (+12:00)</option>
+                                            <option value="Asia/Istanbul">Istanbul (+2:00)</option>
+                                            <option value="Asia/Kuwait">Kuwait (+3:00)</option>
+                                            <option value="Asia/Qatar">Qatar (+3:00)</option>
+                                            <option value="Asia/Kabul">Kabul (+4:30)</option>
+                                            <option value="Asia/Karachi">Karachi (+5:00)</option>
+                                            <option value="Asia/Kolkata" selected>Kolkata (+5:30)</option>
                                         </optgroup>
                                     </select>
                                 </div>
@@ -198,8 +136,11 @@
             </div>
             <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
                 <div class="frame-container">
-                    <h2 class="frame-title">Information</h2>
-                    <div class="row frame-content">
+                    <h4 class="frame-title">Information</h4>
+                    <div class="d-flex">
+                        <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control">
+                    </div>
+                    <div class="row frame-content mt-5">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="first-name" class="control-label">
@@ -329,6 +270,25 @@
 @push('scripts')
 <script>
  $(document).ready(function() {
+    $('#meeting_mode_other').hide();
+    $('#meeting_other').hide();
+
+    $('#meeting_type').change(function(){
+        if($(this).val() == 'other'){
+            $('#meeting_other').show();
+        }else{
+            $('#meeting_other').hide();
+        }
+    });
+
+    $('#meeting_mode').change(function(){
+        if($(this).val() == 'online'){
+            $('#meeting_mode_other').show();
+        }else{
+            $('#meeting_mode_other').hide();
+        }
+    });
+
     $('#timezone-select').change(function() {
         if ($(this).val() !== '') {
             $('#available-hours').show();
@@ -350,6 +310,7 @@ var calendarEl = document.getElementById('calendar');
     });
     calendar.render();
 });
+
 $('document').ready(function() {
     $('#wizard-frame-2').hide();
     $('#wizard-frame-3').hide();  
