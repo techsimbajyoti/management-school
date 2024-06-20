@@ -90,10 +90,10 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+                                        <button type="button" class="btn ot-btn-primary back_2" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
-                                            <button type="submit" class="btn ot-btn-primary save_3"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
-                                            <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
+                                            <button type="submit" class="btn ot-btn-primary save_3" style="margin-bottom:10px;"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
+                                            <button type="submit" class="btn ot-btn-primary ml-3" style="margin-bottom:10px;"><i class="fa fa-save"></i> {{ __('Save') }}</button>
                                         </div>
                                     </div>
                                     {{-- <div class="d-flex justify-content-between">

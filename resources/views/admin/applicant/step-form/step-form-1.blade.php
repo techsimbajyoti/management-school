@@ -124,10 +124,10 @@
     <div class="card-footer">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">
-            <button type="submit" id="save-continue" class="btn btn-lg ot-btn-primary">
+            <button type="submit" id="save-continue" class="btn btn-lg ot-btn-primary" style="margin-bottom:10px;">
                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
             </button>
-            <button type="submit" id="save" class="btn btn-lg ot-btn-primary ml-3">
+            <button type="submit" id="save" class="btn btn-lg ot-btn-primary ml-3" style="margin-bottom:10px;">
                 <i class="fa fa-save"></i> {{ __('Save') }}
             </button>
         </div>
