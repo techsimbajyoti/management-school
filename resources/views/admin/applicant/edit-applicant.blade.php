@@ -218,7 +218,7 @@
 
                                 <form class="form" method="POST" id="form2">
                                     @csrf
-                                    <h5>Student Information</h5><br>
+                                    <h5>Applicant Information</h5><br>
                                     <div class="row">
     
                                     

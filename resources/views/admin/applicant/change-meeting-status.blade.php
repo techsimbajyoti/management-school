@@ -41,6 +41,11 @@
                                 <option value="">Done</option>
                             </select>
                           </div>
+
+                          <div class="col-md-6 mb-3">
+                            <label for="exampleDataList" class="form-label"> Note <span class="fillable">*</span></label> 
+                            <textarea class="nice-select niceSelect bordered_style wide" placeholder="Enter Note.." name="name" id="class_setup"></textarea>
+                          </div>
                         </div>
                     
                           <div class="col-md-12 mt-24">

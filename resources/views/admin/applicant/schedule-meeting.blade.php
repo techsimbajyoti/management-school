@@ -31,40 +31,101 @@
                             data-tippy-content="Customer Information">
                         <strong>3</strong>
                     </div>
-                    <div id="step-4" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="Appointment Confirmation">
-                        <strong>4</strong>
-                    </div>
                 </div>
             </div> 
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
-                    <h4 class="frame-title">Purpose</h4>
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>Applicant Number : <span>Demo</span></p>
+                                    <p class="title">Applicant Number : <span>Demo</span></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Father Name : <span>Demo</span></p>
+                                    <p class="title">Father Name : <span>Demo</span></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>Student Name : <span>Demo</span></p>
+                                    <p class="title">Student Name : <span>Demo</span></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Class : <span>One</span></p>
+                                    <p class="title">Class : <span>One</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="d-flex">
+                        <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
+                    </div>
+                    <div class="row frame-content mt-5">
+                        <div class="col-6 col-md-6">
+                            <div class="form-group">
+                                <label for="first-name" class="control-label">
+                                    First Name 
+                                </label>
+                                <input type="text" id="first-name" class="form-control ot-input" placeholder="First Name"  maxlength="100"/>
+                            </div>
+                        </div>    
+                        <div class="col-6 col-md-6">
+                            <div class="form-group">
+                                <label for="last-name" class="control-label">
+                                    Last Name 
+                                </label>
+                                <input type="text" id="last-name" placeholder="Enter Last Name" class=" form-control ot-input"
+                                maxlength="120"/>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="control-label">
+                                    Email  
+                                </label>
+                                <input type="text" id="email" class=" form-control ot-input"  placeholder="Email" maxlength="120"/>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">    
+                            <div class="form-group">
+                                <label for="phone-number" class="control-label">
+                                    Phone Number                                   </label>
+                                <input type="text" id="phone-number" placeholder="Phone Number" maxlength="60"
+                                    class=" form-control ot-input"/>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">    
+                            <div class="form-group">
+                                <label for="address" class="control-label">
+                                    Address  
+                                </label>
+                                <textarea id="address" class="form-control ot-input" rows="1" maxlength="500" Placeholder="Address"></textarea>
+                            </div>
+                        </div>    
+                       
+                        
+                        <div class="col-6 col-md-6">    
+                            <div class="form-group">
+                                <label for="city" class="control-label">
+                                    City  
+                                </label>
+                                <input type="text" id="city" class="form-control ot-input" Placeholder="City" maxlength="120"/>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">    
+                            <div class="form-group">
+                                <label for="zip-code" class="control-label">
+                                    Zip Code  
+                                </label>
+                                <input type="text" id="zip-code" class="form-control ot-input"  Placeholder=" Zip Code" maxlength="120"/>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row frame-content">
                         <div class="col">
                             <div class="form-group">
-                                <label for="select-service">Meeting Type <span class="fillable">*</span></label>
-                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" required>
+                                <label for="select-service">Purpose <span class="fillable">*</span></label>
+                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" >
                                     <option value="1">School Type</option>  
                                     <option value="">Entrance Exam</option> 
                                     <option value="">Interview</option>    
@@ -76,11 +137,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
-                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" required>
-                                    <option value="office">Offline</option>  
+                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" >
+                                    <option value="">Please select one of these</option>
+                                    <option value="offline">Offline</option>  
                                     <option value="online">Online</option>
                                 </select>
-
+                                <input type="text" placeholder="Enter location" class="nice-select niceSelect bordered_style wide" name="meeting_location" id="meeting_location">
                                 <input type="text" placeholder="Enter Meeting Mode Url" class="nice-select niceSelect bordered_style wide" name="meeting_mode_other" id="meeting_mode_other">
                             </div>
                         </div>
@@ -104,14 +166,7 @@
                                 <div class="form-group">
                                     <label for="select-timezone">Timezone</label>
                                     <select id="timezone-select" class="nice-select niceSelect bordered_style wide" value="UTC">
-                                        <optgroup label="Asia">
-                                            <option value="Asia/Istanbul">Istanbul (+2:00)</option>
-                                            <option value="Asia/Kuwait">Kuwait (+3:00)</option>
-                                            <option value="Asia/Qatar">Qatar (+3:00)</option>
-                                            <option value="Asia/Kabul">Kabul (+4:30)</option>
-                                            <option value="Asia/Karachi">Karachi (+5:00)</option>
-                                            <option value="Asia/Kolkata" selected>Kolkata (+5:30)</option>
-                                        </optgroup>
+                                        <option value="Asia/Kolkata" selected>Kolkata (+5:30)</option>
                                     </select>
                                 </div>
                                 <div id="available-hours"  style="display: none;">
@@ -125,139 +180,96 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="command-buttons">
-                    <button type="button" id="button-back-2" class="btn btn-lg ot-btn-primary" data-step_index="2">
-                        <i class="fas fa-chevron-left mr-2"></i>Back
+                    <button type="button" id="button-back-2" class="btn btn-lg ot-btn-primary"
+                            data-step_index="2">
+                        <i class="fas fa-chevron-left mr-2"></i>
+                        Back  
                     </button>
-                    <button type="button" id="button-next-2" class="btn btn-lg ot-btn-primary" data-step_index="2">
-                        Next <i class="fas fa-chevron-right ml-2"></i>
+                    <button type="button" id="button-next-2" class="btn btn-lg ot-btn-primary"
+                            data-step_index="2">
+                        Next  <i class="fas fa-chevron-right ml-2"></i>
                     </button>
                 </div>
             </div>
             <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
                 <div class="frame-container">
-                    <h4 class="frame-title">Information</h4>
-                    <div class="d-flex">
-                        <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control">
-                    </div>
-                    <div class="row frame-content mt-5">
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="first-name" class="control-label">
-                                    First Name <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="first-name" class="required form-control" placeholder="First Name"  maxlength="100"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="control-label">
-                                    Email  <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="email" class="required form-control"  placeholder="Email" maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone-number" class="control-label">
-                                    Phone Number   <span class="text-danger">*</span>                                </label>
-                                <input type="text" id="phone-number" placeholder="Phone Number" maxlength="60"
-                                    class="required form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone-number" class="control-label">
-                                    Type  <span class="text-danger">*</span>                                </label>
-                                <select class="nice-select niceSelect bordered_style wide" name="type">
-                                    <option>Student Interview</option>
-                                    <option>Parent Interview</option>
-                                    <option>School Visit</option>
-                                    <option>Staff Interview</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="address" class="control-label">
-                                    Address  
-                                </label>
-                                <textarea id="address" class="form-control" rows="1" maxlength="500" Placeholder="Address"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="last-name" class="control-label">
-                                    Last Name <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="last-name" class="required form-control"
-                                maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="city" class="control-label">
-                                    City  
-                                </label>
-                                <input type="text" id="city" class="form-control" Placeholder="City" maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="zip-code" class="control-label">
-                                    Zip Code  
-                                </label>
-                                <input type="text" id="zip-code" class="form-control"  Placeholder=" Zip Code" maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone-number" class="control-label">
-                                    Meeting Mode  <span class="text-danger">*</span>                                </label>
-                                <select class="nice-select niceSelect bordered_style wide" name="type">
-                                    <option>Online</option>
-                                    <option>Offline</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="notes" class="control-label">
-                                    Notes  
-                                </label>
-                                <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="command-buttons">
-                    <button type="button" id="button-back-3" class="btn btn-lg ot-btn-primary"
-                            data-step_index="3">
-                        <i class="fas fa-chevron-left mr-2"></i>
-                        Back  
-                    </button>
-                    <button type="button" id="button-next-3" class="btn btn-lg ot-btn-primary"
-                            data-step_index="3">
-                        Next  <i class="fas fa-chevron-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-            <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
-                <div class="frame-container">
-                    <h2 class="frame-title">Appointment Confirmation</h2>
+                    <h4 class="frame-title">Meeting Confirmation</h4>
                     <div class="row frame-content">
-                        <div id="appointment-details" class="col-12 col-md-6">
-                            <h4>Appointment</h4>
-                            <p class="mb-0">Service: Service</p>
-                            <p class="mb-0">Provider: Administrator</p>
-                            <p class="mb-0">Start: 01/07/2024 12:00 pm</p>
-                            <p class="mb-0"> Timezone: Damascus (+2:00)</p>               
+                        <div id="appointment-details" class="col-12 col-md-12">
+                            <h4>Meeting Information</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Start:</strong></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">01/07/2024 12:00 pm</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Timezone:</strong></p>  
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">Kolkata (+5:30)</p>  
+                                </div>
+                            </div>
+                                         
                         </div>
-                        <div id="customer-details" class="col-12 col-md-6">
-                            <h4>Customer</h4>
-                            <p class="mb-0">Customer: demo</p>
-                            <p class="mb-0">Phone Number: 1234567890</p>
-                            <p class="mb-0"> Email: admin@gmail.com
-                            </p> 
-                            <p class="mb-0"> Meeting Mode: Offline</p> 
-                            <p class="mb-0"> Meeting Type: Student Interview</p> 
-
-
+                        <div id="customer-details" class="col-12 col-md-12 mt-5">
+                            <h4>Applicant Information</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Applicant:</strong></p>  
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">demo</p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Phone Number:</strong></p>  
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">1234567890</p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Email:</strong></p>  
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">admin@gmail.com</p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Meeting Mode:</strong></p>  
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">Offline</p>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-0"><strong>Meeting Type:</strong></p>  
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-0">Student Interview</p>  
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="command-buttons">
-                    <button type="button" id="button-back-4" class="btn btn-lg ot-btn-primary"
-                            data-step_index="4">
+                    <button type="button" id="button-back-3" class="btn btn-lg ot-btn-primary" data-step_index="3">
                         <i class="fas fa-chevron-left mr-2"></i>
                         Back  
                     </button>
-                    <button type="button" id="button-next-3" class="btn btn-lg ot-btn-primary"
-                            data-step_index="3">
+                    <button type="button" id="button-next-2" class="btn btn-lg ot-btn-primary" data-step_index="2">
                         Confirm  <i class="fas fa-check-square ml-2"></i>
                     </button>
                 </div>
@@ -272,6 +284,7 @@
  $(document).ready(function() {
     $('#meeting_mode_other').hide();
     $('#meeting_other').hide();
+    $('#meeting_location').hide();
 
     $('#meeting_type').change(function(){
         if($(this).val() == 'other'){
@@ -286,6 +299,12 @@
             $('#meeting_mode_other').show();
         }else{
             $('#meeting_mode_other').hide();
+        }
+
+        if($(this).val() == 'offline'){
+            $('#meeting_location').show();
+        }else{
+            $('#meeting_location').hide();
         }
     });
 

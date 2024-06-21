@@ -78,13 +78,13 @@
                                     <tr>
                                         <th class="serial">SR No.</th>
                                         <th class="purchase">Applicant NO</th>
-                                        <th class="purchase">Student name</th>
+                                        <th class="purchase">Applicant name</th>
                                         <th class="purchase">Class (Section)</th>
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Status</th>
-                                        <th class="action">Note</th>
+                                        {{-- <th class="action">Note</th> --}}
                                         <th class="action">Action</th>
 
                                         </tr>
@@ -100,8 +100,23 @@
                                             <td>Parent5</td>
                                             <td>12 Apr 2021</td>
                                             <td>658932654</td>
-                                            <td><span class="badge-basic-success-text">Active</span></td>
-                                            <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <ul style="list-style: none">
+                                                                <li><input type="radio" name="add_note" class="mr-3"><label for="">New</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3"><label for="">Accept</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3"><label for="">Reject</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3"><label for="">Approve</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3"><label for="">Done</label></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td> --}}
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
@@ -126,8 +141,23 @@
                                             <td>Parent8</td>
                                             <td>10 Jan 2024</td>
                                             <td>0147852111</td>
-                                            <td><span class="badge-basic-success-text">Active</span></td>
-                                            <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <ul style="list-style: none">
+                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">New</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Accept</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Reject</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Approve</label></li>
+                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Done</label></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {{-- <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td> --}}
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
@@ -155,10 +185,53 @@
         </div>    
     </div>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  
+</div>
+
 @endsection 
 @push('scripts')
 <script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("add-note");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
     $(document).ready(function() {
+
+        $('.add-note').click(function(){
+
+        });
+
         $('.inactiveStudentList').hide();
         $('.allStudentList').hide();
 
