@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('father_name');
             $table->string('father_mobile');
-            $table->string('father_profession');
+            $table->string('father_profession')->nullable();
             $table->string('father_image');
             $table->string('email');
             $table->string('password');
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('applicant_id');
             $table->string('status');
             $table->string('role_id');
+            $table->string('ip_address');
             $table->string('created_by');
             $table->timestamps();
         });

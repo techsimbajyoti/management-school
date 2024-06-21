@@ -68,7 +68,7 @@
                                     <tr>
                                         <th class="serial">SR No.</th>
                                         <th class="purchase">Applicant NO</th>
-                                        <th class="purchase">Student name</th>
+                                        <th class="purchase">Applicant name</th>
                                         <th class="purchase">Class (Section)</th>
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Contact</th>
@@ -97,7 +97,7 @@
                                             <td>2:30 pm</td>
                                             <td>Student Interview</td>
                                             <td>Offline</td>
-                                            <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
+                                            <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><i class="fa fa-eye"></i></div></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>

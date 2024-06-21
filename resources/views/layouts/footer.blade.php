@@ -193,16 +193,16 @@
         </div>
         </div>
         <div class="p-0">
-        <div class="container">
-            <div class="footer_border m-0"></div>
-            <div class="row">
-            <div class="col-md-12">
-                <div class="copy_right_text d-flex align-items-center gap_20 flex-wrap justify-content-center">
-                <p class="text-white">© 2024 School Name . All rights reserved.</p>
+            <div class="container">
+                <div class="footer_border m-0"></div>
+                <div class="row">
+                <div class="col-md-12 mt-3">
+                    <div class="copy_right_text d-flex align-items-center gap_20 flex-wrap justify-content-center">
+                    <p class="text-white">© 2024 School Name . All rights reserved.</p>
+                    </div>
+                </div>
                 </div>
             </div>
-            </div>
-        </div>
         </div>
   </footer>
 

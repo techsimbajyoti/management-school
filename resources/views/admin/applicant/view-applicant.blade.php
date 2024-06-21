@@ -103,7 +103,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-right">
-                                    @if(auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_id == 'applicant')
+                                    @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_id == 'applicant')
                                     <a href="{{route('applicant-profile')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                                     @else
                                     <a href="{{route('applicant-list')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
@@ -232,7 +232,7 @@
 
                                 <form class="form" method="POST" id="form2">
                                     @csrf
-                                    <h5>Student Information</h5><br>
+                                    <h5>Applicant Information</h5><br>
                                     <div class="row">
     
                                     

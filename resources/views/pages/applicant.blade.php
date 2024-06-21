@@ -182,11 +182,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Total Applicant</p>
-                                    @php
-                                    $total_applicant = App\Models\StudentParent::get();    
-                                    @endphp
-                                    <p class="card-title">{{ $total_applicant->count() }}</p>
+                                    <p class="card-category"><strong>Applicant Statistics</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +191,15 @@
                             <div class="col-md-4">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Accepted</span>
+                                        <span class="mini-card-title">Total</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Accepted</span>
                                         <span class="mini-card-number">23</span>
                                     </div>
                                 </div>
@@ -203,7 +207,7 @@
                             <div class="col-md-4">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Rejected</span>
+                                        <span class="mini-card-title">Rejected</span>
                                         <span class="mini-card-number">41</span>
                                     </div>
                                 </div>
@@ -211,7 +215,7 @@
                             <div class="col-md-4">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Pending</span>
+                                        <span class="mini-card-title">Pending</span>
                                         <span class="mini-card-number">22</span>
                                     </div>
                                 </div>
@@ -238,11 +242,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Total Meeting</p>
-                                    @php
-                                    $total_applicant = App\Models\StudentParent::get();    
-                                    @endphp
-                                    <p class="card-title">{{ $total_applicant->count() }}</p>
+                                    <p class="card-category"><strong>Meeting Statistics</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,15 @@
                             <div class="col-md-4">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Accepted</span>
+                                        <span class="mini-card-title">Total</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Done</span>
                                         <span class="mini-card-number">23</span>
                                     </div>
                                 </div>
@@ -259,7 +267,7 @@
                             <div class="col-md-4">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Rejected</span>
+                                        <span class="mini-card-title">Pending</span>
                                         <span class="mini-card-number">41</span>
                                     </div>
                                 </div>
@@ -267,7 +275,45 @@
                             <div class="col-md-4">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Pending</span>
+                                        <span class="mini-card-title">Cancelled</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="numbers text-left">
+                            <p class="card-category" style="margin-left: 10px;"><strong>Meeting Purpose</strong></p>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">School Visit</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Doc Submission</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Interview</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Entrance Exam</span>
                                         <span class="mini-card-number">22</span>
                                     </div>
                                 </div>
@@ -283,7 +329,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12" style="margin-top: -230px">
                 <div class="card card-stats">
                     <div class="card-body">
                         <div class="row">
@@ -294,11 +340,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Total Revenue</p>
-                                    @php
-                                    $total_applicant = App\Models\StudentParent::get();    
-                                    @endphp
-                                    <p class="card-title">{{ $total_applicant->count() }}</p>
+                                    <p class="card-category"><strong>Revenue Statistics</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +349,7 @@
                             <div class="col-md-4">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Paid Amount</span>
+                                        <span class="mini-card-title">Paid Amount</span>
                                         <span class="mini-card-number">23</span>
                                     </div>
                                 </div>
@@ -315,7 +357,7 @@
                             <div class="col-md-4">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total Remaining</span>
+                                        <span class="mini-card-title">Remaining</span>
                                         <span class="mini-card-number">41</span>
                                     </div>
                                 </div>
@@ -333,12 +375,91 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header ">
-                        <h5 class="card-title">Schedule Meeting</h5>
-                    </div><hr>
-                    <div class="card-body ">
-                        <div id='calendar'></div>
+                <div class="table-content table-basic mt-20 activeStudentList" id="activeStudentList">
+                    <div class="card ot-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0 title">Upcoming Meetings</h4>
+                        </div>
+                        
+                        <hr>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered role-table myTable">
+                                    <thead class="thead">
+                                        <tr>
+                                            <th class="serial">SR No.</th>
+                                            <th class="purchase">Applicant NO</th>
+                                            <th class="purchase">Applicant name</th>
+                                            <th class="purchase">Class (Section)</th>
+                                            <th class="purchase">Applicant Parent name</th>
+                                            <th class="action">Contact</th>
+                                            <th class="action">Date</th>
+                                            <th class="action">Time Slot</th>
+                                            <th class="action">Type</th>
+                                            <th class="action">Mode</th>
+                                            <th class="action">Notes</th>
+                                            <th class="action">Action</th>
+    
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                            <tr id="row_7">
+                                                <td class="serial">1</td>
+                                                <td>2023114</td>
+                                                
+                                                <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                    <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                                <td>Two (A)</td>
+                                                <td>Parent5</td>
+                                               
+                                                <td>658932654</td>
+                                               
+                                                <td>jan 24,2024</td>
+                                                <td>2:30 pm</td>
+                                                <td>Applicant Interview</td>
+                                                <td>Offline</td>
+                                                <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
+                                                <td class="action">
+                                                    <div class="dropdown dropdown-action">
+                                                        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                                <a href="{{ route('change-meeting-status') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Change Meeting Status') }}</a> 
+                                                            </div>
+                                                        </div>    
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr id="row_7">
+                                                <td class="serial">2</td>
+                                                <td>2023111</td>
+                                               
+                                                <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                  <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                                <td>Two (A)</td>
+                                                <td>Parent8</td>
+                                               
+                                                <td>0147852111</td>
+                                                <td>jun 05,2024</td>
+                                                <td>3:30 pm</td>
+                                                <td>Applicant Interview</td>
+                                                <td>Offline</td>
+                                                <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
+                                                <td class="action">
+                                                    <div class="dropdown dropdown-action">
+                                                        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                                <a href="{{ route('change-meeting-status') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Change Meeting Status') }}</a> 
+                                                            </div>
+                                                        </div>    
+                                                    </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

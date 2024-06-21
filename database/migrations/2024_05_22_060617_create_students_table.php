@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('applicant_id');
             $table->string('status');
             $table->string('role_id');
+            $table->string('ip_address');
             $table->string('created_by');
             $table->timestamps();
         });

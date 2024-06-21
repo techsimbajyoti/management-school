@@ -38,6 +38,7 @@ class StudentParent extends Authenticatable
         'applicant_id',
         'status',
         'role_id',
+        'ip_address',
         'created_by',
     ];
 

@@ -13,9 +13,21 @@ use App\Models\StudentParent;
 use App\Models\Student;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+
 
 class ApplicantController extends Controller
 {
+    public function getPublicIpAddress()
+    {
+            $response = Http::timeout(90) // Set the timeout to 30 seconds
+            ->get('https://api64.ipify.org?format=json');
+
+            $data = $response->json();
+            $ipAddress = $data['ip'];
+            return $ipAddress;
+    }
+
     public function applicant(){
         return view('pages.applicant');
     }
@@ -67,6 +79,8 @@ class ApplicantController extends Controller
         $country = Country::get(['id','country']);
         $state = State::get(['id','state']);
 
+
+
         $Religion = Religion::get();
         $BloodGroup = BloodGroup::get();
 
@@ -99,14 +113,20 @@ class ApplicantController extends Controller
         ]);
       
         // \Log::info('Validated Data:', ['data' => $data]);
-   
+         $ipAddress = $this->getPublicIpAddress();
+
         $applicant = new StudentParent;
 
         
-        $email_exit = StudentParent::where('email', $request->email)->first();
+        $email_exists = StudentParent::where('email', $request->email)->first();
 
-        if($email_exit){
-            return response()->json(['success'=>'true','action'=>$request->action]);
+        if ($email_exists) {
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'The email address is already registered.',
+                'action' => $request->action
+            ]);
         }else{
       
 
@@ -120,6 +140,7 @@ class ApplicantController extends Controller
         $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status;
+        $applicant->ip_address = $ipAddress;
         $applicant->created_by = 'null';
 
         $applicant->save();
@@ -133,7 +154,6 @@ class ApplicantController extends Controller
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
             'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
-            'user_name' => 'required',
             'gender' => 'required',
             'class' => 'required',
             'date_of_birth' => 'required|date|before:' . now()->toDateString(),
@@ -143,10 +163,9 @@ class ApplicantController extends Controller
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
             'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
-            
         ]);
     
-       
+        $ipAddress = $this->getPublicIpAddress();
         
         $parent_id = Session::get('parent_id');
         $applicant_id = Session::get('applicant_id');
@@ -165,9 +184,11 @@ class ApplicantController extends Controller
             $randomPassword = Str::random(8);
             $hashPassword = Hash::make($randomPassword);
 
+            $randomUsername = Str::random(8);
+
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
-            $student->user_name = $request->user_name;
+            $student->user_name = $randomUsername;
             $student->password = $hashPassword;
             $student->gender = $request->gender;
             $student->class = $request->class;
@@ -180,6 +201,7 @@ class ApplicantController extends Controller
             $student->parent_id = $parent_id;
             $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
+            $student->ip_address = $ipAddress;
             $student->status = $request->status;
             $student->created_by = 'null';
 
@@ -197,7 +219,7 @@ class ApplicantController extends Controller
     public function post_applicant_contact_data(Request $request){
         $data = $request->validate([
                
-                'residence_address' =>'required|string|regex:/^[A-Za-z ]+$/',
+                'residence_address' =>'required|min:3|max:255',
                 'country' => 'required|string|regex:/^[A-Za-z ]+$/',
                 'state' => 'required',
                 'city' => 'required',

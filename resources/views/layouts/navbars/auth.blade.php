@@ -29,20 +29,20 @@
         <ul class="nav">
             @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
             
-            <li class="{{ in_array($elementActive, ['meeting-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'active' : '' }}">
-                <a aria-expanded="{{ in_array($elementActive, ['meeting-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'true' : 'false' }}" data-toggle="collapse" aria-expanded="true" href="#aravelExamples">
+            <li class="{{ in_array($elementActive, ['applicant-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'active' : '' }}">
+                <a aria-expanded="{{ in_array($elementActive, ['applicant-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'true' : 'false' }}" data-toggle="collapse" aria-expanded="true" href="#aravelExamples">
                     <i class="fa fa-user-circle"></i>
                     <p>
                         {{ __('Applicant') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse {{ in_array($elementActive, ['meeting-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'show' : '' }}" id="aravelExamples">
+                <div class="collapse {{ in_array($elementActive, ['applicant-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'show' : '' }}" id="aravelExamples">
                     <ul class="nav">
                         <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
                             <a href="{{ route('applicant') }}">
-                                <span class="sidebar-mini-icon">{{ __('A') }}</span>
-                                <span class="sidebar-normal">{{ __(' Applicant ') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('S') }}</span>
+                                <span class="sidebar-normal">{{ __(' Statistics ') }}</span>
                             </a>
                         </li>
                         <li class="{{ $elementActive == 'applicant-list' ? 'active' : '' }}">
@@ -60,15 +60,15 @@
                         
                         <li class="{{ $elementActive == 'meeting-status' ? 'active' : '' }}">
                             <a href="{{ route('meeting-status') }}">
-                                <span class="sidebar-mini-icon">{{ __('MS') }}</span>
-                                <span class="sidebar-normal">{{ __(' Meeting Status ') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('ML') }}</span>
+                                <span class="sidebar-normal">{{ __(' Meeting List ') }}</span>
                             </a>
                         </li>
 
-                        <li class="{{ $elementActive == 'meeting-tracking' ? 'active' : '' }}">
+                        <li class="{{ $elementActive == 'applicant-tracking' ? 'active' : '' }}">
                             <a href="{{ route('meeting-tracking') }}">
-                                <span class="sidebar-mini-icon">{{ __('MT') }}</span>
-                                <span class="sidebar-normal">{{ __(' Meeting Tracking ') }}</span>
+                                <span class="sidebar-mini-icon">{{ __('AT') }}</span>
+                                <span class="sidebar-normal">{{ __(' Applicant Tracking ') }}</span>
                             </a>
                         </li>
                     </ul>

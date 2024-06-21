@@ -8,6 +8,7 @@
             <div class="form-group">
                 <div class="autocomplete">
 
+
                     <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name" pattern="[A-Za-z ]+" title="Please enter letters only.">
 
                 </div>
@@ -18,7 +19,7 @@
             <span style="color:red">*</span>
             <label class="form-label">{{ __('Email:') }}</label>
             <div class="form-group">
-                <input type="email" name="email" id="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" required>
+                <input type="email" name="email" id="email" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" required>
                 <span class="invalid-feedback" id="email_error" style="display: none;"></span>
             </div>
         </div>
@@ -26,7 +27,7 @@
             <span style="color:red">*</span>
             <label for="password" class="form-label">{{ __('Password:') }}</label>
             <div class="form-group">
-                <input type="password" name="password" id="password" class="nice-select niceSelect bordered_style wide" placeholder="Enter Password" pattern=".{8,}" title="Eight or more characters" required>
+                <input type="password" name="password" id="password" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Password" pattern=".{8,}" title="Eight or more characters" required>
                 <span class="invalid-feedback" id="password_error" style="display: none;"></span>
             </div>
         </div>
@@ -49,20 +50,20 @@
         <div class="col-md-6">
             <label class="form-label">{{ __('Profession:') }}</label>
             <div class="form-group">
-                <input type="text" name="profession" id="profession" class="nice-select niceSelect bordered_style wide" placeholder="Enter Profession" pattern="[A-Za-z ]+" title="Please enter letters only.">
+                <input type="text" name="profession" id="profession" class="nice-select niceSelect bordered_style wide" placeholder="Enter Profession">
                 <span class="invalid-feedback" id="profession_error" style="display: none;"></span>
             </div>
         </div>
     </div>
     <input type="hidden" name="role_id" value="5">
     <input type="hidden" name="status" value="active">
-    <div class="card-footer">
+    <div class="card-footer mt-5">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">
-            <button type="button" id="save-continue" class="btn btn-lg ot-btn-primary" onclick="submitForm()">
+            <button type="button" id="save-continue" class="btn btn-lg ot-btn-primary">
                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
             </button>
-            <button type="button" id="save" class="btn btn-lg ot-btn-primary ml-3" onclick="submitForm()">
+            <button type="button" id="save" class="btn btn-lg ot-btn-primary ml-3">
                 <i class="fa fa-save"></i> {{ __('Save') }}
             </button>
         </div>

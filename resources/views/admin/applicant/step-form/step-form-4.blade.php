@@ -7,6 +7,8 @@
             <i class="fa fa-plus" aria-hidden="true"></i> Add
         </a>
     </div>
+    <p class="text-info">Accepted Format : jpeg,jpg,png,pdf,docs. Max file size 2Mb.</p>
+
 
     <div class="row">
         <div class="col-12">
@@ -20,16 +22,27 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <td>
+                            <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
+                        </td>
+                        <td>
+                            <input type="file" class="form-control" name="document_file[]" multiple>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger remove-document">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </td>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     
-    <div class="card-footer">
+    <div class="card-footer mt-5">
         <div class="d-flex justify-content-between">
-            <button type="button" class="btn ot-btn-primary back_3" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
-            <button type="submit" class="btn ot-btn-primary" style="margin-bottom:10px;"><i class="fa fa-save"></i> {{ __('Save') }}</button>
+            <button type="button" class="btn btn-lg ot-btn-primary back_3" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+            <button type="submit" class="btn btn-lg ot-btn-primary" style="margin-bottom:10px;"><i class="fa fa-save"></i> {{ __('Save') }}</button>
         </div>
     </div>
 </form>

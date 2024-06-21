@@ -42,6 +42,7 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <script>
      $( function() {
     var availableTags = <?php echo json_encode($lang); ?>;
@@ -127,9 +128,17 @@ $(document).ready(function() {
         data: formData,
         success: function(response) {
             console.log(response);
-            if (response.action == 'save') {
+
+            if (response.message === 'The email address is already registered.') {
+                Swal.fire({
+                    title: "Email Exists",
+                    text: response.message,
+                    icon: "warning",
+                    button: "OK",
+                });
+            } else if (response.action === 'save') {
                 location.reload();
-            } else if (response.action == 'save-continue') {
+            } else if (response.action === 'save-continue') {
                 $('#step1').removeClass('active');
                 $('#step2').addClass('active');
                 if ($('#step2').hasClass('active')) {
@@ -145,10 +154,18 @@ $(document).ready(function() {
             if (xhr.status === 422) {
                 var errors = xhr.responseJSON.errors;
                 displayValidationErrors(errors);
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "An error occurred while submitting the application.",
+                    icon: "error",
+                    button: "OK",
+                });
             }
         }
     });
 }
+
 
 function displayValidationErrors(errors) {
     $('.invalid-feedback').hide(); // Hide all error messages initially
@@ -239,14 +256,18 @@ function displayValidationErrors(errors) {
                 success: function(response) {
                     console.log(response);
                     if (response.success) {
-                        // Reset the form fields
-                        $('#form1')[0].reset();
-                        
-                        // Move to the initial form
+                        Swal.fire({
+                        title: "Application completed successfully",
+                        text: "The application was submitted successfully!",
+                        icon: "success",
+                        button: "OK",
+                        }).then((value) => {
+                        window.location.href = "/login"; // Redirect to the dashboard page
+                        });
                         $('#step4').removeClass('active');
                         $('#step1').addClass('active');
                         if ($('#step1').hasClass('active')) {
-                            $('#form1').show();
+                            $('#form1').hide();
                             $('#form3').hide();
                             $('#form2').hide();
                             $('#form4').hide();

@@ -1,6 +1,6 @@
                     <form class="form" method="POST" id="form2">
                                 @csrf
-                                <h5>Student Information</h5><br>
+                                <h5>Applicant Information</h5><br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
@@ -22,7 +22,7 @@
                                     </div>
                             
                                 
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <span style="color:red">*</span>
                                         <label class="form-label">{{ __('User Name:') }}</label>
                                     
@@ -30,7 +30,7 @@
                                             <input type="text" name="user_name" class="nice-select niceSelect bordered_style wide" placeholder="User Name" required >
                                         </div>
                                         <span class="invalid-feedback" id="user_name_error" style="display: none;" role="alert"></span>
-                                    </div> 
+                                    </div>  --}}
                                     
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -130,7 +130,7 @@
                                     
                                   
                                     <div class="col-md-6">
-                                        <label class="form-label">{{ __('Previous School:') }}</label>
+                                        <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
                                         <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school">
                                         <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                 
@@ -139,9 +139,9 @@
                                 <input type="hidden" name="role_id" value="5">
                                 <input type="hidden" name="status" value="active">
                                
-                                <div class="card-footer">
+                                <div class="card-footer mt-5">
                                     <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn ot-btn-primary back_1" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+                                        <button type="button" class="btn btn-lg ot-btn-primary back_1" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_2" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}

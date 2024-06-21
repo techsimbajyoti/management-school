@@ -19,7 +19,7 @@
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('Country:') }} </label>
                                                 <div class="autocomplete">
-                                                <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required>
+                                                <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" autocomplete="off" required>
                                                 </div>
                                             </div>
                                             <span class="invalid-feedback" id="country_error" style="display: none;" role="alert"></span>
@@ -29,7 +29,7 @@
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('State:') }} </label>
                                                 <div class="autocomplete">
-                                                    <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required>
+                                                    <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" autocomplete="off" required>
                                                 </div>
                                             </div>
                                             <span class="invalid-feedback" id="state_error" style="display: none;" role="alert"></span>
@@ -79,7 +79,7 @@
                                             @endif
                                     </div>  --}}
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer mt-5">
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn ot-btn-primary back_1" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
