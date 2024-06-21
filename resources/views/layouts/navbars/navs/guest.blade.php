@@ -112,12 +112,12 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a href="{{ route('register') }}" class="nav-link btn ot-btn-primary">
-              <i class="nc-icon nc-book-bookmark"></i>{{ __('Register') }}
+              <i class="fas fa-paper-plane"></i> {{ __('Apply Now') }}
             </a>
           </li>
           <li class="nav-item active">
             <a href="{{ route('login') }}" class="nav-link btn ot-btn-primary">
-              <i class="nc-icon nc-tap-01"></i>{{ __('Login') }}
+              <i class="nc-icon nc-tap-01"></i> {{ __('Login') }}
             </a>
           </li>
         </ul>

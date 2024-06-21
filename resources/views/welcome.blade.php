@@ -27,54 +27,54 @@
         <div class="container" style="background-color: red;">
             <div class="row">
                 <div class="col-lg-12 col-md-12 ml-auto">
-                    <div class="info-area info-horizontal mt-3">
-                        <div class="icon icon-primary">
-                            <img src="{{asset('paper')}}/img/list1.png" alt="ff" width="30px">
+                    <div class="info-area info-horizontal mt-3" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                        <div class="icon icon-primary" style="margin-right: 10px;">
+                            <img src="{{asset('paper')}}/img/admission-icon.png" alt="Admission Icon" width="30px">
                         </div>
                         <div class="description">
-                            <p class="description">
+                            <p class="description" style="font-weight: bold;">
                                 {{ __('Admission Open from July 1, 2024 to August 15, 2024') }}
                             </p>
                         </div>
                     </div>
-                </div>
+                    
+                </div>                
             </div>
         </div>
 
-        <div class="container" style="margin-top: 40px;">
+        <div class="container" style="margin-top: 80px;">
             <div class="row">
                 <div class="col-lg-5 col-md-5 ml-auto">
-                    <div class="info-area info-horizontal mt-5">
-                        <div class="icon icon-primary">
-                            <i class="nc-icon nc-tv-2"></i>
-                        </div>
+                    <div class="info-area info-horizontal">
                         <div class="description">
-                            <h5 class="info-title">{{ __('Marketing') }}</h5>
-                            <p class="description">
-                                {{ __('We\'ve created the marketing campaign of the website. It was a very interesting collaboration.') }}
-                            </p>
+                            <h3 class="info-title">{{ __('Facilities :') }}</h3>
+                            <h5 class="info-title">{{ __('Smart Class') }}</h5>
+                            <ul style="list-style: none;">
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> well-lit areas</li>
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> spacious rooms equipped with desks</li>
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> whiteboards/blackboards</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="info-area info-horizontal">
-                        <div class="icon icon-primary">
-                            <i class="nc-icon nc-html5"></i>
-                        </div>
                         <div class="description">
-                            <h5 class="info-title">{{ __('Fully Coded in HTML5') }}</h5>
-                            <p class="description">
-                                {{ __('We\'ve developed the website with HTML5 and CSS3. The client has access to the code using GitHub.') }}
-                            </p>
+                            <h5 class="info-title">{{ __('Library') }}</h5>
+                            <ul style="list-style: none;">
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> A quiet space with a diverse collection of books</li>
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> digital resources for reading and research</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="info-area info-horizontal">
-                        <div class="icon icon-info">
-                            <i class="nc-icon nc-atom"></i>
-                        </div>
                         <div class="description">
-                            <h5 class="info-title">{{ __('Built Audience') }}</h5>
-                            <p class="description">
-                                {{ __('There is also a Fully Customizable CMS Admin Dashboard for this product.') }}
-                            </p>
+                            <h5 class="info-title">{{ __('Laboratories') }}</h5>
+                            <ul style="list-style: none;">
+                                <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check">  Science labs for subjects like physics, chemistry, and biology with necessary equipment and safety measures</li>
+                                {{-- <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
+                                <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> spacious rooms equipped with desks</li>
+                                <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> whiteboards/blackboards</li> --}}
+                            </ul>
                         </div>
                     </div>
                 </div>
