@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'class' => '',
-    'elementActive' => 'applicant-list'
+    'elementActive' => 'applicant-parent-list'
 ])
 @section('content')
 
@@ -94,22 +94,19 @@
                                             <td class="serial">1</td>
                                             <td>2023114</td>
                                             
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">John</td>
                                             <td>Two (A)</td>
                                             <td>Parent5</td>
                                             <td>12 Apr 2021</td>
                                             <td>658932654</td>
-                                            <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td><span class="badge-basic-success-text">Done</span></td>
                                             <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('schedule-meeting') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a href="{{ route('applicant-edit') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
                                                     </div>
@@ -120,22 +117,19 @@
                                             <td class="serial">2</td>
                                             <td>2023111</td>
                                            
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                              <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">William</td>
                                             <td>Two (A)</td>
                                             <td>Parent8</td>
                                             <td>10 Jan 2024</td>
                                             <td>0147852111</td>
-                                            <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td><span class="badge-basic-info-text">Pending</span></td>
                                             <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('schedule-meeting') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a href="{{ route('applicant-edit') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
 

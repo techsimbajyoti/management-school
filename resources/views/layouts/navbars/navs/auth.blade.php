@@ -33,14 +33,9 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            @if(in_array($elementActive, ['applicant', 'applicant-list','schedule-meeting','meeting-status']) ? 'active' : '' )
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
-                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
-                            @else
                             <a class="dropdown-item" href="{{ route('edit-admin') }}">{{ __('My profile') }}</a>
                             <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
-                            @endif
                         </div>
                     </div>
                 </li>

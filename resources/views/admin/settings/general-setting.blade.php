@@ -123,7 +123,7 @@
                           </div>
 
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
-                            <label for="inputname" class="form-label">Admission Open<span class="fillable">*</span></label> 
+                            <label for="inputname" class="form-label">Admission Open <span class="fillable">*</span></label> 
                             <input type="date" name="admission_open" class="form-control ot-input">
                           </div>
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
@@ -154,6 +154,12 @@
                               </button>
                               </div>
                           </div>
+
+                          <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
+                            <label for="inputname" class="form-label">Time Zone <span class="fillable">*</span></label> 
+                            <input type="text" name="time_zone" class="nice-select niceSelect bordered_style wide" value="Kolkata, West Bengal (GMT+5:30)" placeholder="Enter Time Zone">
+                          </div>
+
                           <div class="col-12 col-md-6 col-xl-6 col-lg-6 mb-3">
                             <label for="inputname" class="form-label">Footer Text <span class="fillable">*</span></label> 
                             <input type="text" name="footer_text" class="nice-select niceSelect bordered_style wide" value="Made with by Tech Simba" placeholder="Enter your footer text">

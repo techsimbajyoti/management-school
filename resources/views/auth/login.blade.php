@@ -5,7 +5,24 @@
 
 @section('content')
     <div class="content">
-        <div class="container">
+        <div class="container" style="background-color: red;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 ml-auto">
+                    <div class="info-area info-horizontal mt-3">
+                        <div class="icon icon-primary">
+                            <img src="{{asset('paper')}}/img/list1.png" alt="ff" width="30px">
+                        </div>
+                        <div class="description">
+                            <p class="description">
+                                {{ __('Admission Open from July 1, 2024 to August 15, 2024') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-top: 40px;">
             <div class="row">
                 <div class="col-lg-5 col-md-5 ml-auto">
                     <div class="info-area info-horizontal mt-5">
@@ -43,7 +60,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mr-auto">
-                    <div class="card card-signup text-center" style="margin-bottom: 0px !important;">
+                    <div class="card card-signup text-center" style="margin-bottom: 30px !important;">
                         <div class="card-body ">
                             <form class="form" method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -108,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
 @endsection

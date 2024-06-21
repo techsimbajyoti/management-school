@@ -5,6 +5,96 @@
 
 @section('content')
 <style>
+  /* Custom card styles */
+  .card-stats {
+            border: 1px solid #e3e3e3;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .card-stats:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-body .icon-big {
+            font-size: 2.5rem;
+        }
+
+        .card-body .numbers {
+            text-align: right;
+        }
+
+        .card-body .card-category {
+            font-size: 1.2rem;
+            color: #777;
+        }
+
+        .card-body .card-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .mini-card {
+            border: 1px solid #e3e3e3;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 10px 10px 5px rgb(174, 230, 248);
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: #000;
+        }
+
+       
+
+        .mini-card.accepted {
+            color: #262b6e;
+        }
+
+        .mini-card.rejected {
+            color: #262b6e;
+        }
+
+        .mini-card.pending {
+            color: #262b6e;
+        }
+
+        .mini-card-body {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mini-card-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .mini-card-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .card-footer {
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #e3e3e3;
+        }
+
+        .card-footer .stats {
+            display: flex;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+
     .event-color-c {
     display: flex;
     margin: 16px;
@@ -68,15 +158,25 @@
     display: block;
 }
   
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 20%;
+    background-color: #ffe4b3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
 </style>
     <div class="content">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card card-stats">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
+                                <div class="icon-big text-center icon-circle">
                                     <i class="fas fa-user-edit text-warning"></i>
                                 </div>
                             </div>
@@ -86,12 +186,39 @@
                                     @php
                                     $total_applicant = App\Models\StudentParent::get();    
                                     @endphp
-                                    <p class="card-title">{{ $total_applicant->count() }}<p>
+                                    <p class="card-title">{{ $total_applicant->count() }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Accepted</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Rejected</span>
+                                        <span class="mini-card-number">41</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Pending</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer ">
+                    <div class="card-footer">
                         <hr>
                         <div class="stats">
                             {{-- <i class="fa fa-refresh"></i> Update Now --}}
@@ -99,156 +226,116 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+      
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card card-stats">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-check-circle text-success"></i>
+                                <div class="icon-big text-center icon-circle" style="background-color: #6bd098">
+                                    <i class="fas fa-handshake" style="color: #1d7042"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Total Accepted</p>
-                                    <p class="card-title">15
-                                        <p>
+                                    <p class="card-category">Total Meeting</p>
+                                    @php
+                                    $total_applicant = App\Models\StudentParent::get();    
+                                    @endphp
+                                    <p class="card-title">{{ $total_applicant->count() }}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer ">
                         <hr>
-                        <div class="stats">
-                            {{-- <i class="fa fa-calendar-o"></i> Last day --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
                         <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-times-circle text-danger"></i>
+                            <div class="col-md-4">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Accepted</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category">Total Rejected</p>
-                                    <p class="card-title">23
-                                        <p>
+                            <div class="col-md-4">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Rejected</span>
+                                        <span class="mini-card-number">41</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Pending</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer ">
+                    <div class="card-footer">
                         <hr>
                         <div class="stats">
-                            {{-- <i class="fa fa-clock-o"></i> In the last hour --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-hourglass-half text-info"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category">Pendding</p>
-                                    <p class="card-title">20<p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            {{-- <i class="fa fa-refresh"></i> Update now --}}
+                            {{-- <i class="fa fa-refresh"></i> Update Now --}}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card card-stats">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-handshake text-primary"></i>
+                                <div class="icon-big text-center icon-circle" style="background-color: #9fe5fa">
+                                    <i class="fas fa-coins" style="color: #1d5d70"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">Invitation</p>
-                                    <p class="card-title">20
-                                        <p>
+                                    <p class="card-category">Total Revenue</p>
+                                    @php
+                                    $total_applicant = App\Models\StudentParent::get();    
+                                    @endphp
+                                    <p class="card-title">{{ $total_applicant->count() }}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer ">
                         <hr>
-                        <div class="stats">
-                            {{-- <i class="fa fa-refresh"></i> Update now --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
                         <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-money-check-alt text-secondary"></i>
+                            <div class="col-md-4">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Paid Amount</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category">Amount Paid</p>
-                                    <p class="card-title">20000
-                                        <p>
+                            <div class="col-md-4">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total Remaining</span>
+                                        <span class="mini-card-number">41</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer ">
+                    <div class="card-footer">
                         <hr>
                         <div class="stats">
-                            {{-- <i class="fa fa-refresh"></i> Update now --}}
+                            {{-- <i class="fa fa-refresh"></i> Update Now --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header ">
-                        <h5 class="card-title">Token Amount Collection (2024)</h5>
-                    </div>
-                    <div class="card-body ">
-                        <canvas id=myChart width="400" height="100"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header ">
-                        <h5 class="card-title">School Calender</h5>
+                        <h5 class="card-title">Schedule Meeting</h5>
                     </div><hr>
                     <div class="card-body ">
                         <div id='calendar'></div>
@@ -399,15 +486,15 @@
                 initialView: 'dayGridMonth',
                 events: [
                     {
-                        title: 'Buddha Purnima',
+                        title: 'School Visiting',
                         start: '2024-05-23'
                     },
                     {
-                        title: 'World Environment Day',
+                        title: 'Parents Meeting',
                         start: '2024-06-05'
                     },
                     {
-                        title: 'World Oceans Day',
+                        title: 'Document Submission',
                         start: '2024-06-08',
                         end: '2024-06-03'
                     }
@@ -474,9 +561,5 @@ $(function () {
   );
 });
   
-        // $(document).ready(function() {
-        //     // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-        //     demo.initChartsPages();
-        // });
-    </script>
+</script>
 @endpush

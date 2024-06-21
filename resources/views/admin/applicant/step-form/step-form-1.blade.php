@@ -7,7 +7,9 @@
             <label class="form-label">{{ __('Parent Name:') }}</label>
             <div class="form-group">
                 <div class="autocomplete">
+
                     <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name" pattern="[A-Za-z ]+" title="Please enter letters only.">
+
                 </div>
                 <span class="invalid-feedback" id="parent_name_error" style="display: none;" role="alert"></span>
             </div>

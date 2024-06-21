@@ -29,41 +29,50 @@
         <ul class="nav">
             @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
             
-            @if(in_array($elementActive, ['applicant', 'applicant-list','schedule-meeting','meeting-status']) ? 'active' : '' )
-            <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
-                <a href="{{ route('applicant') }}">
+            <li class="{{ in_array($elementActive, ['meeting-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'active' : '' }}">
+                <a aria-expanded="{{ in_array($elementActive, ['meeting-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'true' : 'false' }}" data-toggle="collapse" aria-expanded="true" href="#aravelExamples">
                     <i class="fa fa-user-circle"></i>
-                    <p>{{ __('Applicant') }}</p>
+                    <p>
+                        {{ __('Applicant') }}
+                        <b class="caret"></b>
+                    </p>
                 </a>
-            </li>
+                <div class="collapse {{ in_array($elementActive, ['meeting-tracking','applicant', 'meeting-status', 'schedule-meeting', 'applicant-list']) ? 'show' : '' }}" id="aravelExamples">
+                    <ul class="nav">
+                        <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
+                            <a href="{{ route('applicant') }}">
+                                <span class="sidebar-mini-icon">{{ __('A') }}</span>
+                                <span class="sidebar-normal">{{ __(' Applicant ') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'applicant-list' ? 'active' : '' }}">
+                            <a href="{{ route('applicant-list') }}">
+                                <span class="sidebar-mini-icon">{{ __('AL') }}</span>
+                                <span class="sidebar-normal">{{ __(' Applicant List') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ $elementActive == 'schedule-meeting' ? 'active' : '' }}">
+                            <a href="{{ route('schedule-meeting') }}">
+                                <span class="sidebar-mini-icon">{{ __('SM') }}</span>
+                                <span class="sidebar-normal">{{ __(' Schedule Meeting ') }}</span>
+                            </a>
+                        </li>
+                        
+                        <li class="{{ $elementActive == 'meeting-status' ? 'active' : '' }}">
+                            <a href="{{ route('meeting-status') }}">
+                                <span class="sidebar-mini-icon">{{ __('MS') }}</span>
+                                <span class="sidebar-normal">{{ __(' Meeting Status ') }}</span>
+                            </a>
+                        </li>
 
-            <li class="{{ $elementActive == 'applicant-list' ? 'active' : '' }}">
-                <a href="{{ route('applicant-list') }}">
-                    <i class="fas fa-list"></i>
-                    <p>{{ __('Applicant List') }}</p>
-                </a>
-            </li>
-
-            <li class="{{ $elementActive == 'schedule-meeting' ? 'active' : '' }}">
-                <a href="{{ route('schedule-meeting') }}">
-                    <i class="fa fa-handshake "></i>
-                    <p>{{ __('Schedule Meeting') }}</p>
-                </a>
-            </li>
-      
-            <li class="{{ $elementActive == 'meeting-status' ? 'active' : '' }}">
-                <a href="{{ route('meeting-status') }}">
-                    <i class="fa fa-handshake"></i>
-                    <p>{{ __('Meeting Status') }}</p>
-                </a>
-            </li>
-
-            @else
-            <li class="{{ $elementActive == 'applicant' ? 'active' : '' }}">
-                <a href="{{ route('applicant') }}" target="_blank">
-                    <i class="fa fa-user-circle"></i>
-                    <p>{{ __('Applicant') }}</p>
-                </a>
+                        <li class="{{ $elementActive == 'meeting-tracking' ? 'active' : '' }}">
+                            <a href="{{ route('meeting-tracking') }}">
+                                <span class="sidebar-mini-icon">{{ __('MT') }}</span>
+                                <span class="sidebar-normal">{{ __(' Meeting Tracking ') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
 
             <li class="{{ $elementActive == 'dashboard' ? 'active' : '' }}">
@@ -511,10 +520,6 @@
                 </a>
             </li>
             
-
-            @endif
-
-            
             @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
                 
                 <li class="{{ $elementActive == 'teacher-dashboard' ? 'active' : '' }}">
@@ -740,10 +745,31 @@
                 </a>
             </li>
 
-            <li class="{{ $elementActive == 'parent-meeting' ? 'active' : '' }}">
-                <a href="{{ route('applicant-profile') }}">
+            <li class="{{ $elementActive == 'add-applicant' ? 'active' : '' }}">
+                <a href="{{ route('add-applicant') }}">
+                    <i class="fa fa-user-plus"></i> 
+                    <p>{{ __('Add Applicant') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'applicant-parent-list' ? 'active' : '' }}">
+                <a href="{{ route('applicant-parent-list') }}">
+                    <i class="fas fa-list"></i> 
+                    <p>{{ __('Applicant List') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'parent-meeting-status' ? 'active' : '' }}">
+                <a href="{{ route('parent-meeting-status') }}">
                     <i class="fas fa-handshake"></i> 
-                    <p>{{ __('Meeting') }}</p>
+                    <p>{{ __('Meeting Status') }}</p>
+                </a>
+            </li>
+
+            <li class="{{ $elementActive == 'parent-meeting-track' ? 'active' : '' }}">
+                <a href="{{ route('parent-meeting-track') }}">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>{{ __('Track Meeting') }}</p>
                 </a>
             </li>
 
