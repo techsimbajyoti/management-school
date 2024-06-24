@@ -124,7 +124,8 @@
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                                             <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('schedule-meeting') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a class="dropdown-item view_document"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
                                                     </div>
@@ -165,7 +166,8 @@
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
                                                             <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('schedule-meeting') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a class="dropdown-item view_document"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
 
@@ -191,40 +193,57 @@
 
     <!-- Modal content -->
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+      <div class="modal-header">
+        <h2>Note Details</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula arcu, ultricies vitae porttitor ut, eleifend vel nisl. Nulla dui metus, ornare sit amet dolor aliquam, eleifend gravida dolor. </p>
+            </div>
+            <div class="col-md-6">
+                <p>00/00/0000</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       <h3></h3>
+      </div>
     </div>
   
-</div>
+  </div>
 
 @endsection 
 @push('scripts')
 <script>
-    // Get the modal
-var modal = document.getElementById("myModal");
+ // Get the modal
+ var modal = document.getElementById("myModal");
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    
+    // Add event listeners to all buttons with class "myBtn"
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.getElementsByClassName("view_document");
+        Array.prototype.forEach.call(buttons, function(btn) {
+            btn.addEventListener("click", function() {
+                modal.style.display = "block";
+            });
+        });
 
-// Get the button that opens the modal
-var btn = document.getElementById("add-note");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+            // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close");
+        Array.prototype.forEach.call(span, function(sp) {
+            sp.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+        });
+    });
 
     $(document).ready(function() {
 

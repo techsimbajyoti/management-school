@@ -35,6 +35,7 @@
             </div> 
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
+                    @if($meetingStatus == 'schedule-meeting')
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -55,7 +56,9 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
+                    @if($meetingStatus == 'applicant-1')
                     <div class="d-flex">
                         <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
                     </div>
@@ -120,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-
+                    @endif
                     <div class="row frame-content">
                         <div class="col">
                             <div class="form-group">
@@ -195,10 +198,10 @@
             </div>
             <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
                 <div class="frame-container">
-                    <h4 class="frame-title">Meeting Confirmation</h4>
+                    <h3 class="frame-title">Meeting Confirmation</h3>
                     <div class="row frame-content">
                         <div id="appointment-details" class="col-12 col-md-12">
-                            <h4>Meeting Information</h4>
+                            <h5>Meeting Information</h5>
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
@@ -219,7 +222,7 @@
                                          
                         </div>
                         <div id="customer-details" class="col-12 col-md-12 mt-5">
-                            <h4>Applicant Information</h4>
+                            <h5>Applicant Information</h5>
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
@@ -322,12 +325,23 @@
     });
 
 
-var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-       
+        selectable: true, // Allow date selection
+        select: function(info) {
+            calendar.removeAllEventSources(); // Clear existing events if any
+            calendar.addEventSource({ // Add new event for selected date
+                title: 'Selected',
+                start: info.start,
+                end: info.end,
+                backgroundColor: 'blue', // Customize highlight color
+                borderColor: 'blue' // Customize border color
+            });
+            // calendar.unselect(); // Clear date selection
+        }
     });
-    calendar.render();
+        calendar.render();
 });
 
 $('document').ready(function() {

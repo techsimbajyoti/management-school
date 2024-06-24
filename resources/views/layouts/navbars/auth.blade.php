@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="{{ $elementActive == 'schedule-meeting' ? 'active' : '' }}">
-                            <a href="{{ route('schedule-meeting') }}">
+                            <a href="{{ route('schedule-meeting','schedule-meeting') }}">
                                 <span class="sidebar-mini-icon">{{ __('SM') }}</span>
                                 <span class="sidebar-normal">{{ __(' Schedule Meeting ') }}</span>
                             </a>

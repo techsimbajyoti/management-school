@@ -3,6 +3,79 @@
     'elementActive' => 'meeting-status'
 ])
 @section('content')
+<style>
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: white;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: white;
+  color: black;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    background-color: white;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
+}
+    </style>
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -97,7 +170,7 @@
                                             <td>2:30 pm</td>
                                             <td>Student Interview</td>
                                             <td>Offline</td>
-                                            <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><i class="fa fa-eye"></i></div></td>
+                                            <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
@@ -123,7 +196,7 @@
                                             <td>3:30 pm</td>
                                             <td>Student Interview</td>
                                             <td>Offline</td>
-                                            <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
+                                             <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
@@ -146,4 +219,62 @@
         </div>    
     </div>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Note Details</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula arcu, ultricies vitae porttitor ut, eleifend vel nisl. Nulla dui metus, ornare sit amet dolor aliquam, eleifend gravida dolor. </p>
+            </div>
+            <div class="col-md-6">
+                <p>00/00/0000</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       <h3></h3>
+      </div>
+    </div>
+  
+  </div>
 @endsection
+
+@push('scripts')
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    
+    // Add event listeners to all buttons with class "myBtn"
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.getElementsByClassName("myBtn");
+        Array.prototype.forEach.call(buttons, function(btn) {
+            btn.addEventListener("click", function() {
+                modal.style.display = "block";
+            });
+        });
+
+            // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close");
+        Array.prototype.forEach.call(span, function(sp) {
+            sp.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+        });
+    });
+    </script>
+@endpush
