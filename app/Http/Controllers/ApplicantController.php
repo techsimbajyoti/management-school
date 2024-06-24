@@ -162,7 +162,7 @@ class ApplicantController extends Controller
             'blood_group'=>'nullable|string',
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:1024',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
     
         $ipAddress = $this->getPublicIpAddress();
