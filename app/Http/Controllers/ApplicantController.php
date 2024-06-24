@@ -83,8 +83,9 @@ class ApplicantController extends Controller
         return view('admin.applicant.applicant-profile');
     }
 
-    public function schedule_meeting(){
-        return view('admin.applicant.schedule-meeting');
+    public function schedule_meeting($id){
+        $meetingStatus = $id;
+        return view('admin.applicant.schedule-meeting',compact('meetingStatus'));
     }
 
     public function post_applicant_data(Request $request){
@@ -293,7 +294,17 @@ class ApplicantController extends Controller
     }
 
     public function meeting_tracking(){
-        return view('admin.applicant.meeting-tracking');
+         // Example steps data
+    $steps = [
+        ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
+        ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
+        ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
+        ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
+        ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
+        ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
+    ];
+
+        return view('admin.applicant.meeting-tracking',compact('steps'));
     }
 
     public function applicant_parent_list(){
