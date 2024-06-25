@@ -339,7 +339,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('add-notification',[HomeController::class, 'add_notification'])->name('add-notification');
 
-	Route::get('schedule-meeting',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
+	Route::get('schedule-meeting/{id}',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
 
 	Route::get('meeting-status',[ApplicantController::class, 'meeting_status'])->name('meeting-status');
 

@@ -50,7 +50,6 @@
                                     <option value="3">Rejected</option>
                                     <option value="4">Approve</option>
                                     <option value="5">Done</option>
-                                    <option value="6">Meeting Schedule</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">

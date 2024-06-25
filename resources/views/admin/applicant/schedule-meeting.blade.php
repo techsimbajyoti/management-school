@@ -10,7 +10,8 @@
 <link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/frontend.min.css">
 <link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/general.min.css">
 <link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/jquery-ui.min.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 @section('content')
 <div class="content">
@@ -162,7 +163,7 @@
                     <h4 class="frame-title">Meeting Date & Time</h4>
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <div id="calendar"></div>
+                            <input type="text" id="datepicker" placeholder="Please Select a date">
                         </div>
                         <div class="col-12 col-md-6">
                             <div id="select-time">
@@ -284,6 +285,16 @@
 @endsection
 @push('scripts')
 <script>
+     document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#datepicker", {
+            dateFormat: "Y-m-d", // Date format (e.g., YYYY-MM-DD)
+            defaultDate: "today", // Default date (today's date)
+            onChange: function(selectedDates, dateStr, instance) {
+                alert('Selected Date: ' + dateStr); // Show selected date in an alert
+            }
+        });
+    });
+
  $(document).ready(function() {
     $('#meeting_mode_other').hide();
     $('#meeting_other').hide();
@@ -324,24 +335,6 @@
         $(this).addClass('selected-hour');
     });
 
-
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        selectable: true, // Allow date selection
-        select: function(info) {
-            calendar.removeAllEventSources(); // Clear existing events if any
-            calendar.addEventSource({ // Add new event for selected date
-                title: 'Selected',
-                start: info.start,
-                end: info.end,
-                backgroundColor: 'blue', // Customize highlight color
-                borderColor: 'blue' // Customize border color
-            });
-            // calendar.unselect(); // Clear date selection
-        }
-    });
-        calendar.render();
 });
 
 $('document').ready(function() {
@@ -356,6 +349,8 @@ $('document').ready(function() {
         $('#wizard-frame-3').hide();
         $('#wizard-frame-4').hide(); 
         updateSteps(2);
+        // Open flatpickr calendar immediately after page load
+        document.querySelector("#datepicker")._flatpickr.open();
     });
     $('#button-next-2').click(function() {
        $('#wizard-frame-3').show();
