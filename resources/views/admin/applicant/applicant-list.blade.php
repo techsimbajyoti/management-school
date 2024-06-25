@@ -35,10 +35,11 @@
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
-                                <select class="class nice-select niceSelect bordered_style wide sections" name="section">
+                                <select class="class nice-select niceSelect bordered_style wide sections" name="class">
                                     <option value>Select one of these</option>
-                                    <option value="" selected>All</option>
-                                    <option value="">Class</option>
+                                    <option value="One" selected>One</option>
+                                    <option value="Two">Two</option>
+                                    <option value="Three">Three</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
@@ -65,7 +66,7 @@
                 </div>
             </form>
 
-            <div class="table-content table-basic mt-20 activeStudentList" id="activeStudentList">
+            <div class="table-content table-basic mt-20 activeStudentList">
                 <div class="card ot-card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">Applicants List</h4>
@@ -78,8 +79,9 @@
                                     <tr>
                                         <th class="serial">SR No.</th>
                                         <th class="purchase">Applicant NO</th>
-                                        <th class="purchase">Applicant name</th>
-                                        <th class="purchase">Class (Section)</th>
+                                        <th class="purchase">Applicant Name</th>
+                                        <th class="purchase">User Name</th>
+                                        <th class="purchase">Class</th>
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Contact</th>
@@ -90,16 +92,19 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
+                                        
+                                        @foreach($applicant_list as $applicant_lists)
                                         <tr id="row_7">
-                                            <td class="serial">1</td>
-                                            <td>2023114</td>
+                                            <td class="serial">{{$applicant_lists->id}}</td>
+                                            <td>{{$applicant_lists->applicant_id}}</td>
                                             
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
-                                            <td>Two (A)</td>
-                                            <td>Parent5</td>
-                                            <td>12 Apr 2021</td>
-                                            <td>658932654</td>
+                                            <td><img src="{{ url('storage/student_photos/' . $applicant_lists->image) }}" height="40px" width="40px">
+                                                {{$applicant_lists->first_name}} {{$applicant_lists->last_name}}</td>
+                                             <td>{{ $applicant_lists->user_name }}</td> 
+                                            <td>{{ $applicant_lists->class }}</td>
+                                            <td>{{ $applicant_lists->father_name}}</td>
+                                            <td>{{$applicant_lists->date_of_birth}}</td>
+                                            <td>{{$applicant_lists->father_mobile}}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
@@ -122,60 +127,17 @@
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('view-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
+                                                            <a href="{{ route('edit-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
-                                                            <a class="dropdown-item view_document"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
+                                                            <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr id="row_7">
-                                            <td class="serial">2</td>
-                                            <td>2023111</td>
-                                           
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                              <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
-                                            <td>Two (A)</td>
-                                            <td>Parent8</td>
-                                            <td>10 Jan 2024</td>
-                                            <td>0147852111</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <ul style="list-style: none">
-                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">New</label></li>
-                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Accept</label></li>
-                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Reject</label></li>
-                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Approve</label></li>
-                                                                <li><input type="radio" name="add_note" class="mr-3 add-note"><label for="">Done</label></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            {{-- <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td> --}}
-                                            <td class="action">
-                                                <div class="dropdown dropdown-action">
-                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('view-applicant') }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-applicant') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
-                                                            <a class="dropdown-item view_document"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
-                                                            <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -190,29 +152,33 @@
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
-
     <!-- Modal content -->
     <div class="modal-content">
-      <div class="modal-header">
-        <h2>Note Details</h2>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-6">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula arcu, ultricies vitae porttitor ut, eleifend vel nisl. Nulla dui metus, ornare sit amet dolor aliquam, eleifend gravida dolor. </p>
-            </div>
-            <div class="col-md-6">
-                <p>00/00/0000</p>
+        <div class="modal-header">
+            <h2>Document Details</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive">
+                <table class="table table-bordered role-table myTable">
+                    <thead class="thead">
+                        <tr>
+                            <th>Document Name</th>
+                            <th>Document File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Document rows will be appended here -->
+                    </tbody>
+                </table>
             </div>
         </div>
-      </div>
-      <div class="modal-footer">
-       <h3></h3>
-      </div>
+        <div class="modal-footer">
+            <h3></h3>
+        </div>
     </div>
-  
-  </div>
+</div>
+
 
 @endsection 
 @push('scripts')
@@ -245,53 +211,78 @@
         });
     });
 
-    $(document).ready(function() {
+    $(document).on('click', '.view_document', function(e) {
+    e.preventDefault();
 
-        $('.add-note').click(function(){
-
-        });
-
-        $('.inactiveStudentList').hide();
-        $('.allStudentList').hide();
-
-        var sections = {
-            1: ["A", "B", "C"],
-            2: ["D", "E"],
-            3: ["F", "G", "H", "I"]
-        };
-
-        $('#getSections').change(function() {
-            var classId = $(this).val();
-            var $sectionsDropdown = $('.sections');
-            $sectionsDropdown.empty();
-            $sectionsDropdown.append('<option value="">Select section</option>');
-
-            if (sections[classId]) {
-                sections[classId].forEach(function(section) {
-                    $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
+    var applicantId = $(this).data('id');
+    $.ajax({
+        url: '/students/' + applicantId + '/documents',
+        method: 'GET',
+        success: function(response) {
+            if(response.success) {
+                // Populate modal with the returned data
+                var tableBody = $('#myModal .modal-body tbody');
+                tableBody.empty();
+                response.documents.forEach(function(document) {
+                    tableBody.append(
+                        '<tr>' +
+                            '<td class="text-center">' + document.name + '</td>' +
+                            '<td class="text-center"><a class="btn btn-lg ot-btn-primary" href="/storage/student_documents/' + document.file + '" download><i class="fa fa-download" aria-hidden="true"></i> Download</a></td>' +
+                        '</tr>'
+                    );
                 });
-            }
-        });
 
-        $('#marksheed').on('submit', function(e) {
-            e.preventDefault();
-            var status = $('select[name="status"]').val();
+                // Open the modal
+                $('#myModal').show();
+            } else {
+                alert('Failed to load documents');
+            }
+        },
+        error: function(response) {
+            console.log(response);
+            alert('An error occurred while fetching documents');
+        }
+    });
+});
+
+// Close the modal
+$(document).on('click', '.close', function() {
+    $('#myModal').hide();
+});
+
+
+    // $(document).ready(function() {
+
+    //     $('.add-note').click(function(){
+
+    //     });
+
+    //     $('.inactiveStudentList').hide();
+    //     $('.allStudentList').hide();
+
+       
+
+        
+
+    //     $('#marksheed').on('submit', function(e) {
+    //         e.preventDefault();
+    //         var status = $('select[name="status"]').val();
             
 
-            if (status == "1") {
-                $('.activeStudentList').show();
-                $('.inactiveStudentList').hide();
-                $('.allStudentList').hide();
-            } else if (status == "2") {
-                $('.activeStudentList').hide();
-                $('.inactiveStudentList').show();
-                $('.allStudentList').hide();
-            } else {
-                $('.activeStudentList').hide();
-                $('.inactiveStudentList').hide();
-                $('.allStudentList').show();
-            }
-        });
-    });
+    //         if (status == "1") {
+    //             $('.activeStudentList').show();
+    //             $('.inactiveStudentList').hide();
+    //             $('.allStudentList').hide();
+    //         } else if (status == "2") {
+    //             $('.activeStudentList').hide();
+    //             $('.inactiveStudentList').show();
+    //             $('.allStudentList').hide();
+    //         } else {
+    //             $('.activeStudentList').hide();
+    //             $('.inactiveStudentList').hide();
+    //             $('.allStudentList').show();
+    //         }
+    //     });
+    // });
 </script>
 @endpush

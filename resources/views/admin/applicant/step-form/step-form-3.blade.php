@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="card-footer mt-5">
                                     <div class="d-flex justify-content-between">
-                                        <button type="button" class="btn ot-btn-primary back_1" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
+                                        <button type="button" class="btn ot-btn-primary back_2" style="margin-bottom:10px;"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                         <div>
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_2" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}

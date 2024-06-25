@@ -13,6 +13,10 @@ class StudentParent extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable ,SoftDeletes;
 
+
+
+
+
     /**
      * The attributes that are mass assignable.
      *

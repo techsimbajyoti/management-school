@@ -34,64 +34,259 @@ class ApplicantController extends Controller
 
     public function applicant_list(){
         
-        return view('admin.applicant.applicant-list');
-    }
-
-    public function view_applicant(){
-        $country = Country::get();
-
-        $test = [];
-        foreach($country as $count){
-            $test[] = $count->country;
-        }
-        $state = State::get();
-        $testing = [];
-        foreach($state as $sta){
-            $testing[] = $sta->state;
-        }
-        $country = Country::get(['id','country']);
-        $state = State::get(['id','state']);
-
-        $Religion = Religion::get();
-        $BloodGroup = BloodGroup::get();
-
-        $Language = Language::get();
-        $lang = [];
-        foreach($Language as $lng){
-            $lang[] = $lng->name;
-        }
-
-        return view('admin.applicant.view-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
-    }
-
-    public function edit_applicant(){
-        $country = Country::get();
-
-        $test = [];
-        foreach($country as $count){
-            $test[] = $count->country;
-        }
-        $state = State::get();
-        $testing = [];
-        foreach($state as $sta){
-            $testing[] = $sta->state;
-        }
-        $country = Country::get(['id','country']);
-        $state = State::get(['id','state']);
-
-
-
-        $Religion = Religion::get();
-        $BloodGroup = BloodGroup::get();
-
-        $Language = Language::get();
-        $lang = [];
-        foreach($Language as $lng){
-            $lang[] = $lng->name;
-        }
+        $applicant_list = Student::join('student_parents', function ($join) {
+            $join->on('students.parent_id', '=', 'student_parents.id')
+                 ->on('students.applicant_id', '=', 'student_parents.applicant_id');
+        })
+        ->select('students.*', 'student_parents.*')
+        ->get();
         
-        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
+               
+        return view('admin.applicant.applicant-list',compact('applicant_list'));
     }
+
+    public function view_applicant($id)
+    {
+        $country = Country::get();
+        $test = [];
+        foreach ($country as $count) {
+            $test[] = $count->country;
+        }
+    
+        $state = State::get();
+        $testing = [];
+        foreach ($state as $sta) {
+            $testing[] = $sta->state;
+        }
+    
+        $country = Country::get(['id', 'country']);
+        $state = State::get(['id', 'state']);
+    
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+    
+        $Language = Language::get();
+        $lang = [];
+        foreach ($Language as $lng) {
+            $lang[] = $lng->name;
+        }
+    
+        $applicant_data = Student::join('student_parents', function ($join) use ($id) {
+            $join->on('students.parent_id', '=', 'student_parents.id')
+                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                 ->where('student_parents.id', '=', $id);
+        })
+        ->select('students.*', 'student_parents.*')
+        ->first();
+    
+        return view('admin.applicant.view-applicant', compact('lang', 'Language', 'BloodGroup', 'Religion', 'state', 'country', 'test', 'testing', 'applicant_data'));
+    }
+    
+    public function edit_applicant($id){
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+
+        $Language = Language::get();
+        $lang = [];
+        foreach($Language as $lng){
+            $lang[] = $lng->name;
+        }
+
+        $applicant_data = Student::join('student_parents', function ($join) use ($id) {
+            $join->on('students.parent_id', '=', 'student_parents.id')
+                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                 ->where('student_parents.id', '=', $id);
+        })
+        ->select('students.*', 'student_parents.*')
+        ->first();
+        
+        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data'));
+    }
+
+
+    public function update_applicant(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
+            'email' => 'required|email',
+            'password' => 'required',
+            'contact_number' => 'required|digits_between:10,15',
+            'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
+           
+        ]);
+    
+        $ipAddress = $this->getPublicIpAddress();
+    
+        $parent = StudentParent::findOrFail($id);
+    
+        $parent->father_name = $request->parent_name;
+        $parent->father_mobile = $request->contact_number;
+        $parent->email = $request->email;
+        $parent->father_profession = $request->profession;
+        $parent->role_id = $request->role_id;
+        $parent->status = $request->status;
+        $parent->ip_address = $ipAddress;
+        $parent->created_by = 'null';
+    
+        $parent->save();
+    
+        Session::put('parent_id', $parent->id);
+       
+    
+        return response()->json(['success' => 'true', 'action' => $request->action]);
+    }
+
+    public function update_student_applicant(Request $request ,$parent_id)
+    {
+        $validatedData = $request->validate([
+            'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
+            'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
+            'gender' => 'required',
+            'class' => 'required',
+            'date_of_birth' => 'required|date|before:' . now()->toDateString(),
+            'student_language'=>'nullable|string',
+            'category'=>'nullable|string',
+            'blood_group'=>'nullable|string',
+            'religion'=>'nullable|string',
+            'previous_school'=>'nullable|string',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
+        
+        $ipAddress = $this->getPublicIpAddress();
+        
+        $parent_id = Session::get('parent_id');
+      
+        $student_update = Student::where('parent_id', $parent_id)->firstOrFail();
+        
+        if ($request->hasFile('image')) {
+            $originalFileName = $request->file('image')->getClientOriginalName();
+            $currentDateTime = now()->format('YmdHis');
+            $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+            $student_update->image = $currentDateTime . '_' . $originalFileName;
+        } else {
+            $student_update->image = 'null';
+        }
+
+        $student_update->first_name = $request->first_name;
+        $student_update->last_name = $request->last_name;
+        $student_update->gender = $request->gender;
+        $student_update->class = $request->class;
+        $student_update->date_of_birth = $request->date_of_birth;
+        $student_update->blood_group = $request->blood_group;
+        $student_update->religion = $request->religion;
+        $student_update->category = $request->category;
+        $student_update->student_language = $request->student_language;
+        $student_update->previous_school = $request->previous_school;
+        $student_update->parent_id = $parent_id;
+        $student_update->role_id = $request->role_id;
+        $student_update->ip_address = $ipAddress;
+        $student_update->status = $request->status;
+        $student_update->created_by = 'null';
+
+        $student_update->save();
+        Session::put(['student_id' => $student_update->id]);
+
+        return response()->json(['success' => 'true', 'action' => $request->action]);
+    }
+    
+
+    public function update_contact_applicant(Request $request ,$parent_id)
+    {
+        $validatedData = $request->validate([
+            'residence_address' =>'required|min:3|max:255',
+            'country' => 'required|string|regex:/^[A-Za-z ]+$/',
+            'state' => 'required',
+            'city' => 'required',
+            'pin_code' => 'required|digits:6',
+        ]);
+        
+              
+        $student_id = Session::get('student_id');
+      
+        $contact_update = Student::where('parent_id', $parent_id)
+                         ->where('id',$student_id)
+                        ->firstOrFail();
+        
+                
+            $contact_update->address = $request->residence_address;
+            $contact_update->country = $request->country;
+            $contact_update->state = $request->state;
+            $contact_update->city = $request->city;
+            $contact_update->pin_code = $request->pin_code;
+            $contact_update->save();
+        
+
+        return response()->json(['success' => 'true', 'action' => $request->action]);
+    }
+
+    public function update_document_applicant(Request $request ,$parent_id)
+    {
+            
+       $student_id = session::get('student_id');
+
+       if (is_null($student_id)) {
+        return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+    }
+
+    try {
+        $student_document_update = Student::where('parent_id', $parent_id)
+                        ->where('id',$student_id)
+                        ->firstOrFail();
+        if (!$student_document_update) {
+            return response()->json(['success' => false, 'errors' => 'Student not found']);
+        }
+
+        $documents = [];
+
+        if ($request->hasFile('document_file')) {
+            foreach ($request->file('document_file') as $key => $file) {
+                $originalFileName = $file->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $documentPath = $file->storeAs('storage/student_documents', $currentDateTime . '_' . $originalFileName);
+
+                $documents[] = [
+                    'name' => $request->input('document_name')[$key],
+                    'file' =>  $currentDateTime . '_' .$originalFileName,
+                ];
+            }
+
+            // If documents already exist, merge them
+            if (!is_null($student_document_update->document)) {
+                $existingDocuments = json_decode($student_document_update->document, true);
+                if (is_array($existingDocuments)) {
+                    $documents = array_merge($existingDocuments, $documents);
+                }
+            }
+
+            $student_document_update->document = json_encode($documents);
+        }
+
+        $student_document_update->save();
+
+        return response()->json(['success' => 'true', 'action' => $request->action]);
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+        return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+    }
+ }
+ 
 
     public function applicant_profile(){
         return view('admin.applicant.applicant-profile');
@@ -177,7 +372,7 @@ class ApplicantController extends Controller
                 $originalFileName = $request->file('image')->getClientOriginalName();
                 $currentDateTime = now()->format('YmdHis');
                 $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
-                $student->image = $originalFileName;
+                $student->image = $currentDateTime . '_' .$originalFileName;
             } else {
                 $student->image = null;
             }
@@ -305,6 +500,23 @@ class ApplicantController extends Controller
         return response()->json(['success' => false, 'errors' => $e->getMessage()]);
     }
 }
+
+
+public function showApplicantDocuments($id)
+{
+    $student = Student::where('parent_id', $id)->first();
+
+    if (!$student) {
+        return response()->json(['success' => false, 'errors' => 'Student not found']);
+    }
+
+    // Decode the documents JSON field
+    $documents = json_decode($student->document, true);
+
+    return response()->json(['success' => true, 'documents' => $documents]);
+}
+
+
 
 
     public function meeting_status(){

@@ -53,6 +53,9 @@ Route::post('post-applicant-contact-data',[ApplicantController::class,'post_appl
 
 Route::post('post-applicant-document-data',[ApplicantController::class,'post_applicant_document_data'])->name('post-applicant-document-data');
 
+Route::get('students/{id}/documents', [ApplicantController::class, 'showApplicantDocuments'])->name('students.documents');
+
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
@@ -63,9 +66,17 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
-	Route::get('view-applicant', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
+	Route::get('view-applicant/{id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
 
-	Route::get('edit-applicant', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
+	Route::get('edit-applicant/{id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
+
+	Route::post('update-applicant/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant');
+
+	Route::post('update-student-applicant/{id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
+
+	Route::post('update-contact-applicant/{id}', [ApplicantController::class, 'update_contact_applicant'])->name('update-contact-applicant');
+
+	Route::post('update-document-applicant/{id}', [ApplicantController::class, 'update_document_applicant'])->name('update-document-applicant');
 
 	Route::get('edit-admin', [AdminController::class, 'edit_admin'])->name('edit-admin');
 
@@ -326,7 +337,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('add-notification',[HomeController::class, 'add_notification'])->name('add-notification');
 
-	Route::get('schedule-meeting/{id}',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
+	Route::get('schedule-meeting',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
 
 	Route::get('meeting-status',[ApplicantController::class, 'meeting_status'])->name('meeting-status');
 

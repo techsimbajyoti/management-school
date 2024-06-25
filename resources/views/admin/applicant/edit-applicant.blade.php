@@ -103,7 +103,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-right">
-                                    @if(auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_id == 'applicant')
+                                    @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_id == 'applicant')
                                     <a href="{{route('applicant-profile')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                                     @else
                                     <a href="{{route('applicant-list')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
@@ -118,27 +118,20 @@
                                             <label class="form-label">{{ __('Parent Name:') }}</label>
                                             <div class="form-group">
                                                 <div class="autocomplete">
-                                                    <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name">
+                                                    <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name" value="{{ $applicant_data->father_name}}">
+                                                    <span class="invalid-feedback" id="parent_name_error" style="display: none;" role="alert"></span>
                                                 </div>
-                                          
-                                            @if ($errors->has('parent_name')) 
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('parent_name') }}</strong>
-                                            </span>
-                                            @endif
+                                               
+                                           
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Email:') }}</label>
                                                 <div class="form-group">
-                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" >
-                                                
-                                                @if ($errors->has('email'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                                @endif
+                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email"  value="{{ $applicant_data->email}}" >
+                                                    <span class="invalid-feedback" id="email_error" style="display: none;"></span>
+                                              
                                                 </div>
                                         </div>
                                         <div class="col-md-6">
@@ -146,13 +139,9 @@
                                             <label class="form-label">{{ __('Password:') }}</label>
                                         
                                             <div class="form-group">
-                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password">
-                                            
-                                                @if ($errors->has('password'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
-                                                @endif
+                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password"  value="{{ $applicant_data->password}}" readonly>
+                                                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
+                                               
                                             </div>
                                         </div>
                                         
@@ -161,13 +150,9 @@
                                             <label class="form-label">{{ __('Confirm Password:') }}</label>
                                         
                                             <div class="form-group">
-                                                <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password">
-                                            
-                                                @if ($errors->has('password_confirmation'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                                    </span>
-                                                @endif
+                                                <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password"  value="{{ $applicant_data->password}}" readonly>
+                                                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
+                                                
                                             </div>
                                         </div>
                                         
@@ -176,12 +161,8 @@
                                             <label class="form-label">{{ __('Contact Number:') }}</label>
                                 
                                                 <div class="form-group">
-                                                    <input type="number" name="contact_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Contact Number" >
-                                                    @if ($errors->has('contact_number'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('contact_number') }}</strong>
-                                                    </span>
-                                                    @endif
+                                                    <input type="number" name="contact_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Contact Number"   value="{{ $applicant_data->father_mobile}}">
+                                                    <span class="invalid-feedback" id="contact_number_error" style="display: none;"></span>
                                                 </div>
                                                
                                         </div>
@@ -190,33 +171,29 @@
                                             <label class="form-label">{{ __('Profession:') }}</label>
                                 
                                                 <div class="form-group">
-                                                    <input type="text" name="profession" class="nice-select niceSelect bordered_style wide" placeholder="Enter Profession" >
-                                                
-                                                @if ($errors->has('profession'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('profession') }}</strong>
-                                                    </span>
-                                                @endif
+                                                    <input type="text" name="profession" class="nice-select niceSelect bordered_style wide" placeholder="Enter Profession"  value="{{ $applicant_data->father_profession}}">
+                                                     <span class="invalid-feedback" id="profession_error" style="display: none;"></span>
+                                               
                                                 </div>  
                                         </div>
                                     </div>
                                     <input type="hidden" name="role_id" value="5">
                                     <input type="hidden" name="status" value="active">
-                                    <input type="hidden" name="applicant_id" value="applicant">
+                                  
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-end">
                                             <input type="hidden" name="action" id="form-action" value="save">
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_1">
-                                                <i class="fa fa-save"></i> {{ __('Save & Continue') }}
+                                                <i class="fa fa-refresh"></i> {{ __('Update $ Next') }}
                                             </button>
-                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                            {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
                                                 <i class="fa fa-save"></i> {{ __('Save') }}
-                                            </button>
+                                            </button> --}}
                                         </div>
                                     </div>
                                 </form> 
 
-                                <form class="form" method="POST" id="form2">
+                                <form id="form2" class="form" method="POST"  action="" enctype="multipart/form-data">
                                     @csrf
                                     <h5>Applicant Information</h5><br>
                                     <div class="row">
@@ -227,52 +204,35 @@
                                             <label class="form-label">{{ __('First Name:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required>
+                                                    <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required  value="{{ $applicant_data->first_name}}" >
+                                                
+                                                   <span class="invalid-feedback" id="first_name_error" style="display: none;" role="alert"></span>
                                                 </div>
-                                                @if ($errors->has('first_name'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                                    </span>
-                                                @endif
-                                        </div>
+                                            </div>
                                     
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Last Name:') }}</label>
     
                                             <div class="form-group">
-                                                <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required>
-                                            </div>
-                                            @if ($errors->has('last_name'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('last_name') }}</strong>
-                                                </span>
-                                            @endif
+                                                <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required  value="{{ $applicant_data->last_name}}">
+                                           
+                                            <span class="invalid-feedback" id="last_name_error" style="display: none;" role="alert"></span>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Email address:') }}</label>
-            
-                                            <div class="form-group">
-                                                <input type="text" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Email Address" required value="admin@gmail.com">
-                                            </div>
-                                            @if ($errors->has('email'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div> 
+                                        </div>
+                                       
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">Gender:</label>
                                                 <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
                                                     <option value="">Select one of these</option>
-                                                    <option  value="Male">Male</option>
-                                                    <option  value="Female">Female</option>
-                                                    <option value="other">Other</option>
+                                                    <option  value="Male"{{ $applicant_data->gender == 'Male' ? 'selected': '' }}>Male</option>
+                                                    <option  value="Female" {{ $applicant_data->gender == 'Female' ? 'selected': '' }}>Female</option>
+                                                    <option value="other" {{ $applicant_data->gender == 'Other' ? 'selected':'' }}>Other</option>
                                                 </select>
                                                 <input type="text" id="other-gender" name="other_gender" class="hidden form-control mt-2" placeholder="Please specify">
+                                                <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -281,44 +241,43 @@
                                                     <div class="form-group">
                                                         <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
                                                             <option value>Select class</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="One" {{ $applicant_data->class == 'One' ? 'selected': '' }}>One</option>
+                                                            <option value="Two" {{ $applicant_data->class == 'Two' ? 'selected': '' }}>Two</option>
+                                                            <option value="Three" {{ $applicant_data->class == 'Three' ? 'selected': '' }}>Three</option>
                                                             </select>
+                                                            <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                     </div>
-                                                    @if ($errors->has('class'))
-                                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                                            <strong>{{ $errors->first('class') }}</strong>
-                                                        </span>
-                                                    @endif
+                                                    
                                         </div>  
     
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">Date of Birth:</label>
-                                                <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth">
-                
+                                                <input name="date_of_birth" value="{{$applicant_data->date_of_birth}}" type="date" class="form-control date-pick" placeholder="Date of birth" required>
+                                                <span class="invalid-feedback" id="date_of_birth_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div> 
-                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Blood Group:</label>
-                                                <select class="nice-select niceSelect bordered_style wide" id="blood-group" name="blood_group"  data-fouc data-placeholder="Choose.." name="blood_group">
+                                                <select class="nice-select niceSelect bordered_style wide" id="blood-group" name="blood_group" data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
-                                                    @foreach($BloodGroup as $BloodGroups)
-                                                    <option value="{{ $BloodGroups->bg_code }}">{{ $BloodGroups->bg_name }}</option>
+                                                     @foreach($BloodGroup as $BloodGroups)
+                                                        <option value="{{ $BloodGroups->bg_code }}" {{ $BloodGroups->bg_code == $applicant_data->blood_group ? 'selected' : '' }}>
+                                                            {{ $BloodGroups->bg_name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
+                                                <span class="invalid-feedback" id="blood_group_error" style="display: none;" role="alert"></span>
                                             </div>
-        
                                         </div>
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
                                     
                                                 <label class="form-label">Religion:</label>
-                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" required data-fouc data-placeholder="Choose.." name="section">
+                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
                                                     <option value="">Select one of these</option>
                                                     @foreach($Religion as $Religions)
                                                     <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
@@ -326,6 +285,7 @@
                                                     <option  value="other">Other</option>
                                                 </select>
                                                 <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                <span class="invalid-feedback" id="religion_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -333,47 +293,57 @@
                                                 <label class="form-label">Category:</label>
                                                 <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
                                                     <option value="">Select one of these</option>
-                                                    <option  value="General">General</option>
-                                                    <option  value="OBC">OBC</option>
-                                                    <option  value="SC">SC</option>
-                                                    <option  value="ST">ST</option>
-                                                    <option  value="other">Other</option>
+                                                    <option  value="General"  {{ $applicant_data->category == 'General' ? 'selected': '' }}>General</option>
+                                                    <option  value="OBC"  {{ $applicant_data->category == 'OBC' ? 'selected': '' }}>OBC</option>
+                                                    <option  value="SC"  {{ $applicant_data->category == 'SC' ? 'selected': '' }}>SC</option>
+                                                    <option  value="ST"  {{ $applicant_data->category == 'ST' ? 'selected': '' }}>ST</option>
+                                                    <option  value="other"  {{ $applicant_data->category == 'other' ? 'selected': '' }}>Other</option>
                                                 </select>
                                                 <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                <span class="invalid-feedback" id="category_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
     
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Student Language:') }}</label>
                                             <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Language type" id="student_language"  name="student_language">
-                                            @if ($errors->has('student_language'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('student_language') }}</strong>
-                                                </span>
-                                            @endif
+                                            <span class="invalid-feedback" id="student_language_error" style="display: none;" role="alert"></span>
                                         </div>
                                        
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Student Photo:') }}</label>
-                                            <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
-                                            <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
+                                            <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required value="{{ $applicant_data->image }}">
+                                            <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span><br>
+                                            @if($applicant_data->image)
+                                                  <img src="{{ url('storage/student_photos/' . $applicant_data->image) }}"  height="100px" width="100px">
+                                                @else
+                                                <input class="form-control" type="text" name="profile_image" value="No Image Uploaded">
+                                                 
+                                            @endif
+                                            <span class="invalid-feedback" id="image_error" style="display: none;">
+                                        
+                                         </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $applicant_data->previous_school}}">
+                                            <span class="invalid-feedback" id="previous_school_error" style="display: none;">
+                                                <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                         </div>
-                                      
                                     </div>
-                                    <input type="hidden" name="role_id" value="5">
+                                    <input type="hidden" name="role_id" value="4">
                                     <input type="hidden" name="status" value="active">
-                                    <input type="hidden" name="applicant_id" value="applicant">
+                                   
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
                                                 <input type="hidden" name="action" id="form-action" value="save">
                                                 <button type="submit" class="btn btn-lg ot-btn-primary save_2">
-                                                    <i class="fa fa-save"></i> {{ __('Save & Continue') }}
+                                                    <i class="fa fa-refresh"></i> {{ __('Update $ Next') }}
                                                 </button>
-                                                <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                                {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
                                                     <i class="fa fa-save"></i> {{ __('Save') }}
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -388,13 +358,10 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required>
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $applicant_data->last_name}}">
+                                                   
                                                 </div>
-                                                @if ($errors->has('residence_address'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('residence_address') }}</strong>
-                                                    </span>
-                                                @endif
+                                                
                                         </div>
                                 
                                         <div class="col-md-6">
@@ -403,8 +370,9 @@
                                                     <span style="color:red">*</span>
                                                     <label class="form-label">{{ __('Country:') }} </label>
                                                     <div class="autocomplete">
-                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required>
-                                                    </div>
+                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required value="{{ $applicant_data->country}}">
+                                                    <span class="invalid-feedback" id="country_error" style="display: none;" role="alert"></span>   
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -412,7 +380,8 @@
                                                     <span style="color:red">*</span>
                                                     <label class="form-label">{{ __('State:') }} </label>
                                                     <div class="autocomplete">
-                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required>
+                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required value="{{ $applicant_data->state}}">
+                                                        <span class="invalid-feedback" id="state_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -421,13 +390,10 @@
                                                 <label class="form-label">{{ __('City:') }}</label>
                 
                                                     <div class="form-group">
-                                                        <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" required>
+                                                        <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" required value="{{ $applicant_data->city}}">
+                                                        <span class="invalid-feedback" id="city_error" style="display: none;" role="alert"></span>
                                                     </div>
-                                                    @if ($errors->has('city'))
-                                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                                            <strong>{{ $errors->first('city') }}</strong>
-                                                        </span>
-                                                    @endif
+                                                   
                                             </div>
                                     
                                         <div class="col-md-6">
@@ -435,47 +401,20 @@
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required>
+                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="{{ $applicant_data->pin_code}}">
+                                                    <span class="invalid-feedback" id="pin_code_error" style="display: none;" role="alert"></span>
                                                 </div>
-                                                @if ($errors->has('pin_code'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('pin_code') }}</strong>
-                                                    </span>
-                                                @endif
+                                                
                                         </div>
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Contact Number:') }}</label>
-                                                <div class="form-group">
-                                                    <input type="text" name="mobile" class="nice-select niceSelect bordered_style wide" placeholder="Contact Number" required>
-                                                </div>
-                                                @if ($errors->has('mobile'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('mobile') }}</strong>
-                                                    </span>
-                                                @endif
-                                        </div>
-                                    
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Alternative Number:') }}</label>
-                                            <div class="form-group">
-                                                    <input type="text" name="parent_mobile" class="nice-select niceSelect bordered_style wide" placeholder="Alternative Number" required>
-                                                </div>
-                                                @if ($errors->has('parent_mobile'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('parent_mobile') }}</strong>
-                                                    </span>
-                                                @endif
-                                        </div> 
+                                      
                                     </div>
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
-                                                <button type="button" class="btn ot-btn-primary save_3"><i class="fa fa-save"></i> {{ __('Save & Continue') }}</button>
-                                                <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button>
-                                            </div>
+                                                <button type="button" class="btn ot-btn-primary save_3"><i class="fa fa-refresh"></i> {{ __('Update & Next') }}</button>
+                                                {{-- <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button> --}}
+                                            </div> 
                                         </div>
                                         {{-- <div class="d-flex justify-content-between">
                                             <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
@@ -515,7 +454,7 @@
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn ot-btn-primary back_3"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
-                                            <button type="submit" class="btn ot-btn-primary"><i class="fa fa-save"></i> {{ __('Save') }}</button>
+                                            <button type="submit" class="btn ot-btn-primary save_4"><i class="fa fa-refresh"></i> {{ __('Update') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -532,7 +471,10 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
+     var parent_id = {{ Session::get('parent_id') }};
      $( function() {
     var availableTags = <?php echo json_encode($lang); ?>;
     function split( val ) {
@@ -590,29 +532,140 @@ $(document).ready(function() {
         }
     }
 
+    function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
+
+
     function showForm(step) {
         $('#form1, #form2, #form3, #form4').hide();
         $(`#form${step}`).show();
     }
 
-    $('.save_1').click(function() {
-        currentStep = 2;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 
-    $('.save_2').click(function() {
-        currentStep = 3;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
+    $('.save_1').click(function(e) {
+        e.preventDefault();
+     
+        $.ajax({
+            url: "{{ route('update-applicant', $applicant_data->id) }}",
+            method: 'POST',
+            data: $('#form1').serialize(),
+            success: function(response) {
+                if(response.success) {
+                    currentStep = 2;
+                    updateProgressBar(currentStep);
+                    showForm(currentStep);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
+            }
+        
+            
+        });
+    });
+    
+
+    $('.save_2').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "/update-student-applicant/" + parent_id,
+            method: 'POST',
+            data: new FormData($('#form2')[0]),
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success) {
+                    currentStep = 3;
+                    updateProgressBar(currentStep);
+                    showForm(currentStep);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
+                }
+            
+            
+        });
+    });
+    $('.save_3').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "/update-contact-applicant/" + parent_id,
+            method: 'POST',
+            data: $('#form3').serialize(),
+             success: function(response) {
+                if (response.success) {
+                    currentStep = 4;
+                    updateProgressBar(currentStep);
+                    showForm(currentStep);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
+                }
+            
+            
+        });
+    });
+   
+    $('.save_4').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "/update-document-applicant/" + parent_id,
+            method: 'POST',
+            data: new FormData($('#form4')[0]),
+            processData: false,
+            contentType: false,
+             success: function(response) {
+                if (response.success) {
+                        Swal.fire({
+                        title: "Form Updated successfully",
+                        text: "The application form  was updated successfully!",
+                        icon: "success",
+                        button: "OK",
+                        })
+                        .then((value) => {
+                        window.location.href = "/applicant-list"; // Redirect to the dashboard page
+                        });
+                    } 
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                
+                }
+            
+            
+        });
     });
 
-    $('.save_3').click(function() {
-        currentStep = 4;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
-    });
 
+   
     $('.back_1').click(function() {
         currentStep = 1;
         updateProgressBar(currentStep);
@@ -674,24 +727,7 @@ $(document).ready(function() {
             }
         })
 
-            var sections = {
-                1: ["A", "B", "C"],
-                2: ["D", "E"],
-                3: ["F", "G", "H", "I"]
-            };
-
-            $('#getSections').change(function() {
-                var classId = $(this).val();
-                var $sectionsDropdown = $('.sections');
-                $sectionsDropdown.empty();
-                $sectionsDropdown.append('<option value="">Select section</option>');
-
-                if (sections[classId]) {
-                    sections[classId].forEach(function(section) {
-                        $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
-                    });
-                }
-            });
+           
 
 
 
@@ -796,10 +832,10 @@ document.getElementById('add-document').addEventListener('click', function() {
 
         newRow.innerHTML = `
             <td>
-                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
+                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" required>
             </td>
             <td>
-                <input type="file" class="form-control" name="document_file[]">
+                <input type="file" class="form-control" name="document_file[]" required>
             </td>
             <td>
                 <button type="button" class="btn btn-danger remove-document">

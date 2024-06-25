@@ -53,9 +53,9 @@
                                                 <div class="form-group">
                                                     <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
                                                         <option value>Select class</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                        <option value="One">One</option>
+                                                        <option value="Two">Two</option>
+                                                        <option value="Three">Three</option>
                                                         </select>
                                                         <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                 </div>
@@ -136,7 +136,7 @@
                                 
                                     </div>
                                 </div>
-                                <input type="hidden" name="role_id" value="5">
+                                <input type="hidden" name="role_id" value="4">
                                 <input type="hidden" name="status" value="active">
                                
                                 <div class="card-footer mt-5">
