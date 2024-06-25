@@ -131,7 +131,13 @@
                                                             <a href="{{ route('edit-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
-                                                            <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
+                                                            <form action="{{ route('delete-applicant', $applicant_lists->parent_id) }}" method="POST" style="display:inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')">
+                                                                    <i class="fa fa-trash"></i> {{ __('Delete') }}
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

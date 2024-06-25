@@ -118,7 +118,32 @@ class ApplicantController extends Controller
         
         return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data'));
     }
+    public function delete_applicant($id)
+{
+    // Find the student by parent_id
+    $student = Student::where('parent_id', $id)->first();
+    
+    if (!$student) {
+        return redirect()->back()->with('error', 'Student not found');
+    }
 
+    // Find the parent
+    $parent = StudentParent::find($id);
+
+    if (!$parent) {
+        return redirect()->back()->with('error', 'Parent not found');
+    }
+
+    // Soft delete the student
+    $student->delete();
+    
+    // Soft delete the parent
+    $parent->delete();
+
+    return redirect()->back()->with('status', 'Deleted Successfully');
+}
+
+    
 
     public function update_applicant(Request $request, $id)
     {
@@ -476,7 +501,7 @@ class ApplicantController extends Controller
 
                 $documents[] = [
                     'name' => $request->input('document_name')[$key],
-                    'file' => $originalFileName,
+                    'file' => $currentDateTime . '_' . $originalFileName,
                 ];
             }
 
@@ -502,19 +527,19 @@ class ApplicantController extends Controller
 }
 
 
-public function showApplicantDocuments($id)
-{
-    $student = Student::where('parent_id', $id)->first();
+    public function showApplicantDocuments($id)
+    {
+        $student = Student::where('parent_id', $id)->first();
 
-    if (!$student) {
-        return response()->json(['success' => false, 'errors' => 'Student not found']);
+        if (!$student) {
+            return response()->json(['success' => false, 'errors' => 'Student not found']);
+        }
+
+        // Decode the documents JSON field
+        $documents = json_decode($student->document, true);
+
+        return response()->json(['success' => true, 'documents' => $documents]);
     }
-
-    // Decode the documents JSON field
-    $documents = json_decode($student->document, true);
-
-    return response()->json(['success' => true, 'documents' => $documents]);
-}
 
 
 

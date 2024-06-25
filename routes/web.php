@@ -55,6 +55,8 @@ Route::post('post-applicant-document-data',[ApplicantController::class,'post_app
 
 Route::get('students/{id}/documents', [ApplicantController::class, 'showApplicantDocuments'])->name('students.documents');
 
+Route::delete('delete-applicant/{id}', [ApplicantController::class, 'delete_applicant'])->name('delete-applicant');
+
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
