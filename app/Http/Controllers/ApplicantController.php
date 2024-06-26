@@ -115,6 +115,9 @@ class ApplicantController extends Controller
         })
         ->select('students.*', 'student_parents.*')
         ->first();
+
+        // print_r($applicant_data);
+        // exit;
         
         return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data'));
     }
@@ -577,7 +580,16 @@ public function showApplicantDocuments($id)
     }
 
     public function parent_meeting_track(){
-        return view('admin.applicant.parent-meeting-track');
+        $steps = [
+            ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
+            ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
+            ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
+            ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
+            ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
+            ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
+        ];
+
+        return view('admin.applicant.parent-meeting-track',compact('steps'));
     }
  
  

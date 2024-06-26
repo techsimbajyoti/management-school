@@ -30,20 +30,23 @@
                           Meeting Status  
                         </option>
                         <option value="0">
-                          Cancelled
+                          Active
+                        </option>
+                        <option value="0">
+                          Rescheduled Meeting
+                        </option>
+                        <option value="0">
+                          Accepted By Applicant
                         </option>
                         <option value="1">
-                          Postponed
-                        </option>
-                        <option value="2">
-                          Done
+                          Meeting Done
                         </option>
                         <option value="3">
-                         Upcoming
+                         Cancelled By Applicant
                           </option>
                       </select>
                     </div>
-                    <button class="btn btn-lg ot-btn-primary" type="submit">Search</button>
+                    <button class="btn btn-lg ot-btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>
                   </div>
                 </div>
               </div>
@@ -68,16 +71,16 @@
                                     <tr>
                                         <th class="serial">SR No.</th>
                                         <th class="purchase">Applicant NO</th>
-                                        <th class="purchase">Student name</th>
-                                        <th class="purchase">Class (Section)</th>
+                                        <th class="purchase">Applicant name</th>
+                                        <th class="purchase">Class</th>
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Date</th>
                                         <th class="action">Time Slot</th>
                                         <th class="action">Type</th>
                                         <th class="action">Mode</th>
-                                        <th class="action">Notes</th>
-                                        <th class="action">Action</th>
+                                        <th class="action">Status</th>
+                                        <th class="action">Manage Status</th>
 
                                         </tr>
                                     </thead>
@@ -87,7 +90,7 @@
                                             <td>2023114</td>
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px"></td>
-                                            <td>Two (A)</td>
+                                            <td>Two</td>
                                             <td>Parent5</td>
                                            
                                             <td>658932654</td>
@@ -96,27 +99,30 @@
                                             <td>2:30 pm</td>
                                             <td>Student Interview</td>
                                             <td>Offline</td>
-                                            <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
-                                            <td>
-                                                <input type="hidden" name="items[]" value="1"> <input type="hidden" name="students[]" value="1"> <input type="hidden" name="studentsRoll[]" value="1">
-                                                <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
-                                                  <div class="form-check d-flex align-items-center mt-6">
-                                                    <input class="form-check-input" type="radio" id="flexRadioDefault1" name="attendance[1]" value="1"> 
-                                                    <label for="flexRadioDefault1" class="ml-2">Accepted</label>
+                                            <td><span class="badge-basic-info-text">Active</span></td>
+                                            <td class="action">
+                                              <div class="dropdown">
+                                                  <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+                                                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                          <ul style="list-style: none">
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Active</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Rescheduled Meeting</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Accepted By Applicant</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Meeting Done</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Cancelled By Applicant</label></li>
+                                                          </ul>
+                                                      </div>
                                                   </div>
-                                                  <div class="form-check d-flex align-items-center mt-6">
-                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="attendance[1]" value="2">
-                                                     <label for="flexRadioDefault2" class="ml-2">Rejected</label>
-                                                  </div>
-                                                </div>
-                                              </td>
+                                              </div>
+                                          </td>
                                         </tr>
                                         <tr id="row_7">
                                             <td class="serial">2</td>
                                             <td>2023111</td>
                                            
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">William</td>
-                                            <td>Two (A)</td>
+                                            <td>Two</td>
                                             <td>Parent8</td>
                                            
                                             <td>0147852111</td>
@@ -124,20 +130,23 @@
                                             <td>3:30 pm</td>
                                             <td>Student Interview</td>
                                             <td>Offline</td>
-                                            <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
-                                            <td>
-                                                <input type="hidden" name="items[]" value="1"> <input type="hidden" name="students[]" value="1"> <input type="hidden" name="studentsRoll[]" value="1">
-                                                <div class="remember-me d-flex align-items-center input-check-radio mb-20 gap-4 attendance">
-                                                  <div class="form-check d-flex align-items-center mt-6">
-                                                    <input class="form-check-input" type="radio" id="flexRadioDefault1" name="attendance[1]" value="1"> 
-                                                    <label for="flexRadioDefault1" class="ml-2">Accepted</label>
+                                            <td><span class="badge-basic-info-text">Active</span></td>
+                                            <td class="action">
+                                              <div class="dropdown">
+                                                  <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+                                                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                          <ul style="list-style: none">
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Active</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Rescheduled Meeting</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Accepted By Applicant</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Meeting Done</label></li>
+                                                              <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Cancelled By Applicant</label></li>
+                                                          </ul>
+                                                      </div>
                                                   </div>
-                                                  <div class="form-check d-flex align-items-center mt-6">
-                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="attendance[1]" value="2"> 
-                                                    <label for="flexRadioDefault2" class="ml-2">Rejected</label>
-                                                  </div>
-                                                </div>
-                                            </td>
+                                              </div>
+                                          </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -153,4 +162,110 @@
         </div>    
     </div>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3>Add Note</h3>
+          <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-4">
+                  <label for="">Status</label>
+                  <input type="text" class="nice-select sections niceSelect bordered_style wide" value="Active" id="new_status">
+              </div>
+              <div class="col-md-4">
+                  <label for="">Note</label>
+                  <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+              </div>
+              <div class="col-md-4 mt-3">
+                  <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <h3></h3>
+      </div>
+  </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+    // Get the modal
+ var modal = document.getElementById("myModal");
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    
+    // Add event listeners to all buttons with class "myBtn"
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.getElementsByClassName("applicant_status");
+        Array.prototype.forEach.call(buttons, function(btn) {
+            btn.addEventListener("click", function() {
+                modal.style.display = "block";
+            });
+        });
+
+            // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close");
+        Array.prototype.forEach.call(span, function(sp) {
+            sp.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('.inactiveStudentList').hide();
+        $('.allStudentList').hide();
+
+        var sections = {
+            1: ["A", "B", "C"],
+            2: ["D", "E"],
+            3: ["F", "G", "H", "I"]
+        };
+
+        $('#getSections').change(function() {
+            var classId = $(this).val();
+            var $sectionsDropdown = $('.sections');
+            $sectionsDropdown.empty();
+            $sectionsDropdown.append('<option value="">Select section</option>');
+
+            if (sections[classId]) {
+                sections[classId].forEach(function(section) {
+                    $sectionsDropdown.append('<option value="' + section + '">' + section + '</option>');
+                });
+            }
+        });
+
+        $('#marksheed').on('submit', function(e) {
+            e.preventDefault();
+            var status = $('select[name="status"]').val();
+            
+
+            if (status == "1") {
+                $('.activeStudentList').show();
+                $('.inactiveStudentList').hide();
+                $('.allStudentList').hide();
+            } else if (status == "2") {
+                $('.activeStudentList').hide();
+                $('.inactiveStudentList').show();
+                $('.allStudentList').hide();
+            } else {
+                $('.activeStudentList').hide();
+                $('.inactiveStudentList').hide();
+                $('.allStudentList').show();
+            }
+        });
+    });
+</script>
+@endpush
+

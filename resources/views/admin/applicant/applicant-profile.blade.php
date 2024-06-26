@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0 title">Parent Information</h4>
-                        <a href="{{route('applicant-edit')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-refresh"></i> Edit</a>
+                        <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-refresh"></i> Edit</a>
                     </div>
                     <hr>
                     <div class="card-body">
@@ -58,20 +58,28 @@
                                 <p class="text-muted mb-0">applicant@gmail.com</p>
                             </div>
                             <div class="col-sm-3">
-                                <p class="mb-0">Password</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p class="text-muted mb-0">123456789</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
                                 <p class="mb-0">Contact Number</p>
                             </div>
                             <div class="col-sm-3">
                                 <p class="text-muted mb-0">0000000000</p>
                             </div>
+                           
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">User Name</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">FggHlk</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="mb-0">Password</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">123456789</p>
+                            </div>
+                            
                         </div>
                         <hr>
                     </div>
@@ -79,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">        
+        {{-- <div class="row">        
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center">
@@ -185,7 +193,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>         --}}
 
 </div>
 @endsection 

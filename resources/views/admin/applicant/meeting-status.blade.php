@@ -99,21 +99,14 @@
                     
                     <div class="single_large_selectBox">
                       <select class="class nice-select niceSelect bordered_style wide" name="view">
-                        <option value="0">
-                          Meeting Status  
-                        </option>
-                        <option value="0">
-                          Cancelled
-                        </option>
-                        <option value="1">
-                          Postponed
-                        </option>
-                        <option value="2">
-                          Done
-                        </option>
-                        <option value="3">
-                         Upcoming
-                          </option>
+                        <option value="0">Meeting Status</option>
+                        <option value="0">Active</option>
+                        <option value="1">Reschedule Meeting Request</option>
+                        <option value="2">Accept</option>
+                        <option value="2">Meeting Schedule</option>
+                        <option value="3">Cancelled By Admin</option>
+                        <option value="3">Reject By Admin</option>
+                        <option value="3">Upcoming Meeting</option>
                       </select>
                     </div>
                     <button class="btn btn-lg ot-btn-primary" type="submit">Search</button>
@@ -142,7 +135,7 @@
                                         <th class="serial">SR No.</th>
                                         <th class="purchase">Applicant NO</th>
                                         <th class="purchase">Applicant name</th>
-                                        <th class="purchase">Class (Section)</th>
+                                        <th class="purchase">Class</th>
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Date</th>
@@ -161,7 +154,7 @@
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                                 <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
-                                            <td>Two (A)</td>
+                                            <td>Two</td>
                                             <td>Parent5</td>
                                            
                                             <td>658932654</td>
@@ -188,7 +181,7 @@
                                            
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                               <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
-                                            <td>Two (A)</td>
+                                            <td>Two</td>
                                             <td>Parent8</td>
                                            
                                             <td>0147852111</td>

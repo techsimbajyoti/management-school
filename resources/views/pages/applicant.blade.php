@@ -390,16 +390,14 @@
                                             <th class="serial">SR No.</th>
                                             <th class="purchase">Applicant NO</th>
                                             <th class="purchase">Applicant name</th>
-                                            <th class="purchase">Class (Section)</th>
-                                            <th class="purchase">Applicant Parent name</th>
+                                            <th class="purchase">Class</th>
+                                            <th class="purchase">Parent name</th>
                                             <th class="action">Contact</th>
                                             <th class="action">Date</th>
                                             <th class="action">Time Slot</th>
                                             <th class="action">Type</th>
                                             <th class="action">Mode</th>
-                                            <th class="action">Notes</th>
                                             <th class="action">Action</th>
-    
                                             </tr>
                                         </thead>
                                         <tbody class="tbody">
@@ -409,7 +407,7 @@
                                                 
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                                     <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
-                                                <td>Two (A)</td>
+                                                <td>Two</td>
                                                 <td>Parent5</td>
                                                
                                                 <td>658932654</td>
@@ -418,7 +416,6 @@
                                                 <td>2:30 pm</td>
                                                 <td>Applicant Interview</td>
                                                 <td>Offline</td>
-                                                <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
                                                 <td class="action">
                                                     <div class="dropdown dropdown-action">
                                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
@@ -436,7 +433,7 @@
                                                
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                                   <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
-                                                <td>Two (A)</td>
+                                                <td>Two</td>
                                                 <td>Parent8</td>
                                                
                                                 <td>0147852111</td>
@@ -444,7 +441,6 @@
                                                 <td>3:30 pm</td>
                                                 <td>Applicant Interview</td>
                                                 <td>Offline</td>
-                                                <td><input type="text" name="note" placeholder="Note" class="form-control ot-input"></td>
                                                 <td class="action">
                                                     <div class="dropdown dropdown-action">
                                                         <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>

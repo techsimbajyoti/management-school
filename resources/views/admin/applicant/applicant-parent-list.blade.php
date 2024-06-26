@@ -44,12 +44,13 @@
                             <div class="single_large_selectBox">
                                 <select id="status" class="class nice-select niceSelect bordered_style wide" name="status">
                                     <option value="">Select Status</option>
+                                    <option value="1">Incomplete</option>
                                     <option value="1">New</option>
-                                    <option value="2">Accepted</option>
-                                    <option value="3">Rejected</option>
-                                    <option value="4">Approve</option>
-                                    <option value="5">Done</option>
-                                    <option value="6">Meeting Schedule</option>
+                                    <option value="2">Accept</option>
+                                    <option value="3">Reject</option>
+                                    <option value="4">Approve By Applicant</option>
+                                    <option value="5">Denied By Applicant</option>
+                                    <option value="6">Meeting Reschedule</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
@@ -79,12 +80,12 @@
                                         <th class="serial">SR No.</th>
                                         <th class="purchase">Applicant NO</th>
                                         <th class="purchase">Student name</th>
-                                        <th class="purchase">Class (Section)</th>
+                                        <th class="purchase">Class</th>
                                         <th class="purchase">Parent name</th>
                                         <th class="action">Date Of Birth</th>
                                         <th class="action">Contact</th>
                                         <th class="action">Status</th>
-                                        <th class="action">Note</th>
+                                        <th class="action">Manage Status</th>
                                         <th class="action">Action</th>
 
                                         </tr>
@@ -95,18 +96,32 @@
                                             <td>2023114</td>
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">John</td>
-                                            <td>Two (A)</td>
+                                            <td>Two</td>
                                             <td>Parent5</td>
-                                            <td>12 Apr 2021</td>
+                                            <td>10/05/2024</td>
                                             <td>658932654</td>
                                             <td><span class="badge-basic-success-text">Done</span></td>
-                                            <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td>
+                                            <td class="action">
+                                                <div class="dropdown">
+                                                    <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <ul style="list-style: none">
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Incomplete</label></li>
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Accept</label></li>
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Reject</label></li>
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Denied By Applicant</label></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('applicant-edit') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
                                                     </div>
@@ -118,18 +133,32 @@
                                             <td>2023111</td>
                                            
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">William</td>
-                                            <td>Two (A)</td>
+                                            <td>Two</td>
                                             <td>Parent8</td>
-                                            <td>10 Jan 2024</td>
+                                            <td>10/05/2024</td>
                                             <td>0147852111</td>
                                             <td><span class="badge-basic-info-text">Pending</span></td>
-                                            <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td>
+                                            <td class="action">
+                                                <div class="dropdown">
+                                                    <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <ul style="list-style: none">
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Incomplete</label></li>
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Accept</label></li>
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Reject</label></li>
+                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Denied By Applicant</label></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('applicant-edit') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
                                                         </div>
 
@@ -149,9 +178,66 @@
         </div>    
     </div>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add Note</h3>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Status</label>
+                    <input type="text" class="nice-select sections niceSelect bordered_style wide" value="New" id="new_status">
+                </div>
+                <div class="col-md-4">
+                    <label for="">Note</label>
+                    <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <h3></h3>
+        </div>
+    </div>
+</div>
 @endsection 
 @push('scripts')
 <script>
+    // Get the modal
+ var modal = document.getElementById("myModal");
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    
+    // Add event listeners to all buttons with class "myBtn"
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.getElementsByClassName("applicant_status");
+        Array.prototype.forEach.call(buttons, function(btn) {
+            btn.addEventListener("click", function() {
+                modal.style.display = "block";
+            });
+        });
+
+            // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close");
+        Array.prototype.forEach.call(span, function(sp) {
+            sp.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+        });
+    });
+
     $(document).ready(function() {
         $('.inactiveStudentList').hide();
         $('.allStudentList').hide();

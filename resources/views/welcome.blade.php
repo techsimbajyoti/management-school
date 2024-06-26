@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 ml-auto">
                     <div class="info-area info-horizontal mt-3" style="display: flex; justify-content: center; align-items: center; text-align: center;">
-                        <div class="icon icon-primary" style="margin-right: 10px;">
+                        <div class="icon icon-primary" style="margin-right: 10px;margin-top:-10px;">
                             <img src="{{asset('paper')}}/img/admission-icon.png" alt="Admission Icon" width="30px">
                         </div>
                         <div class="description">
@@ -42,13 +42,12 @@
             </div>
         </div>
 
-        <div class="container" style="margin-top: 80px;">
+        <div class="container" style="margin-top: 100px;">
             <div class="row">
                 <div class="col-lg-5 col-md-5 ml-auto">
                     <div class="info-area info-horizontal">
                         <div class="description">
                             <h3 class="info-title">{{ __('Facilities :') }}</h3>
-                            <h5 class="info-title">{{ __('Smart Class') }}</h5>
                             <ul style="list-style: none;">
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> well-lit areas</li>
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
@@ -59,7 +58,6 @@
                     </div>
                     <div class="info-area info-horizontal">
                         <div class="description">
-                            <h5 class="info-title">{{ __('Library') }}</h5>
                             <ul style="list-style: none;">
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> A quiet space with a diverse collection of books</li>
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> digital resources for reading and research</li>
@@ -68,7 +66,6 @@
                     </div>
                     <div class="info-area info-horizontal">
                         <div class="description">
-                            <h5 class="info-title">{{ __('Laboratories') }}</h5>
                             <ul style="list-style: none;">
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check">  Science labs for subjects like physics, chemistry, and biology with necessary equipment and safety measures</li>
                                 {{-- <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
@@ -131,7 +128,7 @@
             
                                     <div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-warning btn-round mb-3">{{ __('Sign in') }}</button>
+                                            <button type="submit" class="btn ot-btn-primary mb-3">{{ __('Sign in') }}</button>
                                         </div>
                                         <a href="{{ route('password.request') }}" class="btn btn-link" style="margin-button:10px;">
                                             {{ __('Forgot password') }}

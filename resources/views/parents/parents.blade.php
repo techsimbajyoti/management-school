@@ -4,126 +4,222 @@
 ])
 
 @section('content')
+<style>
+        .d-flex-center {
+            display: flex;
+            align-items: center;
+        }
+        
+.mini-card {
+            background: #f4f4f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .mini-card:hover {
+            transform: scale(1.05);
+        }
+        .mini-card .card-header {
+            background: #76a0e3;
+            color: #1d1b1b;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .mini-card .card-title {
+            margin-bottom: 0;
+        }
+        .mini-card .card-body {
+            padding: 15px;
+        }
+        .mini-card .card-text {
+            margin-bottom: 0;
+            font-size: 1em;
+            color: #333;
+        }
+        label#applicant_id {
+            width: 25%;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .d-flex-center {
+            display: flex;
+            align-items: center;
+        }
+</style>
     <div class="content">
         <div class="row">
-          
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-5 col-md-4">
+                            <div class="col-4 col-md-3">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fa fa-users" style='font-size:40px;color:#76a0e3'></i>
+                                    <i class="fa fa-handshake" style='font-size:40px;color:#76a0e3'></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
+                            <div class="col-8 col-md-9">
                                 <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Children</p>
-                                    <p class="card-title">5
-                                        <p>
+                                    <p class="card-category" style="font-weight: 700;">Upcoming Meeting</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer ">
-                        
-                        <div class="stats">
-                            <i class=""></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-mug-hot" style='font-size:40px;color:#76e39e'></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Holiday</p>
-                                    <p class="card-title">13
-                                        <p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
+                    <hr>
                     
-                        <div class="stats">
-                            <i class=""></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-calendar-alt" style="color:#494F55;"></i>
+                    <div class="card-footer">
+                    {{-- <div id="meeting-details"></div> --}}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">School Visit</h6>
                                 </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Event</p>
-                                    <p class="card-title">0
-                                        <p>
+                                <div class="card-body">
+                                    <p class="card-text">26/06/2024 at 12:30pm</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer ">
-                        
-                        <div class="stats">
-                            <i class=""></i>
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">Document Submission</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">26/06/2024 at 12:30pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">Entrance Exam</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">26/06/2024 at 12:30pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">Interview</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">26/06/2024 at 12:30pm</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-5 col-md-4">
+                            <div class="col-4 col-md-3">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="fas fa-handshake" style="color:#586ff1;"></i>
+                                    <i class="fa-solid fa-child" style='font-size:40px;color:#76a0e3'></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-md-8">
+                            <div class="col-8 col-md-9">
                                 <div class="numbers">
-                                    <p class="card-category" style="font-weight: 700;">Meeting</p>
-                                    <p class="card-title">0
-                                        <p>
+                                    <p class="card-category" style="font-weight: 700;">Children</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer ">
-                        
-                        <div class="stats">
-                            <i class=""></i>
+                    <hr>
+                    
+                    <div class="card-footer">
+                    {{-- <div id="meeting-details"></div> --}}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">Total Children</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">Incomplete</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mini-card">
+                                <div class="card-header">
+                                    <h6 class="card-title">Complete</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">1</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
+            
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4 col-md-3">
+                                <div class="icon-big text-left icon-warning">
+                                    <i class="fa fa-clock-o" style='font-size:40px;color:#76a0e3' aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-8 col-md-9">
+                                <div class="numbers">
+                                    <p class="card-category" style="font-weight: 700;">Pending Application</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    
+                    <div class="card-footer">
+                        {{-- <div id="meeting-details"></div> --}}
+                        <div class="row d-flex">
+                            <div class="col-md-6 d-flex">
+                                <label id="applicant_id">Applicant Id</label>
+                                <input type="text" class="form-control ot-input" value="HtyyI" readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn ot-btn-primary w-100 ot-input">Complete Profile</a>
+                            </div>
+                            <div class="col-md-3 d-flex-center">
+                                <p class="btn ot-btn-secondary w-100 mb-0" style="height: 100%">Profile Progress 25%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
         </div>
         
         
-        <div class="row">
-            
+        {{-- <div class="row">
             <div class="col-md-12">
                 <div class="card ot-card mb-24">
                     <div id='calendar'></div>
                 </div>
             </div>    
-        </div>
+        </div> --}}
         </div>
     </div>
 @endsection
@@ -133,6 +229,45 @@
 <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
+        // Sample data of upcoming meetings
+const meetings = [
+    { title: 'Project Kickoff', date: '2024-07-01', time: '10:00 AM' },
+    { title: 'Team Sync', date: '2024-07-03', time: '02:00 PM' },
+    { title: 'Client Presentation', date: '2024-07-05', time: '11:00 AM' }
+];
+
+// Function to display upcoming meetings
+function displayMeetings() {
+    const meetingContainer = $('#meeting-details');
+    meetingContainer.empty();
+
+    if (meetings.length === 0) {
+        meetingContainer.append('<p>No upcoming meetings</p>');
+    } else {
+        meetings.forEach(meeting => {
+            const meetingElement = `
+            <div class="col-md-6">
+                <div class="card meeting-card">
+                    <div class="card-header">
+                        <h6 class="card-title">${meeting.title}</h6>
+
+                        </div>
+                    <div class="card-body">
+                        <p class="card-text">${meeting.date} at ${meeting.time}</p>
+                    </div>
+                </div>
+            </div>    
+            `;
+            meetingContainer.append(meetingElement);
+        });
+    }
+}
+
+$(document).ready(function() {
+    displayMeetings();
+});
+
+
          document.addEventListener('DOMContentLoaded', function () {
             // Get today's date in the format "01 Jun 2024"
             var todayDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });

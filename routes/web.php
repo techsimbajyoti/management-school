@@ -444,7 +444,7 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::get('applicant-parent-list', [ApplicantController::class, 'applicant_parent_list'])->name('applicant-parent-list');
 
-	Route::get('applicant-edit', [ApplicantController::class, 'edit_applicant'])->name('applicant-edit');
+	Route::get('applicant-edit/{id}', [ApplicantController::class, 'edit_applicant'])->name('applicant-edit');
 
 	Route::get('applicant-profile', [ApplicantController::class, 'applicant_profile'])->name('applicant-profile');
 
