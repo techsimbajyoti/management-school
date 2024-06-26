@@ -63,9 +63,9 @@
             <button type="button" id="save-continue" class="btn btn-lg ot-btn-primary">
                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
             </button>
-            <button type="button" id="save" class="btn btn-lg ot-btn-primary ml-3">
+            {{-- <button type="button" id="save" class="btn btn-lg ot-btn-primary ml-3">
                 <i class="fa fa-save"></i> {{ __('Save') }}
-            </button>
+            </button> --}}
         </div>
     </div>    
 </form>

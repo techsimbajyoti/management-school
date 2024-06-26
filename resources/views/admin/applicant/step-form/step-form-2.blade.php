@@ -51,12 +51,7 @@
                                         <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Admission   For:') }}</label>
                                                 <div class="form-group">
-                                                    <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
-                                                        <option value>Select class</option>
-                                                        <option value="One">One</option>
-                                                        <option value="Two">Two</option>
-                                                        <option value="Three">Three</option>
-                                                        </select>
+                                                    <input name="class"  type="text" class="form-control" placeholder="Enter Class" required>
                                                         <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                 </div>
                                     </div>  
@@ -146,9 +141,9 @@
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_2" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
                                             </button>
-                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3" style="margin-bottom:10px;">
+                                            {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save') }}
-                                            </button>
+                                            </button> --}}
                                         </div>
                                     </div>
                                 </div>

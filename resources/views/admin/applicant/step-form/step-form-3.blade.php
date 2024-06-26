@@ -86,9 +86,9 @@
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_2" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save & Continue') }}
                                             </button>
-                                            <button type="submit" class="btn btn-lg ot-btn-primary ml-3" style="margin-bottom:10px;">
+                                            {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3" style="margin-bottom:10px;">
                                                 <i class="fa fa-save"></i> {{ __('Save') }}
-                                            </button>
+                                            </button> --}}
                                         </div>
                                     </div>
                                 </div>

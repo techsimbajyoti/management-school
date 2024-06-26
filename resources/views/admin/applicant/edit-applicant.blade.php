@@ -110,6 +110,7 @@
                                     @endif
                                 </div>
                                 <form clas="form active" method="POST" action="" id="form1">
+                                    
                                     @csrf
                                     <h5>Parent Information</h5><br>
                                     <div class="row ">
@@ -184,7 +185,7 @@
                                         <div class="d-flex justify-content-end">
                                             <input type="hidden" name="action" id="form-action" value="save">
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_1">
-                                                <i class="fa fa-refresh"></i> {{ __('Update $ Next') }}
+                                                <i class="fa fa-refresh"></i> {{ __('Update & Next') }}
                                             </button>
                                             {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
                                                 <i class="fa fa-save"></i> {{ __('Save') }}
@@ -225,26 +226,22 @@
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">Gender:</label>
-                                                <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose.." name="gender">
+                                                <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
-                                                    <option  value="Male"{{ $applicant_data->gender == 'Male' ? 'selected': '' }}>Male</option>
-                                                    <option  value="Female" {{ $applicant_data->gender == 'Female' ? 'selected': '' }}>Female</option>
-                                                    <option value="other" {{ $applicant_data->gender == 'Other' ? 'selected':'' }}>Other</option>
+                                                    <option value="Male" {{ $applicant_data->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                                    <option value="Female" {{ $applicant_data->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                                    <option value="other" {{ $applicant_data->gender == 'Other' ? 'selected' : '' }}>Other</option>
                                                 </select>
-                                                <input type="text" id="other-gender" name="other_gender" class="hidden form-control mt-2" placeholder="Please specify">
+                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $applicant_data->other_gender }}">
                                                 <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
+                                        
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('Class:') }}</label>
                                                     <div class="form-group">
-                                                        <select id="getSections" class="nice-select sections niceSelect bordered_style wide" name="class" required>
-                                                            <option value>Select class</option>
-                                                            <option value="One" {{ $applicant_data->class == 'One' ? 'selected': '' }}>One</option>
-                                                            <option value="Two" {{ $applicant_data->class == 'Two' ? 'selected': '' }}>Two</option>
-                                                            <option value="Three" {{ $applicant_data->class == 'Three' ? 'selected': '' }}>Three</option>
-                                                            </select>
+                                                        <input name="class" value="{{ $applicant_data->class}}" type="text" class="form-control" placeholder="Enter Class" required>
                                                             <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                     
@@ -311,19 +308,25 @@
                                         </div>
                                        
                                         <div class="col-md-6">
-                                            <label class="form-label">{{ __('Student Photo:') }}</label>
-                                            <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required value="{{ $applicant_data->image }}">
-                                            <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span><br>
-                                            @if($applicant_data->image)
-                                                  <img src="{{ url('storage/student_photos/' . $applicant_data->image) }}"  height="100px" width="100px">
+                                            
+                                                <label class="form-label">
+                                                    <span style="color:red">*</span> {{ __('Student Photo:') }}  </label>
+                                                    <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
+                                              
+                                                <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
+                                                <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
+                                                @if($applicant_data->image)
+                                                   
+                                                        <img src="{{ url('storage/student_photos/' . $applicant_data->image) }}"  height="100px" width="100px">
+                                                    
+                                                    <p id="pic">File: {{ $applicant_data->image }}</p>
                                                 @else
-                                                <input class="form-control" type="text" name="profile_image" value="No Image Uploaded">
-                                                 
-                                            @endif
-                                            <span class="invalid-feedback" id="image_error" style="display: none;">
+                                                    <p id="pic">File: No File Uploaded</p>
+                                                @endif
+                                            
+                                        </div>
                                         
-                                         </div>
-                                        <div class="col-md-6">
+                                          <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
                                             <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $applicant_data->previous_school}}">
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
@@ -339,7 +342,7 @@
                                             <div>
                                                 <input type="hidden" name="action" id="form-action" value="save">
                                                 <button type="submit" class="btn btn-lg ot-btn-primary save_2">
-                                                    <i class="fa fa-refresh"></i> {{ __('Update $ Next') }}
+                                                    <i class="fa fa-refresh"></i> {{ __('Update & Next') }}
                                                 </button>
                                                 {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
                                                     <i class="fa fa-save"></i> {{ __('Save') }}
@@ -413,7 +416,7 @@
                                             <button type="button" class="btn ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
                                                 <button type="button" class="btn ot-btn-primary save_3"><i class="fa fa-refresh"></i> {{ __('Update & Next') }}</button>
-                                                {{-- <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button> --}}
+                                                 {{-- <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button> --}}
                                             </div> 
                                         </div>
                                         {{-- <div class="d-flex justify-content-between">
@@ -445,6 +448,32 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @php
+                                                            $documents = json_decode($applicant_data->document);
+                                                        @endphp
+                            
+                                                        @if (!empty($documents))
+                                                            @foreach ($documents as $document)
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" value="{{$document->name}}">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="file" class="form-control" name="document_file[]" value="{{ $document->file}}"  style="margin-top:15px;">
+                                                                    <a href="{{ url('storage/student_documents/' . $document->file) }}" target="_blank">
+                                                                        File: {{ $document->file }}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <!-- Add action buttons if needed -->
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        @else
+                                                            <tr>
+                                                                <td colspan="3">No documents uploaded</td>
+                                                            </tr>
+                                                        @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -687,18 +716,18 @@ $(document).ready(function() {
     updateProgressBar(currentStep);
     showForm(currentStep);
 
-    $('#other-gender').hide();
-            $('#other-language').hide();
+            $('#other-gender').hide();
+            // $('#other-language').hide();
             $('#other-category').hide();
             $('#other-religion').hide();
 
             $('#gender').change(function() {
             if (this.value === 'other') {
-                // $('#other-gender').removeClass('hidden').attr('required', true);
+                $('#other-gender').removeClass('hidden').attr('required', true);
 
                 $('#other-gender').show();
             } else {
-                // $('#other-gender').addClass('hidden').removeAttr('required');
+                $('#other-gender').addClass('hidden').removeAttr('required');
                 $('#other-gender').hide();
             }
         });

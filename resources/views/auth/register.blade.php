@@ -129,31 +129,23 @@ $(document).ready(function() {
         success: function(response) {
             console.log(response);
 
-            if (response.message === 'The email address is already registered.') {
-                Swal.fire({
-                    title: "Email Exists",
-                    text: response.message,
-                    icon: "warning",
-                    button: "OK",
-                });
-            } else if (response.action === 'save') {
-                location.reload();
+            if (response.action === 'save') {
+                location.reload(); // Reload the page after saving
             } else if (response.action === 'save-continue') {
                 $('#step1').removeClass('active');
                 $('#step2').addClass('active');
-                if ($('#step2').hasClass('active')) {
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form1').hide();
-                    $('#form4').hide();
-                }
+                // Update form visibility based on current step
+                $('#form1').hide();
+                $('#form2').show();
+                $('#form3').hide();
+                $('#form4').hide();
             }
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);
             if (xhr.status === 422) {
                 var errors = xhr.responseJSON.errors;
-                displayValidationErrors(errors);
+                displayValidationErrors(errors); // Display validation errors if any
             } else {
                 Swal.fire({
                     title: "Error",
