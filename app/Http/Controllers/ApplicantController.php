@@ -14,6 +14,7 @@ use App\Models\Student;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 
 class ApplicantController extends Controller
@@ -82,7 +83,7 @@ class ApplicantController extends Controller
         return view('admin.applicant.view-applicant', compact('lang', 'Language', 'BloodGroup', 'Religion', 'state', 'country', 'test', 'testing', 'applicant_data'));
     }
     
-    public function edit_applicant($id){
+    public function edit_applicant( Request $request,$id){
         $country = Country::get();
 
         $test = [];
@@ -116,7 +117,7 @@ class ApplicantController extends Controller
         ->select('students.*', 'student_parents.*')
         ->first();
         
-        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data'));
+        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
     }
     public function delete_applicant($id)
 {
@@ -149,7 +150,7 @@ class ApplicantController extends Controller
     {
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
             'contact_number' => 'required|digits_between:10,15',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
@@ -190,7 +191,7 @@ class ApplicantController extends Controller
             'blood_group'=>'nullable|string',
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
         
         $ipAddress = $this->getPublicIpAddress();
@@ -200,22 +201,28 @@ class ApplicantController extends Controller
         $student_update = Student::where('parent_id', $parent_id)->firstOrFail();
         
         if ($request->hasFile('image')) {
+            // Delete existing image if it exists
+            if (!is_null($student_update->image)) {
+                if (Storage::exists('public/student_photos/' . $student_update->image)) {
+                    Storage::delete('public/student_photos/' . $student_update->image);
+                }
+            }
+        
+            // Upload new image
             $originalFileName = $request->file('image')->getClientOriginalName();
             $currentDateTime = now()->format('YmdHis');
             $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
             $student_update->image = $currentDateTime . '_' . $originalFileName;
         } else {
-            $student_update->image = 'null';
+            // No new image uploaded, do nothing
         }
+        
 
         $student_update->first_name = $request->first_name;
         $student_update->last_name = $request->last_name;
-        $student_update->gender = $request->gender;
-        $student_update->class = $request->class;
+         $student_update->class = $request->class;
         $student_update->date_of_birth = $request->date_of_birth;
         $student_update->blood_group = $request->blood_group;
-        $student_update->religion = $request->religion;
-        $student_update->category = $request->category;
         $student_update->student_language = $request->student_language;
         $student_update->previous_school = $request->previous_school;
         $student_update->parent_id = $parent_id;
@@ -223,6 +230,25 @@ class ApplicantController extends Controller
         $student_update->ip_address = $ipAddress;
         $student_update->status = $request->status;
         $student_update->created_by = 'null';
+
+
+        if ($request->category === 'other') {
+            $student_update->category = $request->other_category;
+        } else {
+            $student_update->category = $request->category;
+        }
+        
+        if ($request->religion === 'other') {
+            $student_update->religion = $request->other_religion;
+        } else {
+            $student_update->religion = $request->religion;
+        }
+        
+        if ($request->gender === 'other') {
+            $student_update->gender = $request->other_gender;
+        } else {
+            $student_update->gender = $request->gender;
+        }
 
         $student_update->save();
         Session::put(['student_id' => $student_update->id]);
@@ -260,58 +286,52 @@ class ApplicantController extends Controller
         return response()->json(['success' => 'true', 'action' => $request->action]);
     }
 
-    public function update_document_applicant(Request $request ,$parent_id)
-    {
-            
-       $student_id = session::get('student_id');
+   public function update_document_applicant(Request $request, $parent_id)
+{
+    $student_id = session::get('student_id');
 
-       if (is_null($student_id)) {
+    if (is_null($student_id)) {
         return response()->json(['success' => false, 'errors' => 'Student ID not found']);
     }
 
     try {
         $student_document_update = Student::where('parent_id', $parent_id)
-                        ->where('id',$student_id)
-                        ->firstOrFail();
+            ->where('id', $student_id)
+            ->firstOrFail();
+
         if (!$student_document_update) {
             return response()->json(['success' => false, 'errors' => 'Student not found']);
         }
 
-        $documents = [];
+        $documents = !is_null($student_document_update->document) ? json_decode($student_document_update->document, true) : [];
 
         if ($request->hasFile('document_file')) {
             foreach ($request->file('document_file') as $key => $file) {
                 $originalFileName = $file->getClientOriginalName();
                 $currentDateTime = now()->format('YmdHis');
-                $documentPath = $file->storeAs('storage/student_documents', $currentDateTime . '_' . $originalFileName);
+                $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
 
-                $documents[] = [
+                // Delete the existing file if it exists
+                if (isset($documents[$key]) && Storage::exists('public/student_documents/' . $documents[$key]['file'])) {
+                    Storage::delete('public/student_documents/' . $documents[$key]['file']);
+                }
+
+                $documents[$key] = [
                     'name' => $request->input('document_name')[$key],
-                    'file' =>  $currentDateTime . '_' .$originalFileName,
+                    'file' => $currentDateTime . '_' . $originalFileName,
                 ];
             }
-
-            // If documents already exist, merge them
-            if (!is_null($student_document_update->document)) {
-                $existingDocuments = json_decode($student_document_update->document, true);
-                if (is_array($existingDocuments)) {
-                    $documents = array_merge($existingDocuments, $documents);
-                }
-            }
-
-            $student_document_update->document = json_encode($documents);
         }
 
+        $student_document_update->document = json_encode($documents);
         $student_document_update->save();
 
-        return response()->json(['success' => 'true', 'action' => $request->action]);
+        return response()->json(['success' => true, 'message' => 'Documents updated successfully']);
     } catch (\Exception $e) {
-        // Log the error for debugging
-        \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
         return response()->json(['success' => false, 'errors' => $e->getMessage()]);
     }
- }
- 
+}
+
 
     public function applicant_profile(){
         return view('admin.applicant.applicant-profile');
@@ -337,19 +357,7 @@ class ApplicantController extends Controller
          $ipAddress = $this->getPublicIpAddress();
 
         $applicant = new StudentParent;
-
-        
-        $email_exists = StudentParent::where('email', $request->email)->first();
-
-        if ($email_exists) {
-            
-            return response()->json([
-                'success' => false,
-                'message' => 'The email address is already registered.',
-                'action' => $request->action
-            ]);
-        }else{
-      
+   
 
         $randomApplicantId = Str::random(5);
                 
@@ -365,10 +373,11 @@ class ApplicantController extends Controller
         $applicant->created_by = 'null';
 
         $applicant->save();
+        
         Session::put('parent_id',$applicant->id);
         Session::put('applicant_id',$applicant->applicant_id);
         return response()->json(['success'=>'true','action'=>$request->action]);
-        }
+        
     }
 
     public function post_applicant_student_data(Request $request){
@@ -411,12 +420,9 @@ class ApplicantController extends Controller
             $student->last_name = $request->last_name;
             $student->user_name = $randomUsername;
             $student->password = $hashPassword;
-            $student->gender = $request->gender;
             $student->class = $request->class;
             $student->date_of_birth = $request->date_of_birth;
             $student->blood_group = $request->blood_group;
-            $student->religion = $request->religion;
-            $student->category = $request->category;
             $student->student_language = $request->student_language;
             $student->previous_school = $request->previous_school;
             $student->parent_id = $parent_id;
@@ -425,6 +431,24 @@ class ApplicantController extends Controller
             $student->ip_address = $ipAddress;
             $student->status = $request->status;
             $student->created_by = 'null';
+
+            if ($request->category === 'other') {
+                $student->category = $request->other_category;
+            } else {
+                $student->category = $request->category;
+            }
+
+            if ($request->religion === 'other') {
+                $student->religion = $request->other_religion;
+            } else {
+                $student->religion = $request->religion;
+            }
+
+            if ($request->gender === 'other') {
+                $student->gender = $request->other_gender;
+            } else {
+                $student->gender = $request->gender;
+            }
 
             $student->save();
             Session::put(['student_id' => $student->id]);

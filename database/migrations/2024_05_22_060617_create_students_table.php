@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('parent_id');
             $table->string('applicant_id');
             $table->string('status');
+            $table->string('applicant_status');
             $table->string('role_id');
             $table->string('ip_address');
             $table->string('created_by');
