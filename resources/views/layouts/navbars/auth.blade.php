@@ -762,7 +762,7 @@
             <li class="{{ $elementActive == 'parent-meeting-status' ? 'active' : '' }}">
                 <a href="{{ route('parent-meeting-status') }}">
                     <i class="fas fa-handshake"></i> 
-                    <p>{{ __('Meeting Status') }}</p>
+                    <p>{{ __('Meeting') }}</p>
                 </a>
             </li>
 

@@ -132,7 +132,8 @@
                                 <select id="meeting_type" class="nice-select niceSelect bordered_style wide" >
                                     <option value="1">School Type</option>  
                                     <option value="">Entrance Exam</option> 
-                                    <option value="">Interview</option>    
+                                    <option value="">Student Interview</option>
+                                    <option value="">Parent Interview</option>    
                                     <option value="">Document Submission</option> 
                                     <option value="other">Other</option>                        
                                 </select>

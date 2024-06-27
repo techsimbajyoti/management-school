@@ -64,6 +64,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
+	Route::get('admin-download-profile',[ApplicantController::class, 'download_profile'])->name('admin-download-profile');
+
 	Route::get('applicant', [ApplicantController::class, 'applicant'])->name('applicant');
 
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
@@ -438,6 +440,10 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
+	Route::get('download-profile',[ApplicantController::class, 'download_profile'])->name('download-profile');
+
+	Route::get('applicant-student-profile',[ApplicantController::class, 'applicant_student_profile'])->name('applicant-student-profile');
+
 	Route::get('parent-meeting-status', [ApplicantController::class, 'parent_meeting_status'])->name('parent-meeting-status');
 
 	Route::get('parent-meeting-track', [ApplicantController::class, 'parent_meeting_track'])->name('parent-meeting-track');

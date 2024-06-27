@@ -5,6 +5,23 @@
 
 @section('content')
 <style>
+    .info-button {
+        background-color: #efefef;
+        margin-left: 3px;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0%;
+        text-decoration: none;
+        color: #000;
+    }
+    .info-button:hover {
+        background-color: #d4d3d3;
+        color: #000;
+    }
+
   /* Custom card styles */
   .card-stats {
             border: 1px solid #e3e3e3;
@@ -45,23 +62,7 @@
             border: 1px solid #e3e3e3;
             border-radius: 8px;
             margin-bottom: 10px;
-            box-shadow: 10px 10px 5px rgb(174, 230, 248);
-            transition: transform 0.2s, box-shadow 0.2s;
             color: #000;
-        }
-
-       
-
-        .mini-card.accepted {
-            color: #262b6e;
-        }
-
-        .mini-card.rejected {
-            color: #262b6e;
-        }
-
-        .mini-card.pending {
-            color: #262b6e;
         }
 
         .mini-card-body {
@@ -395,8 +396,9 @@
                                             <th class="action">Contact</th>
                                             <th class="action">Date</th>
                                             <th class="action">Time Slot</th>
-                                            <th class="action">Type</th>
+                                            <th class="action">Purpose</th>
                                             <th class="action">Mode</th>
+                                            <th class="action">Status</th>
                                             <th class="action">Action</th>
                                             </tr>
                                         </thead>
@@ -414,18 +416,22 @@
                                                
                                                 <td>jan 24,2024</td>
                                                 <td>2:30 pm</td>
-                                                <td>Applicant Interview</td>
-                                                <td>Offline</td>
-                                                <td class="action">
-                                                    <div class="dropdown dropdown-action">
-                                                        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                                <a href="{{ route('change-meeting-status') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Change Meeting Status') }}</a> 
-                                                            </div>
-                                                        </div>    
+                                                <td>Student Interview</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                    <span>Offline</span>
+                                                    <a class="info-button applicant_mode">
+                                                        <i class="fa fa-info"></i>
+                                                    </a>
                                                     </div>
                                                 </td>
+                                                <td><p>Active</p></td>
+                                                {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
+                                                <td class="action">
+                                                  <a class="btn ot-btn-primary admin_side_meeting">
+                                                      <i class="fas fa-cog"></i>
+                                                  </a>
+                                            </td>
                                             </tr>
                                             <tr id="row_7">
                                                 <td class="serial">2</td>
@@ -439,17 +445,21 @@
                                                 <td>0147852111</td>
                                                 <td>jun 05,2024</td>
                                                 <td>3:30 pm</td>
-                                                <td>Applicant Interview</td>
-                                                <td>Offline</td>
-                                                <td class="action">
-                                                    <div class="dropdown dropdown-action">
-                                                        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                                <a href="{{ route('change-meeting-status') }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Change Meeting Status') }}</a> 
-                                                            </div>
-                                                        </div>    
+                                                <td>Student Interview</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                    <span>Offline</span>
+                                                    <a class="info-button applicant_mode">
+                                                        <i class="fa fa-info"></i>
+                                                    </a>
                                                     </div>
+                                                </td>
+                                                <td><p>Active</p></td>
+                                                 {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
+                                                 <td class="action">
+                                                  <a class="btn ot-btn-primary admin_side_meeting">
+                                                      <i class="fas fa-cog"></i>
+                                                  </a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -461,6 +471,105 @@
             </div>
         </div>
     </div>
+
+
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Note Details</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula arcu, ultricies vitae porttitor ut, eleifend vel nisl. Nulla dui metus, ornare sit amet dolor aliquam, eleifend gravida dolor. </p>
+            </div>
+            <div class="col-md-6">
+                <p>00/00/0000</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       <h3></h3>
+      </div>
+    </div>
+  
+  </div>
+
+  <!-- The Modal -->
+<div id="myModal1" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3>Meeting Mode</h3>
+          <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+                  <label for="">Mode</label>
+                  <p>Online / Offline</p>
+              </div>
+              <div class="col-md-6">
+                  <label for="">Url / Location</label>
+                  <p><a href="">http://example.com</a> / Vijay Nagar</p>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <h3></h3>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- The Modal -->
+<div id="myModal2" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3>Add Note</h3>
+          <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+          <div class="row justify-content-center mt-3">
+              <div class="col-md-6">
+                  <label for="">Status</label>
+                  <select name="" id="" class="nice-select sections niceSelect bordered_style wide">
+                        <option value="0">Meeting Status</option>
+                        <option value="0">Active</option>
+                        <option value="1">Reschedule Meeting Request</option>
+                        <option value="2">Accept</option>
+                        <option value="2">Meeting Schedule</option>
+                        <option value="3">Cancelled By Admin</option>
+                        <option value="3">Reject By Admin</option>
+                        <option value="3">Upcoming Meeting</option>
+                  </select>
+              </div>
+          </div>
+          <div class="row justify-content-center mt-3">
+              <div class="col-md-6">
+                  <label for="">Note</label>
+                  <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+              </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+              <div class="col-md-4 mt-3">
+                  <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+              </div>
+            </div>
+          </div>
+      <div class="modal-footer">
+          <h3></h3>
+      </div>
+    </div>
+
+  </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -676,6 +785,82 @@ $(function () {
     },
     'jsonp',
   );
+});
+
+
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+var modal1 = document.getElementById("myModal1");
+
+var modal2 = document.getElementById("myModal2");
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+
+  if (event.target == modal1) {
+    modal1.style.display = "none";
+  }
+
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
+}
+
+// Add event listeners to all buttons with class "myBtn"
+document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.getElementsByClassName("myBtn");
+    Array.prototype.forEach.call(buttons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal.style.display = "block";
+        });
+    });
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(span, function(sp) {
+        sp.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+    });
+});
+
+    // Add event listeners to all buttons with class "myBtn"
+    document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.getElementsByClassName("applicant_mode");
+    Array.prototype.forEach.call(buttons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal1.style.display = "block";
+        });
+    });
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(span, function(sp) {
+        sp.addEventListener("click", function() {
+            modal1.style.display = "none";
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.getElementsByClassName("admin_side_meeting");
+    Array.prototype.forEach.call(buttons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal2.style.display = "block";
+        });
+    });
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(span, function(sp) {
+        sp.addEventListener("click", function() {
+          modal2.style.display = "none";
+        });
+    });
 });
   
 </script>

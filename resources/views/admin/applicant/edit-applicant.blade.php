@@ -109,6 +109,8 @@
                                     <a href="{{route('applicant-list')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                                     @endif
                                 </div>
+
+                                {{-- @if(auth()->guard('webparents')->user()->role_id == '5') --}}
                                 <form clas="form active" method="POST" action="" id="form1">
                                     
                                     @csrf
