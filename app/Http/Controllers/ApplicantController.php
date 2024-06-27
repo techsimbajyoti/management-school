@@ -343,7 +343,33 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        
+       
+          $id = Session::get('applicant_id');
+          
+             // \Log::info('Validated Data:', ['data' => $data]);
+         $ipAddress = $this->getPublicIpAddress();
+
+       
+
+         $randomApplicantId = Str::random(5);
+
+          $parent =StudentParent::where('applicant_id',$id)->first();
+        //   print_r($parent);
+        //   exit;
+          if($parent != null){
+
+          $applicant =StudentParent::where('applicant_id', $id)->update([
+            'father_name' => $request->parent_name,
+            'father_mobile' => $request->contact_number,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'father_profession' => $request->profession,
+            
+          ]);
+            
+
+          }else{
+       
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
             'email' => 'required|email',
@@ -353,13 +379,9 @@ class ApplicantController extends Controller
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ]);
       
-        // \Log::info('Validated Data:', ['data' => $data]);
-         $ipAddress = $this->getPublicIpAddress();
+     
 
         $applicant = new StudentParent;
-   
-
-        $randomApplicantId = Str::random(5);
                 
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
@@ -373,14 +395,15 @@ class ApplicantController extends Controller
         $applicant->created_by = 'null';
 
         $applicant->save();
-        
+    }
         Session::put('parent_id',$applicant->id);
         Session::put('applicant_id',$applicant->applicant_id);
         return response()->json(['success'=>'true','action'=>$request->action]);
-        
+    
     }
 
     public function post_applicant_student_data(Request $request){
+       
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
             'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -397,6 +420,8 @@ class ApplicantController extends Controller
     
         $ipAddress = $this->getPublicIpAddress();
         
+
+
         $parent_id = Session::get('parent_id');
         $applicant_id = Session::get('applicant_id');
         try {
