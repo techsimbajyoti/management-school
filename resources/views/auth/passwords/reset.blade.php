@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-warning btn-round mb-3">{{ __('Reset Password') }}</button>
+                                <button type="submit" class="btn ot-btn-primary mb-3">{{ __('Reset Password') }}</button>
                             </div>
                         </form>
                     </div>

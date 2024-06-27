@@ -103,7 +103,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-right">
-                                    @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_id == 'applicant')
+                                    @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_status == 'applicant')
                                     <a href="{{route('applicant-profile')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                                     @else
                                     <a href="{{route('applicant-list')}}" class="btn ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>

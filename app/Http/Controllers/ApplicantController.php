@@ -15,6 +15,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicantRegistered;
 
 
 class ApplicantController extends Controller
@@ -116,6 +118,9 @@ class ApplicantController extends Controller
         })
         ->select('students.*', 'student_parents.*')
         ->first();
+
+        // print_r($applicant_data);
+        // exit;
         
         return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
     }
@@ -343,33 +348,10 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-       
-          $id = Session::get('applicant_id');
-          
-             // \Log::info('Validated Data:', ['data' => $data]);
-         $ipAddress = $this->getPublicIpAddress();
 
-       
+        // $applicant_id = Session::get('applicant_id');
 
-         $randomApplicantId = Str::random(5);
 
-          $parent =StudentParent::where('applicant_id',$id)->first();
-        //   print_r($parent);
-        //   exit;
-          if($parent != null){
-
-          $applicant =StudentParent::where('applicant_id', $id)->update([
-            'father_name' => $request->parent_name,
-            'father_mobile' => $request->contact_number,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'father_profession' => $request->profession,
-            
-          ]);
-            
-
-          }else{
-       
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
             'email' => 'required|email',
@@ -379,25 +361,34 @@ class ApplicantController extends Controller
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ]);
       
-     
+         $ipAddress = $this->getPublicIpAddress();
+
+        $randomApplicantId = Str::random(5);
+
+        $randomuserId = Str::random(8);
 
         $applicant = new StudentParent;
                 
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
+        $applicant->username = $randomuserId;
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
         $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
-        $applicant->status = $request->status;
+        $applicant->status = $request->status;                                                                                                            
         $applicant->ip_address = $ipAddress;
         $applicant->created_by = 'null';
 
         $applicant->save();
-    }
+    
+      
+        Mail::to($request->email)->send(new ApplicantRegistered($applicant));
+
         Session::put('parent_id',$applicant->id);
         Session::put('applicant_id',$applicant->applicant_id);
+
         return response()->json(['success'=>'true','action'=>$request->action]);
     
     }
@@ -651,7 +642,16 @@ class ApplicantController extends Controller
     }
 
     public function parent_meeting_track(){
-        return view('admin.applicant.parent-meeting-track');
+        $steps = [
+            ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
+            ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
+            ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
+            ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
+            ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
+            ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
+        ];
+
+        return view('admin.applicant.parent-meeting-track',compact('steps'));
     }
  
  

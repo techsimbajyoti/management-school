@@ -121,7 +121,8 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            @if(auth()->guard('webparents')->user()->applicant_id == 'applicant')
+                            @if(auth()->guard('webparents')->user()->applicant_status == 'applicant')
+                            <a class="dropdown-item" href="{{ route('applicant-profile') }}">{{ __('My profile') }}</a>
                             <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             @else

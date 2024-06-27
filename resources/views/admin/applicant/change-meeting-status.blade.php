@@ -33,12 +33,13 @@
                           <div class="col-md-6 mb-3">
                             <label for="exampleDataList" class="form-label"> Status <span class="fillable">*</span></label> 
                             <select class="nice-select niceSelect bordered_style wide" name="name" id="class_setup">
-                                <option value="">Upcoming Meeting</option>
-                                <option value="">Rejected</option>
-                                <option value="">Accepted</option>
-                                <option value="">Postponed</option>
-                                <option value="">Cancelled</option>
-                                <option value="">Done</option>
+                                <option value="0">Meeting Status</option>
+                                <option value="0">Active</option>
+                                <option value="1">Reschedule Meeting Request</option>
+                                <option value="2">Accept</option>
+                                <option value="2">Meeting Schedule</option>
+                                <option value="3">Cancelled By Admin</option>
+                                <option value="3">Reject By Admin</option>
                             </select>
                           </div>
 

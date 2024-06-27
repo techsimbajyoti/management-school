@@ -729,7 +729,7 @@
 
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
             
-            @if(auth()->guard('webparents')->user()->applicant_id == 'applicant')
+            @if(auth()->guard('webparents')->user()->applicant_status == 'applicant')
 
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('parent-dashboard') }}">
@@ -738,12 +738,12 @@
                 </a>
             </li>
 
-            <li class="{{ $elementActive == 'applicant-profile' ? 'active' : '' }}">
+            {{-- <li class="{{ $elementActive == 'applicant-profile' ? 'active' : '' }}">
                 <a href="{{ route('applicant-profile') }}">
                     <i class="fas fa-user-tie"></i> 
                     <p>{{ __('Profile') }}</p>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="{{ $elementActive == 'add-applicant' ? 'active' : '' }}">
                 <a href="{{ route('add-applicant') }}">

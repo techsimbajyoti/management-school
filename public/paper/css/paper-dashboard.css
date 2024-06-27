@@ -5844,6 +5844,7 @@ License - nucleoapp.com/license/
 .card-stats .card-body .numbers {
   text-align: right;
   font-size: 2em;
+  margin-top: 17px;
 }
 
 .card-stats .card-body .numbers p {
