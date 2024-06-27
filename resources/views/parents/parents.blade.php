@@ -202,8 +202,55 @@
                                 <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn ot-btn-primary w-100 ot-input">Complete Profile</a>
                             </div>
                             <div class="col-md-3 d-flex-center">
-                                <p class="btn ot-btn-secondary w-100 mb-0" style="height: 100%">Profile Progress 25%</p>
+                                @php
+                                    $id = auth()->guard('webparents')->user()->id;
+                                    $applicant_data = App\Models\Student::join('student_parents', function ($join) use ($id) {
+                                            $join->on('students.parent_id', '=', 'student_parents.id')
+                                                ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                                                ->where('student_parents.id', '=', $id);
+                                        })
+                                        ->select(
+                                            'students.first_name as student_name',
+                                            'students.email as student_email',
+                                            'students.mobile as student_phone',
+                                            'students.address as student_address',
+                                            'students.gender as student_gender',
+                                            'students.class as student_class',
+                                            'students.date_of_birth as student_dob',
+                                            'students.country as student_country',
+                                            'students.state as student_state',
+                                            'students.city as student_city',
+                                            'students.pin_code as student_pin_code',
+                                            'students.document as student_doc',
+                                            'student_parents.father_name',
+                                            'student_parents.father_mobile',
+                                            'student_parents.email as parent_email',
+                                            'student_parents.password as parent_password',
+                                        )
+                                        ->first();
+                            
+                                    // Initialize the profile completion percentage
+                                    $profileCompletionPercentage = 0;
+                                    $totalSteps = 16; // Number of fields to check
+                                    $stepIncrement = 100 / $totalSteps;
+                            
+                                    // Check each field
+                                    $fields = [
+                                        'student_doc', 'student_pin_code', 'student_city', 'student_state', 'student_country',
+                                        'student_dob', 'student_class', 'father_name', 'parent_email', 'father_mobile',
+                                        'parent_password', 'student_name', 'student_email', 'student_phone', 'student_address',
+                                        'student_gender'
+                                    ];
+                                    
+                                    foreach ($fields as $field) {
+                                        if (!empty($applicant_data->$field)) {
+                                            $profileCompletionPercentage += $stepIncrement;
+                                        }
+                                    }
+                                @endphp
+                                <p class="btn ot-btn-secondary w-100 mb-0" style="height: 100%">Profile Progress {{ $profileCompletionPercentage }} %</p>
                             </div>
+                            
                         </div>
                     </div>
                     <hr>

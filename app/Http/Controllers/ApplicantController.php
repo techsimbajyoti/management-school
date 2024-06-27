@@ -346,7 +346,8 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        
+        $applicant_id = Session::get('applicant_id');
+
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
             'email' => 'required|email',
