@@ -27,6 +27,7 @@ class StudentParent extends Authenticatable
         'father_mobile',
         'father_profession',
         'father_image',
+        'username',
         'email',
         'password',
         'guardian_name',

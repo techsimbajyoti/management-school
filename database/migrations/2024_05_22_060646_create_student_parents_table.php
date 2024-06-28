@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('father_mobile');
             $table->string('father_profession')->nullable();
             $table->string('father_image');
+            $table->string('username');
             $table->string('email');
             $table->string('password');
             $table->string('guardian_name');

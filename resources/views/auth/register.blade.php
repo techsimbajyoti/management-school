@@ -123,22 +123,31 @@ $(document).ready(function() {
     var formData = $('#form1').serialize();
 
     $.ajax({
-        url: "{{ route('post-applicant-data') }}",
+        url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
         type: 'POST',
         data: formData,
         success: function(response) {
             console.log(response);
 
-            if (response.action === 'save') {
-                location.reload(); // Reload the page after saving
-            } else if (response.action === 'save-continue') {
-                $('#step1').removeClass('active');
-                $('#step2').addClass('active');
-                // Update form visibility based on current step
-                $('#form1').hide();
-                $('#form2').show();
-                $('#form3').hide();
-                $('#form4').hide();
+            if (response.success) {
+                if (response.action === 'save') {
+                    location.reload(); // Reload the page after saving
+                } else if (response.action === 'save-continue') {
+                    $('#step1').removeClass('active');
+                    $('#step2').addClass('active');
+                    // Update form visibility based on current step
+                    $('#form1').hide();
+                    $('#form2').show();
+                    $('#form3').hide();
+                    $('#form4').hide();
+                }
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "An error occurred while submitting the application.",
+                    icon: "error",
+                    button: "OK",
+                });
             }
         },
         error: function(xhr, status, error) {
@@ -156,6 +165,12 @@ $(document).ready(function() {
             }
         }
     });
+    Swal.fire({
+            title: "Email sent successfully!",
+            text: "Please proceed with the registration process or check your email to verify your account.",
+            icon: "success",
+            button: "OK"
+        })
 }
 
 
@@ -167,7 +182,6 @@ function displayValidationErrors(errors) {
         errorElement.show();
     });
 }
-
 
     $('#form2').submit(function(event) {
         event.preventDefault();
@@ -275,6 +289,7 @@ function displayValidationErrors(errors) {
                     $('#error-message').text('An error occurred while submitting the form. Please try again.').show();
                 }
             });
+            
         });
 
 

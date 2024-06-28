@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicantRegistered;
 
 
 class ApplicantController extends Controller
@@ -347,7 +349,9 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        $applicant_id = Session::get('applicant_id');
+
+        // $applicant_id = Session::get('applicant_id');
+
 
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
@@ -358,34 +362,40 @@ class ApplicantController extends Controller
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ]);
       
-        // \Log::info('Validated Data:', ['data' => $data]);
          $ipAddress = $this->getPublicIpAddress();
 
-        $applicant = new StudentParent;
-   
-
         $randomApplicantId = Str::random(5);
+
+        $randomuserId = Str::random(8);
+
+        $applicant = new StudentParent;
                 
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
+        $applicant->username = $randomuserId;
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
         $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
-        $applicant->status = $request->status;
+        $applicant->status = $request->status;                                                                                                            
         $applicant->ip_address = $ipAddress;
         $applicant->created_by = 'null';
 
         $applicant->save();
-        
+    
+      
+        Mail::to($request->email)->send(new ApplicantRegistered($applicant));
+
         Session::put('parent_id',$applicant->id);
         Session::put('applicant_id',$applicant->applicant_id);
+
         return response()->json(['success'=>'true','action'=>$request->action]);
-        
+    
     }
 
     public function post_applicant_student_data(Request $request){
+       
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
             'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -402,6 +412,8 @@ class ApplicantController extends Controller
     
         $ipAddress = $this->getPublicIpAddress();
         
+
+
         $parent_id = Session::get('parent_id');
         $applicant_id = Session::get('applicant_id');
         try {

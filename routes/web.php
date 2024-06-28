@@ -25,6 +25,7 @@ use App\Http\Controllers\FeesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\VerificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
+
+Route::get('/verify-registration/{applicant_id}', [App\Http\Controllers\VerificationController::class, 'verifyRegistration'])->name('verify.registration');
 
 // Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
@@ -56,6 +59,8 @@ Route::post('post-applicant-document-data',[ApplicantController::class,'post_app
 Route::get('students/{id}/documents', [ApplicantController::class, 'showApplicantDocuments'])->name('students.documents');
 
 Route::delete('delete-applicant/{id}', [ApplicantController::class, 'delete_applicant'])->name('delete-applicant');
+
+Route::post('/clear-session', [ApplicantController::class, 'clearSession'])->name('clear-session');
 
 
 Route::group(['middleware' => 'auth'], function () {
