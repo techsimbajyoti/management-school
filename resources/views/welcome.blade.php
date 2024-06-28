@@ -53,24 +53,9 @@
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> spacious rooms equipped with desks</li>
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> whiteboards/blackboards</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="info-area info-horizontal">
-                        <div class="description">
-                            <ul style="list-style: none;">
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> A quiet space with a diverse collection of books</li>
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> digital resources for reading and research</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="info-area info-horizontal">
-                        <div class="description">
-                            <ul style="list-style: none;">
                                 <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check">  Science labs for subjects like physics, chemistry, and biology with necessary equipment and safety measures</li>
-                                {{-- <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
-                                <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> spacious rooms equipped with desks</li>
-                                <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> whiteboards/blackboards</li> --}}
                             </ul>
                         </div>
                     </div>

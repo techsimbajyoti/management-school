@@ -50,6 +50,7 @@
                                     <option value="2">Accept</option>
                                     <option value="3">Reject</option>
                                     <option value="4">Meeting Schedule</option>
+                                    <option value="4">Meeting Reschedule</option>
                                     <option value="5">Approve By Admin</option>
                                     <option value="5">Denied By Admin</option>
                                     <option value="5">Approve By Applicant</option>
@@ -91,7 +92,6 @@
                                         <th class="action">Status</th>
                                         <th class="action">Manage Status</th>
                                         <th class="action">Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
@@ -110,24 +110,7 @@
                                             <td>{{$applicant_lists->father_mobile}}</td>
                                             <td><span class="badge-basic-info-text">Incomplete</span></td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button class="btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <ul style="list-style: none">
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Incomplete</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">New</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Accept</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Reject</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Meeting Schedule</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Approve By Admin</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Denied By Admin</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Approve By Applicant</label></li>
-                                                                <li><input type="radio" name="add_note" class="applicant_status mr-3"><label for="">Admission Confirm</label></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <a class="btn ot-btn-primary applicant_status"><i class="fas fa-cog"></i></a>
                                             </td>
                                             {{-- <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td> --}}
                                             <td class="action">
@@ -139,6 +122,7 @@
                                                             <a href="{{ route('edit-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
+                                                            <a href="{{ route('admin-download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
                                                             <form action="{{ route('delete-applicant', $applicant_lists->parent_id) }}" method="POST" style="display:inline;">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -204,18 +188,33 @@
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-            <div class="row">
-                <div class="col-md-4">
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-6">
                     <label for="">Status</label>
-                    <input type="text" class="nice-select sections niceSelect bordered_style wide" value="New" id="new_status">
+                    <select name="" id="" class="nice-select sections niceSelect bordered_style wide">
+                        <option>Incomplete</option>
+                        <option>New</option>
+                        <option>Accept</option>
+                        <option>Reject</option>
+                        <option>Meeting Schedule</option>
+                        <option>Approve By Admin</option>
+                        <option>Denied By Admin</option>
+                        <option>Approve By Applicant</option>
+                        <option>Admission Confirm</option>
+                    </select>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-6">
                     <label for="">Note</label>
                     <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
                 </div>
+            </div>
+            <div class="row justify-content-center mt-3">    
                 <div class="col-md-4 mt-3">
                     <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
                 </div>
+            </div>
             </div>
         </div>
         <div class="modal-footer">

@@ -9,6 +9,12 @@
             display: flex;
             align-items: center;
         }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin: auto;
+        }
         
 .mini-card {
             background: #f4f4f9;
@@ -73,34 +79,35 @@
                         <div class="col-md-6">
                             <div class="card mini-card">
                                 <div class="card-header">
-                                    <h6 class="card-title">School Visit</h6>
+                                    <h6 class="card-title">Mode</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">26/06/2024 at 12:30pm</p>
+                                    <p class="card-text">Offline</p>
+                                    <p class="card-text">Vijay Nagar Scheme No. 54</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card mini-card">
                                 <div class="card-header">
-                                    <h6 class="card-title">Document Submission</h6>
+                                    <h6 class="card-title">Purpose</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">26/06/2024 at 12:30pm</p>
+                                    <p class="card-text">Interview</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card mini-card">
                                 <div class="card-header">
-                                    <h6 class="card-title">Entrance Exam</h6>
+                                    <h6 class="card-title">Date & Time</h6>
                                 </div>
                                 <div class="card-body">
                                     <p class="card-text">26/06/2024 at 12:30pm</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="card mini-card">
                                 <div class="card-header">
                                     <h6 class="card-title">Interview</h6>
@@ -109,7 +116,7 @@
                                     <p class="card-text">26/06/2024 at 12:30pm</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     </div>
                     <hr>
@@ -173,7 +180,7 @@
                 </div>
             </div>
             
-            <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body">
                         <div class="row">
@@ -192,16 +199,18 @@
                     <hr>
                     
                     <div class="card-footer">
-                        {{-- <div id="meeting-details"></div> --}}
-                        <div class="row d-flex">
-                            <div class="col-md-6 d-flex">
-                                <label id="applicant_id">Applicant Id</label>
-                                <input type="text" class="form-control ot-input" value="HtyyI" readonly>
+                        <div class="row">
+                            
+                            <div class="col-md-6">
+                                <div class="chart-container">
+                                    <canvas id="myPieChart"></canvas>
+                                    <p class="text-center mt-3"><strong>Applicant Id: </strong>HYYUgff</p>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn ot-btn-primary w-100 ot-input">Complete Profile</a>
+                            <div class="col-md-6 text-right">
+                                <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn ot-btn-primary">Complete Profile</a>
                             </div>
-                            <div class="col-md-3 d-flex-center">
+                            <div>
                                 @php
                                     $id = auth()->guard('webparents')->user()->id;
                                     $applicant_data = App\Models\Student::join('student_parents', function ($join) use ($id) {
@@ -248,10 +257,50 @@
                                         }
                                     }
                                 @endphp
-                                <p class="btn ot-btn-secondary w-100 mb-0" style="height: 100%">Profile Progress {{ $profileCompletionPercentage }} %</p>
+                                <input type="hidden" value="{{$profileCompletionPercentage}}" name="profile_progress" id="profile_progress">
                             </div>
                             
                         </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4 col-md-3">
+                                <div class="icon-big text-left icon-warning">
+                                    <i class="fas fa-user" style='font-size:40px;color:#76a0e3' aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-8 col-md-9">
+                                <div class="numbers">
+                                    <p class="card-category" style="font-weight: 700;">Applicant List</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    
+                    <div class="card-footer">
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Applicant Id</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>HYYUgff</td>
+                                <td><span>Incomplete</span></td>
+                              </tr>
+                            </tbody>
+                          </table>
                     </div>
                     <hr>
                 </div>
@@ -275,6 +324,7 @@
 <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Sample data of upcoming meetings
 const meetings = [
@@ -444,6 +494,58 @@ $(document).ready(function() {
         }
 
          $(document).ready(function() {
+
+          // Get the profile progress value
+            var profileProgress = parseFloat($('#profile_progress').val());
+
+            // Calculate the incomplete percentage
+            var incompleteProgress = 100 - profileProgress;
+
+            // Data for the pie chart
+            var chartData = {
+                labels: ["Complete", "Incomplete"],
+                datasets: [{
+                    data: [profileProgress, incompleteProgress],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)', // Complete color
+                        'rgba(255, 99, 132, 0.2)'  // Incomplete color
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Options for the pie chart
+            var chartOptions = {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Create the pie chart
+            var ctx = $("#myPieChart");
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: chartData,
+                options: chartOptions
+            });
+
+
+
+
 
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {

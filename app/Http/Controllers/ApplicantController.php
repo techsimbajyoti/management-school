@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
+use PDF;
+
 
 
 class ApplicantController extends Controller
@@ -654,5 +656,31 @@ class ApplicantController extends Controller
         return view('admin.applicant.parent-meeting-track',compact('steps'));
     }
  
+    public function applicant_student_profile(){
+        return view('admin.applicant.applicant-student-profile');
+    }
+
+    public function download_profile(){
+         // Sample data for the PDF
+         $data = [
+            'title' => 'Parent Information',
+            'date' => date('m/d/Y'),
+            'parent' => [
+                'name' => 'Steve Smith',
+                'contact' => '1478523690',
+                'profession' => 'Demo',
+                'email' => 'applicant@gmail.com',
+                'phone' => '0000000000',
+                'username' => 'FggHlk',
+                'password' => '123456789'
+            ]
+        ];
+        
+        // Load the view and pass data to it
+        $pdf = PDF::loadView('pdf_view', $data);
+        
+        // Download the PDF
+        return $pdf->download('parent_information.pdf');
+    }
  
 }
