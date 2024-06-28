@@ -36,7 +36,7 @@
             </div> 
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
-                    @if($meetingStatus == 'schedule-meeting')
+                    @if($meetingStatus != 'schedule-meeting')
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -59,7 +59,7 @@
                     </div>
                     @endif
 
-                    @if($meetingStatus == 'applicant-1')
+                    @if($meetingStatus != 'applicant-1')
                     <div class="d-flex">
                         <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
                     </div>
@@ -174,7 +174,7 @@
                                         <option value="Asia/Kolkata" selected>Kolkata (+5:30)</option>
                                     </select>
                                 </div>
-                                <div id="available-hours"  style="display: none;">
+                                <div id="available-hours">
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour selected-hour">1:30 pm </button>
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour">2:30 pm </button>
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour">3:30 pm </button>

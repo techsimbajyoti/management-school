@@ -15,9 +15,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use PDF;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
+use PDF;
 
 
 class ApplicantController extends Controller

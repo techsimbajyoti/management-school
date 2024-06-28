@@ -135,7 +135,8 @@
                         <option value="2">Accept</option>
                         <option value="2">Meeting Schedule</option>
                         <option value="3">Cancelled By Admin</option>
-                        <option value="3">Reject By Admin</option>
+                        <option value="3">Rejected By Admin</option>
+                        <option value="3">Rejected By Applicant</option>
                         <option value="3">Upcoming Meeting</option>
                       </select>
                     </div>
@@ -321,7 +322,7 @@
                         <option value="2">Accept</option>
                         <option value="2">Meeting Schedule</option>
                         <option value="3">Cancelled By Admin</option>
-                        <option value="3">Reject By Admin</option>
+                        <option value="3">Rejected By Admin</option>
                         <option value="3">Upcoming Meeting</option>
                   </select>
               </div>
