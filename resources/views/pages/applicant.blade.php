@@ -199,7 +199,7 @@
                             <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Accepted</span>
+                                        <span class="mini-card-title">Incomplete</span>
                                         <span class="mini-card-number">23</span>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
                             <div class="col-md-6">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Rejected</span>
+                                        <span class="mini-card-title">New</span>
                                         <span class="mini-card-number">41</span>
                                     </div>
                                 </div>
@@ -215,7 +215,47 @@
                             <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Pending</span>
+                                        <span class="mini-card-title">Accepted</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Rejected</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Approved By Admin</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Denied By Admin</span>
+                                        <span class="mini-card-number">41</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Approved Applicant</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Admission Confirmed</span>
                                         <span class="mini-card-number">22</span>
                                     </div>
                                 </div>
@@ -259,7 +299,7 @@
                             <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Done</span>
+                                        <span class="mini-card-title">Active</span>
                                         <span class="mini-card-number">23</span>
                                     </div>
                                 </div>
@@ -267,7 +307,7 @@
                             <div class="col-md-6">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Pending</span>
+                                        <span class="mini-card-title">Reschedule Meeting Request</span>
                                         <span class="mini-card-number">41</span>
                                     </div>
                                 </div>
@@ -275,7 +315,47 @@
                             <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Cancelled</span>
+                                        <span class="mini-card-title">Accepted</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Meeting Schedule</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Cancelled By Admin</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Rejected By Admin</span>
+                                        <span class="mini-card-number">41</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Rejected By Applicant</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Upcoming Meeting</span>
                                         <span class="mini-card-number">22</span>
                                     </div>
                                 </div>
@@ -305,7 +385,7 @@
                             <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Interview</span>
+                                        <span class="mini-card-title">Student Interview</span>
                                         <span class="mini-card-number">22</span>
                                     </div>
                                 </div>
@@ -314,6 +394,14 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Entrance Exam</span>
+                                        <span class="mini-card-number">22</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Student Interview</span>
                                         <span class="mini-card-number">22</span>
                                     </div>
                                 </div>
@@ -329,7 +417,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-12 col-sm-12" style="margin-top: -230px">
+            <div class="col-lg-6 col-md-12 col-sm-12" style="margin-top: -270px">
                 <div class="card card-stats">
                     <div class="card-body">
                         <div class="row">
