@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
+use App\Mail\AdminNotification;
 use PDF;
-
 
 
 class ApplicantController extends Controller
@@ -379,12 +379,14 @@ class ApplicantController extends Controller
         $applicant->father_profession = $request->profession;
         $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
-        $applicant->status = $request->status;                                                                                                            
+        $applicant->status = $request->status; 
+        $student->applicant_status = $request->applicant_status;                                                                                                           
         $applicant->ip_address = $ipAddress;
         $applicant->created_by = 'null';
 
         $applicant->save();
-    
+
+        Mail::to('ts.juhiverma@gmail.com')->send(new AdminNotification($applicant));
       
         Mail::to($request->email)->send(new ApplicantRegistered($applicant));
 
@@ -443,11 +445,13 @@ class ApplicantController extends Controller
             $student->blood_group = $request->blood_group;
             $student->student_language = $request->student_language;
             $student->previous_school = $request->previous_school;
+            $student->category = $request->category;
             $student->parent_id = $parent_id;
             $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = $ipAddress;
             $student->status = $request->status;
+            $student->applicant_status = $request->applicant_status;
             $student->created_by = 'null';
 
             if ($request->category === 'other') {

@@ -417,7 +417,9 @@
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn btn-lg ot-btn-primary back_2"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
+
                                                 <button type="button" class="btn btn-lg ot-btn-primary save_3"><i class="fa fa-edit"></i> {{ __('Update & Next') }}</button>
+
                                                  {{-- <button type="submit" class="btn ot-btn-primary ml-3"><i class="fa fa-save"></i> {{ __('Save') }}</button> --}}
                                             </div> 
                                         </div>
@@ -484,8 +486,10 @@
                                     
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
+
                                             <button type="button" class="btn btn-lg ot-btn-primary back_3"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <button type="submit" class="btn btn-lg ot-btn-primary save_4"><i class="fa fa-edit"></i> {{ __('Update') }}</button>
+
                                         </div>
                                     </div>
                                 </form>

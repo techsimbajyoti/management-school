@@ -5,24 +5,7 @@
 
 @section('content')
 <style>
-    .info-button {
-        background-color: #efefef;
-        margin-left: 3px;
-        width: 22px;
-        height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 0%;
-        text-decoration: none;
-        color: #000;
-    }
-    .info-button:hover {
-        background-color: #d4d3d3;
-        color: #000;
-    }
-
-  /* Custom card styles */
+    /* Custom card styles */
   .card-stats {
             border: 1px solid #e3e3e3;
             border-radius: 8px;
@@ -62,7 +45,23 @@
             border: 1px solid #e3e3e3;
             border-radius: 8px;
             margin-bottom: 10px;
+            
+            transition: transform 0.2s, box-shadow 0.2s;
             color: #000;
+        }
+
+       
+
+        .mini-card.accepted {
+            color: #262b6e;
+        }
+
+        .mini-card.rejected {
+            color: #262b6e;
+        }
+
+        .mini-card.pending {
+            color: #262b6e;
         }
 
         .mini-card-body {
@@ -189,7 +188,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Total</span>
@@ -197,7 +196,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Accepted</span>
@@ -205,7 +204,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Rejected</span>
@@ -213,7 +212,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Pending</span>
@@ -249,7 +248,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Total</span>
@@ -257,7 +256,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Done</span>
@@ -265,7 +264,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Pending</span>
@@ -273,7 +272,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Cancelled</span>
@@ -283,11 +282,11 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="numbers text-left">
-                            <p class="card-category" style="margin-left: 10px;"><strong>Meeting Purpose</strong></p>
+                        <div class="numbers text-right">
+                            <p class="card-category"><strong>Meeting Purpose</strong></p>
                         </div><br>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">School Visit</span>
@@ -295,7 +294,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Doc Submission</span>
@@ -303,7 +302,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Interview</span>
@@ -311,7 +310,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Entrance Exam</span>
@@ -347,7 +346,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Paid Amount</span>
@@ -355,7 +354,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Remaining</span>
@@ -399,7 +398,6 @@
                                             <th class="action">Purpose</th>
                                             <th class="action">Mode</th>
                                             <th class="action">Status</th>
-                                            <th class="action">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody class="tbody">
@@ -420,18 +418,9 @@
                                                 <td>
                                                     <div class="d-flex">
                                                     <span>Offline</span>
-                                                    <a class="info-button applicant_mode">
-                                                        <i class="fa fa-info"></i>
-                                                    </a>
                                                     </div>
                                                 </td>
-                                                <td><p>Active</p></td>
-                                                {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
-                                                <td class="action">
-                                                  <a class="btn ot-btn-primary admin_side_meeting">
-                                                      <i class="fas fa-cog"></i>
-                                                  </a>
-                                            </td>
+                                                <td><span class="badge-basic-success-text">Active</span></td>
                                             </tr>
                                             <tr id="row_7">
                                                 <td class="serial">2</td>
@@ -449,18 +438,9 @@
                                                 <td>
                                                     <div class="d-flex">
                                                     <span>Offline</span>
-                                                    <a class="info-button applicant_mode">
-                                                        <i class="fa fa-info"></i>
-                                                    </a>
                                                     </div>
                                                 </td>
-                                                <td><p>Active</p></td>
-                                                 {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
-                                                 <td class="action">
-                                                  <a class="btn ot-btn-primary admin_side_meeting">
-                                                      <i class="fas fa-cog"></i>
-                                                  </a>
-                                            </td>
+                                                <td><span class="badge-basic-success-text">Active</span></td>
                                         </tr>
                                     </tbody>
                                 </table>

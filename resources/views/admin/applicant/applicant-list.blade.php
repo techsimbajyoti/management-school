@@ -50,11 +50,10 @@
                                     <option value="2">Accept</option>
                                     <option value="3">Reject</option>
                                     <option value="4">Meeting Schedule</option>
-                                    <option value="4">Meeting Reschedule</option>
-                                    <option value="5">Approve By Admin</option>
+                                    <option value="5">Approved By Admin</option>
                                     <option value="5">Denied By Admin</option>
-                                    <option value="5">Approve By Applicant</option>
-                                    <option value="5">Admission Confirm</option>
+                                    <option value="5">Approved By Applicant</option>
+                                    <option value="5">Admission Confirmed</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
@@ -197,10 +196,10 @@
                         <option>Accept</option>
                         <option>Reject</option>
                         <option>Meeting Schedule</option>
-                        <option>Approve By Admin</option>
+                        <option>Approved By Admin</option>
                         <option>Denied By Admin</option>
-                        <option>Approve By Applicant</option>
-                        <option>Admission Confirm</option>
+                        <option>Approved By Applicant</option>
+                        <option>Admission Confirmed</option>
                     </select>
                 </div>
             </div>
