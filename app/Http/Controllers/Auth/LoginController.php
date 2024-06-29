@@ -77,46 +77,50 @@ class LoginController extends Controller
     // }
 
 
-    public function login(Request $request){
-        $credentials = $request->only('email', 'password');
-
+    public function login(Request $request)
+    {
+        $loginField = $request->input('login');
+        $password = $request->input('password');
+    
+        // Determine if the input is an email or username
+        $field = filter_var($loginField, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+  
+        // Attempt login based on the determined field
+        $credentials = [
+            $field => $loginField,
+            'password' => $password,
+        ];
+    
+       
+        // Attempt login for different guards
         if (Auth::guard('webstudents')->attempt($credentials)) {
             if (Auth::guard('webstudents')->user()->role_id == 4) {
                 return redirect()->route('student-dashboard');
             }
-        }
-
-        if (Auth::guard('webteachers')->attempt($credentials)) {
+        } elseif (Auth::guard('webteachers')->attempt($credentials)) {
             if (Auth::guard('webteachers')->user()->role_id == 2) {
                 return redirect()->route('teacher-dashboard');
             }
-        }
-
-        if (Auth::guard('webparents')->attempt($credentials)) {
+        } elseif (Auth::guard('webparents')->attempt($credentials)) {
             if (Auth::guard('webparents')->user()->role_id == 5) {
                 return redirect()->route('parent-dashboard');
             }
-        }
-
-        if (Auth::guard('webaccountants')->attempt($credentials)) {
+        } elseif (Auth::guard('webaccountants')->attempt($credentials)) {
             if (Auth::guard('webaccountants')->user()->role_id == 3) {
                 return redirect()->route('accountant-dashboard');
             }
-        }
-
-        if (Auth::guard('webadmissions')->attempt($credentials)) {
+        } elseif (Auth::guard('webadmissions')->attempt($credentials)) {
             if (Auth::guard('webadmissions')->user()->role_id == 6) {
                 return redirect()->route('admission-dashboard');
             }
-        }
-
-        if (Auth::attempt($credentials)) {
+        } elseif (Auth::attempt($credentials)) {
             if (Auth::user()->role_id == 1) {
                 return redirect('/dashboard');
             }
         }
     
         // If the authentication fails or the role is not correct, redirect to the login page
-        return redirect('/')->withErrors(['email' => 'Your provided credentials could not be verified.']);
+        return redirect('/')->withErrors(['email_or_username' => 'Your provided credentials could not be verified.']);
     }
+    
 }

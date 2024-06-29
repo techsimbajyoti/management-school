@@ -18,7 +18,7 @@
     <div class="row">
         <div id="book-appointment-wizard" class="col-12 col-xl-8">
             <div id="header">
-                <span id="company-name">School Name</span>
+                <span id="company-name">Schedule Meeting</span>
                 <div id="steps">
                     <div id="step-1" class="book-step active-step"
                             data-tippy-content="Service & Provider">
@@ -163,8 +163,8 @@
                 <div class="frame-container">
                     <h4 class="frame-title">Meeting Date & Time</h4>
                     <div class="row">
-                        <div class="col-12 col-md-6">
-                            <input type="text" id="datepicker" placeholder="Please Select a date">
+                        <div class="col-12 col-md-6 mt-5">
+                            <div id="datepicker"></div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div id="select-time">
@@ -286,15 +286,7 @@
 @endsection
 @push('scripts')
 <script>
-     document.addEventListener('DOMContentLoaded', function() {
-        flatpickr("#datepicker", {
-            dateFormat: "Y-m-d", // Date format (e.g., YYYY-MM-DD)
-            defaultDate: "today", // Default date (today's date)
-            onChange: function(selectedDates, dateStr, instance) {
-                alert('Selected Date: ' + dateStr); // Show selected date in an alert
-            }
-        });
-    });
+   
 
  $(document).ready(function() {
     $('#meeting_mode_other').hide();

@@ -26,6 +26,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\ChangePassword;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,18 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
+
+
+Route::post('verify', [VerificationController::class, 'show'])->middleware('guest');
+Route::post('reset-password', [VerificationController::class, 'update'])->middleware('guest')->name('password.update');
+Route::get('verify', function () {
+	return view('auth.passwords.email');
+})->middleware('guest')->name('verify'); 
+
+Route::get('/reset-password/{token}', function ($token) {
+	return view('auth.passwords.reset', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
 
 Route::get('/verify-registration/{applicant_id}', [App\Http\Controllers\VerificationController::class, 'verifyRegistration'])->name('verify.registration');
 
