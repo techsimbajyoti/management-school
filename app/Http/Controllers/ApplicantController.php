@@ -380,7 +380,7 @@ class ApplicantController extends Controller
         $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status; 
-        $student->applicant_status = $request->applicant_status;                                                                                                           
+        $applicant->applicant_status = $request->applicant_status;                                                                                                           
         $applicant->ip_address = $ipAddress;
         $applicant->created_by = 'null';
 
