@@ -200,7 +200,8 @@
                                                 </a>
                                                 </div>
                                             </td>
-                                            <td><p>Active</p></td>
+                                            <td><span class="badge-basic-success-text">Active</span></td>
+
                                             {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
                                             <td class="action">
                                               <a class="btn ot-btn-primary admin_side_meeting">
@@ -229,7 +230,8 @@
                                                 </a>
                                                 </div>
                                             </td>
-                                            <td><p>Active</p></td>
+                                            <td><span class="badge-basic-success-text">Active</span></td>
+
                                              {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
                                              <td class="action">
                                               <a class="btn ot-btn-primary admin_side_meeting">

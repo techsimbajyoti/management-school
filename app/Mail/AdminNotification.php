@@ -10,19 +10,16 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\StudentParent; 
 
-class ApplicantRegistered extends Mailable
+class AdminNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $applicant;
-    protected $verificationLink;
     /**
      * Create a new message instance.
      */
     public function __construct(StudentParent $applicant)
     {
         $this->applicant = $applicant;
-        $this->verificationLink = url('login/');
     }
 
     /**
@@ -31,8 +28,7 @@ class ApplicantRegistered extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome! Please Verify Your Email and Complete Your Application',
-           
+            subject: 'New School Admission Application Submitted',
         );
     }
 
@@ -42,13 +38,11 @@ class ApplicantRegistered extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.applicant-registered',
-            with: [
-                  'applicant' => $this->applicant,
-                  'applicant_id' => $this->applicant->applicant_id,
-                  'verificationLink' => $this->verificationLink,
-                   ],
-           
+            view: 'emails.admin-notification',
+            with:[
+                'applicant' => $this->applicant,
+                'applicant_id' => $this->applicant->applicant_id,
+            ]
         );
     }
 

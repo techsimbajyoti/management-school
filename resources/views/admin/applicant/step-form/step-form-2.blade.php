@@ -133,6 +133,7 @@
                                 </div>
                                 <input type="hidden" name="role_id" value="4">
                                 <input type="hidden" name="status" value="active">
+                                <input type="hidden" name="applicant_status" value="applicant">
                                
                                 <div class="card-footer mt-5">
                                     <div class="d-flex justify-content-between">

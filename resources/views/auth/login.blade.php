@@ -72,12 +72,12 @@
                                                 <i class="nc-icon nc-single-02"></i>
                                             </span>
                                         </div>
-                                        {{-- <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required> --}}
+                                        <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required>
                                         
-                                        <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" name="login" required autofocus>
-                                        @if ($errors->has('login'))
+                                        {{-- <input type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" required autofocus> --}}
+                                        @if ($errors->has('email'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('login') }}</strong>
+                                                <strong>{{ $errors->first('email') }}</strong>
                                             </span>
                                         @endif
                                     </div>
