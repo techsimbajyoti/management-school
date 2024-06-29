@@ -351,9 +351,38 @@ class ApplicantController extends Controller
 
     public function post_applicant_data(Request $request){
 
-        // $applicant_id = Session::get('applicant_id');
+        // $ipAddress = $this->getPublicIpAddress();
 
+        $randomApplicantId = Str::random(5);
 
+        $randomuserId = Str::random(8);
+
+        $applicant_id = Session::get('applicant_id');
+
+        $parent_student = StudentParent::where('email', $request->email)
+        ->first();
+
+        if($parent_student !== null){
+
+            $applicant = StudentParent::where('applicant_id', $applicant_id)->update([
+                'father_name' => $request->parent_name,
+                'father_mobile' => $request->contact_number,
+                'username' => $parent_student->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'father_profession' => $request->profession,
+                'applicant_id' => $applicant_id,
+                'role_id' => $request->role_id,
+                'status' => $request->status,
+                'applicant_status' => $request->applicant_status,                                                                                                           
+                'ip_address' => '1',
+                'created_by' => 'null',
+            ]);
+
+        return response()->json(['success'=>'true','action'=>$request->action, 'update'=>'yes']);
+
+                
+        }else{
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
             'email' => 'required|email',
@@ -362,12 +391,6 @@ class ApplicantController extends Controller
             'contact_number' => 'required|digits_between:10,15',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ]);
-      
-         $ipAddress = $this->getPublicIpAddress();
-
-        $randomApplicantId = Str::random(5);
-
-        $randomuserId = Str::random(8);
 
         $applicant = new StudentParent;
                 
@@ -380,8 +403,8 @@ class ApplicantController extends Controller
         $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status; 
-        $student->applicant_status = $request->applicant_status;                                                                                                           
-        $applicant->ip_address = $ipAddress;
+        $applicant->applicant_status = $request->applicant_status;                                                                                                           
+        $applicant->ip_address = '1';
         $applicant->created_by = 'null';
 
         $applicant->save();
@@ -394,6 +417,9 @@ class ApplicantController extends Controller
         Session::put('applicant_id',$applicant->applicant_id);
 
         return response()->json(['success'=>'true','action'=>$request->action]);
+
+    }
+
     
     }
 
@@ -438,7 +464,7 @@ class ApplicantController extends Controller
 
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
-            $student->user_name = $randomUsername;
+            $student->username = $randomUsername;
             $student->password = $hashPassword;
             $student->class = $request->class;
             $student->date_of_birth = $request->date_of_birth;
