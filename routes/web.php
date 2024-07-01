@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('view-applicant/{id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
 
-	Route::get('edit-applicant/{id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
+	Route::get('edit-applicant/{student_id}/{parent_id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
 
 	Route::post('update-applicant/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant');
 

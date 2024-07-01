@@ -94,7 +94,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                        
+                                       
                                         @foreach($applicant_list as $applicant_lists)
                                         <tr id="row_7">
                                             <td class="serial">{{$applicant_lists->id}}</td>
@@ -102,7 +102,7 @@
                                             
                                             <td><img src="{{ url('storage/student_photos/' . $applicant_lists->image) }}" height="40px" width="40px">
                                                 {{$applicant_lists->first_name}} {{$applicant_lists->last_name}}</td>
-                                             <td>{{ $applicant_lists->user_name }}</td> 
+                                             <td>{{ $applicant_lists->username }}</td> 
                                             <td>{{ $applicant_lists->class }}</td>
                                             <td>{{ $applicant_lists->father_name}}</td>
                                             <td>{{$applicant_lists->date_of_birth}}</td>
@@ -118,7 +118,12 @@
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                           
+                                                            <a href="{{ route('edit-applicant', ['student_id' => $applicant_lists->student_id, 'parent_id' => $applicant_lists->parent_id]) }}" class="dropdown-item">
+                                                                <i class="fa fa-edit"></i>  {{ __('Edit') }}
+                                                            </a>
+                                                       
+                                                        
                                                             <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
                                                             <a href="{{ route('admin-download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>

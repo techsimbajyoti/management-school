@@ -26,7 +26,7 @@
                             <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
                         </td>
                         <td>
-                            <input type="file" class="form-control" name="document_file[]" multiple>
+                            <input type="file" class="form-control" name="document_file[]" multiple accept=".png,.jpg,.jpeg,.pdf,.doc,xls,.docx">
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger remove-document">
