@@ -1,6 +1,8 @@
 <form class="form active" method="POST" action="" id="form1">
     @csrf
     <h5>Parent Information</h5><br>
+    <input type="hidden" name="parent_id" id="parent_id">
+    <input type="hidden" name="applicant_id" id="applicant_id">
     <div class="row">
         <div class="col-md-6">
             <span style="color:red">*</span>

@@ -350,6 +350,8 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
+        $parent_id = $request->input('parent_id');
+        $applicant_id = $request->input('applicant_id');
 
         $ipAddress = $this->getPublicIpAddress();
 
@@ -378,7 +380,7 @@ class ApplicantController extends Controller
                 'created_by' => 'null',
             ]);
 
-        return response()->json(['success'=>'true','action'=>$request->action, 'update'=>'yes','email'=>$request->email]);
+        return response()->json(['success'=>'true','action'=>$request->action, 'update'=>'yes','email'=>$request->email,]);
 
                 
         }else{
@@ -415,12 +417,12 @@ class ApplicantController extends Controller
       
         Mail::to($request->email)->send(new ApplicantRegistered($applicant));
 
-        Session::put('parent_id',$applicant->id);
-        Session::put('applicant_id',$applicant->applicant_id);
+        Session::put(['parent_id' => $applicant->id]);
+        Session::put(['applicant_id' =>$applicant->applicant_id]);
+        
+        return response()->json(['success'=>'true','action'=>$request->action, 'parent_id' => $applicant->id, 'applicant_id' => $applicant->applicant_id]);
 
-        return response()->json(['success'=>'true','action'=>$request->action]);
-
-    }
+       }
 
     
     }
@@ -429,7 +431,7 @@ class ApplicantController extends Controller
 
         $parent_id = Session::get('parent_id');
         $student_id = $request->input('student_id');
-        $applicant_id = Session::get('applicant_id');
+        $applicant_id = Str::random(8);
 
         $parentStudent = Student::where('id', $student_id)
         ->where('applicant_id', $applicant_id)
@@ -506,7 +508,7 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = 'App_id'.$applicant_id;
+            $student->applicant_id = 'App_id'.'_'.$applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;
@@ -533,7 +535,7 @@ class ApplicantController extends Controller
 
             $student->save();
             Session::put(['student_id' => $student->id]);
-
+            
             return response()->json(['success' => true, 'student_id' => $student->id]);
         } catch (\Exception $e) {
             // Log the error for debugging

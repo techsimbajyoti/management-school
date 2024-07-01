@@ -7,8 +7,33 @@
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 @endpush
 @section('content')
+<style>
+#spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+    z-index: 9999; /* Ensure it is above other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#spinner img {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+}
+
+
+</style>
     <div class="content">
-       
+       <!-- Spinner element -->
+<div id="spinner" style="display:none;">
+    <img src="{{asset('paper/img/spinner/Spinner.gif')}}" alt="Loading..." />
+</div>
+
         <div class="container">
             <div class="row" style="margin-top: 40px;">
                 <div class="col-lg-10 col-md-10 offset-md-1 mr-auto">
@@ -131,6 +156,9 @@ $(document).ready(function() {
     function submitForm() {
     var formData = $('#form1').serialize();
 
+    // Show the spinner
+    $('#spinner').show();
+
     $.ajax({
         url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
         type: 'POST',
@@ -138,10 +166,28 @@ $(document).ready(function() {
         success: function(response) {
             console.log(response);
 
+            // Hide the spinner
+            $('#spinner').hide();
+
             if (response.success) {
                 if (response.action === 'save') {
                     location.reload(); // Reload the page after saving
                 } else if (response.action === 'save-continue' && response.update === 'yes') {
+                    $('#step1').removeClass('active');
+                    $('#step2').addClass('active');
+                    // Update form visibility based on current step
+                    $('#form1').hide();
+                    $('#form2').show();
+                    $('#form3').hide();
+                    $('#form4').hide();
+
+                } else if (response.action === 'save-continue' && response.update === 'yes' && response.email != null) {
+                    Swal.fire({
+                        title: "You Already Have an Account!",
+                        text: "Please proceed with the new applicant.",
+                        icon: "success",
+                        button: "OK"
+                    });
 
                     $('#step1').removeClass('active');
                     $('#step2').addClass('active');
@@ -150,14 +196,14 @@ $(document).ready(function() {
                     $('#form2').show();
                     $('#form3').hide();
                     $('#form4').hide();
-                    
-                }else if (response.action === 'save-continue') {
+                } else if (response.action === 'save-continue') {
+
                     Swal.fire({
                         title: "Email sent successfully!",
                         text: "Please proceed with the registration process or check your email to verify your account.",
                         icon: "success",
                         button: "OK"
-                    })
+                    });
 
                     $('#step1').removeClass('active');
                     $('#step2').addClass('active');
@@ -178,6 +224,11 @@ $(document).ready(function() {
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);
+
+            // Hide the spinner
+            $('#spinner').hide();
+            $('#parent_id').val(response.parent_id);
+            $('#applicant_id').val(response.applicant_id);
             if (xhr.status === 422) {
                 var errors = xhr.responseJSON.errors;
                 displayValidationErrors(errors); // Display validation errors if any
@@ -196,11 +247,23 @@ $(document).ready(function() {
 
 
 
+function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
+
+
     $('#form2').submit(function(event) {
         event.preventDefault();
 
         // Create a new FormData object
         var formData = new FormData(this);
+
+        $('#spinner').show();
 
         $.ajax({
             url: "{{ route('post-applicant-student-data') }}",
@@ -211,6 +274,11 @@ $(document).ready(function() {
             enctype: 'multipart/form-data',
             success: function(response) {
                 console.log(response);
+
+                $('#spinner').hide();
+
+                $('#student_id').val(response.student_id);
+
                 $('#step2').removeClass('active');
                 $('#step3').addClass('active');
                 if ($('#step3').hasClass('active')) {
@@ -235,12 +303,15 @@ $(document).ready(function() {
             event.preventDefault();
             var formData = $('#form3').serialize(); 
 
+            $('#spinner').show();
+
             $.ajax({
                     url: "{{ route('post-applicant-contact-data') }}",
                     type: 'POST',
                     data: formData,
                     success: function(response) {
                         // $(form).trigger("reset");
+                        $('#spinner').hide();
                     console.log(response);
                         $('#step3').removeClass('active');
                         $('#step4').addClass('active');
@@ -266,6 +337,8 @@ $(document).ready(function() {
             event.preventDefault();
             var formData = new FormData(this);
 
+            $('#spinner').show();
+
             $.ajax({
                 url: "{{ route('post-applicant-document-data') }}",
                 type: 'POST',
@@ -274,6 +347,7 @@ $(document).ready(function() {
                 processData: false,
                 success: function(response) {
                     console.log(response);
+                    $('#spinner').hide();
                     if (response.success) {
                         Swal.fire({
                         title: "Application completed successfully",
