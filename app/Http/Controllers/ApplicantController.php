@@ -402,11 +402,11 @@ class ApplicantController extends Controller
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
-        $applicant->applicant_id = $randomApplicantId;
+        $applicant->applicant_id = 'App_id'.$randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status; 
         $applicant->applicant_status = $request->applicant_status;                                                                                                           
-        $applicant->ip_address = $ipAddress;
+        $applicant->ip_address = '1';
         $applicant->created_by = 'null';
 
         $applicant->save();
@@ -506,7 +506,7 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = $applicant_id;
+            $student->applicant_id = 'App_id'.$applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;

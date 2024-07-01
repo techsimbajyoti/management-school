@@ -35,7 +35,7 @@
                                             <span class="invalid-feedback" id="state_error" style="display: none;" role="alert"></span>
                                         </div>
                                         <div class="col-md-6">
-                                        
+                                            <span style="color:red">*</span>
                                             <label class="form-label">{{ __('City:') }}</label>
             
                                                 <div class="form-group">
@@ -45,7 +45,7 @@
                                         </div>
                                 
                                     <div class="col-md-6">
-                                        
+                                        <span style="color:red">*</span>
                                         <label class="form-label">{{ __('Pin Code:') }}</label>
         
                                             <div class="form-group">

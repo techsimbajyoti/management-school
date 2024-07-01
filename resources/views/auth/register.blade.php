@@ -119,6 +119,15 @@ $(document).ready(function() {
         submitForm();
     });
 
+    function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
+
     function submitForm() {
     var formData = $('#form1').serialize();
 
@@ -142,23 +151,7 @@ $(document).ready(function() {
                     $('#form3').hide();
                     $('#form4').hide();
                     
-                }else if (response.action === 'save-continue' && response.update === 'yes' && response.email != null) {
-                    Swal.fire({
-                        title: "You Already Have an Account!",
-                        text: "Please proceed with the new applicant.",
-                        icon: "success",
-                        button: "OK"
-                    })
-
-                    $('#step1').removeClass('active');
-                    $('#step2').addClass('active');
-                    // Update form visibility based on current step
-                    $('#form1').hide();
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form4').hide();
-
-                    }else if (response.action === 'save-continue') {
+                }else if (response.action === 'save-continue') {
                     Swal.fire({
                         title: "Email sent successfully!",
                         text: "Please proceed with the registration process or check your email to verify your account.",
@@ -201,14 +194,7 @@ $(document).ready(function() {
 }
 
 
-function displayValidationErrors(errors) {
-    $('.invalid-feedback').hide(); // Hide all error messages initially
-    $.each(errors, function(key, messages) {
-        var errorElement = $('#' + key + '_error');
-        errorElement.text(messages.join(', '));
-        errorElement.show();
-    });
-}
+
 
     $('#form2').submit(function(event) {
         event.preventDefault();
@@ -225,7 +211,6 @@ function displayValidationErrors(errors) {
             enctype: 'multipart/form-data',
             success: function(response) {
                 console.log(response);
-                $('#student_id').val(response.student_id);
                 $('#step2').removeClass('active');
                 $('#step3').addClass('active');
                 if ($('#step3').hasClass('active')) {
@@ -386,8 +371,8 @@ function displayValidationErrors(errors) {
      var countries = <?php echo json_encode($test); ?>;
     autocomplete(document.getElementById("country"), countries);  
 
-  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
-  autocomplete(document.getElementById("parent_name"), parent);
+//   var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
+//   autocomplete(document.getElementById("parent_name"), parent);
 
     function autocomplete(inp, arr) {
         var currentFocus;

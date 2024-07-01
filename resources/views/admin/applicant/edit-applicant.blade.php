@@ -182,11 +182,12 @@
                                     </div>
                                     <input type="hidden" name="role_id" value="5">
                                     <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_status" value="applicant">
                                   
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-end">
                                             <input type="hidden" name="action" id="form-action" value="save">
-                                            <button type="submit" class="btn btn-lg ot-btn-primary save_1">
+                                            <button type="button" class="btn btn-lg ot-btn-primary save_1">
                                                 <i class="fa fa-edit"></i> {{ __('Update & Next') }}
                                             </button>
                                             {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
@@ -337,13 +338,14 @@
                                     </div>
                                     <input type="hidden" name="role_id" value="4">
                                     <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_status" value="applicant">
                                    
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn btn-lg ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
                                                 <input type="hidden" name="action" id="form-action" value="save">
-                                                <button type="submit" class="btn btn-lg ot-btn-primary save_2">
+                                                <button type="button" class="btn btn-lg ot-btn-primary save_2">
                                                     <i class="fa fa-edit"></i> {{ __('Update & Next') }}
                                                 </button>
                                                 {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
@@ -354,7 +356,7 @@
                                     </div>
                                 </form>
 
-                                <form class="form" method="POST" id="form3">
+                                <form class="form" method="" id="form3">
                                     @csrf
                                     <h5>Contact Information</h5><br>
                                     <div class="row">
@@ -391,7 +393,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                            
+                                                <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('City:') }}</label>
                 
                                                     <div class="form-group">
@@ -402,7 +404,7 @@
                                             </div>
                                     
                                         <div class="col-md-6">
-                                            
+                                            <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
@@ -430,7 +432,7 @@
                                     </div>
                                 </form>
     
-                                <form id="form4" class="form" method="POST">
+                                <form id="form4" class="form" method="">
                                     @csrf
                                     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
                                 
@@ -509,7 +511,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-    var parent_id = {{ Session::get('parent_id') }};
+   var parent_id = {{ Session::get('parent_id') }};
     $( function() {
    var availableTags = <?php echo json_encode($lang); ?>;
    function split( val ) {
@@ -567,140 +569,125 @@ $(document).ready(function() {
        }
    }
 
-   function displayValidationErrors(errors) {
-   $('.invalid-feedback').hide(); // Hide all error messages initially
-   $.each(errors, function(key, messages) {
-       var errorElement = $('#' + key + '_error');
-       errorElement.text(messages.join(', '));
-       errorElement.show();
-   });
-}
-
-
    function showForm(step) {
        $('#form1, #form2, #form3, #form4').hide();
        $(`#form${step}`).show();
    }
 
-   $.ajaxSetup({
-       headers: {
-           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       }
-   });
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-   $('.save_1').click(function(e) {
-       e.preventDefault();
-    
-       $.ajax({
-           url: "{{ route('update-applicant', $applicant_data->id) }}",
-           method: 'POST',
-           data: $('#form1').serialize(),
-           success: function(response) {
-               if(response.success) {
-                   currentStep = 2;
-                   updateProgressBar(currentStep);
-                   showForm(currentStep);
-               }
-           },
-           error: function(xhr, status, error) {
-               console.log('Error:', error);
-               if (xhr.status === 422) {
-                   var errors = xhr.responseJSON.errors;
-                   displayValidationErrors(errors);
-               }
-           }
-       
-           
-       });
-   });
-   
+        $('.save_1').click(function(e) {
+            e.preventDefault();
 
-   $('.save_2').click(function(e) {
-       e.preventDefault();
+            $.ajax({
+                url: "{{ route('update-applicant', $applicant_data->id) }}",
+                method: 'POST',
+                data: $('#form1').serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        currentStep = 2;
+                        updateProgressBar(currentStep);
+                        showForm(currentStep);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    }
+                }
+            });
+        });
 
-       $.ajax({
-           url: "/update-student-applicant/" + parent_id,
-           method: 'POST',
-           data: new FormData($('#form2')[0]),
-           processData: false,
-           contentType: false,
-           success: function(response) {
-               if (response.success) {
-                   currentStep = 3;
-                   updateProgressBar(currentStep);
-                   showForm(currentStep);
-               }
-           },
-           error: function(xhr, status, error) {
-               console.log('Error:', error);
-               if (xhr.status === 422) {
-                   var errors = xhr.responseJSON.errors;
-                   displayValidationErrors(errors);
-               }
-               }
-           
-           
-       });
-   });
-   $('.save_3').click(function(e) {
-       e.preventDefault();
+        function displayValidationErrors(errors) {
+            $('.invalid-feedback').hide(); // Hide all error messages initially
+            $.each(errors, function(key, messages) {
+                var errorElement = $('#' + key + '_error');
+                errorElement.text(messages.join(', '));
+                errorElement.show();
+            });
+        }
+        $('.save_2').click(function(e) {
+            e.preventDefault();
 
-       $.ajax({
-           url: "/update-contact-applicant/" + parent_id,
-           method: 'POST',
-           data: $('#form3').serialize(),
-            success: function(response) {
-               if (response.success) {
-                   currentStep = 4;
-                   updateProgressBar(currentStep);
-                   showForm(currentStep);
-               }
-           },
-           error: function(xhr, status, error) {
-               console.log('Error:', error);
-               if (xhr.status === 422) {
-                   var errors = xhr.responseJSON.errors;
-                   displayValidationErrors(errors);
-               }
-               }
-           
-           
-       });
-   });
-  
-   $('.save_4').click(function(e) {
-       e.preventDefault();
+            $.ajax({
+                url: "/update-student-applicant/" + parent_id,
+                method: 'POST',
+                data: new FormData($('#form2')[0]),
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        currentStep = 3;
+                        updateProgressBar(currentStep);
+                        showForm(currentStep);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    }
+                }
+            });
+        });
 
-       $.ajax({
-           url: "/update-document-applicant/" + parent_id,
-           method: 'POST',
-           data: new FormData($('#form4')[0]),
-           processData: false,
-           contentType: false,
-            success: function(response) {
-               if (response.success) {
-                       Swal.fire({
-                       title: "Form Updated successfully",
-                       text: "The application form  was updated successfully!",
-                       icon: "success",
-                       button: "OK",
-                       })
-                       .then((value) => {
-                       window.location.href = "/applicant-list"; // Redirect to the dashboard page
-                       });
-                   } 
-           },
-           error: function(xhr, status, error) {
-               console.log('Error:', error);
-               
-               }
-           
-           
-       });
-   });
+        $('.save_3').click(function(e) {
+            e.preventDefault();
 
+            $.ajax({
+                url: "/update-contact-applicant/" + parent_id,
+                method: 'POST',
+                data: $('#form3').serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        currentStep = 4;
+                        updateProgressBar(currentStep);
+                        showForm(currentStep);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    }
+                }
+            });
+        });
 
-  
+        $('.save_4').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "/update-document-applicant/" + parent_id,
+                method: 'POST',
+                data: new FormData($('#form4')[0]),
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Form Updated successfully",
+                            text: "The application form was updated successfully!",
+                            icon: "success",
+                            button: "OK",
+                        }).then((value) => {
+                            window.location.href = "/applicant-list";
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
    $('.back_1').click(function() {
        currentStep = 1;
        updateProgressBar(currentStep);
@@ -722,18 +709,18 @@ $(document).ready(function() {
    updateProgressBar(currentStep);
    showForm(currentStep);
 
-           $('#other-gender').hide();
-           // $('#other-language').hide();
+   $('#other-gender').hide();
+           $('#other-language').hide();
            $('#other-category').hide();
            $('#other-religion').hide();
 
            $('#gender').change(function() {
            if (this.value === 'other') {
-               $('#other-gender').removeClass('hidden').attr('required', true);
+               // $('#other-gender').removeClass('hidden').attr('required', true);
 
                $('#other-gender').show();
            } else {
-               $('#other-gender').addClass('hidden').removeAttr('required');
+               // $('#other-gender').addClass('hidden').removeAttr('required');
                $('#other-gender').hide();
            }
        });
@@ -762,15 +749,13 @@ $(document).ready(function() {
            }
        })
 
-          
+           
 
-
-
-           var countries = <?php echo json_encode($test); ?>;
+     var countries = <?php echo json_encode($test); ?>;
    autocomplete(document.getElementById("country"), countries);  
 
- var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
- autocomplete(document.getElementById("parent_name"), parent);
+    //  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
+    //  autocomplete(document.getElementById("parent_name"), parent);
 
    function autocomplete(inp, arr) {
        var currentFocus;
@@ -867,10 +852,10 @@ document.getElementById('add-document').addEventListener('click', function() {
 
        newRow.innerHTML = `
            <td>
-               <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" required>
+               <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
            </td>
            <td>
-               <input type="file" class="form-control" name="document_file[]" required>
+               <input type="file" class="form-control" name="document_file[]">
            </td>
            <td>
                <button type="button" class="btn btn-danger remove-document">
