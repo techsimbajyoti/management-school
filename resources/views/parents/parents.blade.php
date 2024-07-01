@@ -48,10 +48,6 @@
             margin-top: 15px;
             font-weight: bold;
         }
-        .d-flex-center {
-            display: flex;
-            align-items: center;
-        }
 </style>
     <div class="content">
         <div class="row">
@@ -150,7 +146,76 @@
                                     <h6 class="card-title">Total Children</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">2</p>
+                                    @php 
+                                   // Fetch all children for the authenticated parent
+                                    $totalChildren = App\Models\Student::where('parent_id', auth()->guard('webparents')->user()->id)->get();
+
+                                    $incompleteProfiles = [];
+                                    $completeProfiles = [];
+
+                                    foreach ($totalChildren as $totalC) {
+                                        $student_data = App\Models\Student::where('id', $totalC->id)
+                                            ->select(
+                                                'students.first_name as student_name',
+                                                'students.email as student_email',
+                                                'students.mobile as student_phone',
+                                                'students.address as student_address',
+                                                'students.gender as student_gender',
+                                                'students.class as student_class',
+                                                'students.date_of_birth as student_dob',
+                                                'students.country as student_country',
+                                                'students.state as student_state',
+                                                'students.city as student_city',
+                                                'students.pin_code as student_pin_code',
+                                                'students.document as student_doc'
+                                            )
+                                            ->first();
+
+                                        // Check if any field is empty
+                                        if (empty($student_data->student_name) ||
+                                            empty($student_data->student_email) ||
+                                            empty($student_data->student_phone) ||
+                                            empty($student_data->student_address) ||
+                                            empty($student_data->student_gender) ||
+                                            empty($student_data->student_class) ||
+                                            empty($student_data->student_dob) ||
+                                            empty($student_data->student_country) ||
+                                            empty($student_data->student_state) ||
+                                            empty($student_data->student_city) ||
+                                            empty($student_data->student_pin_code) ||
+                                            empty($student_data->student_doc)) {
+                                            
+                                            // Add incomplete profile to the array
+                                            $incompleteProfiles[] = $student_data;
+                                        }
+
+                                        // Check if all required fields are filled
+                                        if (!empty($student_data->student_name) &&
+                                            !empty($student_data->student_email) &&
+                                            !empty($student_data->student_phone) &&
+                                            !empty($student_data->student_address) &&
+                                            !empty($student_data->student_gender) &&
+                                            !empty($student_data->student_class) &&
+                                            !empty($student_data->student_dob) &&
+                                            !empty($student_data->student_country) &&
+                                            !empty($student_data->student_state) &&
+                                            !empty($student_data->student_city) &&
+                                            !empty($student_data->student_pin_code) &&
+                                            !empty($student_data->student_doc)) {
+                                            
+                                            // Add complete profile to the array
+                                            $completeProfiles[] = $student_data;
+                                        }
+                                    }
+
+                                    // Count the number of incomplete profiles
+                                    $incompleteCount = count($incompleteProfiles);
+
+                                    // Count the number of complete profiles
+                                    $completeCount = count($completeProfiles);
+
+                                    @endphp
+                                    <p class="card-text">{{ $totalChildren->count() }}</p>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +225,7 @@
                                     <h6 class="card-title">Incomplete</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">1</p>
+                                    <p class="card-text">{{ $incompleteCount }}</p>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +235,7 @@
                                     <h6 class="card-title">Complete</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">1</p>
+                                    <p class="card-text">{{ $completeCount }}</p>
                                 </div>
                             </div>
                         </div>
@@ -200,88 +265,97 @@
                     
                     <div class="card-footer">
                         <div class="row">
-                            
+                            @php
+                            $id = auth()->guard('webparents')->user()->id;
+
+                                // Fetch all children of the parent
+                                $children = App\Models\Student::where('parent_id', $id)->get();
+
+                                // Array to store completion percentages for each child
+                                $childrenCompletionPercentages = [];
+
+                                foreach ($children as $child) {
+                                    // Fetch student data for the current child
+                                    $student_data = App\Models\Student::where('id', $child->id)
+                                        ->select(
+                                            'students.first_name as student_name',
+                                            'students.last_name as student_last_name',
+                                            'students.address as student_address',
+                                            'students.gender as student_gender',
+                                            'students.class as student_class',
+                                            'students.date_of_birth as student_dob',
+                                            'students.country as student_country',
+                                            'students.state as student_state',
+                                            'students.city as student_city',
+                                            'students.pin_code as student_pin_code',
+                                            'students.document as student_doc'
+                                        )
+                                        ->first();
+
+                                    // Calculate profile completion percentage for the current child
+                                    $profileCompletionPercentage = calculateProfileCompletionPercentage($student_data);
+
+                                    // Store the completion percentage for the current child
+                                    $childrenCompletionPercentages[$child->id] = $profileCompletionPercentage;
+                                }
+
+                                // Function to calculate profile completion percentage based on fields
+                                function calculateProfileCompletionPercentage($student_data)
+                                {
+                                    if (!$student_data) {
+                                        return 0; // If no data found, completeness is 0%
+                                    }
+
+                                    // Fields to check for completeness and their step increment for percentage calculation
+                                    $fields = [
+                                        'student_doc', 'student_pin_code', 'student_city', 'student_state', 'student_country',
+                                        'student_dob', 'student_class', 'student_name', 'student_last_name',
+                                        'student_address', 'student_gender'
+                                    ];
+
+                                    $profileCompletionPercentage = 0;
+                                    $totalSteps = count($fields); // Total number of fields to check
+                                    $stepIncrement = 100 / $totalSteps; // Increment for each field
+
+                                    // Calculate profile completion percentage
+                                    foreach ($fields as $field) {
+                                        if (!empty($student_data->{$field})) {
+                                            $profileCompletionPercentage += $stepIncrement;
+                                        }
+                                    }
+
+                                    // Round percentage to two decimal places
+                                    $profileCompletionPercentage = round($profileCompletionPercentage, 2);
+
+                                    return $profileCompletionPercentage;
+                                }
+
+                                // Now $childrenCompletionPercentages contains the profile completion percentage for each child
+
+                        @endphp
+                        
+                        @foreach($children as $child)
+                        <div class="row p-3">
                             <div class="col-md-6">
                                 <div class="chart-container">
-                                    <canvas id="myPieChart"></canvas>
-                                    <p class="text-center mt-3"><strong>Applicant Id: </strong>HYYUgff</p>
+                                    <canvas id="pieChart_{{ $child->id }}" width="200" height="200"></canvas>
                                 </div>
                             </div>
-                            <div class="col-md-6 text-right">
-                                <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn ot-btn-primary">Complete Profile</a>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ $child->applicant_id }}</p>
+                                    </div>
+                                    <div class="col-md-12 text-right">
+                                        <a href="{{ route('applicant-edit', ['id' => auth()->guard('webparents')->user()->id, 'child_id' => $child->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                @php
-                                    $id = auth()->guard('webparents')->user()->id;
-                                    $student_data = App\Models\Student::where('parent_id', $id)
-    ->select(
-        'students.first_name as student_name',
-        'students.email as student_email',
-        'students.mobile as student_phone',
-        'students.address as student_address',
-        'students.gender as student_gender',
-        'students.class as student_class',
-        'students.date_of_birth as student_dob',
-        'students.country as student_country',
-        'students.state as student_state',
-        'students.city as student_city',
-        'students.pin_code as student_pin_code',
-        'students.document as student_doc'
-    )
-    ->first();
-
-    $parent_data = App\Models\StudentParent::where('id', $id)
-    ->select(
-        'student_parents.father_name',
-        'student_parents.father_mobile',
-        'student_parents.email as parent_email',
-        'student_parents.password as parent_password'
-    )
-    ->first();
+                        </div>
+                    @endforeach
+                    
 
 
-    $applicant_data = [];
-
-if ($student_data) {
-    $applicant_data = array_merge($applicant_data, $student_data->toArray());
-}
-
-if ($parent_data) {
-    $applicant_data = array_merge($applicant_data, $parent_data->toArray());
-}
-
-// Check if any data was found
-if (empty($applicant_data)) {
-    return redirect('/')->withErrors(['error' => 'No data found for the given parent ID.']);
-}
-
-// Process the data as needed
-
-
-
-                            
-                             // Initialize the profile completion percentage
-$profileCompletionPercentage = 0;
-$totalSteps = 16; // Number of fields to check
-$stepIncrement = 100 / $totalSteps;
-
-// Fields to check
-$fields = [
-    'student_doc', 'student_pin_code', 'student_city', 'student_state', 'student_country',
-    'student_dob', 'student_class', 'father_name', 'parent_email', 'father_mobile',
-    'parent_password', 'student_name', 'student_email', 'student_phone', 'student_address',
-    'student_gender'
-];
-
-// Check each field
-foreach ($fields as $field) {
-    if (!empty($applicant_data[$field])) {
-        $profileCompletionPercentage += $stepIncrement;
-    }
-}
-                                @endphp
-                                <input type="hidden" value="{{$profileCompletionPercentage}}" name="profile_progress" id="profile_progress">
-                            </div>
                             
                         </div>
                     </div>
@@ -317,11 +391,13 @@ foreach ($fields as $field) {
                               </tr>
                             </thead>
                             <tbody>
+                            @foreach($children as $key => $child)
                               <tr>
-                                <th scope="row">1</th>
-                                <td>HYYUgff</td>
-                                <td><span>Incomplete</span></td>
+                                <th scope="row">{{ $key }}</th>
+                                <td>{{ $child->applicant_id }}</td>
+                                <td><span>{{ $student_data }}</span></td>
                               </tr>
+                            @endforeach
                             </tbody>
                           </table>
                     </div>
@@ -518,53 +594,64 @@ $(document).ready(function() {
 
          $(document).ready(function() {
 
-          // Get the profile progress value
-            var profileProgress = parseFloat($('#profile_progress').val());
+          // Retrieve children data from the server
+        var childrenCompletionData = {!! json_encode($childrenCompletionPercentages) !!};
 
-            // Calculate the incomplete percentage
-            var incompleteProgress = 100 - profileProgress;
+// Array to store all pie charts
+var pieCharts = [];
 
-            // Data for the pie chart
-            var chartData = {
-                labels: ["Complete", "Incomplete"],
-                datasets: [{
-                    data: [profileProgress, incompleteProgress],
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)', // Complete color
-                        'rgba(255, 99, 132, 0.2)'  // Incomplete color
-                    ],
-                    borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
+// Function to create and render a pie chart
+function createPieChart(containerId, completionPercentage) {
+    var chartData = {
+        labels: ["Complete", "Incomplete"],
+        datasets: [{
+            data: [completionPercentage, 100 - completionPercentage],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.2)', // Complete color
+                'rgba(255, 99, 132, 0.2)'  // Incomplete color
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
 
-            // Options for the pie chart
-            var chartOptions = {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw + '%';
-                            }
-                        }
+    var chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.label + ': ' + tooltipItem.raw + '%';
                     }
                 }
-            };
+            }
+        }
+    };
 
-            // Create the pie chart
-            var ctx = $("#myPieChart");
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: chartData,
-                options: chartOptions
-            });
+    var ctx = document.getElementById(containerId).getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: chartData,
+        options: chartOptions
+    });
+
+    return pieChart;
+}
+
+// Iterate through each child's completion data and create a pie chart
+Object.keys(childrenCompletionData).forEach(function(childId) {
+    var completionPercentage = childrenCompletionData[childId];
+    var containerId = 'pieChart_' + childId; // Unique container ID for each chart
+    $('#pieChartContainer').append('<canvas id="' + containerId + '" width="200" height="200"></canvas>');
+    var pieChart = createPieChart(containerId, completionPercentage);
+    pieCharts.push(pieChart);
+});
 
 
 
