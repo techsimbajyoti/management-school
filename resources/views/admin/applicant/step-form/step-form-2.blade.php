@@ -1,6 +1,7 @@
                     <form class="form" method="POST" id="form2">
                                 @csrf
                                 <h5>Applicant Information</h5><br>
+                                <input type="hidden" name="student_id" id="student_id">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <span style="color:red">*</span>
