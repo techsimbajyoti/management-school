@@ -132,7 +132,24 @@ $(document).ready(function() {
             if (response.success) {
                 if (response.action === 'save') {
                     location.reload(); // Reload the page after saving
-                } else if (response.action === 'save-continue') {
+                } else if (response.action === 'save-continue' && response.update === 'yes') {
+
+                    $('#step1').removeClass('active');
+                    $('#step2').addClass('active');
+                    // Update form visibility based on current step
+                    $('#form1').hide();
+                    $('#form2').show();
+                    $('#form3').hide();
+                    $('#form4').hide();
+                    
+                }else if (response.action === 'save-continue') {
+                    Swal.fire({
+                        title: "Email sent successfully!",
+                        text: "Please proceed with the registration process or check your email to verify your account.",
+                        icon: "success",
+                        button: "OK"
+                    })
+
                     $('#step1').removeClass('active');
                     $('#step2').addClass('active');
                     // Update form visibility based on current step
@@ -165,12 +182,6 @@ $(document).ready(function() {
             }
         }
     });
-    Swal.fire({
-            title: "Email sent successfully!",
-            text: "Please proceed with the registration process or check your email to verify your account.",
-            icon: "success",
-            button: "OK"
-        })
 }
 
 

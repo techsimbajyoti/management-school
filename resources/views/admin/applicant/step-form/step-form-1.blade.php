@@ -58,6 +58,7 @@
     <input type="hidden" name="role_id" value="5">
     <input type="hidden" name="status" value="active">
     <input type="hidden" name="applicant_status" value="applicant">
+    
     <div class="card-footer mt-5">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">
