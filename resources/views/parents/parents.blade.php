@@ -335,7 +335,7 @@
                         @endphp
                         
                         @foreach($children as $child)
-                        <div class="row p-3">
+                        <div class="row p-2">
                             <div class="col-md-6">
                                 <div class="chart-container">
                                     <canvas id="pieChart_{{ $child->id }}" width="200" height="200"></canvas>
@@ -395,7 +395,14 @@
                               <tr>
                                 <th scope="row">{{ $key }}</th>
                                 <td>{{ $child->applicant_id }}</td>
-                                <td><span>{{ $student_data }}</span></td>
+                                @php
+                                    $completionPercentage = $childrenCompletionPercentages[$child->id] ?? 0;
+                                @endphp
+                                @if ($completionPercentage < 100)
+                                <td><span id="applicant_profile_status">Incomplete</span></td>
+                                @else
+                                <td><span id="applicant_profile_status">Complete</span></td>
+                                @endif
                               </tr>
                             @endforeach
                             </tbody>

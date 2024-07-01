@@ -126,6 +126,7 @@ class ApplicantController extends Controller
         
         return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
     }
+
     public function delete_applicant($id)
 {
     // Find the student by parent_id
