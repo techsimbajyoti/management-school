@@ -118,6 +118,7 @@
                                     </div>
                                     
                                     <div class="col-md-6">
+                                        <span style="color:red">*</span>
                                         <label class="form-label">{{ __('Student Photo:') }}</label>
                                         <input type="file" class="form-control" name="image" accept=".png,.jpg,.jpeg" required>
                                         <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>

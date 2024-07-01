@@ -25,7 +25,7 @@ class Student extends Authenticatable
         'last_name',
         'mobile',
         'email',
-        'user_name',
+        'username',
         'password',
         'class',
         'section',

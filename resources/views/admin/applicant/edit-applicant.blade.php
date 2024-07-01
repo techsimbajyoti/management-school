@@ -182,11 +182,12 @@
                                     </div>
                                     <input type="hidden" name="role_id" value="5">
                                     <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_status" value="applicant">
                                   
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-end">
                                             <input type="hidden" name="action" id="form-action" value="save">
-                                            <button type="submit" class="btn btn-lg ot-btn-primary save_1">
+                                            <button type="button" class="btn btn-lg ot-btn-primary save_1">
                                                 <i class="fa fa-edit"></i> {{ __('Update & Next') }}
                                             </button>
                                             {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
@@ -337,13 +338,14 @@
                                     </div>
                                     <input type="hidden" name="role_id" value="4">
                                     <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_status" value="applicant">
                                    
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn btn-lg ot-btn-primary back_1"><i class="fa fa-arrow-left"></i> {{ __('Previous') }}</button>
                                             <div>
                                                 <input type="hidden" name="action" id="form-action" value="save">
-                                                <button type="submit" class="btn btn-lg ot-btn-primary save_2">
+                                                <button type="button" class="btn btn-lg ot-btn-primary save_2">
                                                     <i class="fa fa-edit"></i> {{ __('Update & Next') }}
                                                 </button>
                                                 {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
@@ -354,7 +356,7 @@
                                     </div>
                                 </form>
 
-                                <form class="form" method="POST" id="form3">
+                                <form class="form" method="" id="form3">
                                     @csrf
                                     <h5>Contact Information</h5><br>
                                     <div class="row">
@@ -391,7 +393,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                            
+                                                <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('City:') }}</label>
                 
                                                     <div class="form-group">
@@ -402,7 +404,7 @@
                                             </div>
                                     
                                         <div class="col-md-6">
-                                            
+                                            <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
@@ -430,7 +432,7 @@
                                     </div>
                                 </form>
     
-                                <form id="form4" class="form" method="POST">
+                                <form id="form4" class="form" method="">
                                     @csrf
                                     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
                                 
@@ -509,77 +511,74 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-    var parent_id = {{ Session::get('parent_id') }};
-    $(function() {
-        var availableTags = <?php echo json_encode($lang); ?>;
-        function split(val) {
-            return val.split(/,\s*/);
-        }
-        function extractLast(term) {
-            return split(term).pop();
-        }
+   var parent_id = {{ Session::get('parent_id') }};
+    $( function() {
+   var availableTags = <?php echo json_encode($lang); ?>;
+   function split( val ) {
+     return val.split( /,\s*/ );
+   }
+   function extractLast( term ) {
+     return split( term ).pop();
+   }
 
-        $("#student_language")
-            .on("keydown", function(event) {
-                if (event.keyCode === $.ui.keyCode.TAB &&
-                    $(this).autocomplete("instance").menu.active) {
-                    event.preventDefault();
-                }
-            })
-            .autocomplete({
-                minLength: 0,
-                source: function(request, response) {
-                    response($.ui.autocomplete.filter(
-                        availableTags, extractLast(request.term)));
-                },
-                focus: function() {
-                    return false;
-                },
-                select: function(event, ui) {
-                    var terms = split(this.value);
-                    terms.pop();
-                    terms.push(ui.item.value);
-                    terms.push("");
-                    this.value = terms.join(", ");
-                    return false;
-                }
-            });
-    });
+   $( "#student_language" )
+     // don't navigate away from the field on tab when selecting an item
+     .on( "keydown", function( event ) {
+       if ( event.keyCode === $.ui.keyCode.TAB &&
+           $( this ).autocomplete( "instance" ).menu.active ) {
+         event.preventDefault();
+       }
+     })
+     .autocomplete({
+       minLength: 0,
+       source: function( request, response ) {
+         // delegate back to autocomplete, but extract the last term
+         response( $.ui.autocomplete.filter(
+           availableTags, extractLast( request.term ) ) );
+       },
+       focus: function() {
+         // prevent value inserted on focus
+         return false;
+       },
+       select: function( event, ui ) {
+         var terms = split( this.value );
+         // remove the current input
+         terms.pop();
+         // add the selected item
+         terms.push( ui.item.value );
+         // add placeholder to get the comma-and-space at the end
+         terms.push( "" );
+         this.value = terms.join( ", " );
+         return false;
+       }
+     });
+ } );
 
-    $(document).ready(function() {
-        demo.checkFullPageBackgroundImage();
+$(document).ready(function() {
+   demo.checkFullPageBackgroundImage();
 
-        let currentStep = 1;
-        const totalSteps = 4;
+   let currentStep = 1;
+   const totalSteps = 4;
 
-        function updateProgressBar(step) {
-            const percentage = (step - 1) / (totalSteps - 1) * 100;
-            $('.progress-bar').css('width', `${percentage}%`);
-            $('#progressbar li').removeClass('active');
-            for (let i = 1; i <= step; i++) {
-                $(`#step${i}`).addClass('active');
-            }
-        }
+   function updateProgressBar(step) {
+       const percentage = (step - 1) / (totalSteps - 1) * 100;
+       $('.progress-bar').css('width', `${percentage}%`);
+       $('#progressbar li').removeClass('active');
+       for (let i = 1; i <= step; i++) {
+           $(`#step${i}`).addClass('active');
+       }
+   }
 
-        function displayValidationErrors(errors) {
-            $('.invalid-feedback').hide();
-            $.each(errors, function(key, messages) {
-                var errorElement = $('#' + key + '_error');
-                errorElement.text(messages.join(', '));
-                errorElement.show();
-            });
-        }
-
-        function showForm(step) {
-            $('#form1, #form2, #form3, #form4').hide();
-            $(`#form${step}`).show();
-        }
+   function showForm(step) {
+       $('#form1, #form2, #form3, #form4').hide();
+       $(`#form${step}`).show();
+   }
 
         $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
         $('.save_1').click(function(e) {
             e.preventDefault();
@@ -605,6 +604,14 @@
             });
         });
 
+        function displayValidationErrors(errors) {
+            $('.invalid-feedback').hide(); // Hide all error messages initially
+            $.each(errors, function(key, messages) {
+                var errorElement = $('#' + key + '_error');
+                errorElement.text(messages.join(', '));
+                errorElement.show();
+            });
+        }
         $('.save_2').click(function(e) {
             e.preventDefault();
 
@@ -681,138 +688,205 @@
                 }
             });
         });
+   $('.back_1').click(function() {
+       currentStep = 1;
+       updateProgressBar(currentStep);
+       showForm(currentStep);
+   });
 
-        $('.back_1').click(function() {
-            currentStep = 1;
-            updateProgressBar(currentStep);
-            showForm(currentStep);
-        });
+   $('.back_2').click(function() {
+       currentStep = 2;
+       updateProgressBar(currentStep);
+       showForm(currentStep);
+   });
 
-        $('.back_2').click(function() {
-            currentStep = 2;
-            updateProgressBar(currentStep);
-            showForm(currentStep);
-        });
+   $('.back_3').click(function() {
+       currentStep = 3;
+       updateProgressBar(currentStep);
+       showForm(currentStep);
+   });
 
-        $('.back_3').click(function() {
-            currentStep = 3;
-            updateProgressBar(currentStep);
-            showForm(currentStep);
-        });
+   updateProgressBar(currentStep);
+   showForm(currentStep);
 
-        // Hide all forms and show only the first step
-        $('#form1, #form2, #form3, #form4').hide();
-        showForm(currentStep);
-        updateProgressBar(currentStep);
+   $('#other-gender').hide();
+           $('#other-language').hide();
+           $('#other-category').hide();
+           $('#other-religion').hide();
 
-        $('#other-gender').hide();
-        $('#other-category').hide();
-        $('#other-religion').hide();
+           $('#gender').change(function() {
+           if (this.value === 'other') {
+               // $('#other-gender').removeClass('hidden').attr('required', true);
 
-        $('#gender').change(function() {
-            if (this.value === 'other') {
-                $('#other-gender').removeClass('hidden').attr('required', true).show();
-            } else {
-                $('#other-gender').addClass('hidden').removeAttr('required').hide();
-            }
-        });
+               $('#other-gender').show();
+           } else {
+               // $('#other-gender').addClass('hidden').removeAttr('required');
+               $('#other-gender').hide();
+           }
+       });
 
-        $('#category').change(function() {
-            if (this.value === 'other') {
-                $('#other-category').show();
-            } else {
-                $('#other-category').hide();
-            }
-        });
+       // $('#student_language').change(function() {
+       //     if (this.value === 'other') {
+       //         $('#other-language').show();
+       //     } else {
+       //         $('#other-language').hide();
+       //     }
+       // });
 
-        $('#religion').change(function() {
-            if (this.value === 'other') {
-                $('#other-religion').show();
-            } else {
-                $('#other-religion').hide();
-            }
-        });
+       $('#category').change(function(){
+           if (this.value === 'other') {
+               $('#other-category').show();
+           } else {
+               $('#other-category').hide();
+           }
+       })
 
-        var countries = <?php echo json_encode($test); ?>;
-        autocomplete(document.getElementById("country"), countries);
+       $('#religion').change(function(){
+           if (this.value === 'other') {
+               $('#other-religion').show();
+           } else {
+               $('#other-religion').hide();
+           }
+       })
 
-        var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
-        autocomplete(document.getElementById("parent_name"), parent);
+           
 
-        function autocomplete(inp, arr) {
-            var currentFocus;
-            inp.addEventListener("input", function(e) {
-                var a, b, i, val = this.value;
-                closeAllLists();
-                if (!val) { return false; }
-                currentFocus = -1;
-                a = document.createElement("DIV");
-                a.setAttribute("id", this.id + "autocomplete-list");
-                a.setAttribute("class", "autocomplete-items");
-                this.parentNode.appendChild(a);
-                for (i = 0; i < arr.length; i++) {
-                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                        b = document.createElement("DIV");
-                        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                        b.innerHTML += arr[i].substr(val.length);
-                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                        b.addEventListener("click", function(e) {
-                            inp.value = this.getElementsByTagName("input")[0].value;
-                            closeAllLists();
-                            if (inp.id === 'country') {
-                                fetchStates(inp.value);
-                            }
-                        });
-                        a.appendChild(b);
-                    }
-                }
-            });
-            inp.addEventListener("keydown", function(e) {
-                var x = document.getElementById(this.id + "autocomplete-list");
-                if (x) x = x.getElementsByTagName("div");
-                if (e.keyCode == 40) {
-                    currentFocus++;
-                    addActive(x);
-                } else if (e.keyCode == 38) {
-                    currentFocus--;
-                    addActive(x);
-                } else if (e.keyCode == 13) {
-                    e.preventDefault();
-                    if (currentFocus > -1) {
-                        if (x) x[currentFocus].click();
-                    }
-                }
-            });
+     var countries = <?php echo json_encode($test); ?>;
+   autocomplete(document.getElementById("country"), countries);  
 
-            function addActive(x) {
-                if (!x) return false;
-                removeActive(x);
-                if (currentFocus >= x.length) currentFocus = 0;
-                if (currentFocus < 0) currentFocus = (x.length - 1);
-                x[currentFocus].classList.add("autocomplete-active");
-            }
+    //  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
+    //  autocomplete(document.getElementById("parent_name"), parent);
 
-            function removeActive(x) {
-                for (var i = 0; i < x.length; i++) {
-                    x[i].classList.remove("autocomplete-active");
-                }
-            }
+   function autocomplete(inp, arr) {
+       var currentFocus;
+       inp.addEventListener("input", function(e) {
+           var a, b, i, val = this.value;
+           closeAllLists();
+           if (!val) { return false;}
+           currentFocus = -1;
+           a = document.createElement("DIV");
+           a.setAttribute("id", this.id + "autocomplete-list");
+           a.setAttribute("class", "autocomplete-items");
+           this.parentNode.appendChild(a);
+           for (i = 0; i < arr.length; i++) {
+               if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                   b = document.createElement("DIV");
+                   b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                   b.innerHTML += arr[i].substr(val.length);
+                   b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                   b.addEventListener("click", function(e) {
+                       inp.value = this.getElementsByTagName("input")[0].value;
+                       closeAllLists();
+                       if (inp.id === 'country') {
+                           fetchStates(inp.value);
+                       }
+                   });
+                   a.appendChild(b);
+               }
+           }
+       });
+       inp.addEventListener("keydown", function(e) {
+           var x = document.getElementById(this.id + "autocomplete-list");
+           if (x) x = x.getElementsByTagName("div");
+           if (e.keyCode == 40) {
+               currentFocus++;
+               addActive(x);
+           } else if (e.keyCode == 38) {
+               currentFocus--;
+               addActive(x);
+           } else if (e.keyCode == 13) {
+               e.preventDefault();
+               if (currentFocus > -1) {
+                   if (x) x[currentFocus].click();
+               }
+           }
+       });
+       function addActive(x) {
+           if (!x) return false;
+           removeActive(x);
+           if (currentFocus >= x.length) currentFocus = 0;
+           if (currentFocus < 0) currentFocus = (x.length - 1);
+           x[currentFocus].classList.add("autocomplete-active");
+       }
+       function removeActive(x) {
+           for (var i = 0; i < x.length; i++) {
+               x[i].classList.remove("autocomplete-active");
+           }
+       }
+       function closeAllLists(elmnt) {
+           var x = document.getElementsByClassName("autocomplete-items");
+           for (var i = 0; i < x.length; i++) {
+               if (elmnt != x[i] && elmnt != inp) {
+                   x[i].parentNode.removeChild(x[i]);
+               }
+           }
+       }
+       document.addEventListener("click", function (e) {
+           closeAllLists(e.target);
+       });
+   }
 
-            function closeAllLists(elmnt) {
-                var x = document.getElementsByClassName("autocomplete-items");
-                for (var i = 0; i < x.length; i++) {
-                    if (elmnt != x[i] && elmnt != inp) {
-                        x[i].parentNode.removeChild(x[i]);
-                    }
-                }
-            }
+   function fetchStates(country) {
 
-            document.addEventListener("click", function(e) {
-                closeAllLists(e.target);
-            });
-        }
-    });
+       $.ajax({
+           url: "{{ route('json-country') }}",
+           type: 'POST',
+           data: {
+               country_id: country,
+               _token: '{{ csrf_token() }}'
+           },
+           success: function(data) {
+               var states = data.states.map(function(state) { return state.state; });
+               autocomplete(document.getElementById("state"), states);
+           },
+           error: function(xhr, status, error) {
+               console.log('Error:', error);
+           }
+       });
+   }
+});
+
+document.getElementById('add-document').addEventListener('click', function() {
+       var tableBody = document.querySelector('#student-document tbody');
+       var newRow = document.createElement('tr');
+
+       newRow.innerHTML = `
+           <td>
+               <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
+           </td>
+           <td>
+               <input type="file" class="form-control" name="document_file[]">
+           </td>
+           <td>
+               <button type="button" class="btn btn-danger remove-document">
+                   <i class="fa fa-times" aria-hidden="true"></i>
+               </button>
+           </td>
+       `;
+
+       tableBody.appendChild(newRow);
+   });
+
+   document.querySelector('#student-document tbody').addEventListener('click', function(event) {
+       if (event.target.classList.contains('remove-document')) {
+           event.target.closest('tr').remove();
+       }
+   });
+
+   document.addEventListener('DOMContentLoaded', function() {
+       var today = new Date();
+       var year = today.getFullYear();
+       var month = ('0' + (today.getMonth() + 1)).slice(-2); // Add leading zero
+       var day = ('0' + today.getDate()).slice(-2); // Add leading zero
+
+       var currentDate = year + '-' + month + '-' + day;
+       document.getElementById('admission_date').value = currentDate;
+   });
+
 </script>
+
+
+
 @endpush
 
 
