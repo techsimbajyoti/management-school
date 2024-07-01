@@ -363,7 +363,7 @@ class ApplicantController extends Controller
 
         if($parent_student !== null){
 
-            $applicant = StudentParent::where('applicant_id', $applicant_id)->update([
+            $applicant = StudentParent::where('email', $request->email)->update([
                 'father_name' => $request->parent_name,
                 'father_mobile' => $request->contact_number,
                 'username' => $parent_student->username,
@@ -378,7 +378,7 @@ class ApplicantController extends Controller
                 'created_by' => 'null',
             ]);
 
-        return response()->json(['success'=>'true','action'=>$request->action, 'update'=>'yes']);
+        return response()->json(['success'=>'true','action'=>$request->action, 'update'=>'yes','email'=>$request->email]);
 
                 
         }else{
@@ -426,6 +426,47 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_student_data(Request $request){
+
+        $parent_id = Session::get('parent_id');
+        $student_id = $request->input('student_id');
+        $applicant_id = Session::get('applicant_id');
+
+        $parentStudent = Student::where('id', $student_id)
+        ->where('applicant_id', $applicant_id)
+        ->first();
+
+        $randomPassword = Str::random(8);
+        $hashPassword = Hash::make($randomPassword);
+
+        $randomUsername = Str::random(8);
+
+        if($parentStudent !== null){
+
+            $student = Student::where('id', $student_id)
+            ->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $randomUsername,
+                'password' => $hashPassword,
+                'class' => $request->class,
+                'date_of_birth' => $request->date_of_birth,
+                'blood_group' => $request->blood_group,
+                'student_language' => $request->student_language,
+                'image' => $parentStudent->image,
+                'previous_school' => $request->previous_school,
+                'category' => $request->category,
+                'parent_id' => $parent_id,
+                'applicant_id' => $applicant_id,
+                'role_id' => $request->role_id,
+                'ip_address' => '1',
+                'status' => $request->status,
+                'applicant_status' => $request->applicant_status,
+                'created_by' => 'null',
+            ]);
+
+            return response()->json(['success' => true]);
+
+        }else{
        
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -441,12 +482,7 @@ class ApplicantController extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
     
-        $ipAddress = $this->getPublicIpAddress();
-        
-
-
-        $parent_id = Session::get('parent_id');
-        $applicant_id = Session::get('applicant_id');
+        // $ipAddress = $this->getPublicIpAddress();
         try {
             $student = new Student;
     
@@ -458,11 +494,6 @@ class ApplicantController extends Controller
             } else {
                 $student->image = null;
             }
-    
-            $randomPassword = Str::random(8);
-            $hashPassword = Hash::make($randomPassword);
-
-            $randomUsername = Str::random(8);
 
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
@@ -477,7 +508,7 @@ class ApplicantController extends Controller
             $student->parent_id = $parent_id;
             $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
-            $student->ip_address = $ipAddress;
+            $student->ip_address = '1';
             $student->status = $request->status;
             $student->applicant_status = $request->applicant_status;
             $student->created_by = 'null';
@@ -503,11 +534,13 @@ class ApplicantController extends Controller
             $student->save();
             Session::put(['student_id' => $student->id]);
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'student_id' => $student->id]);
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
             return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+
         }
     }
     

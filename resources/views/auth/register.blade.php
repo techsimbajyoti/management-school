@@ -142,7 +142,23 @@ $(document).ready(function() {
                     $('#form3').hide();
                     $('#form4').hide();
                     
-                }else if (response.action === 'save-continue') {
+                }else if (response.action === 'save-continue' && response.update === 'yes' && response.email != null) {
+                    Swal.fire({
+                        title: "You Already Have an Account!",
+                        text: "Please proceed with the new applicant.",
+                        icon: "success",
+                        button: "OK"
+                    })
+
+                    $('#step1').removeClass('active');
+                    $('#step2').addClass('active');
+                    // Update form visibility based on current step
+                    $('#form1').hide();
+                    $('#form2').show();
+                    $('#form3').hide();
+                    $('#form4').hide();
+
+                    }else if (response.action === 'save-continue') {
                     Swal.fire({
                         title: "Email sent successfully!",
                         text: "Please proceed with the registration process or check your email to verify your account.",
@@ -209,6 +225,7 @@ function displayValidationErrors(errors) {
             enctype: 'multipart/form-data',
             success: function(response) {
                 console.log(response);
+                $('#student_id').val(response.student_id);
                 $('#step2').removeClass('active');
                 $('#step3').addClass('active');
                 if ($('#step3').hasClass('active')) {

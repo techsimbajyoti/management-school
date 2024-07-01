@@ -91,7 +91,7 @@ class LoginController extends Controller
             'password' => $password,
         ];
     
-       
+      
         // Attempt login for different guards
         if (Auth::guard('webstudents')->attempt($credentials)) {
             if (Auth::guard('webstudents')->user()->role_id == 4) {
