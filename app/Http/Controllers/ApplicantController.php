@@ -213,7 +213,7 @@ class ApplicantController extends Controller
         }
     }
 
-    public function update_student_applicant(Request $request ,$parent_id)
+    public function update_student_applicant(Request $request ,$parent_id, $student_id)
     {
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -286,9 +286,11 @@ class ApplicantController extends Controller
         }
 
         $student_update->save();
+
+
         Session::put(['student_id' => $student_update->id]);
 
-        return response()->json(['success' => 'true', 'action' => $request->action]);
+        return response()->json(['success' => 'true', 'action' => $request->action, 'student_id'=>$student_id]);
     }
     
 
@@ -301,9 +303,8 @@ class ApplicantController extends Controller
             'city' => 'required',
             'pin_code' => 'required|digits:6',
         ]);
-        
               
-        $student_id = Session::get('student_id');
+        $student_id = $request->student_id;
       
         $contact_update = Student::where('parent_id', $parent_id)
                           ->where('id',$student_id)
@@ -319,54 +320,65 @@ class ApplicantController extends Controller
 
         
 
-        return response()->json(['success' => 'true', 'action' => $request->action]);
+        return response()->json(['success' => 'true', 'action' => $request->action, 'student_id' => $student_id]);
     }
 
    public function update_document_applicant(Request $request, $parent_id)
-{
-    $student_id = session::get('student_id');
-
-    if (is_null($student_id)) {
-        return response()->json(['success' => false, 'errors' => 'Student ID not found']);
-    }
-
-    try {
-        $student_document_update = Student::where('parent_id', $parent_id)
-            ->where('id', $student_id)
-            ->firstOrFail();
-
-        if (!$student_document_update) {
-            return response()->json(['success' => false, 'errors' => 'Student not found']);
+    {
+        if (is_null($student_id)) {
+            return response()->json(['success' => false, 'errors' => 'Student ID not found']);
         }
-
-        $documents = !is_null($student_document_update->document) ? json_decode($student_document_update->document, true) : [];
-
-        if ($request->hasFile('document_file')) {
-            foreach ($request->file('document_file') as $key => $file) {
-                $originalFileName = $file->getClientOriginalName();
-                $currentDateTime = now()->format('YmdHis');
-                $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
-
-                // Delete the existing file if it exists
-                if (isset($documents[$key]) && Storage::exists('public/student_documents/' . $documents[$key]['file'])) {
-                    Storage::delete('public/student_documents/' . $documents[$key]['file']);
-                }
-
-                $documents[$key] = [
-                    'name' => $request->input('document_name')[$key],
-                    'file' => $currentDateTime . '_' . $originalFileName,
-                ];
+    
+        try {
+            $student = Student::where('parent_id', $parent_id)
+                ->where('id', $student_id)
+                ->firstOrFail();
+    
+            if (!$student) {
+                return response()->json(['success' => false, 'errors' => 'Student not found']);
             }
+    
+            $documents = !is_null($student->document) ? json_decode($student->document, true) : [];
+    
+            if ($request->hasFile('document_file')) {
+                foreach ($request->file('document_file') as $key => $file) {
+                    $originalFileName = $file->getClientOriginalName();
+                    $currentDateTime = now()->format('YmdHis');
+                    $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
+    
+                    // Delete the existing file if it exists
+                    if (isset($documents[$key]) && Storage::exists('public/student_documents/' . $documents[$key]['file'])) {
+                        Storage::delete('public/student_documents/' . $documents[$key]['file']);
+                    }
+    
+                    $documents[$key] = [
+                        'name' => $request->input('document_name')[$key],
+                        'file' => $currentDateTime . '_' . $originalFileName,
+                    ];
+                }
+            }
+    
+            $student->document = json_encode($documents);
+            $student->save();
+    
+            // Calculate profile completion percentage
+            $profileCompletionPercentage = $this->calculateProfileCompletionPercentage($student);
+    
+            // Update applicant status
+            $applicantStatus = ApplicantStatus::firstOrNew(['student_id' => $student->id]);
+            $applicantStatus->parent_id = $parent_id;
+            $applicantStatus->applicant_id = $student->applicant_id;
+            $applicantStatus->status = $profileCompletionPercentage >= 100 ? 'Complete' : 'Incomplete';
+            $applicantStatus->note = $profileCompletionPercentage >= 100 ? 'Profile complete' : 'Profile incomplete';
+            $applicantStatus->ip_address = $request->ip();
+            $applicantStatus->created_by = auth()->guard('webparents')->user()->username;
+            $applicantStatus->save();
+    
+            return response()->json(['success' => true, 'message' => 'Documents updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
         }
-
-        $student_document_update->document = json_encode($documents);
-        $student_document_update->save();
-
-        return response()->json(['success' => true, 'message' => 'Documents updated successfully']);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'errors' => $e->getMessage()]);
     }
-}
 
 
     public function applicant_profile(){
@@ -382,10 +394,9 @@ class ApplicantController extends Controller
         $parent_id = $request->input('parent_id');
         $applicant_id = $request->input('applicant_id');
 
-        $ipAddress = $this->getPublicIpAddress();
+        // $ipAddress = $this->getPublicIpAddress();
 
-        $randomApplicantId = Str::random(5);
-
+        $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
     
         $applicant_id = Session::get('applicant_id');
 
@@ -405,7 +416,7 @@ class ApplicantController extends Controller
                 'role_id' => $request->role_id,
                 'status' => $request->status,
                 'applicant_status' => $request->applicant_status,                                                                                                           
-                'ip_address' => $ipAddress,
+                'ip_address' => '127.0.0.1',
                 'created_by' => 'null',
             ]);
 
@@ -433,7 +444,7 @@ class ApplicantController extends Controller
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
-        $applicant->applicant_id = 'App_id'.$randomApplicantId;
+        $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status; 
         $applicant->applicant_status = $request->applicant_status;                                                                                                           
@@ -537,7 +548,7 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = 'App_id'.'_'.$applicant_id;
+            $student->applicant_id = '_'.$applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;
@@ -655,7 +666,7 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = 'App_id'.'_'.$applicant_id;
+            $student->applicant_id = '_'.$applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;
@@ -1064,7 +1075,7 @@ class ApplicantController extends Controller
         return $pdf->download('parent_student_information.pdf');
     }
 
-    public function update_applicant_data(Request $request){
+    public function update_applicant_data($parent_id,$child_id){
         $country = Country::get();
 
         $test = [];
@@ -1090,19 +1101,25 @@ class ApplicantController extends Controller
             $lang[] = $lng->name;
         }
 
-        $id = $request->parent_id;
-        $applicant_data = Student::join('student_parents', function ($join) use ($id) {
-            $join->on('students.parent_id', '=', 'student_parents.id')
-                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
-                 ->where('student_parents.id', '=', $id);
-        })
-        ->select('students.*', 'student_parents.*')
-        ->first();
+        $parent = StudentParent::where('id',$parent_id)
+                ->first();
 
-        print_r($applicant_data);
-        exit;
+        $student = Student::where('parent_id',$parent_id)
+                   ->where('id',$child_id)
+                   ->first();  
+        // $applicant_data = Student::join('student_parents', function ($join) use ($id) {
+        //     $join->on('students.parent_id', '=', 'student_parents.id')
+        //          ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+        //          ->where('student_parents.id', '=', $id);
+        // })
+        // ->select('students.*', 'student_parents.*')
+        // ->first();
+
+        // print_r($applicant_data);
+        // exit;
         
-        return view('admin.applicant.update-applicant-data',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
+        return view('admin.applicant.update-applicant-data',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent'));
+        
     }
  
 }

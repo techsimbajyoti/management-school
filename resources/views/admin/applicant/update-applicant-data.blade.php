@@ -97,17 +97,101 @@
                                 <li class="active" id="step1"><strong>Step 1</strong></li>
                                 <li id="step2"><strong>Step 2</strong></li>
                                 <li id="step3"><strong>Step 3</strong></li>
+                                <li id="step4"><strong>Step 4</strong></li>
                             </ul>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <div class="text-right">
-                                    @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5 && auth()->guard('webparents')->user()->applicant_status == 'applicant')
-                                    <a href="{{route('applicant-profile')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
-                                    @else
-                                    <a href="{{route('applicant-list')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
-                                    @endif
+                                    <a href="{{route('applicant-parent-list',auth()->guard('webparents')->user()->id)}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                                 </div>
+
+                                {{-- @if(auth()->guard('webparents')->user()->role_id == '5') --}}
+                                <form clas="form active" method="POST" action="" id="form1">
+                                    
+                                    @csrf
+                                    <h5>Parent Information</h5><br>
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Parent Name:') }}</label>
+                                            <div class="form-group">
+                                                <div class="autocomplete">
+                                                    <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name" value="{{ $parent->father_name}}">
+                                                    <span class="invalid-feedback" id="parent_name_error" style="display: none;" role="alert"></span>
+                                                </div>
+                                               
+                                           
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Email:') }}</label>
+                                                <div class="form-group">
+                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email"  value="{{ $parent->email}}" >
+                                                    <span class="invalid-feedback" id="email_error" style="display: none;"></span>
+                                              
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Password:') }}</label>
+                                        
+                                            <div class="form-group">
+                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password"  value="{{ $parent->password}}" readonly>
+                                                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
+                                               
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Confirm Password:') }}</label>
+                                        
+                                            <div class="form-group">
+                                                <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password"  value="{{ $parent->password}}" readonly>
+                                                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Contact Number:') }}</label>
+                                
+                                                <div class="form-group">
+                                                    <input type="number" name="contact_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Contact Number"   value="{{ $parent->father_mobile}}">
+                                                    <span class="invalid-feedback" id="contact_number_error" style="display: none;"></span>
+                                                </div>
+                                               
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span style="color:red">*</span>
+                                            <label class="form-label">{{ __('Profession:') }}</label>
+                                
+                                                <div class="form-group">
+                                                    <input type="text" name="profession" class="nice-select niceSelect bordered_style wide" placeholder="Enter Profession"  value="{{ $parent->father_profession}}">
+                                                     <span class="invalid-feedback" id="profession_error" style="display: none;"></span>
+                                               
+                                                </div>  
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="role_id" value="5">
+                                    <input type="hidden" name="status" value="active">
+                                    <input type="hidden" name="applicant_status" value="applicant">
+                                  
+                                    <div class="card-footer">
+                                        <div class="d-flex justify-content-end">
+                                            <input type="hidden" name="action" id="form-action" value="save">
+                                            <button type="button" class="btn btn-lg ot-btn-primary save_1">
+                                                <i class="fa fa-edit"></i> {{ __('Update & Next') }}
+                                            </button>
+                                            {{-- <button type="submit" class="btn btn-lg ot-btn-primary ml-3">
+                                                <i class="fa fa-save"></i> {{ __('Save') }}
+                                            </button> --}}
+                                        </div>
+                                    </div>
+                                </form> 
 
                                 <form id="form2" class="form" method="POST"  action="" enctype="multipart/form-data">
                                     @csrf
@@ -120,7 +204,7 @@
                                             <label class="form-label">{{ __('First Name:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required  value="{{ $applicant_data->first_name}}" >
+                                                    <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required  value="{{ $student->first_name}}" >
                                                 
                                                    <span class="invalid-feedback" id="first_name_error" style="display: none;" role="alert"></span>
                                                 </div>
@@ -131,7 +215,7 @@
                                             <label class="form-label">{{ __('Last Name:') }}</label>
     
                                             <div class="form-group">
-                                                <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required  value="{{ $applicant_data->last_name}}">
+                                                <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required  value="{{ $student->last_name}}">
                                            
                                             <span class="invalid-feedback" id="last_name_error" style="display: none;" role="alert"></span>
                                         </div>
@@ -143,11 +227,11 @@
                                                 <label class="form-label">Gender:</label>
                                                 <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
-                                                    <option value="Male" {{ $applicant_data->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                                                    <option value="Female" {{ $applicant_data->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                                    <option value="other" {{ $applicant_data->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                                                    <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                                    <option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                                    <option value="other" {{ $student->gender == 'Other' ? 'selected' : '' }}>Other</option>
                                                 </select>
-                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $applicant_data->other_gender }}">
+                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_gender }}">
                                                 <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -156,7 +240,7 @@
                                             <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('Class:') }}</label>
                                                     <div class="form-group">
-                                                        <input name="class" value="{{ $applicant_data->class}}" type="text" class="form-control" placeholder="Enter Class" required>
+                                                        <input name="class" value="{{ $student->class}}" type="text" class="form-control" placeholder="Enter Class" required>
                                                             <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                     
@@ -166,7 +250,7 @@
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">Date of Birth:</label>
-                                                <input name="date_of_birth" value="{{$applicant_data->date_of_birth}}" type="date" class="form-control date-pick" placeholder="Date of birth" required>
+                                                <input name="date_of_birth" value="{{$student->date_of_birth}}" type="date" class="form-control date-pick" placeholder="Date of birth" required>
                                                 <span class="invalid-feedback" id="date_of_birth_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div> 
@@ -176,7 +260,7 @@
                                                 <select class="nice-select niceSelect bordered_style wide" id="blood-group" name="blood_group" data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
                                                      @foreach($BloodGroup as $BloodGroups)
-                                                        <option value="{{ $BloodGroups->bg_code }}" {{ $BloodGroups->bg_code == $applicant_data->blood_group ? 'selected' : '' }}>
+                                                        <option value="{{ $BloodGroups->bg_code }}" {{ $BloodGroups->bg_code == $student->blood_group ? 'selected' : '' }}>
                                                             {{ $BloodGroups->bg_name }}
                                                         </option>
                                                     @endforeach
@@ -205,11 +289,11 @@
                                                 <label class="form-label">Category:</label>
                                                 <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
                                                     <option value="">Select one of these</option>
-                                                    <option  value="General"  {{ $applicant_data->category == 'General' ? 'selected': '' }}>General</option>
-                                                    <option  value="OBC"  {{ $applicant_data->category == 'OBC' ? 'selected': '' }}>OBC</option>
-                                                    <option  value="SC"  {{ $applicant_data->category == 'SC' ? 'selected': '' }}>SC</option>
-                                                    <option  value="ST"  {{ $applicant_data->category == 'ST' ? 'selected': '' }}>ST</option>
-                                                    <option  value="other"  {{ $applicant_data->category == 'other' ? 'selected': '' }}>Other</option>
+                                                    <option  value="General"  {{ $student->category == 'General' ? 'selected': '' }}>General</option>
+                                                    <option  value="OBC"  {{ $student->category == 'OBC' ? 'selected': '' }}>OBC</option>
+                                                    <option  value="SC"  {{ $student->category == 'SC' ? 'selected': '' }}>SC</option>
+                                                    <option  value="ST"  {{ $student->category == 'ST' ? 'selected': '' }}>ST</option>
+                                                    <option  value="other"  {{ $student->category == 'other' ? 'selected': '' }}>Other</option>
                                                 </select>
                                                 <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
                                                 <span class="invalid-feedback" id="category_error" style="display: none;" role="alert"></span>
@@ -230,11 +314,11 @@
                                               
                                                 <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
                                                 <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
-                                                @if($applicant_data->image)
+                                                @if($student->image)
                                                    
-                                                        <img src="{{ url('storage/student_photos/' . $applicant_data->image) }}"  height="100px" width="100px">
+                                                        <img src="{{ url('storage/student_photos/' . $student->image) }}"  height="100px" width="100px">
                                                     
-                                                    <p id="pic">File: {{ $applicant_data->image }}</p>
+                                                    <p id="pic">File: {{ $student->image }}</p>
                                                 @else
                                                     <p id="pic">File: No File Uploaded</p>
                                                 @endif
@@ -243,7 +327,7 @@
                                         
                                           <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
-                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $applicant_data->previous_school}}">
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $student->previous_school}}">
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                                 <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                         </div>
@@ -268,16 +352,17 @@
                                     </div>
                                 </form>
 
-                                <form class="form" method="" id="form3">
+                                <form class="form" method="" id="form3" method="POST">
                                     @csrf
                                     <h5>Contact Information</h5><br>
                                     <div class="row">
+                                        <input type="hidden" name="student_id" class="student_id" value="">
                                         <div class="col-md-12">
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $applicant_data->last_name}}">
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->last_name}}">
                                                    
                                                 </div>
                                                 
@@ -289,7 +374,7 @@
                                                     <span style="color:red">*</span>
                                                     <label class="form-label">{{ __('Country:') }} </label>
                                                     <div class="autocomplete">
-                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required value="{{ $applicant_data->country}}">
+                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required value="{{ $student->country}}">
                                                     <span class="invalid-feedback" id="country_error" style="display: none;" role="alert"></span>   
                                                 </div>
                                                 </div>
@@ -299,7 +384,7 @@
                                                     <span style="color:red">*</span>
                                                     <label class="form-label">{{ __('State:') }} </label>
                                                     <div class="autocomplete">
-                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required value="{{ $applicant_data->state}}">
+                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required value="{{ $student->state}}">
                                                         <span class="invalid-feedback" id="state_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                 </div>
@@ -309,7 +394,7 @@
                                                 <label class="form-label">{{ __('City:') }}</label>
                 
                                                     <div class="form-group">
-                                                        <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" required value="{{ $applicant_data->city}}">
+                                                        <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" required value="{{ $student->city}}">
                                                         <span class="invalid-feedback" id="city_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                    
@@ -320,7 +405,7 @@
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="{{ $applicant_data->pin_code}}">
+                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="{{ $student->pin_code}}">
                                                     <span class="invalid-feedback" id="pin_code_error" style="display: none;" role="alert"></span>
                                                 </div>
                                                 
@@ -347,7 +432,7 @@
                                 <form id="form4" class="form" method="">
                                     @csrf
                                     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
-                                
+                                        <input type="hidden" name="student_id" class="student_id" value="">
                                         <h5>Upload Documents</h5>
                                         <a id="add-document" class="btn btn-lg ot-btn-primary">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Add
@@ -367,7 +452,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @php
-                                                            $documents = json_decode($applicant_data->document);
+                                                            $documents = json_decode($student->document);
                                                         @endphp
                             
                                                         @if (!empty($documents))
@@ -377,7 +462,7 @@
                                                                     <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" value="{{$document->name}}">
                                                                 </td>
                                                                 <td>
-                                                                    <input type="file" class="form-control" name="document_file[]" value="{{ $document->file}}"  style="margin-top:15px;">
+                                                                    <input type="file" class="form-control" name="document_file[]" value="{{ $document->file}}"  style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
                                                                     <a href="{{ url('storage/student_documents/' . $document->file) }}" target="_blank">
                                                                         File: {{ $document->file }}
                                                                     </a>
@@ -423,7 +508,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-   var parent_id = {{ Session::get('parent_id') }};
     $( function() {
    var availableTags = <?php echo json_encode($lang); ?>;
    function split( val ) {
@@ -470,7 +554,7 @@ $(document).ready(function() {
    demo.checkFullPageBackgroundImage();
 
    let currentStep = 1;
-   const totalSteps = 3;
+   const totalSteps = 4;
 
    function updateProgressBar(step) {
        const percentage = (step - 1) / (totalSteps - 1) * 100;
@@ -482,7 +566,7 @@ $(document).ready(function() {
    }
 
    function showForm(step) {
-       $('#form2, #form3, #form4').hide();
+       $('#form1, #form2, #form3, #form4').hide();
        $(`#form${step}`).show();
    }
 
@@ -491,6 +575,32 @@ $(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $('.save_1').click(function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        url: "{{ route('update-applicant-parent', $parent->id) }}",
+        method: 'POST',
+        data: $('#form1').serialize(),
+        success: function(response) {
+            if (response.success) {
+                currentStep = 2;
+                updateProgressBar(currentStep);
+                showForm(currentStep);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+            if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                displayValidationErrors(errors);
+            } else {
+                console.log(xhr.responseText); // Log the response text to see the server error details
+            }
+        }
+    });
+});
 
         function displayValidationErrors(errors) {
             $('.invalid-feedback').hide(); // Hide all error messages initially
@@ -504,12 +614,13 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "/update-student-applicant/" + parent_id,
+                url: "{{ route('update-student-applicant-parent', ['id'=>$parent->id, 'student_id'=>$student->id]) }}",
                 method: 'POST',
                 data: new FormData($('#form2')[0]),
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    $('.student_id').val(response.student_id);
                     if (response.success) {
                         currentStep = 3;
                         updateProgressBar(currentStep);
@@ -530,10 +641,11 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "/update-contact-applicant/" + parent_id,
+                url: "{{ route('update-contact-applicant-parent', $parent->id) }}",
                 method: 'POST',
                 data: $('#form3').serialize(),
                 success: function(response) {
+                    $('.student_id').val(response.student_id);
                     if (response.success) {
                         currentStep = 4;
                         updateProgressBar(currentStep);
@@ -554,7 +666,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "/update-document-applicant/" + parent_id,
+                url: "{{ route('update-document-applicant-parent', $parent->id) }}",
                 method: 'POST',
                 data: new FormData($('#form4')[0]),
                 processData: false,
@@ -567,7 +679,7 @@ $(document).ready(function() {
                             icon: "success",
                             button: "OK",
                         }).then((value) => {
-                            window.location.href = "/applicant-list";
+                            window.location.href = "/parent-dashboard";
                         });
                     }
                 },
