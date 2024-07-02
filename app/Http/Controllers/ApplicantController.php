@@ -40,22 +40,29 @@ class ApplicantController extends Controller
         return view('pages.applicant');
     }
 
-    public function applicant_list(){
-        
+    public function applicant_list()
+    {
         $applicant_list = Student::join('student_parents', function ($join) {
-            $join->on('students.parent_id', '=', 'student_parents.id')
-                 ->on('students.applicant_id', '=', 'student_parents.applicant_id');
-        })
-        ->select('students.id as student_id', 'student_parents.id as parent_id', 'students.*', 'student_parents.*')
-        ->distinct() // Add distinct to remove duplicate rows
-        ->get();
-        
-        
-        
-               
-        return view('admin.applicant.applicant-list',compact('applicant_list'));
+                $join->on('students.parent_id', '=', 'student_parents.id')
+                     ->on('students.applicant_id', '=', 'student_parents.applicant_id');
+            })
+            ->join('applicant_statuses', function ($join) {
+                $join->on('students.id', '=', 'applicant_statuses.student_id')
+                     ->on('student_parents.id', '=', 'applicant_statuses.parent_id');
+            })
+            ->select(
+                'students.id as student_id', 
+                'student_parents.id as parent_id', 
+                'students.*', 
+                'student_parents.*', 
+                'applicant_statuses.status'
+            )
+            ->distinct() // Add distinct to remove duplicate rows
+            ->get();
+    
+        return view('admin.applicant.applicant-list', compact('applicant_list'));
     }
-
+    
     public function view_applicant($id)
     {
         $country = Country::get();
@@ -994,20 +1001,10 @@ class ApplicantController extends Controller
 
     public function applicant_parent_status_update(Request $request){
 
-        $status = $request->status_update;
-        $note = $request->note;
-        $student_id = $request->student_id;
-        $parent_id = $request->parent_id;
-       
-        $student = Student::where('id', $student_id)->update([
-            'status' => $status,
-            'note' => $note
-        ]);
-
         $student = new ApplicantStatus;
         $student->student_id = $request->student_id;
         $student->parent_id = $request->parent_id;
-        $student->applicant_id = $request->applicant_id;
+        $student->applicant_id = '1';
         $student->status = $request->status_update;
         $student->note = $request->note;
         $student->ip_address = '1';

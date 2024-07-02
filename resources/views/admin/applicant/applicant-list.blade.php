@@ -94,9 +94,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                       
+                                      
                                         @foreach($applicant_list as $applicant_lists)
-                                        
+                                       
                                         <tr id="row_7">
                                             <td class="serial">{{$applicant_lists->id}}</td>
                                             <td>{{$applicant_lists->applicant_id}}</td>
@@ -198,6 +198,7 @@
               @csrf
                 <input type="hidden" name="student_id" id="student_id" value="">
                 <input type="hidden" name="parent_id" id="parent_id" value="">
+                
                  <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Status</label>
