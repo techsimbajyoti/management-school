@@ -101,7 +101,7 @@
                                             <td>{{$applicant_lists->applicant_id}}</td>
                                             
                                             <td><img src="{{ url('storage/student_photos/' . $applicant_lists->image) }}" height="40px" width="40px">
-                                                {{$applicant_lists->first_name}} {{$applicant_lists->last_name}}</td>
+                                              <a href="{{route('new-applicant-student-profile',$applicant_lists->id)}}">{{$applicant_lists->first_name}} {{$applicant_lists->last_name}}</a></td>
                                              <td>{{ $applicant_lists->username }}</td> 
                                             <td>{{ $applicant_lists->class }}</td>
                                             <td>{{ $applicant_lists->father_name}}</td>

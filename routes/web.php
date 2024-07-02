@@ -75,6 +75,10 @@ Route::delete('delete-applicant/{id}', [ApplicantController::class, 'delete_appl
 
 Route::post('/clear-session', [ApplicantController::class, 'clearSession'])->name('clear-session');
 
+Route::get('new-applicant-student-profile', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
+
+Route::post('status-update', [ApplicantController::class, 'status_update'])->name('status-update');
+
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);

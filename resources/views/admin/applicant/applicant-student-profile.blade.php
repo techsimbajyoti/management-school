@@ -30,7 +30,10 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0 title">Applicant Information</h4>
+                    @if(Auth::guard('webparents')->check() && Auth::guard('webparents')->user()->role_id == 5)
                     <a href="{{route('applicant-edit', auth()->guard('webparents')->user()->id)}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                 @else
+                 @endif
                 </div>
                 <hr>
                 <div class="card-body">
