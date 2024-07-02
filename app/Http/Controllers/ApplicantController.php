@@ -20,6 +20,7 @@ use App\Mail\ApplicantRegistered;
 use App\Mail\AdminNotification;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
+use App\Models\ApplicantStatus;
 use PDF;
 
 
@@ -889,7 +890,32 @@ class ApplicantController extends Controller
     }
 
     public function applicant_parent_list($id){
-        $studentDetails = Student::where('parent_id', $id)->get();
+        // $studentDetails = Student::where('parent_id', $id)->get();
+
+        $studentDetails = Student::select(
+            'students.id',
+            'students.applicant_id',
+            'students.first_name',
+            'students.last_name',
+            'students.email',
+            'students.mobile',
+            'students.address',
+            'students.gender',
+            'students.class',
+            'students.date_of_birth',
+            'students.country',
+            'students.state',
+            'students.city',
+            'students.pin_code',
+            'students.document',
+            'applicant_statuses.status as applicant_status',
+            'applicant_statuses.note as applicant_note'
+        )
+        ->leftJoin('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+        ->where('students.parent_id', $id)
+        ->get();
+    
+        
         return view('admin.applicant.applicant-parent-list', compact('studentDetails'));
     }
 
@@ -957,22 +983,22 @@ class ApplicantController extends Controller
     }
 
     public function applicant_parent_status_update(Request $request){
-        $status = $request->status_update;
-        $note = $request->note;
-        $student_id = $request->student_id;
-        $parent_id = $request->parent_id;
 
-        $student = Student::where('id', $student_id)->update([
-            'status' => $status,
-            'note' => $note
-        ]);
+        $student = new ApplicantStatus;
+        $student->student_id = $request->student_id;
+        $student->parent_id = $request->parent_id;
+        $student->applicant_id = $request->applicant_id;
+        $student->status = $request->status_update;
+        $student->note = $request->note;
+        $student->ip_address = '1';
+        $student->created_by = 'null';
 
-        $parent = StudentParent::where('id', $parent_id)->update([
-            'status' => $status,
-            'note' => $note
-        ]);
-
-        return redirect()->back()->with('status', 'Updated Successfully');
+        $student->save();
+        if($student){
+            return redirect()->back()->with('status', 'Updated Successfully');
+        }else{
+            return redirect()->back()->with('status', 'Not Updated Successfully');
+        }
     }
 
     public function download_profile($student_id, $parent_id){

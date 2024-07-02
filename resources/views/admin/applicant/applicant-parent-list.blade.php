@@ -57,9 +57,9 @@
                                             </td>
                                             <td>{{ $details->class }}</td>
                                             <td>{{ $details->date_of_birth }}</td>
-                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->status }}</span></td>
+                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->applicant_status }}</span></td>
                                             <td>
-                                                <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $details->id }}"><i class="fas fa-cog"></i></a>
+                                                <a class="btn ot-btn-primary applicant_status" data-applicant-id="{{ $details->applicant_id }}" data-student-id="{{ $details->id }}"><i class="fas fa-cog"></i></a>
                                             </td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
@@ -100,10 +100,11 @@
             @csrf
             <input type="hidden" name="parent_id" value="{{ auth()->guard('webparents')->user()->id }}">
             <input type="hidden" name="student_id" id="student_id" value="">
+            <input type="hidden" name="applicant_id" id="applicant_id" value="">
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Status</label>
-                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
+                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide" required>
                         <option>Incomplete</option>
                         <option>Accept</option>
                         <option>Reject</option>
@@ -114,7 +115,7 @@
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Note</label>
-                    <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                    <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note" required></textarea>
                 </div>
             </div>
             <div class="row justify-content-center mt-3">
@@ -148,7 +149,11 @@
         Array.prototype.forEach.call(buttons, function(btn) {
             btn.addEventListener("click", function() {
                 var studentId = this.getAttribute('data-student-id');
+                var applicantId = this.getAttribute('data-applicant-id');
+
                 document.getElementById('student_id').value = studentId;
+                document.getElementById('applicant_id').value = applicantId;
+
                 modal.style.display = "block";
             });
         });
