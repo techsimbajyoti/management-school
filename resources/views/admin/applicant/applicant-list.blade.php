@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-12">
           <div class="col-12">
-            <form action="" method="" id="marksheed">
+            <form action="{{ route('applicant-list') }}" method="GET" id="marksheet">
                 @csrf
                 <div class="card ot-card mb-24 position-relative z_1">
                     <div class="card-header d-flex align-items-center gap-4 flex-wrap">
@@ -35,32 +35,32 @@
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
-                                <select class="class nice-select niceSelect bordered_style wide sections" name="class">
+                                <select class="class nice-select niceSelect bordered_style wide sections" name="class" id="class">
                                     <option value>Select one of these</option>
-                                    <option value="One" selected>One</option>
+                                    <option value="One">One</option>
                                     <option value="Two">Two</option>
                                     <option value="Three">Three</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
-                                <select id="status" class="class nice-select niceSelect bordered_style wide" name="status">
+                                <select class="class nice-select niceSelect bordered_style wide" id="status-form" name="status_form">
                                     <option value="">Select Status</option>
-                                    <option value="1">Incomplete</option>
-                                    <option value="1">New</option>
-                                    <option value="2">Accept</option>
-                                    <option value="3">Reject</option>
-                                    <option value="4">Meeting Schedule</option>
-                                    <option value="5">Approved By Admin</option>
-                                    <option value="5">Denied By Admin</option>
-                                    <option value="5">Approved By Applicant</option>
-                                    <option value="5">Admission Confirmed</option>
+                                    <option value="Incomplete">Incomplete</option>
+                                    <option value="New">New</option>
+                                    <option value="Accept">Accept</option>
+                                    <option value="Reject">Reject</option>
+                                    <option value="Meeting Schedule">Meeting Schedule</option>
+                                    <option value="Approved By Admin">Approved By Admin</option>
+                                    <option value="Denied By Admin">Denied By Admin</option>
+                                    <option value="Approved By Applicant">Approved By Applicant</option>
+                                    <option value="Admission Confirmed">Admission Confirmed</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
-                                <input type="text" placeholder="Search by Applicant Id" class="class nice-select niceSelect bordered_style wide" name="student_name">
+                                <input type="text" placeholder="Search by Applicant Id" class="class nice-select niceSelect bordered_style wide" name="applicantIds">
                             </div>
                             <div class="form-group single_large_selectBox">
-                                <button class="btn btn-lg ot-btn-primary equal-dimensions search-student" type="submit" id="search">
+                                <button class="btn btn-lg ot-btn-primary equal-dimensions search-student" type="submit" id="search-student">
                                     <i class="fa fa-search"></i> Search
                                 </button>
                             </div>
@@ -326,6 +326,22 @@ $(document).on('click', '.view_document', function(e) {
 $(document).on('click', '.close', function() {
     $('#myModal').hide();
 });
+
+        $(document).ready(function(e) 
+        e.preventDefault();
+        {
+            ('#search').click(function(){
+                var classElement = document.getElementById('class'); // Using vanilla JavaScript
+                alert(classElement);
+        
+            $('#status-form').getElementById().value();
+            });
+        });
+
+
+
+
+
 
 
     // $(document).ready(function() {

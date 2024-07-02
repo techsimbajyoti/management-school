@@ -40,13 +40,13 @@ class ApplicantController extends Controller
         return view('pages.applicant');
     }
 
-    public function applicant_list()
+    public function applicant_list(Request $request)
     {
-        $applicant_list = Student::join('student_parents', function ($join) {
+        $query = Student::join('student_parents', function ($join) {
                 $join->on('students.parent_id', '=', 'student_parents.id')
                      ->on('students.applicant_id', '=', 'student_parents.applicant_id');
             })
-            ->join('applicant_statuses', function ($join) {
+            ->leftJoin('applicant_statuses', function ($join) {
                 $join->on('students.id', '=', 'applicant_statuses.student_id')
                      ->on('student_parents.id', '=', 'applicant_statuses.parent_id');
             })
@@ -57,11 +57,29 @@ class ApplicantController extends Controller
                 'student_parents.*', 
                 'applicant_statuses.status'
             )
-            ->distinct() // Add distinct to remove duplicate rows
-            ->get();
+            ->distinct();
+    
+        if ($request->has('class') && $request->class != '') {
+            $query->where('students.class', $request->class);
+        }
+    
+        if ($request->has('status_form') && $request->status_form != '') {
+            $query->where('applicant_statuses.status', $request->status_form);
+        }
+    
+        if ($request->has('applicantIds') && $request->applicantIds != '') {
+            $query->where('students.applicant_id', $request->applicantIds);
+        }
+
+        if ($request->has('applicant_id') && $request->applicant_id != '') {
+            $query->where('students.applicant_id', 'LIKE', "%{$request->applicant_id}%");
+        }
+    
+        $applicant_list = $query->get();
     
         return view('admin.applicant.applicant-list', compact('applicant_list'));
     }
+    
     
     public function view_applicant($id)
     {
@@ -433,7 +451,7 @@ class ApplicantController extends Controller
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
-        $applicant->applicant_id = 'App_id'.$randomApplicantId;
+        $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $request->status; 
         $applicant->applicant_status = $request->applicant_status;                                                                                                           
@@ -460,7 +478,7 @@ class ApplicantController extends Controller
 
         $parent_id = Session::get('parent_id');
         $student_id = $request->input('student_id');
-        $applicant_id = Str::random(8);
+        $applicant_id = Session::get('applicant_id');
 
         $parentStudent = Student::where('id', $student_id)
         ->where('applicant_id', $applicant_id)
@@ -537,7 +555,7 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = 'App_id'.'_'.$applicant_id;
+            $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;
