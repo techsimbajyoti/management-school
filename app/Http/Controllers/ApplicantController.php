@@ -971,7 +971,7 @@ class ApplicantController extends Controller
         $note = $request->note;
         $student_id = $request->student_id;
         $parent_id = $request->parent_id;
-
+       
         $student = Student::where('id', $student_id)->update([
             'status' => $status,
             'note' => $note
