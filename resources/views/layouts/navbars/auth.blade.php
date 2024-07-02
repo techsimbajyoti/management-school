@@ -753,7 +753,7 @@
             </li>
 
             <li class="{{ $elementActive == 'applicant-parent-list' ? 'active' : '' }}">
-                <a href="{{ route('applicant-parent-list') }}">
+                <a href="{{ route('applicant-parent-list', auth()->guard('webparents')->user()->id ) }}">
                     <i class="fas fa-list"></i> 
                     <p>{{ __('Applicant List') }}</p>
                 </a>

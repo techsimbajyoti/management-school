@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Parent Information</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xQQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>{{ $title }}</title>
     <style>
          body {
             font-family: Arial, sans-serif;
@@ -67,102 +67,102 @@
         @endphp
         <div class="text-center">
             <img src="{{ $imageSrc }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3">Steve Smith</h5>
-            <p class="text-muted">Contact: 1478523690</p>
+            <h3 class="my-3">{{ $parent['name'] }}</h3>
+            <p class="text-muted">Contact: {{ $parent['contact'] }}</p>
         </div>
     </div>
 
     <div class="card">
-        <h4 class="title">Parent Information</h4>
+        <h5 class="title">Parent Information</h5>
         <table class="table">
             <tbody>
               <tr>
-                <td>Parent Name</td>
-                <td>Thornton</td>
+                <td><strong>Parent Name</strong></td>
+                <td>{{ $parent['name'] }}</td>
               </tr>
               <tr>
-                <td>Parent Email</td>
-                <td>Thornton@gmail.com</td>
+                <td><strong>Parent Email</strong></td>
+                <td>{{ $parent['email'] }}</td>
               </tr>
               <tr>
-                <td>Parent Profession</td>
-                <td>theBird</td>
+                <td><strong>Parent Profession</strong></td>
+                <td>{{ $parent['profession'] }}</td>
               </tr>
               <tr>
-                <td>Contact Number</td>
-                <td>789456123</td>
+                <td><strong>Contact Number</strong></td>
+                <td>{{ $parent['contact'] }}</td>
               </tr>
               <tr>
-                <td>User Name</td>
-                <td>UiIjk</td>
+                <td><strong>User Name</strong></td>
+                <td>{{ $parent['username'] }}</td>
               </tr>
               <tr>
-                <td>Password</td>
-                <td>123456789</td>
+                <td><strong>Password</strong></td>
+                <td>{{ $parent['password'] }}</td>
               </tr>
             </tbody>
           </table>
     </div>
 
     <div class="card">
-        <h4 class="title">Student Information</h4>
+        <h5 class="title">Student Information</h5>
         <table class="table">
             <tbody>
               <tr>
-                <td>Full Name</td>
-                <td>Thornton Dev</td>
+                <td><strong>Full Name</strong></td>
+                <td>{{ $student['name'] }}</td>
               </tr>
               <tr>
-                <td>Gender</td>
-                <td>Female</td>
+                <td><strong>Gender</strong></td>
+                <td>{{ $student['gender'] }}</td>
               </tr>
               <tr>
-                <td>Admission For</td>
-                <td>One</td>
+                <td><strong>Admission For</strong></td>
+                <td>{{ $student['admission_for'] }}</td>
               </tr>
               <tr>
-                <td>Date Of Birth</td>
-                <td>00/00/0000</td>
+                <td><strong>Date Of Birth</strong></td>
+                <td>{{ $student['dob'] }}</td>
               </tr>
               <tr>
-                <td>Blood Group</td>
-                <td>o+</td>
+                <td><strong>Blood Group</strong></td>
+                <td>{{ $student['blood_group'] }}</td>
               </tr>
               <tr>
-                <td>Religion</td>
-                <td>Hindu</td>
+                <td><strong>Religion</strong></td>
+                <td>{{ $student['religion'] }}</td>
               </tr>
               <tr>
-                <td>Category</td>
-                <td>OBC</td>
+                <td><strong>Category</strong></td>
+                <td>{{ $student['category'] }}</td>
               </tr>
               <tr>
-                <td>Language</td>
-                <td>Hindi, English</td>
+                <td><strong>Language</strong></td>
+                <td>{{ $student['language'] }}</td>
               </tr>
               <tr>
-                <td>Previous School</td>
-                <td>ABCD</td>
+                <td><strong>Previous School</strong></td>
+                <td>{{ $student['previous_school'] }}</td>
               </tr>
               <tr>
-                <td>Addres</td>
-                <td>ABCD</td>
+                <td><strong>Address</strong></td>
+                <td>{{ $student['address'] }}</td>
               </tr>
               <tr>
-                <td>Country</td>
-                <td>ABCD</td>
+                <td><strong>Country</strong></td>
+                <td>{{ $student['country'] }}</td>
               </tr>
               <tr>
-                <td>State</td>
-                <td>ABCD</td>
+                <td><strong>State</strong></td>
+                <td>{{ $student['state'] }}</td>
               </tr>
               <tr>
-                <td>City</td>
-                <td>ABCD</td>
+                <td><strong>City</strong></td>
+                <td>{{ $student['city'] }}</td>
               </tr>
               <tr>
-                <td>Pin Code</td>
-                <td>123456</td>
+                <td><strong>Pin Code</strong></td>
+                <td>{{ $student['pin_code'] }}</td>
               </tr>
             </tbody>
           </table>

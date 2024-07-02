@@ -157,8 +157,7 @@
                                         $student_data = App\Models\Student::where('id', $totalC->id)
                                             ->select(
                                                 'students.first_name as student_name',
-                                                'students.email as student_email',
-                                                'students.mobile as student_phone',
+                                                'students.last_name as student_last_name',
                                                 'students.address as student_address',
                                                 'students.gender as student_gender',
                                                 'students.class as student_class',
@@ -173,8 +172,7 @@
 
                                         // Check if any field is empty
                                         if (empty($student_data->student_name) ||
-                                            empty($student_data->student_email) ||
-                                            empty($student_data->student_phone) ||
+                                            empty($student_data->student_last_name) ||
                                             empty($student_data->student_address) ||
                                             empty($student_data->student_gender) ||
                                             empty($student_data->student_class) ||
@@ -191,8 +189,7 @@
 
                                         // Check if all required fields are filled
                                         if (!empty($student_data->student_name) &&
-                                            !empty($student_data->student_email) &&
-                                            !empty($student_data->student_phone) &&
+                                            !empty($student_data->student_last_name) &&
                                             !empty($student_data->student_address) &&
                                             !empty($student_data->student_gender) &&
                                             !empty($student_data->student_class) &&
@@ -335,7 +332,7 @@
                         @endphp
                         
                         @foreach($children as $child)
-                        <div class="row p-3">
+                        <div class="row p-2">
                             <div class="col-md-6">
                                 <div class="chart-container">
                                     <canvas id="pieChart_{{ $child->id }}" width="200" height="200"></canvas>
@@ -395,7 +392,14 @@
                               <tr>
                                 <th scope="row">{{ $key }}</th>
                                 <td>{{ $child->applicant_id }}</td>
-                                <td><span>{{ $student_data }}</span></td>
+                                @php
+                                    $completionPercentage = $childrenCompletionPercentages[$child->id] ?? 0;
+                                @endphp
+                                @if ($completionPercentage < 100)
+                                <td><span id="applicant_profile_status">Incomplete</span></td>
+                                @else
+                                <td><span id="applicant_profile_status">Complete</span></td>
+                                @endif
                               </tr>
                             @endforeach
                             </tbody>

@@ -462,9 +462,13 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
-	Route::get('download-profile',[ApplicantController::class, 'download_profile'])->name('download-profile');
+	Route::get('download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('download-profile');
 
-	Route::get('applicant-student-profile',[ApplicantController::class, 'applicant_student_profile'])->name('applicant-student-profile');
+	Route::get('delete-applicant-parent/{id}', [ApplicantController::class, 'delete_applicant_parent'])->name('delete-applicant-parent');
+
+	Route::post('applicant-parent-status-update',[ApplicantController::class, 'applicant_parent_status_update'])->name('applicant-parent-status-update');
+
+	Route::get('applicant-student-profile/{id}',[ApplicantController::class, 'applicant_student_profile'])->name('applicant-student-profile');
 
 	Route::get('parent-meeting-status', [ApplicantController::class, 'parent_meeting_status'])->name('parent-meeting-status');
 
@@ -472,15 +476,23 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::get('add-applicant', [ApplicantController::class, 'add_applicant'])->name('add-applicant');
 
-	Route::get('applicant-parent-list', [ApplicantController::class, 'applicant_parent_list'])->name('applicant-parent-list');
+	Route::get('applicant-parent-list/{id}', [ApplicantController::class, 'applicant_parent_list'])->name('applicant-parent-list');
 
-	Route::get('applicant-edit/{id}', [ApplicantController::class, 'edit_applicant'])->name('applicant-edit');
+	Route::get('applicant-edit/{id}', [ApplicantController::class, 'applicant_edit'])->name('applicant-edit');
+
+	Route::post('post-applicant-parent-data',[ApplicantController::class, 'post_applicant_parent_data'])->name('post-applicant-parent-data');
+
+	Route::post('post-applicant-contact-parent-data',[ApplicantController::class, 'post_applicant_contact_parent_data'])->name('post-applicant-contact-parent-data');
+
+	Route::post('post-applicant-document-parent-data',[ApplicantController::class, 'post_applicant_document_parent_data'])->name('post-applicant-document-parent-data');
 
 	Route::get('applicant-profile', [ApplicantController::class, 'applicant_profile'])->name('applicant-profile');
 
 	Route::get('parent-dashboard', [HomeController::class, 'parent_dashboard'])->name('parent-dashboard');
 
 	Route::get('student-profile', [ParentController::class, 'student_profile'])->name('student-profile');
+
+	Route::post('update-applicant-parent/{id}',[ApplicantController::class, 'update_applicant'])->name('update-applicant-parent');
 
 	Route::get('edit-parent-profile', [ParentController::class, 'edit_parent_profile'])->name('edit-parent-profile');
 
