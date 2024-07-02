@@ -1046,5 +1046,46 @@ class ApplicantController extends Controller
         
         return $pdf->download('parent_student_information.pdf');
     }
+
+    public function update_applicant_data(Request $request){
+        $country = Country::get();
+
+        $test = [];
+        foreach($country as $count){
+            $test[] = $count->country;
+        }
+        $state = State::get();
+        $testing = [];
+        foreach($state as $sta){
+            $testing[] = $sta->state;
+        }
+        $country = Country::get(['id','country']);
+        $state = State::get(['id','state']);
+
+
+
+        $Religion = Religion::get();
+        $BloodGroup = BloodGroup::get();
+
+        $Language = Language::get();
+        $lang = [];
+        foreach($Language as $lng){
+            $lang[] = $lng->name;
+        }
+
+        $id = $request->parent_id;
+        $applicant_data = Student::join('student_parents', function ($join) use ($id) {
+            $join->on('students.parent_id', '=', 'student_parents.id')
+                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                 ->where('student_parents.id', '=', $id);
+        })
+        ->select('students.*', 'student_parents.*')
+        ->first();
+
+        print_r($applicant_data);
+        exit;
+        
+        return view('admin.applicant.update-applicant-data',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
+    }
  
 }

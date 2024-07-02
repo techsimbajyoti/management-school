@@ -344,7 +344,7 @@
                                         <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ $child->applicant_id }}</p>
                                     </div>
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('applicant-edit', ['id' => auth()->guard('webparents')->user()->id, 'child_id' => $child->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                        <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id, 'child_id' => $child->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
                                     </div>
                                 </div>
                             </div>

@@ -458,6 +458,8 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
+	Route::get('update-applicant-data/{parent_id}/{child_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
+	
 	Route::get('download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('download-profile');
 
 	Route::get('delete-applicant-parent/{id}', [ApplicantController::class, 'delete_applicant_parent'])->name('delete-applicant-parent');
