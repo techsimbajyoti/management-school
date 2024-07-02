@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('new-applicant-student-profile', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
 	
-	Route::post('status-update',[ApplicantController::class, 'applicant_parent_status_update'])->name('status-update');
+	Route::post('update-status',[ApplicantController::class, 'applicant_parent_status_update'])->name('update-status');
 
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
