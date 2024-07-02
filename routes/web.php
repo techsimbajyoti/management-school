@@ -69,11 +69,7 @@ Route::post('post-applicant-contact-data',[ApplicantController::class,'post_appl
 
 Route::post('post-applicant-document-data',[ApplicantController::class,'post_applicant_document_data'])->name('post-applicant-document-data');
 
-Route::get('students/{id}/documents', [ApplicantController::class, 'showApplicantDocuments'])->name('students.documents');
 
-Route::delete('delete-applicant/{id}', [ApplicantController::class, 'delete_applicant'])->name('delete-applicant');
-
-Route::post('/clear-session', [ApplicantController::class, 'clearSession'])->name('clear-session');
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -86,11 +82,21 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('applicant', [ApplicantController::class, 'applicant'])->name('applicant');
 
+	Route::get('students/{id}/documents', [ApplicantController::class, 'showApplicantDocuments'])->name('students.documents');
+
+	Route::delete('delete-applicant/{id}', [ApplicantController::class, 'delete_applicant'])->name('delete-applicant');
+	
+	Route::post('/clear-session', [ApplicantController::class, 'clearSession'])->name('clear-session');
+	
+	Route::get('new-applicant-student-profile', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
+	
+	Route::post('update-status',[ApplicantController::class, 'applicant_parent_status_update'])->name('update-status');
+
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
 	Route::get('view-applicant/{id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
 
-	Route::get('edit-applicant/{id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
+	Route::get('edit-applicant/{student_id}/{parent_id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
 
 	Route::post('update-applicant/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant');
 

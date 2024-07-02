@@ -313,7 +313,7 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" value="{{ $applicant_data->address}}">
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" value="{{ $applicant_data->address}}" readonly>
                                                 </div>
                                                
                                         </div>

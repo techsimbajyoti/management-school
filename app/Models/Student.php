@@ -49,6 +49,7 @@ class Student extends Authenticatable
         'parent_id',
         'applicant_id',
         'status',
+        'note',
         'applicant_status',
         'role_id',
         'ip_address',

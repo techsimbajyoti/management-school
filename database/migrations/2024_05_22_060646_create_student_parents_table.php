@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('office_address');
             $table->string('applicant_id');
             $table->string('status');
+            $table->string('status_note');
             $table->string('applicant_status');
             $table->string('role_id');
             $table->string('ip_address');

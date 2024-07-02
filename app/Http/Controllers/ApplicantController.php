@@ -40,19 +40,29 @@ class ApplicantController extends Controller
         return view('pages.applicant');
     }
 
-    public function applicant_list(){
-        
+    public function applicant_list()
+    {
         $applicant_list = Student::join('student_parents', function ($join) {
-            $join->on('students.parent_id', '=', 'student_parents.id')
-                 ->on('students.applicant_id', '=', 'student_parents.applicant_id');
-        })
-        ->select('students.*', 'student_parents.*')
-        ->get();
-        
-               
-        return view('admin.applicant.applicant-list',compact('applicant_list'));
+                $join->on('students.parent_id', '=', 'student_parents.id')
+                     ->on('students.applicant_id', '=', 'student_parents.applicant_id');
+            })
+            ->join('applicant_statuses', function ($join) {
+                $join->on('students.id', '=', 'applicant_statuses.student_id')
+                     ->on('student_parents.id', '=', 'applicant_statuses.parent_id');
+            })
+            ->select(
+                'students.id as student_id', 
+                'student_parents.id as parent_id', 
+                'students.*', 
+                'student_parents.*', 
+                'applicant_statuses.status'
+            )
+            ->distinct() // Add distinct to remove duplicate rows
+            ->get();
+    
+        return view('admin.applicant.applicant-list', compact('applicant_list'));
     }
-
+    
     public function view_applicant($id)
     {
         $country = Country::get();
@@ -90,7 +100,7 @@ class ApplicantController extends Controller
         return view('admin.applicant.view-applicant', compact('lang', 'Language', 'BloodGroup', 'Religion', 'state', 'country', 'test', 'testing', 'applicant_data'));
     }
     
-    public function edit_applicant( Request $request,$id){
+    public function edit_applicant( Request $request,$student_id, $parent_id){
         $country = Country::get();
 
         $test = [];
@@ -116,18 +126,24 @@ class ApplicantController extends Controller
             $lang[] = $lng->name;
         }
 
-        $applicant_data = Student::join('student_parents', function ($join) use ($id) {
-            $join->on('students.parent_id', '=', 'student_parents.id')
-                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
-                 ->where('student_parents.id', '=', $id);
-        })
-        ->select('students.*', 'student_parents.*')
-        ->first();
+        $parent = StudentParent::where('id',$parent_id)
+                ->first();
+
+        $student = Student::where('parent_id',$parent_id)
+                   ->where('id',$student_id)
+                   ->first();        
+        // $applicant_data = Student::join('student_parents', function ($join) use ($id) {
+        //     $join->on('students.parent_id', '=', 'student_parents.id')
+        //          ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+        //          ->where('student_parents.id', '=', $id);
+        // })
+        // ->select('students.*', 'student_parents.*')
+        // ->first();
 
         // print_r($applicant_data);
         // exit;
         
-        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
+        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent','request'));
     }
 
 
@@ -160,7 +176,7 @@ class ApplicantController extends Controller
         return redirect()->back()->with('status', 'Deleted Successfully');
     }
 
-    
+      
 
     public function update_applicant(Request $request, $id)
     {
@@ -213,7 +229,7 @@ class ApplicantController extends Controller
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
         
-        $ipAddress = $this->getPublicIpAddress();
+        // $ipAddress = $this->getPublicIpAddress();
         
         $parent_id = Session::get('parent_id');
       
@@ -246,7 +262,7 @@ class ApplicantController extends Controller
         $student_update->previous_school = $request->previous_school;
         $student_update->parent_id = $parent_id;
         $student_update->role_id = $request->role_id;
-        $student_update->ip_address = $ipAddress;
+        $student_update->ip_address = '1';
         $student_update->status = $request->status;
         $student_update->created_by = 'null';
 
@@ -290,8 +306,8 @@ class ApplicantController extends Controller
         $student_id = Session::get('student_id');
       
         $contact_update = Student::where('parent_id', $parent_id)
-                         ->where('id',$student_id)
-                        ->firstOrFail();
+                          ->where('id',$student_id)
+                          ->firstOrFail();
         
                 
             $contact_update->address = $request->residence_address;
@@ -300,6 +316,7 @@ class ApplicantController extends Controller
             $contact_update->city = $request->city;
             $contact_update->pin_code = $request->pin_code;
             $contact_update->save();
+
         
 
         return response()->json(['success' => 'true', 'action' => $request->action]);
@@ -987,7 +1004,7 @@ class ApplicantController extends Controller
         $student = new ApplicantStatus;
         $student->student_id = $request->student_id;
         $student->parent_id = $request->parent_id;
-        $student->applicant_id = $request->applicant_id;
+        $student->applicant_id = '1';
         $student->status = $request->status_update;
         $student->note = $request->note;
         $student->ip_address = '1';

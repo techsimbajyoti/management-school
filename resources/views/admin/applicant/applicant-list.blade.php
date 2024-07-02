@@ -94,22 +94,24 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                        
+                                      
                                         @foreach($applicant_list as $applicant_lists)
+                                       
                                         <tr id="row_7">
                                             <td class="serial">{{$applicant_lists->id}}</td>
                                             <td>{{$applicant_lists->applicant_id}}</td>
                                             
                                             <td><img src="{{ url('storage/student_photos/' . $applicant_lists->image) }}" height="40px" width="40px">
-                                                {{$applicant_lists->first_name}} {{$applicant_lists->last_name}}</td>
-                                             <td>{{ $applicant_lists->user_name }}</td> 
+                                              <a href="{{route('new-applicant-student-profile',$applicant_lists->id)}}">{{$applicant_lists->first_name}} {{$applicant_lists->last_name}}</a></td>
+                                             <td>{{ $applicant_lists->username }}</td> 
                                             <td>{{ $applicant_lists->class }}</td>
                                             <td>{{ $applicant_lists->father_name}}</td>
                                             <td>{{$applicant_lists->date_of_birth}}</td>
                                             <td>{{$applicant_lists->father_mobile}}</td>
-                                            <td><span class="badge-basic-info-text">Incomplete</span></td>
+                                            <td><span class="badge-basic-info-text">{{$applicant_lists->status}}</span></td>
                                             <td>
-                                                <a class="btn ot-btn-primary applicant_status"><i class="fas fa-cog"></i></a>
+                                                <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $applicant_lists->student_id }}" data-parent-id="{{ $applicant_lists->parent_id }}"><i class="fas fa-cog"></i></a>
+
                                             </td>
                                             {{-- <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td> --}}
                                             <td class="action">
@@ -118,7 +120,12 @@
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                                             <a href="{{ route('view-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-eye"></i>  {{ __('View') }}</a>
-                                                            <a href="{{ route('edit-applicant',$applicant_lists->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                           
+                                                            <a href="{{ route('edit-applicant', ['student_id' => $applicant_lists->student_id, 'parent_id' => $applicant_lists->parent_id]) }}" class="dropdown-item">
+                                                                <i class="fa fa-edit"></i>  {{ __('Edit') }}
+                                                            </a>
+                                                       
+                                                        
                                                             <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
                                                             <a href="{{ route('admin-download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
@@ -187,10 +194,15 @@
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-            <div class="row justify-content-center mt-3">
+            <form action="{{route('update-status')}}" method="POST">
+              @csrf
+                <input type="hidden" name="student_id" id="student_id" value="">
+                <input type="hidden" name="parent_id" id="parent_id" value="">
+                
+                 <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Status</label>
-                    <select name="" id="" class="nice-select sections niceSelect bordered_style wide">
+                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
                         <option>Incomplete</option>
                         <option>New</option>
                         <option>Accept</option>
@@ -214,6 +226,7 @@
                     <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
                 </div>
             </div>
+        </form>
             </div>
         </div>
         <div class="modal-footer">
@@ -227,67 +240,57 @@
 <script>
 
      // Get the modal
- var modal1 = document.getElementById("myModal1");
+ // Get the modals
+var modal1 = document.getElementById("myModal1");
+var modal = document.getElementById("myModal");
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal1) {
+    modal1.style.display = "none";
+  } else if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+// Add event listeners to all buttons with class "applicant_status" and "view_document"
+document.addEventListener("DOMContentLoaded", function() {
+    var applicantStatusButtons = document.getElementsByClassName("applicant_status");
+    var viewDocumentButtons = document.getElementsByClassName("view_document");
     
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal1) {
-        modal1.style.display = "none";
-      }
-    }
-    
-    // Add event listeners to all buttons with class "myBtn"
-    document.addEventListener("DOMContentLoaded", function() {
-        var buttons = document.getElementsByClassName("applicant_status");
-        Array.prototype.forEach.call(buttons, function(btn) {
-            btn.addEventListener("click", function() {
-                modal1.style.display = "block";
-            });
-        });
-
-            // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close");
-        Array.prototype.forEach.call(span, function(sp) {
-            sp.addEventListener("click", function() {
-                modal1.style.display = "none";
-            });
-        });
-    });
-
-
-
- // Get the modal
- var modal = document.getElementById("myModal");
-    
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-    
-    // Add event listeners to all buttons with class "myBtn"
-    document.addEventListener("DOMContentLoaded", function() {
-        var buttons = document.getElementsByClassName("view_document");
-        Array.prototype.forEach.call(buttons, function(btn) {
-            btn.addEventListener("click", function() {
-                modal.style.display = "block";
-            });
-        });
-
-            // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close");
-        Array.prototype.forEach.call(span, function(sp) {
-            sp.addEventListener("click", function() {
-                modal.style.display = "none";
-            });
+    // Applicant status buttons
+    Array.prototype.forEach.call(applicantStatusButtons, function(btn) {
+        btn.addEventListener("click", function() {
+            var studentId = this.getAttribute('data-student-id');
+            var parentId = this.getAttribute('data-parent-id');
+            document.getElementById('student_id').value = studentId;
+            document.getElementById('parent_id').value = parentId;
+            modal1.style.display = "block";
         });
     });
 
-    $(document).on('click', '.view_document', function(e) {
+    // View document buttons
+    Array.prototype.forEach.call(viewDocumentButtons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal.style.display = "block";
+        });
+    });
+
+    // Get the <span> elements that close the modals
+    var closeButtons = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(closeButtons, function(sp) {
+        sp.addEventListener("click", function() {
+            modal1.style.display = "none";
+            modal.style.display = "none";
+        });
+    });
+});
+
+// AJAX call to load documents and open modal
+$(document).on('click', '.view_document', function(e) {
     e.preventDefault();
-
     var applicantId = $(this).data('id');
+
     $.ajax({
         url: '/students/' + applicantId + '/documents',
         method: 'GET',
@@ -317,6 +320,7 @@
         }
     });
 });
+
 
 // Close the modal
 $(document).on('click', '.close', function() {
