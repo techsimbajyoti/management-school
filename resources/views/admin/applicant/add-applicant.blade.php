@@ -7,8 +7,31 @@
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 @endpush
 @section('content')
+<style>
+    #spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+        z-index: 9999; /* Ensure it is above other elements */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #spinner img {
+        width: 50px; /* Adjust size as needed */
+        height: 50px; /* Adjust size as needed */
+    }
+    
+    
+    </style>
     <div class="content">
-       
+        <div id="spinner" style="display:none;">
+            <img src="{{asset('paper/img/spinner/Spinner.gif')}}" alt="Loading..." />
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 mr-auto">
@@ -16,15 +39,15 @@
                     <div id="error-message" style="display:none;" class="alert alert-danger"></div>
                     <div class="progress-container">
                         <ul id="progressbar">
-                            <li class="step active" id="step1"><strong>Step 1</strong></li>
+                            {{-- <li class="step active" id="step1"><strong>Step 1</strong></li> --}}
+                            <li class="step" id="step1"><strong>Step 1</strong></li>
                             <li class="step" id="step2"><strong>Step 2</strong></li>
                             <li class="step" id="step3"><strong>Step 3</strong></li>
-                            <li class="step" id="step4"><strong>Step 4</strong></li>
                         </ul>
                     </div>
                     <div class="card ot-card">
                         <div class="card-body">
-                            @include('admin.applicant.step-form.step-form-1')
+                            {{-- @include('admin.applicant.step-form.step-form-1') --}}
 
                             @include('admin.applicant.step-form.step-form-2')
 
@@ -37,11 +60,13 @@
              </div>
         </div>
      </div>
+    </div>     
 @endsection
 
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <script>
      $( function() {
     var availableTags = <?php echo json_encode($lang); ?>;
@@ -89,7 +114,7 @@ $(document).ready(function() {
     demo.checkFullPageBackgroundImage();
 
     let currentStep = 1;
-    const totalSteps = 4;
+    const totalSteps = 3;
 
     function updateProgressBar(step) {
         const percentage = (step - 1) / (totalSteps - 1) * 100;
@@ -100,8 +125,9 @@ $(document).ready(function() {
         }
     }
 
+
     function showForm(step) {
-        $('#form1, #form2, #form3, #form4').hide();
+        $(' #form3, #form4').hide();
         $(`#form${step}`).show();
     }
 
@@ -118,114 +144,223 @@ $(document).ready(function() {
         submitForm();
     });
 
-    function submitForm() {
-        var formData = $('#form1').serialize();
+    function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
+
+//     function submitForm() {
+//     var formData = $('#form1').serialize();
+
+//     // Show the spinner
+//     $('#spinner').show();
+
+//     $.ajax({
+//         url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
+//         type: 'POST',
+//         data: formData,
+//         success: function(response) {
+//             console.log(response);
+
+//             // Hide the spinner
+//             $('#spinner').hide();
+
+//             if (response.success) {
+//                 if (response.action === 'save') {
+//                     location.reload(); // Reload the page after saving
+//                 } else if (response.action === 'save-continue' && response.update === 'yes') {
+//                     $('#step1').removeClass('active');
+//                     $('#step2').addClass('active');
+//                     // Update form visibility based on current step
+//                     $('#form1').hide();
+//                     $('#form2').show();
+//                     $('#form3').hide();
+//                     $('#form4').hide();
+
+//                 } else if (response.action === 'save-continue' && response.update === 'yes' && response.email != null) {
+//                     Swal.fire({
+//                         title: "You Already Have an Account!",
+//                         text: "Please proceed with the new applicant.",
+//                         icon: "success",
+//                         button: "OK"
+//                     });
+
+//                     $('#step1').removeClass('active');
+//                     $('#step2').addClass('active');
+//                     // Update form visibility based on current step
+//                     $('#form1').hide();
+//                     $('#form2').show();
+//                     $('#form3').hide();
+//                     $('#form4').hide();
+//                 } else if (response.action === 'save-continue') {
+
+//                     Swal.fire({
+//                         title: "Email sent successfully!",
+//                         text: "Please proceed with the registration process or check your email to verify your account.",
+//                         icon: "success",
+//                         button: "OK"
+//                     });
+
+//                     $('#step1').removeClass('active');
+//                     $('#step2').addClass('active');
+//                     // Update form visibility based on current step
+//                     $('#form1').hide();
+//                     $('#form2').show();
+//                     $('#form3').hide();
+//                     $('#form4').hide();
+//                 }
+//             } else {
+//                 Swal.fire({
+//                     title: "Error",
+//                     text: "An error occurred while submitting the application.",
+//                     icon: "error",
+//                     button: "OK",
+//                 });
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.log('Error:', error);
+
+//             // Hide the spinner
+//             $('#spinner').hide();
+//             $('#parent_id').val(response.parent_id);
+//             $('#applicant_id').val(response.applicant_id);
+//             if (xhr.status === 422) {
+//                 var errors = xhr.responseJSON.errors;
+//                 displayValidationErrors(errors); // Display validation errors if any
+//             } else {
+//                 Swal.fire({
+//                     title: "Error",
+//                     text: "An error occurred while submitting the application.",
+//                     icon: "error",
+//                     button: "OK",
+//                 });
+//             }
+//         }
+//     });
+// }
+
+
+
+
+function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
+
+
+    $('#form2').submit(function(event) {
+        event.preventDefault();
+
+        // Create a new FormData object
+        var formData = new FormData(this);
+
+        $('#spinner').show();
 
         $.ajax({
-            url: "{{ route('post-applicant-data') }}",
+            url: "{{ route('post-applicant-parent-data') }}",
             type: 'POST',
             data: formData,
+            contentType: false, 
+            processData: false, 
+            enctype: 'multipart/form-data',
             success: function(response) {
                 console.log(response);
-                if(response.action == 'save'){
-                    location.reload();
-                }else if(response.action == 'save-continue'){
-                    $('#step1').removeClass('active');
-                    $('#step2').addClass('active');
-                    if ($('#step2').hasClass('active')) {
-                        $('#form2').show();
-                        $('#form3').hide();
-                        $('#form1').hide();
-                        $('#form4').hide();
-                    }
+
+                $('#spinner').hide();
+
+                $('#student_id').val(response.student_id);
+
+                $('#step1').removeClass('active');
+                $('#step2').addClass('active');
+                if ($('#step2').hasClass('active')) {
+                    $('#form2').hide();
+                    $('#form3').show();
+                    $('#form4').hide();
                 }
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
             }
         });
-    }
-
-    $('#form2').submit(function (event) {
-    event.preventDefault();
-
-    // Create a new FormData object
-    var formData = new FormData(this);
-
-    $.ajax({
-        url: "{{ route('post-applicant-student-data') }}",
-        type: 'POST',
-        data: formData,
-        contentType: false, // Important for file upload
-        processData: false, // Important for file upload
-        enctype: 'multipart/form-data',
-        success: function(response) {
-            console.log(response);
-            $('#step2').removeClass('active');
-            $('#step3').addClass('active');
-            if ($('#step3').hasClass('active')) {
-                $('#form3').show();
-                $('#form2').hide();
-                $('#form1').hide();
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log('Error:', error);
-        }
     });
-});
 
 
-    $('#form3').submit(function (event) {
+   $('#form3').submit(function (event) {
 
             event.preventDefault();
             var formData = $('#form3').serialize(); 
 
+            $('#spinner').show();
+
             $.ajax({
-                    url: "{{ route('post-applicant-contact-data') }}",
+                    url: "{{ route('post-applicant-contact-parent-data') }}",
                     type: 'POST',
                     data: formData,
                     success: function(response) {
                         // $(form).trigger("reset");
+                        $('#spinner').hide();
                     console.log(response);
-                        $('#step3').removeClass('active');
-                        $('#step4').addClass('active');
-                        if ($('#step4').hasClass('active')) {
+                        $('#step2').removeClass('active');
+                        $('#step3').addClass('active');
+                        if ($('#step3').hasClass('active')) {
                             $('#form4').show();
-                            $('#form3').hide();
                             $('#form2').hide();
                             $('#form1').hide();
+                            $('#form3').hide();
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.log('Error:', error);
-                    }
-            });
-
-            });
+                console.log('Error:', error);
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayValidationErrors(errors);
+                }
+            }
+        });
+    });
 
 
         $('#form4').submit(function (event) {
             event.preventDefault();
             var formData = new FormData(this);
 
+            $('#spinner').show();
+
             $.ajax({
-                url: "{{ route('post-applicant-document-data') }}",
+                url: "{{ route('post-applicant-document-parent-data') }}",
                 type: 'POST',
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function(response) {
                     console.log(response);
+                    $('#spinner').hide();
                     if (response.success) {
-                        // Reset the form fields
-                        $('#form1')[0].reset();
-                        
-                        // Move to the initial form
-                        $('#step4').removeClass('active');
+                        Swal.fire({
+                        title: "Application completed successfully",
+                        text: "The application was submitted successfully!",
+                        icon: "success",
+                        button: "OK",
+                        }).then((value) => {
+                        window.location.href = "/add-applicant"; // Redirect to the dashboard page
+                        });
+                        $('#step3').removeClass('active');
                         $('#step1').addClass('active');
                         if ($('#step1').hasClass('active')) {
-                            $('#form1').show();
+                            $('#form1').hide();
                             $('#form3').hide();
                             $('#form2').hide();
                             $('#form4').hide();
@@ -241,6 +376,7 @@ $(document).ready(function() {
                     $('#error-message').text('An error occurred while submitting the form. Please try again.').show();
                 }
             });
+            
         });
 
 
@@ -309,8 +445,8 @@ $(document).ready(function() {
      var countries = <?php echo json_encode($test); ?>;
     autocomplete(document.getElementById("country"), countries);  
 
-  var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
-  autocomplete(document.getElementById("parent_name"), parent);
+//   var parent = ['Parent 1114', 'Parent 1112', 'Parent 1113'];
+//   autocomplete(document.getElementById("parent_name"), parent);
 
     function autocomplete(inp, arr) {
         var currentFocus;
@@ -402,25 +538,25 @@ $(document).ready(function() {
 });
 
 document.getElementById('add-document').addEventListener('click', function() {
-        var tableBody = document.querySelector('#student-document tbody');
-        var newRow = document.createElement('tr');
+    var tableBody = document.querySelector('#student-document tbody');
+    var newRow = document.createElement('tr');
 
-        newRow.innerHTML = `
-            <td>
-                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
-            </td>
-            <td>
-                <input type="file" class="form-control" name="document_file[]" multiple>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger remove-document">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-            </td>
-        `;
+    newRow.innerHTML = `
+        <td>
+            <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
+        </td>
+        <td>
+            <input type="file" class="form-control" name="document_file[]" multiple>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger remove-document">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </td>
+    `;
 
-        tableBody.appendChild(newRow);
-    });
+    tableBody.appendChild(newRow);
+});
 
     document.querySelector('#student-document tbody').addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-document')) {

@@ -162,7 +162,7 @@
 </nav>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -232,12 +232,12 @@
     
     $(document).ready(function() {
     $('.change-password').click(function(){
-            $('#exampleModal').modal('show');
+            $('#exampleModal-1').modal('show');
             $('#myForm')[0].reset();
         });
 
         $('.model-close').click(function(){
-            $('#exampleModal').modal('hide');
+            $('#exampleModal-1').modal('hide');
             $('#myForm')[0].reset();
         });
 
@@ -266,10 +266,10 @@
                      // Show the success message from the server
                     if(response.error){
                         alert(response.error);
-                        $('#exampleModal').modal('show'); // Close modal on success
+                        $('#exampleModal-1').modal('show'); // Close modal on success
                     }else{
                         alert(response.success);
-                        $('#exampleModal').modal('hide'); // Close modal on success
+                        $('#exampleModal-1').modal('hide'); // Close modal on success
 
                     $('#myForm')[0].reset();
                     }

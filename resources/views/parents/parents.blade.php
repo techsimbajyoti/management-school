@@ -157,8 +157,7 @@
                                         $student_data = App\Models\Student::where('id', $totalC->id)
                                             ->select(
                                                 'students.first_name as student_name',
-                                                'students.email as student_email',
-                                                'students.mobile as student_phone',
+                                                'students.last_name as student_last_name',
                                                 'students.address as student_address',
                                                 'students.gender as student_gender',
                                                 'students.class as student_class',
@@ -173,8 +172,7 @@
 
                                         // Check if any field is empty
                                         if (empty($student_data->student_name) ||
-                                            empty($student_data->student_email) ||
-                                            empty($student_data->student_phone) ||
+                                            empty($student_data->student_last_name) ||
                                             empty($student_data->student_address) ||
                                             empty($student_data->student_gender) ||
                                             empty($student_data->student_class) ||
@@ -191,8 +189,7 @@
 
                                         // Check if all required fields are filled
                                         if (!empty($student_data->student_name) &&
-                                            !empty($student_data->student_email) &&
-                                            !empty($student_data->student_phone) &&
+                                            !empty($student_data->student_last_name) &&
                                             !empty($student_data->student_address) &&
                                             !empty($student_data->student_gender) &&
                                             !empty($student_data->student_class) &&

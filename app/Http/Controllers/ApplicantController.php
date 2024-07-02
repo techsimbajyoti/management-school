@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
 use App\Mail\AdminNotification;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 use PDF;
 
 
@@ -127,30 +129,35 @@ class ApplicantController extends Controller
         return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','applicant_data','request'));
     }
 
+
+    public function applicant_edit(){
+        return view('admin.applicant.applicant-edit');
+    }
+
     public function delete_applicant($id)
-{
-    // Find the student by parent_id
-    $student = Student::where('parent_id', $id)->first();
-    
-    if (!$student) {
-        return redirect()->back()->with('error', 'Student not found');
+    {
+        // Find the student by parent_id
+        $student = Student::where('parent_id', $id)->first();
+        
+        if (!$student) {
+            return redirect()->back()->with('error', 'Student not found');
+        }
+
+        // Find the parent
+        $parent = StudentParent::find($id);
+
+        if (!$parent) {
+            return redirect()->back()->with('error', 'Parent not found');
+        }
+
+        // Soft delete the student
+        $student->delete();
+        
+        // Soft delete the parent
+        $parent->delete();
+
+        return redirect()->back()->with('status', 'Deleted Successfully');
     }
-
-    // Find the parent
-    $parent = StudentParent::find($id);
-
-    if (!$parent) {
-        return redirect()->back()->with('error', 'Parent not found');
-    }
-
-    // Soft delete the student
-    $student->delete();
-    
-    // Soft delete the parent
-    $parent->delete();
-
-    return redirect()->back()->with('status', 'Deleted Successfully');
-}
 
     
 
@@ -165,7 +172,7 @@ class ApplicantController extends Controller
            
         ]);
     
-        $ipAddress = $this->getPublicIpAddress();
+        // $ipAddress = $this->getPublicIpAddress();
     
         $parent = StudentParent::findOrFail($id);
     
@@ -175,15 +182,18 @@ class ApplicantController extends Controller
         $parent->father_profession = $request->profession;
         $parent->role_id = $request->role_id;
         $parent->status = $request->status;
-        $parent->ip_address = $ipAddress;
+        $parent->ip_address = '1';
         $parent->created_by = 'null';
     
         $parent->save();
     
         Session::put('parent_id', $parent->id);
        
-    
-        return response()->json(['success' => 'true', 'action' => $request->action]);
+        if($request->applicant_parent == 'applicant-parent'){
+            return redirect('applicant-profile')->with('status', 'Updated Successfully');
+        }else{
+            return response()->json(['success' => 'true', 'action' => $request->action]);
+        }
     }
 
     public function update_student_applicant(Request $request ,$parent_id)
@@ -546,6 +556,124 @@ class ApplicantController extends Controller
 
         }
     }
+
+    public function post_applicant_parent_data(Request $request){
+        $parent_id = auth()->guard('webparents')->user()->id;
+        
+        $applicant_id = Str::random(8);
+
+        // $parentStudent = Student::where('id', $student_id)
+        // ->where('applicant_id', $applicant_id)
+        // ->first();
+
+        $randomPassword = Str::random(8);
+        $hashPassword = Hash::make($randomPassword);
+
+        $randomUsername = Str::random(8);
+
+        // if($parentStudent !== null){
+
+        //     $student = Student::where('id', $student_id)
+        //     ->update([
+        //         'first_name' => $request->first_name,
+        //         'last_name' => $request->last_name,
+        //         'username' => $randomUsername,
+        //         'password' => $hashPassword,
+        //         'class' => $request->class,
+        //         'date_of_birth' => $request->date_of_birth,
+        //         'blood_group' => $request->blood_group,
+        //         'student_language' => $request->student_language,
+        //         'image' => $parentStudent->image,
+        //         'previous_school' => $request->previous_school,
+        //         'category' => $request->category,
+        //         'parent_id' => $parent_id,
+        //         'applicant_id' => $applicant_id,
+        //         'role_id' => $request->role_id,
+        //         'ip_address' => '1',
+        //         'status' => $request->status,
+        //         'applicant_status' => $request->applicant_status,
+        //         'created_by' => 'null',
+        //     ]);
+
+        //     return response()->json(['success' => true]);
+
+        // }else{
+       
+        $validatedData = $request->validate([
+            'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
+            'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
+            'gender' => 'required',
+            'class' => 'required',
+            'date_of_birth' => 'required|date|before:' . now()->toDateString(),
+            'student_language'=>'nullable|string',
+            'category'=>'nullable|string',
+            'blood_group'=>'nullable|string',
+            'religion'=>'nullable|string',
+            'previous_school'=>'nullable|string',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
+    
+        // $ipAddress = $this->getPublicIpAddress();
+        try {
+            $student = new Student;
+    
+            if ($request->hasFile('image')) {
+                $originalFileName = $request->file('image')->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+                $student->image = $currentDateTime . '_' .$originalFileName;
+            } else {
+                $student->image = null;
+            }
+
+            $student->first_name = $request->first_name;
+            $student->last_name = $request->last_name;
+            $student->username = $randomUsername;
+            $student->password = $hashPassword;
+            $student->class = $request->class;
+            $student->date_of_birth = $request->date_of_birth;
+            $student->blood_group = $request->blood_group;
+            $student->student_language = $request->student_language;
+            $student->previous_school = $request->previous_school;
+            $student->category = $request->category;
+            $student->parent_id = $parent_id;
+            $student->applicant_id = 'App_id'.'_'.$applicant_id;
+            $student->role_id = $request->role_id;
+            $student->ip_address = '1';
+            $student->status = $request->status;
+            $student->applicant_status = $request->applicant_status;
+            $student->created_by = 'null';
+
+            if ($request->category === 'other') {
+                $student->category = $request->other_category;
+            } else {
+                $student->category = $request->category;
+            }
+
+            if ($request->religion === 'other') {
+                $student->religion = $request->other_religion;
+            } else {
+                $student->religion = $request->religion;
+            }
+
+            if ($request->gender === 'other') {
+                $student->gender = $request->other_gender;
+            } else {
+                $student->gender = $request->gender;
+            }
+
+            $student->save();
+            Session::put(['student_id' => $student->id]);
+            
+            return response()->json(['success' => true, 'student_id' => $student->id]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+
+        // }
+    }
     
     public function post_applicant_contact_data(Request $request){
         $data = $request->validate([
@@ -560,7 +688,6 @@ class ApplicantController extends Controller
                   
         );
         
-         
         $student_id = session::get('student_id');
 
         if (is_null($student_id)) {
@@ -586,9 +713,47 @@ class ApplicantController extends Controller
             return response()->json(['success' => false, 'errors' => $e->getMessage()]);
         }
     }
+
+    public function post_applicant_contact_parent_data(Request $request){
+        $data = $request->validate([
+                'residence_address' =>'required|min:3|max:255',
+                'country' => 'required|string|regex:/^[A-Za-z ]+$/',
+                'state' => 'required',
+                'city' => 'required',
+                'pin_code' => 'required|digits:6',
+            
+            ],
+                
+        );
+    
+        $student_id = session::get('student_id');
+
+        if (is_null($student_id)) {
+        return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+        }
+        try {
+            
+            $student = Student::findOrFail($student_id);
+            
+            $student->address = $request->residence_address;
+            $student->country = $request->country;
+            $student->state = $request->state;
+            $student->city = $request->city;
+            $student->pin_code = $request->pin_code;
+                        
+
+            $student->save();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+    }
    
     public function post_applicant_document_data(Request $request)
-{
+    {
     $student_id = session::get('student_id');
 
     if (is_null($student_id)) {
@@ -636,6 +801,53 @@ class ApplicantController extends Controller
     }
 }
 
+    public function post_applicant_document_parent_data(Request $request){
+        $student_id = session::get('student_id');
+
+        if (is_null($student_id)) {
+            return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+        }
+    
+        try {
+            $student = Student::find($student_id);
+            if (!$student) {
+                return response()->json(['success' => false, 'errors' => 'Student not found']);
+            }
+    
+            $documents = [];
+    
+            if ($request->hasFile('document_file')) {
+                foreach ($request->file('document_file') as $key => $file) {
+                    $originalFileName = $file->getClientOriginalName();
+                    $currentDateTime = now()->format('YmdHis');
+                    $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
+    
+                    $documents[] = [
+                        'name' => $request->input('document_name')[$key],
+                        'file' => $currentDateTime . '_' . $originalFileName,
+                    ];
+                }
+    
+                // If documents already exist, merge them
+                if (!is_null($student->document)) {
+                    $existingDocuments = json_decode($student->document, true);
+                    if (is_array($existingDocuments)) {
+                        $documents = array_merge($existingDocuments, $documents);
+                    }
+                }
+    
+                $student->document = json_encode($documents);
+            }
+    
+            $student->save();
+    
+            return response()->json(['success' => true, 'message' => 'Form submitted successfully!']);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+        }
+    }
 
     public function showApplicantDocuments($id)
     {
@@ -676,8 +888,9 @@ class ApplicantController extends Controller
         return view('admin.applicant.meeting-tracking',compact('steps'));
     }
 
-    public function applicant_parent_list(){
-        return view('admin.applicant.applicant-parent-list');
+    public function applicant_parent_list($id){
+        $studentDetails = Student::where('parent_id', $id)->get();
+        return view('admin.applicant.applicant-parent-list', compact('studentDetails'));
     }
 
     public function add_applicant(){
@@ -724,31 +937,88 @@ class ApplicantController extends Controller
         return view('admin.applicant.parent-meeting-track',compact('steps'));
     }
  
-    public function applicant_student_profile(){
-        return view('admin.applicant.applicant-student-profile');
+    public function applicant_student_profile($id){
+        $StudentView = Student::where('id', $id)->first();
+        return view('admin.applicant.applicant-student-profile', compact('StudentView'));
     }
 
-    public function download_profile(){
-         // Sample data for the PDF
-         $data = [
-            'title' => 'Parent Information',
-            'date' => date('m/d/Y'),
+    public function delete_applicant_parent($id){
+        // Find the student by parent_id
+        $student = Student::where('id', $id)->first();
+                
+        if (!$student) {
+            return redirect()->back()->with('error', 'Student not found');
+        }
+
+        // Soft delete the student
+        $student->delete();
+
+        return redirect()->back()->with('status', 'Deleted Successfully');
+    }
+
+    public function applicant_parent_status_update(Request $request){
+        $status = $request->status_update;
+        $note = $request->note;
+        $student_id = $request->student_id;
+        $parent_id = $request->parent_id;
+
+        $student = Student::where('id', $student_id)->update([
+            'status' => $status,
+            'note' => $note
+        ]);
+
+        $parent = StudentParent::where('id', $parent_id)->update([
+            'status' => $status,
+            'note' => $note
+        ]);
+
+        return redirect()->back()->with('status', 'Updated Successfully');
+    }
+
+    public function download_profile($student_id, $parent_id){
+        $parent_details = StudentParent::find($parent_id);
+        $student_details = Student::find($student_id);
+
+        try {
+            $decrypted_password = Crypt::decryptString($parent_details->password);
+        } catch (DecryptException $e) {
+            // Handle decryption failure (e.g., log error, set a default value)
+            $decrypted_password = 'Decryption Error';
+        }
+    
+        $data = [
+            'title' => 'Parent and Student Information',
+            'date' => $parent_details->created_at,
             'parent' => [
-                'name' => 'Steve Smith',
-                'contact' => '1478523690',
-                'profession' => 'Demo',
-                'email' => 'applicant@gmail.com',
+                'name' => $parent_details->father_name,
+                'contact' => $parent_details->father_mobile,
+                'profession' => $parent_details->father_profession,
+                'email' => $parent_details->email,
                 'phone' => '0000000000',
-                'username' => 'FggHlk',
-                'password' => '123456789'
+                'username' => $parent_details->username,
+                'password' => $decrypted_password
+            ],
+            'student' => [
+                'name' => $student_details->first_name . ' ' . $student_details->last_name,
+                'gender' => $student_details->gender,
+                'admission_for' => $student_details->class,
+                'dob' => $student_details->date_of_birth,
+                'blood_group' => $student_details->blood_group,
+                'religion' => $student_details->religion,
+                'category' => $student_details->category,
+                'language' => $student_details->language,
+                'previous_school' => $student_details->previous_school,
+                'address' => $student_details->address,
+                'country' => $student_details->country,
+                'state' => $student_details->state,
+                'city' => $student_details->city,
+                'pin_code' => $student_details->pin_code,
             ]
         ];
         
-        // Load the view and pass data to it
         $pdf = PDF::loadView('pdf_view', $data);
         
-        // Download the PDF
-        return $pdf->download('parent_information.pdf');
+        return $pdf->download('parent_student_information.pdf');
     }
  
 }

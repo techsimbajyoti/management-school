@@ -38,60 +38,43 @@
                                         <th class="action">Status</th>
                                         <th class="action">Manage Status</th>
                                         <th class="action">Action</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody class="tbody">
-                                        <tr id="row_7">
-                                            <td class="serial">1</td>
-                                            <td>2023114</td>
-                                            
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px"><a href="{{route('applicant-student-profile')}}" target="_blank">John</a></td>
-                                            <td>Two</td>
-                                            <td>10/05/2024</td>
-                                            <td><span class="badge-basic-success-text">Done</span></td>
-                                            <td>
-                                                <a class="btn ot-btn-primary applicant_status"><i class="fas fa-cog"></i></a>
-                                            </td>
-                                            <td class="action">
-                                                <div class="dropdown dropdown-action">
-                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
-                                                            <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr id="row_7">
-                                            <td class="serial">2</td>
-                                            <td>2023111</td>
-                                           
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px"><a href="{{route('applicant-student-profile')}}" target="_blank">William</a></td>
-                                            <td>Two</td>
-                                            <td>10/05/2024</td>
-                                            <td><span class="badge-basic-info-text">Pending</span></td>
-                                            <td>
-                                                <a class="btn ot-btn-primary applicant_status"><i class="fas fa-cog"></i></a>
-                                            </td>
-                                            <td class="action">
-                                                <div class="dropdown dropdown-action">
-                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
-                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
-                                                            <a href="{{ route('download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
-                                                            <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
                                     </tr>
+                                    </thead>
+                                    
+                                    <tbody class="tbody">
+                                        @foreach($studentDetails as $details)
+                                        <tr id="row_7">
+                                            <td class="serial">{{ $details->id }}</td>
+                                            <td>{{ $details->applicant_id }}</td>
+                                            
+                                            <td>
+                                                @if($details->image)
+                                                <img src="{{ url('storage/student_photos/' . $details->image) }}" alt="avatar" height="40px" width="40px">
+                                                @else
+                                                <img src="{{ asset('paper') }}/img/dummy-image.png" alt="avatar" height="40px" width="40px">
+                                                @endif
+                                                <a href="{{route('applicant-student-profile', $details->id)}}" target="_blank">{{ $details->first_name }}{{ $details->last_name }}</a>
+                                            </td>
+                                            <td>{{ $details->class }}</td>
+                                            <td>{{ $details->date_of_birth }}</td>
+                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->status }}</span></td>
+                                            <td>
+                                                <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $details->id }}"><i class="fas fa-cog"></i></a>
+                                            </td>
+                                            <td class="action">
+                                                <div class="dropdown dropdown-action">
+                                                    <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('download-profile', ['student_id' => $details->id, 'parent_id' => auth()->guard('webparents')->user()->id]) }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
+                                                            <a class="dropdown-item" href="{{route('delete-applicant-parent', $details->id)}}" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -113,10 +96,14 @@
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
+        <form action="{{route('applicant-parent-status-update')}}" method="POST">
+            @csrf
+            <input type="hidden" name="parent_id" value="{{ auth()->guard('webparents')->user()->id }}">
+            <input type="hidden" name="student_id" id="student_id" value="">
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Status</label>
-                    <select name="status" id="" class="nice-select sections niceSelect bordered_style wide">
+                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
                         <option>Incomplete</option>
                         <option>Accept</option>
                         <option>Reject</option>
@@ -127,7 +114,7 @@
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Note</label>
-                    <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                    <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
                 </div>
             </div>
             <div class="row justify-content-center mt-3">
@@ -135,7 +122,7 @@
                     <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
                 </div>
             </div>
-        
+        </form>
         </div>
         <div class="modal-footer">
             <h3></h3>
@@ -160,6 +147,8 @@
         var buttons = document.getElementsByClassName("applicant_status");
         Array.prototype.forEach.call(buttons, function(btn) {
             btn.addEventListener("click", function() {
+                var studentId = this.getAttribute('data-student-id');
+                document.getElementById('student_id').value = studentId;
                 modal.style.display = "block";
             });
         });
