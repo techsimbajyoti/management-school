@@ -464,6 +464,16 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
+	Route::post('update-applicant-parent/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant-parent');
+
+	Route::post('update-student-applicant-parent/{id}/{student_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant-parent');
+
+	Route::post('update-contact-applicant-parent/{id}', [ApplicantController::class, 'update_contact_applicant'])->name('update-contact-applicant-parent');
+
+	Route::post('update-document-applicant-parent/{id}', [ApplicantController::class, 'update_document_applicant'])->name('update-document-applicant-parent');
+
+	Route::get('update-applicant-data-parent/{parent_id}/{child_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
+	
 	Route::get('download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('download-profile');
 
 	Route::get('delete-applicant-parent/{id}', [ApplicantController::class, 'delete_applicant_parent'])->name('delete-applicant-parent');
