@@ -19,8 +19,8 @@
     <div class="row">
         <div class="col-md-12">
           <div class="col-12">
-            <form action="{{ route('applicant-list') }}" method="GET" id="marksheet">
-                @csrf
+            <form action="" method="" id="marksheet">
+                         
                 <div class="card ot-card mb-24 position-relative z_1">
                     <div class="card-header d-flex align-items-center gap-4 flex-wrap">
                         <h3 class="mb-0 title">Filtering</h3>
@@ -96,6 +96,8 @@
                                     <tbody class="tbody">
                                       
                                         @foreach($applicant_list as $applicant_lists)
+                                       <input type = "hidden" name="student_id" value="{{$applicant_lists->student_id}}">
+                                       <input type = "hidden" name="parent_id" value="{{$applicant_lists->parent_id}}">
                                        
                                         <tr id="row_7">
                                             <td class="serial">{{$applicant_lists->id}}</td>
@@ -108,7 +110,7 @@
                                             <td>{{ $applicant_lists->father_name}}</td>
                                             <td>{{$applicant_lists->date_of_birth}}</td>
                                             <td>{{$applicant_lists->father_mobile}}</td>
-                                            <td><span class="badge-basic-info-text">{{$applicant_lists->status}}</span></td>
+                                            <td><span class="badge-basic-info-text">{{$applicant_lists->latest_status}}</span></td>
                                             <td>
                                                 <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $applicant_lists->student_id }}" data-parent-id="{{ $applicant_lists->parent_id }}"><i class="fas fa-cog"></i></a>
 
@@ -126,7 +128,7 @@
                                                             </a>
                                                        
                                                         
-                                                            <a href="{{ route('schedule-meeting','applicant-1') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a href="{{ route('schedule-meeting',$applicant_lists->applicant_id) }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
                                                             <a href="{{ route('admin-download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
                                                             <form action="{{ route('delete-applicant', $applicant_lists->parent_id) }}" method="POST" style="display:inline;">
@@ -239,8 +241,6 @@
 @push('scripts')
 <script>
 
-     // Get the modal
- // Get the modals
 var modal1 = document.getElementById("myModal1");
 var modal = document.getElementById("myModal");
 
@@ -327,55 +327,16 @@ $(document).on('click', '.close', function() {
     $('#myModal').hide();
 });
 
-        $(document).ready(function(e) 
-        e.preventDefault();
-        {
-            ('#search').click(function(){
-                var classElement = document.getElementById('class'); // Using vanilla JavaScript
-                alert(classElement);
+        // $(document).ready(function(e) 
+        // e.preventDefault();
+        // {
+        //     ('#search').click(function(){
+        //         var classElement = document.getElementById('class'); // Using vanilla JavaScript
+        //         alert(classElement);
         
-            $('#status-form').getElementById().value();
-            });
-        });
-
-
-
-
-
-
-
-    // $(document).ready(function() {
-
-    //     $('.add-note').click(function(){
-
-    //     });
-
-    //     $('.inactiveStudentList').hide();
-    //     $('.allStudentList').hide();
-
-       
-
-        
-
-    //     $('#marksheed').on('submit', function(e) {
-    //         e.preventDefault();
-    //         var status = $('select[name="status"]').val();
-            
-
-    //         if (status == "1") {
-    //             $('.activeStudentList').show();
-    //             $('.inactiveStudentList').hide();
-    //             $('.allStudentList').hide();
-    //         } else if (status == "2") {
-    //             $('.activeStudentList').hide();
-    //             $('.inactiveStudentList').show();
-    //             $('.allStudentList').hide();
-    //         } else {
-    //             $('.activeStudentList').hide();
-    //             $('.inactiveStudentList').hide();
-    //             $('.allStudentList').show();
-    //         }
-    //     });
-    // });
+        //     $('#status-form').getElementById().value();
+        //     });
+        // });
+  
 </script>
 @endpush

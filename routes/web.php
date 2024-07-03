@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::post('/clear-session', [ApplicantController::class, 'clearSession'])->name('clear-session');
 	
-	Route::get('new-applicant-student-profile', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
+	Route::get('new-applicant-student-profile/{id}', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
 	
 	Route::post('update-status',[ApplicantController::class, 'applicant_parent_status_update'])->name('update-status');
 

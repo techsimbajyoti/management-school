@@ -37,29 +37,30 @@
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
                     @if($meetingStatus != 'schedule-meeting')
+                   
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="title">Applicant Number : <span>Demo</span></p>
+                                    <p class="title">Applicant Number : <span>{{$info->applicant_id}}</span></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="title">Father Name : <span>Demo</span></p>
+                                    <p class="title">Father Name : <span>{{$info->father_name}}</span></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="title">Student Name : <span>Demo</span></p>
+                                    <p class="title">Student Name : <span>{{$info->first_name}} {{$info->last_name}}</span></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="title">Class : <span>One</span></p>
+                                    <p class="title">Class : <span>{{$info->class}}</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endif
 
-                    @if($meetingStatus != 'applicant-1')
+                    @if($meetingStatus == 'schedule-meeting')
                     <div class="d-flex">
                         <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
                     </div>
