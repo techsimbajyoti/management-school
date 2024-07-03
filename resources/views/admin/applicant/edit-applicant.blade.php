@@ -441,7 +441,7 @@
                                             <i class="fa fa-plus" aria-hidden="true"></i> Add
                                         </a>
                                     </div>
-                                
+                                    <p class="text-info">Accepted Format : jpeg,jpg,png,pdf,docs. Max file size 2Mb.</p>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table-responsive">

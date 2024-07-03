@@ -227,8 +227,8 @@ $(document).ready(function() {
 
             // Hide the spinner
             $('#spinner').hide();
-            $('#parent_id').val(response.parent_id);
-            $('#applicant_id').val(response.applicant_id);
+            // $('#parent_id').val(response.parent_id);
+            // $('#applicant_id').val(response.applicant_id);
             if (xhr.status === 422) {
                 var errors = xhr.responseJSON.errors;
                 displayValidationErrors(errors); // Display validation errors if any

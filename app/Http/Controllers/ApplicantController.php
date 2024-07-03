@@ -40,13 +40,13 @@ class ApplicantController extends Controller
         return view('pages.applicant');
     }
 
-    public function applicant_list()
+    public function applicant_list(Request $request)
     {
-        $applicant_list = Student::join('student_parents', function ($join) {
+        $query = Student::join('student_parents', function ($join) {
                 $join->on('students.parent_id', '=', 'student_parents.id')
                      ->on('students.applicant_id', '=', 'student_parents.applicant_id');
             })
-            ->join('applicant_statuses', function ($join) {
+            ->leftJoin('applicant_statuses', function ($join) {
                 $join->on('students.id', '=', 'applicant_statuses.student_id')
                      ->on('student_parents.id', '=', 'applicant_statuses.parent_id');
             })
@@ -57,11 +57,29 @@ class ApplicantController extends Controller
                 'student_parents.*', 
                 'applicant_statuses.status'
             )
-            ->distinct() // Add distinct to remove duplicate rows
-            ->get();
+            ->distinct();
+    
+        if ($request->has('class') && $request->class != '') {
+            $query->where('students.class', $request->class);
+        }
+    
+        if ($request->has('status_form') && $request->status_form != '') {
+            $query->where('applicant_statuses.status', $request->status_form);
+        }
+    
+        if ($request->has('applicantIds') && $request->applicantIds != '') {
+            $query->where('students.applicant_id', $request->applicantIds);
+        }
+
+        if ($request->has('applicant_id') && $request->applicant_id != '') {
+            $query->where('students.applicant_id', 'LIKE', "%{$request->applicant_id}%");
+        }
+    
+        $applicant_list = $query->get();
     
         return view('admin.applicant.applicant-list', compact('applicant_list'));
     }
+    
     
     public function view_applicant($id)
     {
@@ -325,13 +343,13 @@ class ApplicantController extends Controller
 
    public function update_document_applicant(Request $request, $parent_id)
     {
-        if (is_null($student_id)) {
+        if (is_null($request->student_id)) {
             return response()->json(['success' => false, 'errors' => 'Student ID not found']);
         }
     
         try {
             $student = Student::where('parent_id', $parent_id)
-                ->where('id', $student_id)
+                ->where('id', $request->student_id)
                 ->firstOrFail();
     
             if (!$student) {
@@ -436,6 +454,30 @@ class ApplicantController extends Controller
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ]);
 
+        $student_data = [
+            'parent_name' => $request->parent_name,
+            'contact' => $request->contact_number,
+            'email' => $request->email,
+            'password' => $request->password,
+            'student_doc' => $request->student_doc,
+            'student_pin_code' => $request->student_pin_code,
+            'student_city' => $request->student_city,
+            'student_state' => $request->student_state,
+            'student_country' => $request->student_country,
+            'student_dob' => $request->student_dob,
+            'student_class' => $request->student_class,
+            'student_name' => $request->student_name,
+            'student_last_name' => $request->student_last_name,
+            'student_address' => $request->student_address,
+            'student_gender' => $request->student_gender,
+        ];
+
+        // Calculate profile completion percentage
+        $profileCompletionPercentage = $this->calculateProfileCompletionPercentage((object)$student_data);
+
+        // Determine status based on profile completion percentage
+        $status = $profileCompletionPercentage < 100 ? 'Incomplete' : 'Complete';
+
         $applicant = new StudentParent;
                 
         $applicant->father_name = $request->parent_name;
@@ -453,6 +495,16 @@ class ApplicantController extends Controller
 
         $applicant->save();
 
+        $app = new ApplicantStatus;
+        $app->student_id = 'null';
+        $app->parent_id = $applicant->id;
+        $app->applicant_id = $applicant->applicant_id;
+        $app->status = $status;
+        $app->note = 'null';
+        $app->ip_address = '1';
+        $app->created_by = '1';
+        $app->save();
+
         Mail::to('ts.juhiverma@gmail.com')->send(new AdminNotification($applicant));
       
         Mail::to($request->email)->send(new ApplicantRegistered($applicant));
@@ -463,15 +515,44 @@ class ApplicantController extends Controller
         return response()->json(['success'=>'true','action'=>$request->action, 'parent_id' => $applicant->id, 'applicant_id' => $applicant->applicant_id]);
 
        }
-
-    
     }
+
+    // Function to calculate profile completion percentage based on fields
+        private function calculateProfileCompletionPercentage($student_data)
+        {
+            if (!$student_data) {
+                return 0; // If no data found, completeness is 0%
+            }
+
+            // Fields to check for completeness and their step increment for percentage calculation
+            $fields = [
+                'email','password','contact','parent_name','student_doc', 'student_pin_code', 'student_city', 'student_state', 'student_country',
+                'student_dob', 'student_class', 'student_name', 'student_last_name',
+                'student_address', 'student_gender'
+            ];
+
+            $profileCompletionPercentage = 0;
+            $totalSteps = count($fields); // Total number of fields to check
+            $stepIncrement = 100 / $totalSteps; // Increment for each field
+
+            // Calculate profile completion percentage
+            foreach ($fields as $field) {
+                if (!empty($student_data->{$field})) {
+                    $profileCompletionPercentage += $stepIncrement;
+                }
+            }
+
+            // Round percentage to two decimal places
+            $profileCompletionPercentage = round($profileCompletionPercentage, 2);
+
+            return $profileCompletionPercentage;
+        }
 
     public function post_applicant_student_data(Request $request){
 
         $parent_id = Session::get('parent_id');
         $student_id = $request->input('student_id');
-        $applicant_id = Str::random(8);
+        $applicant_id = Session::get('applicant_id');
 
         $parentStudent = Student::where('id', $student_id)
         ->where('applicant_id', $applicant_id)
@@ -548,7 +629,8 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = '_'.$applicant_id;
+
+            $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;
@@ -1075,7 +1157,7 @@ class ApplicantController extends Controller
         return $pdf->download('parent_student_information.pdf');
     }
 
-    public function update_applicant_data($parent_id,$child_id){
+    public function update_applicant_data($parent_id){
         $country = Country::get();
 
         $test = [];
@@ -1105,7 +1187,6 @@ class ApplicantController extends Controller
                 ->first();
 
         $student = Student::where('parent_id',$parent_id)
-                   ->where('id',$child_id)
                    ->first();  
         // $applicant_data = Student::join('student_parents', function ($join) use ($id) {
         //     $join->on('students.parent_id', '=', 'student_parents.id')

@@ -204,8 +204,11 @@
                                             <label class="form-label">{{ __('First Name:') }}</label>
             
                                                 <div class="form-group">
+                                                    @if($student != null)
                                                     <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required  value="{{ $student->first_name}}" >
-                                                
+                                                    @else
+                                                    <input type="text" name="first_name" class="nice-select niceSelect bordered_style wide" placeholder="Student First Name" required  value="" >
+                                                    @endif
                                                    <span class="invalid-feedback" id="first_name_error" style="display: none;" role="alert"></span>
                                                 </div>
                                             </div>

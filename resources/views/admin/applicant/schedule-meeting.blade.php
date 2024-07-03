@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/general.min.css">
 <link rel="stylesheet" type="text/css" href="{{asset('paper')}}/css/easyappointments/jquery-ui.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 @section('content')
 <div class="content">
@@ -285,6 +284,7 @@
  
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
    
 
@@ -330,6 +330,16 @@
 
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+        const datepickerElement = document.querySelector("#datepicker");
+        if (datepickerElement) {
+            flatpickr(datepickerElement, {
+                inline: true // This makes the calendar always visible
+            });
+        }
+    });
+
+
 $('document').ready(function() {
     $('#wizard-frame-2').hide();
     $('#wizard-frame-3').hide();  
@@ -342,8 +352,12 @@ $('document').ready(function() {
         $('#wizard-frame-3').hide();
         $('#wizard-frame-4').hide(); 
         updateSteps(2);
-        // Open flatpickr calendar immediately after page load
-        document.querySelector("#datepicker")._flatpickr.open();
+        
+         // Open Flatpickr calendar
+         const datepickerElement = document.querySelector("#datepicker");
+            if (datepickerElement && datepickerElement._flatpickr) {
+                datepickerElement._flatpickr.open();
+            }
     });
     $('#button-next-2').click(function() {
        $('#wizard-frame-3').show();

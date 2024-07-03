@@ -472,7 +472,7 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::post('update-document-applicant-parent/{id}', [ApplicantController::class, 'update_document_applicant'])->name('update-document-applicant-parent');
 
-	Route::get('update-applicant-data-parent/{parent_id}/{child_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
+	Route::get('update-applicant-data-parent/{parent_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
 	
 	Route::get('download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('download-profile');
 

@@ -222,7 +222,11 @@
                                     <h6 class="card-title">Incomplete</h6>
                                 </div>
                                 <div class="card-body">
+                                    @if($totalChildren->count() > 0)
                                     <p class="card-text">{{ $incompleteCount }}</p>
+                                    @else
+                                    <p class="card-text">1</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -331,6 +335,7 @@
 
                         @endphp
                         
+                        @if($children->isNotEmpty())
                         @foreach($children as $child)
                         <div class="row p-2">
                             <div class="col-md-6">
@@ -344,12 +349,31 @@
                                         <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ $child->applicant_id }}</p>
                                     </div>
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id, 'child_id' => $child->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                        <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    @else
+                    <div class="row p-2">
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <canvas id="pieChart" width="200" height="200"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ auth()->guard('webparents')->user()->applicant_id }}</p>
+                                </div>
+                                <div class="col-md-12 text-right">
+                                    <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     
 
 
@@ -388,20 +412,30 @@
                               </tr>
                             </thead>
                             <tbody>
-                            @foreach($children as $key => $child)
-                              <tr>
-                                <th scope="row">{{ $key }}</th>
-                                <td>{{ $child->applicant_id }}</td>
-                                @php
-                                    $completionPercentage = $childrenCompletionPercentages[$child->id] ?? 0;
-                                @endphp
-                                @if ($completionPercentage < 100)
-                                <td><span id="applicant_profile_status">Incomplete</span></td>
+                                @if($children->isNotEmpty())
+                                    @foreach($children as $key => $child)
+                                    <tr>
+                                        <th scope="row">{{ $key }}</th>
+                                        <td>{{ $child->applicant_id }}</td>
+                                        @php
+                                            $completionPercentage = $childrenCompletionPercentages[$child->id] ?? 0;
+                                        @endphp
+                                        @if ($completionPercentage < 100)
+                                        <td><span id="applicant_profile_status">Incomplete</span></td>
+                                        @else
+                                        <td><span id="applicant_profile_status">Complete</span></td>
+                                        @endif
+                                    </tr>
+                                    @endforeach
                                 @else
-                                <td><span id="applicant_profile_status">Complete</span></td>
+                                <tr>
+                                    <th scope="row">0</th>
+                                    <td>{{ auth()->guard('webparents')->user()->applicant_id }}</td>
+                                    @if ($children->isEmpty())
+                                    <td><span id="applicant_profile_status">Incomplete</span></td>
+                                    @endif
+                                </tr>
                                 @endif
-                              </tr>
-                            @endforeach
                             </tbody>
                           </table>
                     </div>
@@ -429,6 +463,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Incomplete Profile'],
+                datasets: [{
+                    data: [100],
+                    backgroundColor: ['#ffcccb'], // Red color for incomplete profile
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: false
+                }
+            }
+        });
+    });
+    
         // Sample data of upcoming meetings
 const meetings = [
     { title: 'Project Kickoff', date: '2024-07-01', time: '10:00 AM' },
