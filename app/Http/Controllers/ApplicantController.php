@@ -23,6 +23,7 @@ use App\Mail\AdminStatusReceive;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\ApplicantStatus;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 
@@ -44,43 +45,49 @@ class ApplicantController extends Controller
 
     public function applicant_list(Request $request)
     {
-        $query = Student::join('student_parents', function ($join) {
-                $join->on('students.parent_id', '=', 'student_parents.id')
-                     ->on('students.applicant_id', '=', 'student_parents.applicant_id');
-            })
-            ->leftJoin('applicant_statuses', function ($join) {
-                $join->on('students.id', '=', 'applicant_statuses.student_id')
-                     ->on('student_parents.id', '=', 'applicant_statuses.parent_id');
-            })
-            ->select(
-                'students.id as student_id', 
-                'student_parents.id as parent_id', 
-                'students.*', 
-                'student_parents.*', 
-                'applicant_statuses.status'
-            )
-            ->distinct();
-    
-        if ($request->has('class') && $request->class != '') {
-            $query->where('students.class', $request->class);
-        }
-    
-        if ($request->has('status_form') && $request->status_form != '') {
-            $query->where('applicant_statuses.status', $request->status_form);
-        }
-    
-        if ($request->has('applicantIds') && $request->applicantIds != '') {
-            $query->where('students.applicant_id', $request->applicantIds);
-        }
 
-        if ($request->has('applicant_id') && $request->applicant_id != '') {
-            $query->where('students.applicant_id', 'LIKE', "%{$request->applicant_id}%");
-        }
+            // Subquery to get the latest status for each student
+            $latestStatuses = ApplicantStatus::select('status')
+                ->whereColumn('student_id', 'students.id')
+                ->orderBy('created_at', 'desc')
+                ->limit(1);
     
-        $applicant_list = $query->get();
+            // Main query to get applicant list with the latest status
+            $applicant_list = Student::select(
+                    'students.id as student_id', 
+                    'student_parents.id as parent_id', 
+                    'students.*', 
+                    'student_parents.*', 
+                    DB::raw("({$latestStatuses->toSql()}) as latest_status")
+                )
+                ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+                ->distinct()
+                ->get();
     
+            
         return view('admin.applicant.applicant-list', compact('applicant_list'));
     }
+        
+    
+        // if ($request->has('class') && $request->class != '') {
+        //     $query->where('students.class', $request->class);
+        // }
+    
+        // if ($request->has('status_form') && $request->status_form != '') {
+        //     $query->where('applicant_statuses.status', $request->status_form);
+        // }
+    
+        // // if ($request->has('applicantIds') && $request->applicantIds != '') {
+        // //     $query->where('students.applicant_id', $request->applicantIds);
+        // // }
+
+        // if ($request->has('applicant_id') && $request->applicant_id != '') {
+        //     $query->where('students.applicant_id', 'LIKE', "%{$request->applicant_id}%");
+        // }
+    
+     
+    
+       
     
     
     public function view_applicant($id)
@@ -488,7 +495,14 @@ class ApplicantController extends Controller
 
     public function schedule_meeting($id){
         $meetingStatus = $id;
-        return view('admin.applicant.schedule-meeting',compact('meetingStatus'));
+        $info = Student::join('student_parents', function ($join) use ($id) {
+            $join->on('students.parent_id', '=', 'student_parents.id')
+                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                 ->where('students.applicant_id', '=', $id);
+        })
+        ->select('students.*', 'student_parents.*')
+        ->first();
+        return view('admin.applicant.schedule-meeting',compact('meetingStatus','info'));
     }
 
     public function post_applicant_data(Request $request){
