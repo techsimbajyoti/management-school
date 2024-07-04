@@ -326,5 +326,6 @@ $(document).on('click', '.view_document', function(e) {
 $(document).on('click', '.close', function() {
     $('#myModal').hide();
 });
+
 </script>
 @endpush

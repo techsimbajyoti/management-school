@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\ApplicantStatus;
 use Illuminate\Support\Facades\DB;
+use App\Models\MeetingStatus;
 use PDF;
 
 
@@ -500,9 +501,61 @@ class ApplicantController extends Controller
                  ->on('students.applicant_id', '=', 'student_parents.applicant_id')
                  ->where('students.applicant_id', '=', $id);
         })
-        ->select('students.*', 'student_parents.*')
+        ->select('students.*', 'student_parents.*','students.id as student_id')
         ->first();
         return view('admin.applicant.schedule-meeting',compact('meetingStatus','info'));
+    }
+
+    public function post_schedule_meeting_1(Request $request){
+
+   
+    $validatedData = $request->validate([
+       'meeting_type' => 'required',
+       'meeting_mode' => 'required',
+       
+
+    ]);
+
+    Session::put('step1', json_encode($validatedData));
+   
+    return response()->json(['status' => 'success','message'=>'value inserted']);
+    
+    }
+     public function post_schedule_meeting_2(Request $request)
+     {
+         
+        $validatedData = $request->all();
+
+         Session::put('step2', json_encode($validatedData));
+ 
+         return response()->json(['status' => 'success', 'message' => 'Data stored in session']);
+     }
+
+     public function final_submit(Request $request) {
+       
+        $step1Data = json_decode(Session::get('step1'), true);
+        $step2Data = json_decode(Session::get('step2'), true);
+    
+        $combinedData = array_merge($step1Data, $step2Data);
+    
+        $meeting = new MeetingStatus();
+        $meeting->meeting_date = $combinedData['meeting_date']; 
+        $meeting->time_slot = $combinedData['meeting_time']; 
+        $meeting->student_id = $combinedData['student_id'];
+        $meeting->parent_id = $combinedData['parent_id'];
+        $meeting->applicant_id = $combinedData['applicant_id'];
+        $meeting->purpose = $combinedData['meeting_type'];
+        $meeting->mode = $combinedData['meeting_mode'];
+        $meeting->other_purpose = $combinedData['meeting_other'];
+        $meeting->location_url = $combinedData['meeting_location'];
+        $meeting->location_url = $combinedData['meeting_mode_other'];
+        $meeting->status = 'active';
+        $meeting->ip_address = '1';
+        $meeting->created_by = 'null';
+        $meeting->save();
+
+
+        return response()->json(['status' => 'success', 'message' => 'All data combined', 'data' => $combinedData]);
     }
 
     public function post_applicant_data(Request $request){
@@ -726,7 +779,6 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-
             $student->applicant_id = $applicant_id;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';

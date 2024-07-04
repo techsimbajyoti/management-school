@@ -368,6 +368,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('schedule-meeting/{id}',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
 
+	Route::post('post-schedule-meeting-1',[ApplicantController::class, 'post_schedule_meeting_1'])->name('post-schedule-meeting-1');
+
+	Route::post('post-schedule-meeting-2',[ApplicantController::class, 'post_schedule_meeting_2'])->name('post-schedule-meeting-2');
+
+	Route::post('final-submit',[ApplicantController::class, 'final_submit'])->name('final-submit');
+
 	Route::get('meeting-status',[ApplicantController::class, 'meeting_status'])->name('meeting-status');
 
 	Route::get('change-meeting-status',[ApplicantController::class, 'change_meeting_status'])->name('change-meeting-status');

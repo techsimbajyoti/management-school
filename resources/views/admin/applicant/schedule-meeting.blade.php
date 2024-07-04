@@ -33,10 +33,15 @@
                     </div>
                 </div>
             </div> 
+            <form id="form-1" action="" method="POST">
+                @csrf
             <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
                     @if($meetingStatus != 'schedule-meeting')
-                   
+                   <input type="hidden" value="{{$info->student_id}}" name="student_id">
+                   <input type="hidden" value="{{$info->parent_id}}" name="parent_id">
+                   <input type="hidden" value="{{$info->applicant_id}}" name="applicant_id">
+                  
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -58,7 +63,7 @@
                         </div>
                     </div>
                     @endif
-
+                
                     @if($meetingStatus == 'schedule-meeting')
                     <div class="d-flex">
                         <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
@@ -129,20 +134,22 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="select-service">Purpose <span class="fillable">*</span></label>
-                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" >
-                                    <option value="1">School Type</option>  
-                                    <option value="">Entrance Exam</option> 
-                                    <option value="">Student Interview</option>
-                                    <option value="">Parent Interview</option>    
-                                    <option value="">Document Submission</option> 
+                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" name="meeting_type" >
+                                    <option value="School Type">School Type</option>  
+                                    <option value="Entrance Exam">Entrance Exam</option> 
+                                    <option value="Student Interview">Student Interview</option>
+                                    <option value="Parent Interview">Parent Interview</option>    
+                                    <option value="Document Submission">Document Submission</option> 
                                     <option value="other">Other</option>                        
                                 </select>
-
+                                <span class="invalid-feedback" id="meeting_type" style="display: none;">
                                 <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
+                          
+                            <span class="invalid-feedback" id="meeting_other" style="display: none;">
                             </div>
                             <div class="form-group">
                                 <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
-                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" >
+                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" name="meeting_mode">
                                     <option value="">Please select one of these</option>
                                     <option value="offline">Offline</option>  
                                     <option value="online">Online</option>
@@ -154,11 +161,14 @@
                     </div>
                 </div>
                 <div class="command-buttons text-right">
-                    <button type="button" id="button-next-1" class="btn btn-lg ot-btn-primary" data-step_index="1">
+                    <button type="submit" id="button-next-1" class="btn btn-lg ot-btn-primary" data-step_index="1">
                         Next <i class="fas fa-chevron-right ml-2"></i>
                     </button>
                 </div>
             </div>
+        </form>
+        <form id="form-2" action="" method="POST">
+            @csrf
             <div id="wizard-frame-2" class="wizard-frame">
                 <div class="frame-container">
                     <h4 class="frame-title">Meeting Date & Time</h4>
@@ -192,12 +202,15 @@
                         <i class="fas fa-chevron-left mr-2"></i>
                         Back  
                     </button>
-                    <button type="button" id="button-next-2" class="btn btn-lg ot-btn-primary"
+                    <button type="submit" id="button-next-2" class="btn btn-lg ot-btn-primary"
                             data-step_index="2">
                         Next  <i class="fas fa-chevron-right ml-2"></i>
                     </button>
                 </div>
             </div>
+        </form>
+        <form id="form-3" action="" method="POST">
+            @csrf
             <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
                 <div class="frame-container">
                     <h3 class="frame-title">Meeting Confirmation</h3>
@@ -274,18 +287,22 @@
                         <i class="fas fa-chevron-left mr-2"></i>
                         Back  
                     </button>
-                    <button type="button" id="button-next-2" class="btn btn-lg ot-btn-primary" data-step_index="2">
+                    <button type="submit" id="button-next-3" class="btn btn-lg ot-btn-primary" data-step_index="2">
                         Confirm  <i class="fas fa-check-square ml-2"></i>
                     </button>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 </div>   
  
 @endsection
 @push('scripts')
+<!-- Example with CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
    
 
@@ -316,13 +333,13 @@
         }
     });
 
-    $('#timezone-select').change(function() {
-        if ($(this).val() !== '') {
-            $('#available-hours').show();
-        } else {
-            $('#available-hours').hide();
-        }
-    });
+    // $('#timezone-select').change(function() {
+    //     if ($(this).val() !== '') {
+    //         $('#available-hours').show();
+    //     } else {
+    //         $('#available-hours').hide();
+    //     }
+    // });
 
     $('#available-hours').on('click', '.available-hour', function() {
         $('.available-hour').removeClass('selected-hour');
@@ -331,52 +348,134 @@
 
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+    let flatpickrInstance;
+
+    document.addEventListener('DOMContentLoaded', function() {
         const datepickerElement = document.querySelector("#datepicker");
         if (datepickerElement) {
-            flatpickr(datepickerElement, {
+            flatpickrInstance = flatpickr(datepickerElement, {
                 inline: true // This makes the calendar always visible
+            });
+
+            // Example of accessing selected dates
+            flatpickrInstance.config.onChange.push(function(selectedDates, dateStr, instance) {
+                // console.log(selectedDates); // Output selected dates to console
             });
         }
     });
 
 
-$('document').ready(function() {
+    $(document).ready(function() {
+    // Set the CSRF token in the header of every AJAX request
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('#wizard-frame-2').hide();
     $('#wizard-frame-3').hide();  
     $('#wizard-frame-4').hide(); 
-   
+
     $('#button-next-1').click(function(e) {
         e.preventDefault(); 
-        $('#wizard-frame-2').show(); 
-        $('#wizard-frame-1').hide(); 
-        $('#wizard-frame-3').hide();
-        $('#wizard-frame-4').hide(); 
-        updateSteps(2);
-        
-         // Open Flatpickr calendar
-         const datepickerElement = document.querySelector("#datepicker");
-            if (datepickerElement && datepickerElement._flatpickr) {
-                datepickerElement._flatpickr.open();
+
+        let formData = $('#form-1').serialize(); // Serialize form data for step 1
+    
+        $.ajax({
+            url: '{{ route("post-schedule-meeting-1") }}', // Update with your route for step 1
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if(response.status === 'success') {
+                    $('#wizard-frame-2').show(); 
+                    $('#wizard-frame-1').hide(); 
+                    $('#wizard-frame-3').hide();
+                    $('#wizard-frame-4').hide(); 
+                    updateSteps(2);
+                    console.log(response); 
+                } else {
+                    // Handle validation errors or other responses
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
             }
+        });
     });
-    $('#button-next-2').click(function() {
-       $('#wizard-frame-3').show();
-        $('#wizard-frame-2').hide(); 
-        $('#wizard-frame-1').hide(); 
-        $('#wizard-frame-4').hide(); 
-         updateSteps(3);
-    });
-    $('#button-next-3').click(function(e) {
-        $('#wizard-frame-4').show(); 
-        $('#wizard-frame-3').hide(); 
-        $('#wizard-frame-2').hide(); 
-        $('#wizard-frame-1').hide(); 
-        updateSteps(4);
+
+    $('#form-2').submit(function(e) {
+        e.preventDefault(); 
+        
+        if (flatpickrInstance) {
+        var selectedDates = flatpickrInstance.selectedDates;
+       
+        // var selectedDates = $('#datepicker').flatpickr().selectedDates;
+       
+        var meeting_time = $('#available-hours .selected-hour').text().trim();
+        // var timezone = $('#timezone-select').val();
+       
+       
+         let formData = {
+            '_token': '{{ csrf_token() }}', // Include CSRF token
+            'meeting_date': selectedDates[0], // Assuming you want the first selected date
+            'meeting_time': meeting_time,
+            // 'timezone': timezone
+        };
+       
+        console.log(formData);
+  
+        
+        $.ajax({
+            url: "{{ route('post-schedule-meeting-2') }}", // Update with your route for step 1
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if(response.status === 'success') {
+                    $('#wizard-frame-3').show();
+                    $('#wizard-frame-2').hide(); 
+                    $('#wizard-frame-1').hide(); 
+                    $('#wizard-frame-4').hide(); 
+                    updateSteps(3);
+                    console.log(response.message); 
+                } else {
+                    // Handle validation errors or other responses
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+         } else {
+        alert("Flatpickr is not initialized");
+    }
     });
 
 
-         $('#button-back-2').click(function(e){
+        $('#form-3').click(function(e) {
+        e.preventDefault(); 
+
+        $.ajax({
+            url: '{{ route("final-submit") }}',
+            type: 'POST',
+            success: function(response) {
+                if(response.status === 'success') {
+                    console.log(response.message); 
+                    console.log(response.data); 
+                } else {
+                
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+ 
+        $('#button-back-2').click(function(e){
             e.preventDefault(); 
             $('#wizard-frame-2').hide(); 
             $('#wizard-frame-1').show(); 
