@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\ApplicantStatus;
 use Illuminate\Support\Facades\DB;
+use App\Models\MeetingStatus;
 use PDF;
 
 
@@ -350,13 +351,13 @@ class ApplicantController extends Controller
 
    public function update_document_applicant(Request $request, $parent_id)
     {
-        if (is_null($student_id)) {
+        if (is_null($request->student_id)) {
             return response()->json(['success' => false, 'errors' => 'Student ID not found']);
         }
     
         try {
             $student = Student::where('parent_id', $parent_id)
-                ->where('id', $student_id)
+                ->where('id', $request->student_id)
                 ->firstOrFail();
     
             if (!$student) {
@@ -417,9 +418,61 @@ class ApplicantController extends Controller
                  ->on('students.applicant_id', '=', 'student_parents.applicant_id')
                  ->where('students.applicant_id', '=', $id);
         })
-        ->select('students.*', 'student_parents.*')
+        ->select('students.*', 'student_parents.*','students.id as student_id')
         ->first();
         return view('admin.applicant.schedule-meeting',compact('meetingStatus','info'));
+    }
+
+    public function post_schedule_meeting_1(Request $request){
+
+   
+    $validatedData = $request->validate([
+       'meeting_type' => 'required',
+       'meeting_mode' => 'required',
+       
+
+    ]);
+
+    Session::put('step1', json_encode($validatedData));
+   
+    return response()->json(['status' => 'success','message'=>'value inserted']);
+    
+    }
+     public function post_schedule_meeting_2(Request $request)
+     {
+         
+        $validatedData = $request->all();
+
+         Session::put('step2', json_encode($validatedData));
+ 
+         return response()->json(['status' => 'success', 'message' => 'Data stored in session']);
+     }
+
+     public function final_submit(Request $request) {
+       
+        $step1Data = json_decode(Session::get('step1'), true);
+        $step2Data = json_decode(Session::get('step2'), true);
+    
+        $combinedData = array_merge($step1Data, $step2Data);
+    
+        $meeting = new MeetingStatus();
+        $meeting->meeting_date = $combinedData['meeting_date']; 
+        $meeting->time_slot = $combinedData['meeting_time']; 
+        $meeting->student_id = $combinedData['student_id'];
+        $meeting->parent_id = $combinedData['parent_id'];
+        $meeting->applicant_id = $combinedData['applicant_id'];
+        $meeting->purpose = $combinedData['meeting_type'];
+        $meeting->mode = $combinedData['meeting_mode'];
+        $meeting->other_purpose = $combinedData['meeting_other'];
+        $meeting->location_url = $combinedData['meeting_location'];
+        $meeting->location_url = $combinedData['meeting_mode_other'];
+        $meeting->status = 'active';
+        $meeting->ip_address = '1';
+        $meeting->created_by = 'null';
+        $meeting->save();
+
+
+        return response()->json(['status' => 'success', 'message' => 'All data combined', 'data' => $combinedData]);
     }
 
     public function post_applicant_data(Request $request){
@@ -468,6 +521,30 @@ class ApplicantController extends Controller
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ]);
 
+        $student_data = [
+            'parent_name' => $request->parent_name,
+            'contact' => $request->contact_number,
+            'email' => $request->email,
+            'password' => $request->password,
+            'student_doc' => $request->student_doc,
+            'student_pin_code' => $request->student_pin_code,
+            'student_city' => $request->student_city,
+            'student_state' => $request->student_state,
+            'student_country' => $request->student_country,
+            'student_dob' => $request->student_dob,
+            'student_class' => $request->student_class,
+            'student_name' => $request->student_name,
+            'student_last_name' => $request->student_last_name,
+            'student_address' => $request->student_address,
+            'student_gender' => $request->student_gender,
+        ];
+
+        // Calculate profile completion percentage
+        $profileCompletionPercentage = $this->calculateProfileCompletionPercentage((object)$student_data);
+
+        // Determine status based on profile completion percentage
+        $status = $profileCompletionPercentage < 100 ? 'Incomplete' : 'Complete';
+
         $applicant = new StudentParent;
                 
         $applicant->father_name = $request->parent_name;
@@ -485,6 +562,16 @@ class ApplicantController extends Controller
 
         $applicant->save();
 
+        $app = new ApplicantStatus;
+        $app->student_id = 'null';
+        $app->parent_id = $applicant->id;
+        $app->applicant_id = $applicant->applicant_id;
+        $app->status = $status;
+        $app->note = 'null';
+        $app->ip_address = '1';
+        $app->created_by = '1';
+        $app->save();
+
         Mail::to('ts.juhiverma@gmail.com')->send(new AdminNotification($applicant));
       
         Mail::to($request->email)->send(new ApplicantRegistered($applicant));
@@ -495,9 +582,38 @@ class ApplicantController extends Controller
         return response()->json(['success'=>'true','action'=>$request->action, 'parent_id' => $applicant->id, 'applicant_id' => $applicant->applicant_id]);
 
        }
-
-    
     }
+
+    // Function to calculate profile completion percentage based on fields
+        private function calculateProfileCompletionPercentage($student_data)
+        {
+            if (!$student_data) {
+                return 0; // If no data found, completeness is 0%
+            }
+
+            // Fields to check for completeness and their step increment for percentage calculation
+            $fields = [
+                'email','password','contact','parent_name','student_doc', 'student_pin_code', 'student_city', 'student_state', 'student_country',
+                'student_dob', 'student_class', 'student_name', 'student_last_name',
+                'student_address', 'student_gender'
+            ];
+
+            $profileCompletionPercentage = 0;
+            $totalSteps = count($fields); // Total number of fields to check
+            $stepIncrement = 100 / $totalSteps; // Increment for each field
+
+            // Calculate profile completion percentage
+            foreach ($fields as $field) {
+                if (!empty($student_data->{$field})) {
+                    $profileCompletionPercentage += $stepIncrement;
+                }
+            }
+
+            // Round percentage to two decimal places
+            $profileCompletionPercentage = round($profileCompletionPercentage, 2);
+
+            return $profileCompletionPercentage;
+        }
 
     public function post_applicant_student_data(Request $request){
 
@@ -1107,7 +1223,7 @@ class ApplicantController extends Controller
         return $pdf->download('parent_student_information.pdf');
     }
 
-    public function update_applicant_data($parent_id,$child_id){
+    public function update_applicant_data($parent_id){
         $country = Country::get();
 
         $test = [];
@@ -1137,7 +1253,6 @@ class ApplicantController extends Controller
                 ->first();
 
         $student = Student::where('parent_id',$parent_id)
-                   ->where('id',$child_id)
                    ->first();  
         // $applicant_data = Student::join('student_parents', function ($join) use ($id) {
         //     $join->on('students.parent_id', '=', 'student_parents.id')

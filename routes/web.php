@@ -367,6 +367,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('schedule-meeting/{id}',[ApplicantController::class, 'schedule_meeting'])->name('schedule-meeting');
 
+	Route::post('post-schedule-meeting-1',[ApplicantController::class, 'post_schedule_meeting_1'])->name('post-schedule-meeting-1');
+
+	Route::post('post-schedule-meeting-2',[ApplicantController::class, 'post_schedule_meeting_2'])->name('post-schedule-meeting-2');
+
+	Route::post('final-submit',[ApplicantController::class, 'final_submit'])->name('final-submit');
+
 	Route::get('meeting-status',[ApplicantController::class, 'meeting_status'])->name('meeting-status');
 
 	Route::get('change-meeting-status',[ApplicantController::class, 'change_meeting_status'])->name('change-meeting-status');
@@ -472,7 +478,7 @@ Route::group(['middleware' => 'auth.webparents'], function () {
 
 	Route::post('update-document-applicant-parent/{id}', [ApplicantController::class, 'update_document_applicant'])->name('update-document-applicant-parent');
 
-	Route::get('update-applicant-data-parent/{parent_id}/{child_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
+	Route::get('update-applicant-data-parent/{parent_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
 	
 	Route::get('download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('download-profile');
 
