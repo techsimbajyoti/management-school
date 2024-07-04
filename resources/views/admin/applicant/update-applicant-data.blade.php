@@ -166,7 +166,6 @@
                                                
                                         </div>
                                         <div class="col-md-6">
-                                            <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Profession:') }}</label>
                                 
                                                 <div class="form-group">
@@ -197,7 +196,11 @@
                                     @csrf
                                     <h5>Applicant Information</h5><br>
                                     <div class="row">
-    
+                                        @if($student != null)
+                                        <input type="hidden" name="student_id" class="student_id" value="{{$student->id}}">
+                                        @else
+                                        <input type="hidden" name="student_id" class="student_id" value="">
+                                        @endif
                                     
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
@@ -218,8 +221,11 @@
                                             <label class="form-label">{{ __('Last Name:') }}</label>
     
                                             <div class="form-group">
+                                                @if($student != null)
                                                 <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required  value="{{ $student->last_name}}">
-                                           
+                                                @else
+                                                <input type="text" name="last_name" class="nice-select niceSelect bordered_style wide" placeholder="Student Last Name" required  value="">
+                                                @endif
                                             <span class="invalid-feedback" id="last_name_error" style="display: none;" role="alert"></span>
                                         </div>
                                         </div>
@@ -228,6 +234,7 @@
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">Gender:</label>
+                                                @if($student != null)
                                                 <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
                                                     <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
@@ -235,6 +242,15 @@
                                                     <option value="other" {{ $student->gender == 'Other' ? 'selected' : '' }}>Other</option>
                                                 </select>
                                                 <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_gender }}">
+                                                @else
+                                                <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
+                                                    <option value="">Select one of these</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="">
+                                                @endif
                                                 <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -243,8 +259,12 @@
                                             <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('Class:') }}</label>
                                                     <div class="form-group">
+                                                        @if($student != null)
                                                         <input name="class" value="{{ $student->class}}" type="text" class="form-control" placeholder="Enter Class" required>
-                                                            <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
+                                                        @else
+                                                        <input name="class" value="" type="text" class="form-control" placeholder="Enter Class" required>
+                                                        @endif
+                                                        <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                     
                                         </div>  
@@ -253,13 +273,18 @@
                                             <div class="form-group">
                                                 <span style="color:red">*</span>
                                                 <label class="form-label">Date of Birth:</label>
+                                                @if($student != null)
                                                 <input name="date_of_birth" value="{{$student->date_of_birth}}" type="date" class="form-control date-pick" placeholder="Date of birth" required>
+                                                @else
+                                                <input name="date_of_birth" value="" type="date" class="form-control date-pick" placeholder="Date of birth" required>
+                                                @endif
                                                 <span class="invalid-feedback" id="date_of_birth_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div> 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Blood Group:</label>
+                                                @if($student != null)
                                                 <select class="nice-select niceSelect bordered_style wide" id="blood-group" name="blood_group" data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
                                                      @foreach($BloodGroup as $BloodGroups)
@@ -268,6 +293,16 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @else
+                                                <select class="nice-select niceSelect bordered_style wide" id="blood-group" name="blood_group" data-fouc data-placeholder="Choose..">
+                                                    <option value="">Select one of these</option>
+                                                     @foreach($BloodGroup as $BloodGroups)
+                                                        <option value="{{ $BloodGroups->bg_code }}">
+                                                            {{ $BloodGroups->bg_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @endif
                                                 <span class="invalid-feedback" id="blood_group_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -276,6 +311,7 @@
                                             <div class="form-group">
                                     
                                                 <label class="form-label">Religion:</label>
+                                                @if($student != null)
                                                 <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
                                                     <option value="">Select one of these</option>
                                                     @foreach($Religion as $Religions)
@@ -283,6 +319,15 @@
                                                     @endforeach
                                                     <option  value="other">Other</option>
                                                 </select>
+                                                @else
+                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
+                                                    <option value="">Select one of these</option>
+                                                    @foreach($Religion as $Religions)
+                                                    <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
+                                                    @endforeach
+                                                    <option  value="other">Other</option>
+                                                </select>
+                                                @endif
                                                 <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
                                                 <span class="invalid-feedback" id="religion_error" style="display: none;" role="alert"></span>
                                             </div>
@@ -290,6 +335,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Category:</label>
+                                                @if($student != null)
                                                 <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
                                                     <option value="">Select one of these</option>
                                                     <option  value="General"  {{ $student->category == 'General' ? 'selected': '' }}>General</option>
@@ -298,6 +344,16 @@
                                                     <option  value="ST"  {{ $student->category == 'ST' ? 'selected': '' }}>ST</option>
                                                     <option  value="other"  {{ $student->category == 'other' ? 'selected': '' }}>Other</option>
                                                 </select>
+                                                @else
+                                                <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
+                                                    <option value="">Select one of these</option>
+                                                    <option  value="General">General</option>
+                                                    <option  value="OBC">OBC</option>
+                                                    <option  value="SC">SC</option>
+                                                    <option  value="ST">ST</option>
+                                                    <option  value="other">Other</option>
+                                                </select>
+                                                @endif
                                                 <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
                                                 <span class="invalid-feedback" id="category_error" style="display: none;" role="alert"></span>
                                             </div>
@@ -305,7 +361,11 @@
     
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Student Language:') }}</label>
+                                            @if($student != null)
                                             <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Language type" id="student_language"  name="student_language">
+                                            @else
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Language type" id="student_language"  name="student_language">
+                                            @endif
                                             <span class="invalid-feedback" id="student_language_error" style="display: none;" role="alert"></span>
                                         </div>
                                        
@@ -314,7 +374,7 @@
                                                 <label class="form-label">
                                                     <span style="color:red">*</span> {{ __('Student Photo:') }}  </label>
                                                     <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
-                                              
+                                                    @if($student != null)
                                                 <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
                                                 <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
                                                 @if($student->image)
@@ -325,12 +385,20 @@
                                                 @else
                                                     <p id="pic">File: No File Uploaded</p>
                                                 @endif
+                                                @else
+                                                <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
+
+                                                @endif
                                             
                                         </div>
                                         
                                           <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
+                                            @if($student != null)
                                             <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $student->previous_school}}">
+                                            @else
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="">
+                                            @endif
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                                 <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                         </div>
@@ -365,8 +433,11 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
+                                                    @if($student != null)
                                                     <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->last_name}}">
-                                                   
+                                                   @else
+                                                   <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="">
+                                                   @endif
                                                 </div>
                                                 
                                         </div>
@@ -377,7 +448,11 @@
                                                     <span style="color:red">*</span>
                                                     <label class="form-label">{{ __('Country:') }} </label>
                                                     <div class="autocomplete">
-                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" name="country" placeholder="Country" required value="{{ $student->country}}">
+                                                    @if($student != null)
+                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" autocomplete="off" name="country" placeholder="Country" required value="{{ $student->country}}">
+                                                    @else
+                                                    <input id="country" type="text" class="nice-select niceSelect bordered_style wide @error('country') is-invalid @enderror" autocomplete="off" name="country" placeholder="Country" required value="">
+                                                    @endif
                                                     <span class="invalid-feedback" id="country_error" style="display: none;" role="alert"></span>   
                                                 </div>
                                                 </div>
@@ -387,7 +462,11 @@
                                                     <span style="color:red">*</span>
                                                     <label class="form-label">{{ __('State:') }} </label>
                                                     <div class="autocomplete">
-                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" name="state" placeholder="State" required value="{{ $student->state}}">
+                                                        @if($student != null)
+                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" autocomplete="off" name="state" placeholder="State" required value="{{ $student->state}}">
+                                                        @else
+                                                        <input id="state" type="text" class="nice-select niceSelect bordered_style wide @error('state') is-invalid @enderror" autocomplete="off" name="state" placeholder="State" required value="">
+                                                        @endif
                                                         <span class="invalid-feedback" id="state_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                 </div>
@@ -397,7 +476,11 @@
                                                 <label class="form-label">{{ __('City:') }}</label>
                 
                                                     <div class="form-group">
-                                                        <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" required value="{{ $student->city}}">
+                                                        @if($student != null)
+                                                        <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" autocomplete="off" required value="{{ $student->city}}">
+                                                       @else
+                                                       <input type="text" name="city" class="nice-select niceSelect bordered_style wide" placeholder="City" autocomplete="off" required value="">
+                                                       @endif
                                                         <span class="invalid-feedback" id="city_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                    
@@ -408,7 +491,11 @@
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
+                                                    @if($student != null)
                                                     <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="{{ $student->pin_code}}">
+                                                   @else
+                                                   <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="">
+                                                   @endif
                                                     <span class="invalid-feedback" id="pin_code_error" style="display: none;" role="alert"></span>
                                                 </div>
                                                 
@@ -454,6 +541,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @if($student != null)
                                                         @php
                                                             $documents = json_decode($student->document);
                                                         @endphp
@@ -479,6 +567,19 @@
                                                             <tr>
                                                                 <td colspan="3">No documents uploaded</td>
                                                             </tr>
+                                                        @endif
+                                                        <tr>
+                                                            <td>
+                                                                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" value="">
+                                                            </td>
+                                                            <td>
+                                                                <input type="file" class="form-control" name="document_file[]" value=""  style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                            </td>
+                                                            <td>
+                                                                <!-- Add action buttons if needed -->
+                                                            </td>
+                                                        </tr>
+                                                        @else
                                                         @endif
                                                     </tbody>
                                                 </table>
@@ -617,7 +718,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('update-student-applicant-parent', ['id'=>$parent->id, 'student_id'=>$student->id]) }}",
+                url: "{{ route('update-student-applicant-parent', ['id'=>$parent->id, 'applicant_id'=>$parent->applicant_id]) }}",
                 method: 'POST',
                 data: new FormData($('#form2')[0]),
                 processData: false,

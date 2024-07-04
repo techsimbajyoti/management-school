@@ -57,7 +57,7 @@
                                             </td>
                                             <td>{{ $details->class }}</td>
                                             <td>{{ $details->date_of_birth }}</td>
-                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->status }}</span></td>
+                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->applicant_status }}</span></td>
                                             <td>
                                                 <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $details->id }}"><i class="fas fa-cog"></i></a>
                                             </td>
@@ -66,7 +66,7 @@
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('update-applicant-data-parent',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <a href="{{ route('download-profile', ['student_id' => $details->id, 'parent_id' => auth()->guard('webparents')->user()->id]) }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
                                                             <a class="dropdown-item" href="{{route('delete-applicant-parent', $details->id)}}" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
                                                         </div>

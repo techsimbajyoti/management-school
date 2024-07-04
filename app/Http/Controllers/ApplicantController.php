@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
 use App\Mail\AdminNotification;
+use App\Mail\ApplicantStatusUpdate;
+use App\Mail\AdminStatusReceive;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\ApplicantStatus;
@@ -231,7 +233,7 @@ class ApplicantController extends Controller
         }
     }
 
-    public function update_student_applicant(Request $request ,$parent_id, $student_id)
+    public function update_student_applicant(Request $request ,$parent_id, $applicant_id)
     {
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -250,8 +252,11 @@ class ApplicantController extends Controller
         // $ipAddress = $this->getPublicIpAddress();
         
         $parent_id = Session::get('parent_id');
-      
-        $student_update = Student::where('parent_id', $parent_id)->firstOrFail();
+
+        if($request->student_id != null){
+        $student_update = Student::where('parent_id', $parent_id)
+        ->where('id',$request->student_id)
+        ->firstOrFail();
         
         if ($request->hasFile('image')) {
             // Delete existing image if it exists
@@ -305,10 +310,67 @@ class ApplicantController extends Controller
 
         $student_update->save();
 
+    }else{
+            $student_update = new Student;
+
+            $randomUsername = Str::random(8);
+
+            $randomPassword = Str::random(8);
+            $hashPassword = Hash::make($randomPassword);
+    
+            if ($request->hasFile('image')) {
+                $originalFileName = $request->file('image')->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+                $student_update->image = $currentDateTime . '_' .$originalFileName;
+            } else {
+                $student_update->image = null;
+            }
+
+            $student_update->first_name = $request->first_name;
+            $student_update->last_name = $request->last_name;
+            $student_update->username = $randomUsername;
+            $student_update->password = $hashPassword;
+            $student_update->class = $request->class;
+            $student_update->date_of_birth = $request->date_of_birth;
+            $student_update->blood_group = $request->blood_group;
+            $student_update->student_language = $request->student_language;
+            $student_update->previous_school = $request->previous_school;
+            $student_update->category = $request->category;
+            $student_update->parent_id = $parent_id;
+
+            $student_update->applicant_id = $applicant_id;
+            $student_update->role_id = $request->role_id;
+            $student_update->ip_address = '1';
+            $student_update->status = $request->status;
+            $student_update->applicant_status = $request->applicant_status;
+            $student_update->created_by = 'null';
+
+            if ($request->category === 'other') {
+                $student_update->category = $request->other_category;
+            } else {
+                $student_update->category = $request->category;
+            }
+
+            if ($request->religion === 'other') {
+                $student_update->religion = $request->other_religion;
+            } else {
+                $student_update->religion = $request->religion;
+            }
+
+            if ($request->gender === 'other') {
+                $student_update->gender = $request->other_gender;
+            } else {
+                $student_update->gender = $request->gender;
+            }
+
+            $student_update->save();
+    }
+
 
         Session::put(['student_id' => $student_update->id]);
 
-        return response()->json(['success' => 'true', 'action' => $request->action, 'student_id'=>$student_id]);
+        return response()->json(['success' => 'true', 'action' => $request->action, 'student_id'=>$student_update->id]);
     }
     
 
@@ -351,6 +413,8 @@ class ApplicantController extends Controller
             $student = Student::where('parent_id', $parent_id)
                 ->where('id', $request->student_id)
                 ->firstOrFail();
+
+                $parent_p = StudentParent::where('id', $parent_id)->first();
     
             if (!$student) {
                 return response()->json(['success' => false, 'errors' => 'Student not found']);
@@ -378,18 +442,37 @@ class ApplicantController extends Controller
     
             $student->document = json_encode($documents);
             $student->save();
-    
+
+            $student_data = [
+                'email' => $parent_p->email,
+                'password' => $parent_p->password,
+                'contact' => $parent_p->father_mobile,
+                'parent_name' => $parent_p->father_name,
+                'student_doc' => $student->document, // assuming document is already filled
+                'student_pin_code' => $student->pin_code,
+                'student_city' => $student->city,
+                'student_state' => $student->state,
+                'student_country' => $student->country,
+                'student_dob' => $student->date_of_birth,
+                'student_class' => $student->class,
+                'student_name' => $student->first_name,
+                'student_last_name' => $student->last_name,
+                'student_address' => $student->address,
+                'student_gender' => $student->gender,
+            ];
+            
             // Calculate profile completion percentage
-            $profileCompletionPercentage = $this->calculateProfileCompletionPercentage($student);
+            $profileCompletionPercentage = $this->calculateProfileCompletionPercentage((object)$student_data);            
     
             // Update applicant status
-            $applicantStatus = ApplicantStatus::firstOrNew(['student_id' => $student->id]);
+            $applicantStatus = new ApplicantStatus;
+            $applicantStatus->student_id = $student->id;
             $applicantStatus->parent_id = $parent_id;
             $applicantStatus->applicant_id = $student->applicant_id;
             $applicantStatus->status = $profileCompletionPercentage >= 100 ? 'Complete' : 'Incomplete';
             $applicantStatus->note = $profileCompletionPercentage >= 100 ? 'Profile complete' : 'Profile incomplete';
             $applicantStatus->ip_address = $request->ip();
-            $applicantStatus->created_by = auth()->guard('webparents')->user()->username;
+            $applicantStatus->created_by = '1';
             $applicantStatus->save();
     
             return response()->json(['success' => true, 'message' => 'Documents updated successfully']);
@@ -1021,9 +1104,19 @@ class ApplicantController extends Controller
             'applicant_statuses.status as applicant_status',
             'applicant_statuses.note as applicant_note'
         )
-        ->leftJoin('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+        ->leftJoin('applicant_statuses', function($join) {
+            $join->on('students.id', '=', 'applicant_statuses.student_id')
+                 ->where('applicant_statuses.id', function($query) {
+                     $query->select('id')
+                           ->from('applicant_statuses')
+                           ->whereColumn('student_id', 'students.id')
+                           ->orderByDesc('created_at')
+                           ->limit(1);
+                 });
+        })
         ->where('students.parent_id', $id)
         ->get();
+
     
         
         return view('admin.applicant.applicant-parent-list', compact('studentDetails'));
@@ -1104,6 +1197,15 @@ class ApplicantController extends Controller
         $student->created_by = 'null';
 
         $student->save();
+
+        $applicant = Student::where('id', $request->student_id)->first();
+
+        $parent = StudentParent::where('id', $request->parent_id)->first();
+
+        Mail::to('ts.juhiverma@gmail.com')->send(new AdminStatusReceive($applicant, $student, $parent));
+      
+        Mail::to($parent->email)->send(new ApplicantStatusUpdate($applicant, $student, $parent));
+
         if($student){
             return redirect()->back()->with('status', 'Updated Successfully');
         }else{

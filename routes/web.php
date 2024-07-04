@@ -48,6 +48,7 @@ Route::get('/reset-password/{token}', function ($token) {
 	return view('auth.passwords.reset', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
+Route::post('update-password',[HomeController::class, 'update_password'])->name('update-password');
 
 Route::get('/verify-registration/{applicant_id}', [App\Http\Controllers\VerificationController::class, 'verifyRegistration'])->name('verify.registration');
 
@@ -88,7 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::post('/clear-session', [ApplicantController::class, 'clearSession'])->name('clear-session');
 	
-	Route::get('new-applicant-student-profile', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
+	Route::get('new-applicant-student-profile/{id}', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
 	
 	Route::post('update-status',[ApplicantController::class, 'applicant_parent_status_update'])->name('update-status');
 
@@ -100,7 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('update-applicant/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant');
 
-	Route::post('update-student-applicant/{id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
+	Route::post('update-student-applicant/{applicant_id}/{parent_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
 
 	Route::post('update-contact-applicant/{id}', [ApplicantController::class, 'update_contact_applicant'])->name('update-contact-applicant');
 
@@ -466,13 +467,13 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 Route::group(['middleware' => 'auth.webparents'], function () {
 	Route::post('update-applicant-parent/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant-parent');
 
-	Route::post('update-student-applicant-parent/{id}/{student_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant-parent');
+	Route::post('update-student-applicant-parent/{id}/{applicant_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant-parent');
 
 	Route::post('update-contact-applicant-parent/{id}', [ApplicantController::class, 'update_contact_applicant'])->name('update-contact-applicant-parent');
 
 	Route::post('update-document-applicant-parent/{id}', [ApplicantController::class, 'update_document_applicant'])->name('update-document-applicant-parent');
 
-	Route::get('update-applicant-data-parent/{parent_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data');
+	Route::get('update-applicant-data-parent/{parent_id}', [ApplicantController::class, 'update_applicant_data'])->name('update-applicant-data-parent');
 	
 	Route::get('download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('download-profile');
 

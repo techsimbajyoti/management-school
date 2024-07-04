@@ -349,7 +349,7 @@
                                         <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ $child->applicant_id }}</p>
                                     </div>
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                        <a href="{{ route('update-applicant-data-parent', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +368,7 @@
                                     <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ auth()->guard('webparents')->user()->applicant_id }}</p>
                                 </div>
                                 <div class="col-md-12 text-right">
-                                    <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                    <a href="{{ route('update-applicant-data-parent', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
                                 </div>
                             </div>
                         </div>
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-    
+
         // Sample data of upcoming meetings
 const meetings = [
     { title: 'Project Kickoff', date: '2024-07-01', time: '10:00 AM' },
