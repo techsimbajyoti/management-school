@@ -273,11 +273,12 @@ function displayValidationErrors(errors) {
             processData: false, 
             enctype: 'multipart/form-data',
             success: function(response) {
-                console.log(response);
+                console.log(response.student_id);
 
                 $('#spinner').hide();
 
-                $('#student_id').val(response.student_id);
+                $('.student_id').val(response.student_id);
+                $('.applicant_id').val(response.applicant_id);
 
                 $('#step1').removeClass('active');
                 $('#step2').addClass('active');
@@ -312,6 +313,8 @@ function displayValidationErrors(errors) {
                     success: function(response) {
                         // $(form).trigger("reset");
                         $('#spinner').hide();
+                        $('.student_id').val(response.student_id);
+                $('.applicant_id').val(response.applicant_id);
                     console.log(response);
                         $('#step2').removeClass('active');
                         $('#step3').addClass('active');
@@ -379,7 +382,7 @@ function displayValidationErrors(errors) {
             
         });
 
-
+        $('.back_1').hide();  
     $('.back_1').click(function() {
         currentStep = 1;
         updateProgressBar(currentStep);

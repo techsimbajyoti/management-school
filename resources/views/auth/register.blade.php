@@ -170,7 +170,13 @@ $(document).ready(function() {
             $('#spinner').hide();
 
             if (response.success) {
+                console.log('parent', response.parent_id);
+                console.log('applicant_id', response.applicant_id);
+                $('.parent_id').val(response.parent_id);
+                $('.applicant_id').val(response.applicant_id);
+                $('.student_id').val(response.student_id);
                 if (response.action === 'save') {
+                    
                     location.reload(); // Reload the page after saving
                 } else if (response.action === 'save-continue' && response.update === 'yes') {
                     $('#step1').removeClass('active');
@@ -277,7 +283,7 @@ function displayValidationErrors(errors) {
 
                 $('#spinner').hide();
 
-                $('#student_id').val(response.student_id);
+                $('.student_id').val(response.student_id);
 
                 $('#step2').removeClass('active');
                 $('#step3').addClass('active');
@@ -311,6 +317,7 @@ function displayValidationErrors(errors) {
                     data: formData,
                     success: function(response) {
                         // $(form).trigger("reset");
+                        $('.student_id').val(response.student_id);
                         $('#spinner').hide();
                     console.log(response);
                         $('#step3').removeClass('active');

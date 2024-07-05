@@ -44,29 +44,113 @@ class ApplicantController extends Controller
         return view('pages.applicant');
     }
 
+    public function search_student(Request $request){
+
+        $student_class = $request->input('student_class');
+        $status = $request->input('status');
+        $from = $request->input('from');
+        $to = $request->input('to');
+        $applicantid = $request->input('applicantid');
+
+        // Subquery to get the latest status and note for each student
+        $latestStatuses = DB::table('applicant_statuses as sub')
+            ->select('sub.student_id', 'sub.status', 'sub.note')
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('applicant_statuses')
+                    ->groupBy('student_id');
+            });
+
+            if($student_class != null){
+        // Main query to get applicant list with the latest status and note
+        $applicant_list = DB::table('students')
+            ->select(
+                'students.id as student_id', 
+                'student_parents.id as parent_id', 
+                'students.*', 
+                'student_parents.*', 
+                'latest.status as latest_status',
+                'latest.note as latest_note'
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoinSub($latestStatuses, 'latest', function ($join) {
+                $join->on('students.id', '=', 'latest.student_id');
+            })
+            ->where('students.class', $student_class)
+            ->get();
+        }else if($status != null){
+
+            $applicant_list = DB::table('students')
+            ->select(
+                'students.id as student_id', 
+                'student_parents.id as parent_id', 
+                'students.*', 
+                'student_parents.*', 
+                'latest.status as latest_status',
+                'latest.note as latest_note'
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoinSub($latestStatuses, 'latest', function ($join) {
+                $join->on('students.id', '=', 'latest.student_id');
+            })
+            ->where('latest.status', $status)
+            ->get();
+        }else if($applicantid != null){
+
+            $applicant_list = DB::table('students')
+            ->select(
+                'students.id as student_id', 
+                'student_parents.id as parent_id', 
+                'students.*', 
+                'student_parents.*', 
+                'latest.status as latest_status',
+                'latest.note as latest_note'
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoinSub($latestStatuses, 'latest', function ($join) {
+                $join->on('students.id', '=', 'latest.student_id');
+            })
+            ->where('students.applicant_id', $applicantid)
+            ->get();
+        }
+
+        return response()->json(['success' => 'true', 'applicant_list' => $applicant_list]);
+
+    }
+
     public function applicant_list(Request $request)
     {
-
-            // Subquery to get the latest status for each student
-            $latestStatuses = ApplicantStatus::select('status')
+        $latestStatuses = ApplicantStatus::select('status', 'note', 'student_id')
+        ->whereIn('created_at', function ($query) {
+            $query->selectRaw('MAX(created_at)')
+                ->from('applicant_statuses')
                 ->whereColumn('student_id', 'students.id')
-                ->orderBy('created_at', 'desc')
-                ->limit(1);
+                ->groupBy('student_id');
+        });
     
-            // Main query to get applicant list with the latest status
-            $applicant_list = Student::select(
-                    'students.id as student_id', 
-                    'student_parents.id as parent_id', 
-                    'students.*', 
-                    'student_parents.*', 
-                    DB::raw("({$latestStatuses->toSql()}) as latest_status")
-                )
-                ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
-                ->distinct()
-                ->get();
+    // Main query to get applicant list with the latest status and note
+    $applicant_list = Student::select(
+            'students.id as student_id', 
+            'students.applicant_id', 
+            'student_parents.id as parent_id', 
+            'students.*', 
+            'student_parents.*', 
+            DB::raw("(SELECT status FROM ({$latestStatuses->toSql()}) as latest WHERE latest.student_id = students.id) as latest_status"),
+            DB::raw("(SELECT note FROM ({$latestStatuses->toSql()}) as latest WHERE latest.student_id = students.id) as latest_note")
+        )
+        ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+        ->addBinding($latestStatuses->getBindings()) // Bind subquery parameters to the main query
+        ->get();
+
+        $parent_applicant_id = StudentParent::get();
+        $ApplicantId = [];
+        foreach ($parent_applicant_id as $count) {
+            $ApplicantId[] = $count->applicant_id;
+            $ApplicantId[] = $count->father_name;
+        }
     
             
-        return view('admin.applicant.applicant-list', compact('applicant_list'));
+        return view('admin.applicant.applicant-list', compact('applicant_list','ApplicantId'));
     }
         
     
@@ -561,26 +645,27 @@ class ApplicantController extends Controller
     public function post_applicant_data(Request $request){
         $parent_id = $request->input('parent_id');
         $applicant_id = $request->input('applicant_id');
+        $student_id = $request->input('student_id');
 
         // $ipAddress = $this->getPublicIpAddress();
-
-        $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
     
-        $applicant_id = Session::get('applicant_id');
-
         $parent_student = StudentParent::where('email', $request->email)
         ->first();
 
         if($parent_student !== null){
+
+        $randomuserId = Str::random(8);
+
+        $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
             $applicant = StudentParent::where('email', $request->email)->update([
                 'father_name' => $request->parent_name,
                 'father_mobile' => $request->contact_number,
                 'username' => $parent_student->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => $parent_student->password,
                 'father_profession' => $request->profession,
-                'applicant_id' => $applicant_id,
+                // 'applicant_id' => $randomApplicantId,
                 'role_id' => $request->role_id,
                 'status' => $request->status,
                 'applicant_status' => $request->applicant_status,                                                                                                           
@@ -588,12 +673,40 @@ class ApplicantController extends Controller
                 'created_by' => 'null',
             ]);
 
-        return response()->json(['success'=>'true','action'=>$request->action, 'update'=>'yes','email'=>$request->email,]);
+        if($applicant_id != null){
+            $app_id = Student::where('id', $student_id)
+            ->first();
+        }else{
+            $applicant_1 = new Student;
+
+            $applicant_1->parent_id = $parent_student->id;
+            $applicant_1->applicant_id = $randomApplicantId;
+            $applicant_1->applicant_status = $parent_student->status;
+    
+            $applicant_1->save();
+    
+            $app = new ApplicantStatus;
+            $app->student_id = $applicant_1->id;
+            $app->parent_id = $applicant_1->id;
+            $app->applicant_id = $applicant_1->applicant_id;
+            $app->status = $applicant_1->applicant_status;
+            $app->note = 'null';
+            $app->ip_address = '1';
+            $app->created_by = '1';
+            $app->save();
+
+            $app_id = Student::where('id', $applicant_1->id)
+            ->first();
+        }
+
+        return response()->json(['success'=>'true','action'=>$request->action,'parent_id'=>$parent_student->id,'applicant_id'=>$app_id->applicant_id, 'update'=>'yes','email'=>$request->email,]);
 
                 
         }else{
 
             $randomuserId = Str::random(8);
+
+            $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
@@ -636,19 +749,27 @@ class ApplicantController extends Controller
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
-        $applicant->applicant_id = $randomApplicantId;
+        // $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
-        $applicant->status = $request->status; 
+        $applicant->status = $status; 
         $applicant->applicant_status = $request->applicant_status;                                                                                                           
         $applicant->ip_address = '1';
         $applicant->created_by = 'null';
 
         $applicant->save();
 
+        $applicant_1 = new Student;
+
+        $applicant_1->parent_id = $applicant->id;
+        $applicant_1->applicant_id = $randomApplicantId;
+        $applicant_1->applicant_status = $applicant->status;
+
+        $applicant_1->save();
+
         $app = new ApplicantStatus;
-        $app->student_id = 'null';
+        $app->student_id = $applicant_1->id;
         $app->parent_id = $applicant->id;
-        $app->applicant_id = $applicant->applicant_id;
+        $app->applicant_id = $applicant_1->applicant_id;
         $app->status = $status;
         $app->note = 'null';
         $app->ip_address = '1';
@@ -658,11 +779,8 @@ class ApplicantController extends Controller
         Mail::to('ts.juhiverma@gmail.com')->send(new AdminNotification($applicant));
       
         Mail::to($request->email)->send(new ApplicantRegistered($applicant));
-
-        Session::put(['parent_id' => $applicant->id]);
-        Session::put(['applicant_id' =>$applicant->applicant_id]);
         
-        return response()->json(['success'=>'true','action'=>$request->action, 'parent_id' => $applicant->id, 'applicant_id' => $applicant->applicant_id]);
+        return response()->json(['success'=>'true','action'=>$request->action,'student_id'=>$applicant_1->id, 'parent_id' => $applicant_1->parent_id, 'applicant_id' => $applicant_1->applicant_id]);
 
        }
     }
@@ -700,9 +818,9 @@ class ApplicantController extends Controller
 
     public function post_applicant_student_data(Request $request){
 
-        $parent_id = Session::get('parent_id');
+        $parent_id = $request->input('parent_id');
         $student_id = $request->input('student_id');
-        $applicant_id = Session::get('applicant_id');
+        $applicant_id = $request->input('applicant_id');
 
         $parentStudent = Student::where('id', $student_id)
         ->where('applicant_id', $applicant_id)
@@ -713,14 +831,16 @@ class ApplicantController extends Controller
 
         $randomUsername = Str::random(8);
 
+        $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
+
         if($parentStudent !== null){
 
             $student = Student::where('id', $student_id)
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'username' => $randomUsername,
-                'password' => $hashPassword,
+                'username' => $parentStudent->username,
+                'password' => $parentStudent->password,
                 'class' => $request->class,
                 'date_of_birth' => $request->date_of_birth,
                 'blood_group' => $request->blood_group,
@@ -728,8 +848,8 @@ class ApplicantController extends Controller
                 'image' => $parentStudent->image,
                 'previous_school' => $request->previous_school,
                 'category' => $request->category,
-                'parent_id' => $parent_id,
-                'applicant_id' => $applicant_id,
+                'parent_id' => $parentStudent->parent_id,
+                'applicant_id' => $parentStudent->applicant_id,
                 'role_id' => $request->role_id,
                 'ip_address' => '1',
                 'status' => $request->status,
@@ -737,7 +857,7 @@ class ApplicantController extends Controller
                 'created_by' => 'null',
             ]);
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'student_id' => $parentStudent->id]);
 
         }else{
        
@@ -757,57 +877,114 @@ class ApplicantController extends Controller
     
         // $ipAddress = $this->getPublicIpAddress();
         try {
-            $student = new Student;
+            // $student = new Student;
     
-            if ($request->hasFile('image')) {
-                $originalFileName = $request->file('image')->getClientOriginalName();
-                $currentDateTime = now()->format('YmdHis');
-                $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
-                $student->image = $currentDateTime . '_' .$originalFileName;
-            } else {
-                $student->image = null;
+            // if ($request->hasFile('image')) {
+            //     $originalFileName = $request->file('image')->getClientOriginalName();
+            //     $currentDateTime = now()->format('YmdHis');
+            //     $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+            //     $student->image = $currentDateTime . '_' .$originalFileName;
+            // } else {
+            //     $student->image = null;
+            // }
+
+            // $student->first_name = $request->first_name;
+            // $student->last_name = $request->last_name;
+            // $student->username = $randomUsername;
+            // $student->password = $hashPassword;
+            // $student->class = $request->class;
+            // $student->date_of_birth = $request->date_of_birth;
+            // $student->blood_group = $request->blood_group;
+            // $student->student_language = $request->student_language;
+            // $student->previous_school = $request->previous_school;
+            // $student->category = $request->category;
+            // $student->parent_id = $parent_id;
+            // $student->applicant_id = $randomApplicantId;
+            // $student->role_id = $request->role_id;
+            // $student->ip_address = '1';
+            // $student->status = $request->status;
+            // $student->applicant_status = $request->applicant_status;
+            // $student->created_by = 'null';
+
+            // if ($request->category === 'other') {
+            //     $student->category = $request->other_category;
+            // } else {
+            //     $student->category = $request->category;
+            // }
+
+            // if ($request->religion === 'other') {
+            //     $student->religion = $request->other_religion;
+            // } else {
+            //     $student->religion = $request->religion;
+            // }
+
+            // if ($request->gender === 'other') {
+            //     $student->gender = $request->other_gender;
+            // } else {
+            //     $student->gender = $request->gender;
+            // }
+
+            // $student->save();
+
+
+            $student_update = Student::where('parent_id', $parent_id)
+        ->where('applicant_id',$applicant_id)
+        ->firstOrFail();
+        
+        if ($request->hasFile('image')) {
+            // Delete existing image if it exists
+            if (!is_null($student_update->image)) {
+                if (Storage::exists('public/student_photos/' . $student_update->image)) {
+                    Storage::delete('public/student_photos/' . $student_update->image);
+                }
             }
+        
+            // Upload new image
+            $originalFileName = $request->file('image')->getClientOriginalName();
+            $currentDateTime = now()->format('YmdHis');
+            $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
+            $student_update->image = $currentDateTime . '_' . $originalFileName;
+        } else {
+            // No new image uploaded, do nothing
+        }
+        
 
-            $student->first_name = $request->first_name;
-            $student->last_name = $request->last_name;
-            $student->username = $randomUsername;
-            $student->password = $hashPassword;
-            $student->class = $request->class;
-            $student->date_of_birth = $request->date_of_birth;
-            $student->blood_group = $request->blood_group;
-            $student->student_language = $request->student_language;
-            $student->previous_school = $request->previous_school;
-            $student->category = $request->category;
-            $student->parent_id = $parent_id;
-            $student->applicant_id = $applicant_id;
-            $student->role_id = $request->role_id;
-            $student->ip_address = '1';
-            $student->status = $request->status;
-            $student->applicant_status = $request->applicant_status;
-            $student->created_by = 'null';
+        $student_update->first_name = $request->first_name;
+        $student_update->last_name = $request->last_name;
+        $student_update->class = $request->class;
+        $student_update->date_of_birth = $request->date_of_birth;
+        $student_update->blood_group = $request->blood_group;
+        $student_update->student_language = $request->student_language;
+        $student_update->previous_school = $request->previous_school;
+        $student_update->parent_id = $student_update->parent_id;
+        $student_update->applicant_id = $student_update->applicant_id;
+        $student_update->role_id = $request->role_id;
+        $student_update->ip_address = '1';
+        $student_update->status = $request->status;
+        $student_update->created_by = 'null';
 
-            if ($request->category === 'other') {
-                $student->category = $request->other_category;
-            } else {
-                $student->category = $request->category;
-            }
 
-            if ($request->religion === 'other') {
-                $student->religion = $request->other_religion;
-            } else {
-                $student->religion = $request->religion;
-            }
+        if ($request->category === 'other') {
+            $student_update->category = $request->other_category;
+        } else {
+            $student_update->category = $request->category;
+        }
+        
+        if ($request->religion === 'other') {
+            $student_update->religion = $request->other_religion;
+        } else {
+            $student_update->religion = $request->religion;
+        }
+        
+        if ($request->gender === 'other') {
+            $student_update->gender = $request->other_gender;
+        } else {
+            $student_update->gender = $request->gender;
+        }
 
-            if ($request->gender === 'other') {
-                $student->gender = $request->other_gender;
-            } else {
-                $student->gender = $request->gender;
-            }
-
-            $student->save();
-            Session::put(['student_id' => $student->id]);
+        $student_update->save();
             
-            return response()->json(['success' => true, 'student_id' => $student->id]);
+        return response()->json(['success' => true, 'student_id' => $student_update->id]);
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
@@ -820,45 +997,48 @@ class ApplicantController extends Controller
     public function post_applicant_parent_data(Request $request){
         $parent_id = auth()->guard('webparents')->user()->id;
         
-        $applicant_id = Str::random(8);
+        // $applicant_id = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
-        // $parentStudent = Student::where('id', $student_id)
-        // ->where('applicant_id', $applicant_id)
-        // ->first();
+        $student_id = $request->input('student_id');
+        $applicant_id = $request->input('applicant_id');
 
+        $parentStudent = Student::where('id', $student_id)
+        ->first();
+
+        if($parentStudent !== null){
+
+            $student = Student::where('id', $student_id)
+            ->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $parentStudent->username,
+                'password' => $parentStudent->password,
+                'class' => $request->class,
+                'date_of_birth' => $request->date_of_birth,
+                'blood_group' => $request->blood_group,
+                'student_language' => $request->student_language,
+                'image' => $parentStudent->image,
+                'previous_school' => $request->previous_school,
+                'category' => $request->category,
+                'parent_id' => $parentStudent->parent_id,
+                'applicant_id' => $parentStudent->applicant_id,
+                'role_id' => $request->role_id,
+                'ip_address' => '1',
+                'status' => $request->status,
+                'applicant_status' => $request->applicant_status,
+                'created_by' => 'null',
+            ]);
+
+            return response()->json(['success' => true, 'student_id' => $parentStudent->id, 'applicant_id'=>$parentStudent->applicant_id]);
+
+        }else{
         $randomPassword = Str::random(8);
         $hashPassword = Hash::make($randomPassword);
 
         $randomUsername = Str::random(8);
 
-        // if($parentStudent !== null){
+        $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
-        //     $student = Student::where('id', $student_id)
-        //     ->update([
-        //         'first_name' => $request->first_name,
-        //         'last_name' => $request->last_name,
-        //         'username' => $randomUsername,
-        //         'password' => $hashPassword,
-        //         'class' => $request->class,
-        //         'date_of_birth' => $request->date_of_birth,
-        //         'blood_group' => $request->blood_group,
-        //         'student_language' => $request->student_language,
-        //         'image' => $parentStudent->image,
-        //         'previous_school' => $request->previous_school,
-        //         'category' => $request->category,
-        //         'parent_id' => $parent_id,
-        //         'applicant_id' => $applicant_id,
-        //         'role_id' => $request->role_id,
-        //         'ip_address' => '1',
-        //         'status' => $request->status,
-        //         'applicant_status' => $request->applicant_status,
-        //         'created_by' => 'null',
-        //     ]);
-
-        //     return response()->json(['success' => true]);
-
-        // }else{
-       
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
             'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -897,7 +1077,7 @@ class ApplicantController extends Controller
             $student->previous_school = $request->previous_school;
             $student->category = $request->category;
             $student->parent_id = $parent_id;
-            $student->applicant_id = '_'.$applicant_id;
+            $student->applicant_id = $randomApplicantId;
             $student->role_id = $request->role_id;
             $student->ip_address = '1';
             $student->status = $request->status;
@@ -923,16 +1103,15 @@ class ApplicantController extends Controller
             }
 
             $student->save();
-            Session::put(['student_id' => $student->id]);
             
-            return response()->json(['success' => true, 'student_id' => $student->id]);
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
-            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
-        }
+            return response()->json(['success' => true, 'student_id' => $student->id, 'applicant_id'=>$student->applicant_id]);
+            } catch (\Exception $e) {
+                // Log the error for debugging
+                \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+                return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+            }
 
-        // }
+        }
     }
     
     public function post_applicant_contact_data(Request $request){
@@ -948,7 +1127,7 @@ class ApplicantController extends Controller
                   
         );
         
-        $student_id = session::get('student_id');
+        $student_id = $request->input('student_id');
 
         if (is_null($student_id)) {
           return response()->json(['success' => false, 'errors' => 'Student ID not found']);
@@ -966,7 +1145,7 @@ class ApplicantController extends Controller
     
             $student->save();
     
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'student_id'=>$student_id]);
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
@@ -1014,7 +1193,7 @@ class ApplicantController extends Controller
    
     public function post_applicant_document_data(Request $request)
     {
-    $student_id = session::get('student_id');
+    $student_id = $request->input('student_id');
 
     if (is_null($student_id)) {
         return response()->json(['success' => false, 'errors' => 'Student ID not found']);
@@ -1153,6 +1332,7 @@ class ApplicantController extends Controller
 
         $studentDetails = Student::select(
             'students.id',
+            'students.parent_id as parent_id',
             'students.applicant_id',
             'students.first_name',
             'students.last_name',
@@ -1253,20 +1433,20 @@ class ApplicantController extends Controller
 
     public function applicant_parent_status_update(Request $request){
 
+        $applicant = Student::where('id', $request->student_id)->first();
+
+        $parent = StudentParent::where('id', $request->parent_id)->first();
+
         $student = new ApplicantStatus;
         $student->student_id = $request->student_id;
         $student->parent_id = $request->parent_id;
-        $student->applicant_id = '1';
+        $student->applicant_id = $applicant->applicant_id;
         $student->status = $request->status_update;
         $student->note = $request->note;
         $student->ip_address = '1';
         $student->created_by = 'null';
 
         $student->save();
-
-        $applicant = Student::where('id', $request->student_id)->first();
-
-        $parent = StudentParent::where('id', $request->parent_id)->first();
 
         Mail::to('ts.juhiverma@gmail.com')->send(new AdminStatusReceive($applicant, $student, $parent));
       
@@ -1325,7 +1505,7 @@ class ApplicantController extends Controller
         return $pdf->download('parent_student_information.pdf');
     }
 
-    public function update_applicant_data($parent_id){
+    public function update_applicant_data($student_id,$parent_id){
         $country = Country::get();
 
         $test = [];
@@ -1354,7 +1534,7 @@ class ApplicantController extends Controller
         $parent = StudentParent::where('id',$parent_id)
                 ->first();
 
-        $student = Student::where('parent_id',$parent_id)
+        $student = Student::where('id',$student_id)
                    ->first();  
         // $applicant_data = Student::join('student_parents', function ($join) use ($id) {
         //     $join->on('students.parent_id', '=', 'student_parents.id')

@@ -3,7 +3,30 @@
     'elementActive' => 'applicant-list'
 ])
 @section('content')
+<style>
+    /*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+}
 
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+</style>
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -19,32 +42,21 @@
     <div class="row">
         <div class="col-md-12">
           <div class="col-12">
-            <form action="" method="" id="marksheet">
-                         
                 <div class="card ot-card mb-24 position-relative z_1">
                     <div class="card-header d-flex align-items-center gap-4 flex-wrap">
                         <h3 class="mb-0 title">Filtering</h3>
                         <div class="card_header_right d-flex align-items-center gap-3 flex-fill justify-content-end flex-wrap">
                             <div class="single_large_selectBox">
-                                <select id="getSections" class="class nice-select niceSelect bordered_style wide" name="class">
-                                    <option value>Select Session</option>
-                                    <option value="1">2021</option>
-                                    <option value="2">2022</option>
-                                    <option value="3">2023</option>
-                                    <option value="3" selected>2024</option>
+                                <select class="class nice-select niceSelect bordered_style wide sections" name="class" id="student_class">
+                                    <option value>Select class from these</option>
+                                    <option value="First Class">First Class</option>
+                                    <option value="Second Class">Second Class</option>
+                                    <option value="Third Class">Third Class</option>
                                 </select>
                             </div>
                             <div class="single_large_selectBox">
-                                <select class="class nice-select niceSelect bordered_style wide sections" name="class" id="class">
-                                    <option value>Select one of these</option>
-                                    <option value="One">One</option>
-                                    <option value="Two">Two</option>
-                                    <option value="Three">Three</option>
-                                </select>
-                            </div>
-                            <div class="single_large_selectBox">
-                                <select class="class nice-select niceSelect bordered_style wide" id="status-form" name="status_form">
-                                    <option value="">Select Status</option>
+                                <select class="class nice-select niceSelect bordered_style wide" id="status_form" name="status_form">
+                                    <option value="">Select Status from these</option>
                                     <option value="Incomplete">Incomplete</option>
                                     <option value="New">New</option>
                                     <option value="Accept">Accept</option>
@@ -56,18 +68,25 @@
                                     <option value="Admission Confirmed">Admission Confirmed</option>
                                 </select>
                             </div>
+                            <div class="single_large_selectBox d-flex gap-3">
+                                <label for="">From</label> <input value="" name="date" id="from_date" class="form-control ot-input" type="date">
+                            </div>
+                            <div class="single_large_selectBox d-flex gap-3">
+                                <label for="">To</label> <input value="" name="date" id="to_date" class="form-control ot-input" type="date">
+                            </div>
                             <div class="single_large_selectBox">
-                                <input type="text" placeholder="Search by Applicant Id" class="class nice-select niceSelect bordered_style wide" name="applicantIds">
+                                <div class="autocomplete">
+                                <input type="text" placeholder="Search by Applicant Id" class="class nice-select niceSelect bordered_style wide" id="applicantIds" name="applicantIds">
+                                </div>
                             </div>
                             <div class="form-group single_large_selectBox">
-                                <button class="btn btn-lg ot-btn-primary equal-dimensions search-student" type="submit" id="search-student">
+                                <a class="btn btn-lg ot-btn-primary" id="search-student-1">
                                     <i class="fa fa-search"></i> Search
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
 
             <div class="table-content table-basic mt-20 activeStudentList">
                 <div class="card ot-card">
@@ -94,7 +113,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                      
+                                        {{$applicant_list}}
                                         @foreach($applicant_list as $applicant_lists)
                                        <input type = "hidden" name="student_id" value="{{$applicant_lists->student_id}}">
                                        <input type = "hidden" name="parent_id" value="{{$applicant_lists->parent_id}}">
@@ -112,7 +131,7 @@
                                             <td>{{$applicant_lists->father_mobile}}</td>
                                             <td><span class="badge-basic-info-text">{{$applicant_lists->latest_status}}</span></td>
                                             <td>
-                                                <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $applicant_lists->student_id }}" data-parent-id="{{ $applicant_lists->parent_id }}"><i class="fas fa-cog"></i></a>
+                                                <a class="btn ot-btn-primary applicant_status" data-status="{{ $applicant_lists->latest_status }}" data-note="{{ $applicant_lists->latest_note }}"  data-student-id="{{ $applicant_lists->student_id }}" data-parent-id="{{ $applicant_lists->parent_id }}"><i class="fas fa-cog"></i></a>
 
                                             </td>
                                             {{-- <td><input type="text" class="form-control ot-input" placeholder="Enter Note"></td> --}}
@@ -126,18 +145,12 @@
                                                             <a href="{{ route('edit-applicant', ['student_id' => $applicant_lists->student_id, 'parent_id' => $applicant_lists->parent_id]) }}" class="dropdown-item">
                                                                 <i class="fa fa-edit"></i>  {{ __('Edit') }}
                                                             </a>
-                                                       
-                                                        
-                                                            <a href="{{ route('schedule-meeting',$applicant_lists->applicant_id) }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
+                                                            <a href="{{ route('schedule-meeting','111') }}" class="dropdown-item"><i class="fa fa-handshake"></i>  {{ __('Schedule Meeting') }}</a>
                                                             <a class="dropdown-item view_document" data-id="{{ $applicant_lists->id }}"><i class="fas fa-file-alt"></i>  {{ __('View Document') }}</a>
-                                                            <a href="{{ route('admin-download-profile') }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
-                                                            <form action="{{ route('delete-applicant', $applicant_lists->parent_id) }}" method="POST" style="display:inline;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="dropdown-item" onclick="return confirm('Are you sure you want to delete?')">
-                                                                    <i class="fa fa-trash"></i> {{ __('Delete') }}
-                                                                </button>
-                                                            </form>
+                                                            <a href="{{ route('admin-download-profile', ['student_id' => $applicant_lists->student_id, 'parent_id' => $applicant_lists->parent_id]) }}" class="dropdown-item">
+                                                                <i class="fa fa-download"></i> {{ __('Download') }}
+                                                            </a> 
+                                                            <a class="dropdown-item" href="{{ route('delete-applicant', $applicant_lists->parent_id) }}"><i class="fa fa-trash"></i> {{ __('Delete') }}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -202,44 +215,184 @@
                 <input type="hidden" name="parent_id" id="parent_id" value="">
                 
                  <div class="row justify-content-center mt-3">
-                <div class="col-md-6">
-                    <label for="">Status</label>
-                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
-                        <option>Incomplete</option>
-                        <option>New</option>
-                        <option>Accept</option>
-                        <option>Reject</option>
-                        <option>Meeting Schedule</option>
-                        <option>Approved By Admin</option>
-                        <option>Denied By Admin</option>
-                        <option>Approved By Applicant</option>
-                        <option>Admission Confirmed</option>
-                    </select>
+                    <div class="col-md-6">
+                        <label for="">Status</label>
+                        <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
+                            <option>Incomplete</option>
+                            <option>New</option>
+                            <option>Accept</option>
+                            <option>Reject</option>
+                            <option>Meeting Schedule</option>
+                            <option>Approved By Admin</option>
+                            <option>Denied By Admin</option>
+                            <option>Approved By Applicant</option>
+                            <option>Admission Confirmed</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="row justify-content-center mt-3">
-                <div class="col-md-6">
-                    <label for="">Note</label>
-                    <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-6">
+                        <label for="">Note</label>
+                        <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="row justify-content-center mt-3">    
-                <div class="col-md-4 mt-3">
-                    <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+                <div class="row justify-content-center mt-3">    
+                    <div class="col-md-4 mt-3">
+                        <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-            </div>
+            </form>
         </div>
-        <div class="modal-footer">
-            <h3></h3>
-        </div>
+    </div>
+    <hr>
     </div>
 </div>
 
 @endsection 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <script>
+$(document).ready(function() {
+
+    $('#search-student-1').on('click', function(e) {
+        e.preventDefault();
+            var student_class = $('#student_class').val();
+            var status = $('#status_form').val();
+            var from = $('#from_date').val();
+            var to = $('#to_date').val();
+            var applicantid = $('#applicantIds').val();
+
+            $.ajax({
+            url: '{{ route("search-student") }}',
+            method: 'POST',
+            data :{
+                student_class:student_class,
+                status:status,
+                from:from,
+                to:to,
+                applicantid:applicantid,
+                _token: '{{ csrf_token() }}' // Ensure CSRF token is included
+            },
+            success: function(response) {
+
+               var tableBody = $('.tbody'); // Target the tbody where you want to append rows
+               tableBody.empty();
+            // Loop through each applicant in the response and append to tbody
+            response.applicant_list.forEach(function(applicant) {
+               console.log(applicant);
+
+                var newRow = '<tr id="row_' + applicant.student_id + '">' +
+                    '<td class="serial">' + applicant.id + '</td>' +
+                    '<td>' + applicant.applicant_id + '</td>' +
+                    '<td><img src="{{ url("storage/student_photos/") }}/' + applicant.image + '" height="40px" width="40px">' +
+                    '<a href="{{ route("new-applicant-student-profile", ":student_id") }}">'.replace(':student_id', applicant.student_id) + applicant.first_name + ' ' + applicant.last_name + '</a></td>' +
+                    '<td>' + applicant.username + '</td>' +
+                    '<td>' + applicant.class + '</td>' +
+                    '<td>' + applicant.father_name + '</td>' +
+                    '<td>' + applicant.date_of_birth + '</td>' +
+                    '<td>' + applicant.father_mobile + '</td>' +
+                    '<td><span class="badge-basic-info-text">' + applicant.latest_status + '</span></td>' +
+                    '<td>' +
+                    '<a class="btn ot-btn-primary applicant_status" data-status="' + applicant.latest_status + '" data-note="' + applicant.latest_note + '" data-student-id="' + applicant.student_id + '" data-parent-id="' + applicant.parent_id + '"><i class="fas fa-cog"></i></a>' +
+                    '</td>' +
+                    '<td class="action">' +
+                    '<div class="dropdown dropdown-action">' +
+                    '<button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>' +
+                    '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">' +
+                    '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">' +
+                    '<a href="{{ route("view-applicant", ":id") }}" class="dropdown-item">'.replace(':id', applicant.id) + '<i class="fa fa-eye"></i> View</a>' +
+                    '<a href="{{ route("edit-applicant", ["student_id" => ":student_id", "parent_id" => ":parent_id"]) }}" class="dropdown-item">'.replace(':student_id', applicant.student_id).replace(':parent_id', applicant.parent_id) + '<i class="fa fa-edit"></i> Edit</a>' +
+                    '<a href="{{ route("schedule-meeting", ":applicant_id") }}" class="dropdown-item">'.replace(':applicant_id', applicant.applicant_id) + '<i class="fa fa-handshake"></i> Schedule Meeting</a>' +
+                    '<a class="dropdown-item view_document" data-id="' + applicant.id + '"><i class="fas fa-file-alt"></i> View Document</a>' +
+                    '<a href="{{ route("admin-download-profile", ["student_id" => ":student_id", "parent_id" => ":parent_id"]) }}" class="dropdown-item">'.replace(':student_id', applicant.student_id).replace(':parent_id', applicant.parent_id) + '<i class="fa fa-download"></i> Download</a>' +
+                    '<a class="dropdown-item" href="{{ route("delete-applicant", ":parent_id") }}"><i class="fa fa-trash"></i> Delete</a>' +
+                    '</div></div></div></td></tr>';
+
+                tableBody.append(newRow);
+            });
+            },
+            error: function(response) {
+                console.log(response);
+                alert('An error occurred while fetching data');
+            }
+        });
+    })
+
+   var student = <?php echo json_encode($ApplicantId); ?>;
+    autocomplete(document.getElementById("applicantIds"), student); 
+
+    function autocomplete(inp, arr) {
+        var currentFocus;
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                        if (inp.id === 'country') {
+                            fetchStates(inp.value);
+                        }
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) {
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+});
 
 var modal1 = document.getElementById("myModal1");
 var modal = document.getElementById("myModal");
@@ -253,6 +406,28 @@ window.onclick = function(event) {
   }
 };
 
+
+// Event handler for clicking on .applicant_status buttons
+$(document).on('click', '.applicant_status', function(e) {
+    e.preventDefault();
+
+    // Extract data attributes from the clicked button
+    var status = $(this).data('status');
+    var note = $(this).data('note');
+    var studentId = $(this).data('student-id');
+    var parentId = $(this).data('parent-id');
+
+    // Update modal content with the extracted data
+    $('#status_display').text(status);
+    $('#note_display').text(note);
+    $('#student_id_display').val(studentId);
+    $('#parent_id_display').val(parentId);
+
+    // Open the modal
+    $('#myModal1').modal('show');
+});
+
+
 // Add event listeners to all buttons with class "applicant_status" and "view_document"
 document.addEventListener("DOMContentLoaded", function() {
     var applicantStatusButtons = document.getElementsByClassName("applicant_status");
@@ -263,8 +438,14 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.addEventListener("click", function() {
             var studentId = this.getAttribute('data-student-id');
             var parentId = this.getAttribute('data-parent-id');
+            var note = this.getAttribute('data-note');
+            var status = this.getAttribute('data-status');
+
             document.getElementById('student_id').value = studentId;
             document.getElementById('parent_id').value = parentId;
+            document.getElementById('note').value = note;
+            document.getElementById('status_update').value = status;
+
             modal1.style.display = "block";
         });
     });
@@ -282,6 +463,8 @@ document.addEventListener("DOMContentLoaded", function() {
         sp.addEventListener("click", function() {
             modal1.style.display = "none";
             modal.style.display = "none";
+
+            $('.modal-backdrop').remove();
         });
     });
 });
@@ -309,7 +492,7 @@ $(document).on('click', '.view_document', function(e) {
                 });
 
                 // Open the modal
-                $('#myModal').show();
+                $('#myModal').modal('show');
             } else {
                 alert('Failed to load documents');
             }
@@ -322,10 +505,7 @@ $(document).on('click', '.view_document', function(e) {
 });
 
 
-// Close the modal
-$(document).on('click', '.close', function() {
-    $('#myModal').hide();
-});
+
 
 </script>
 @endpush
