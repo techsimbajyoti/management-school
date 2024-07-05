@@ -57,16 +57,16 @@
                                             </td>
                                             <td>{{ $details->class }}</td>
                                             <td>{{ $details->date_of_birth }}</td>
-                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->status }}</span></td>
+                                            <td><span class="badge-basic-success-text text-uppercase">{{ $details->applicant_status }}</span></td>
                                             <td>
-                                                <a class="btn ot-btn-primary applicant_status" data-student-id="{{ $details->id }}"><i class="fas fa-cog"></i></a>
+                                                <a class="btn ot-btn-primary applicant_status" data-status="{{ $details->applicant_status }}" data-note="{{ $details->applicant_note }}"  data-parent-id="{{ $details->parent_id }}" data-student-id="{{ $details->id }}"><i class="fas fa-cog"></i></a>
                                             </td>
                                             <td class="action">
                                                 <div class="dropdown dropdown-action">
                                                     <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                                            <a href="{{ route('applicant-edit',auth()->guard('webparents')->user()->id) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
+                                                            <a href="{{ route('update-applicant-data-parent',['student_id' => $details->id, 'parent_id' => auth()->guard('webparents')->user()->id]) }}" class="dropdown-item"><i class="fa fa-edit"></i>  {{ __('Edit') }}</a>
                                                             <a href="{{ route('download-profile', ['student_id' => $details->id, 'parent_id' => auth()->guard('webparents')->user()->id]) }}" class="dropdown-item"><i class="fa fa-download"></i>  {{ __('Download') }}</a>
                                                             <a class="dropdown-item" href="{{route('delete-applicant-parent', $details->id)}}" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash"></i>  {{ __('Delete') }}</a>
                                                         </div>
@@ -98,7 +98,7 @@
         <div class="modal-body">
         <form action="{{route('applicant-parent-status-update')}}" method="POST">
             @csrf
-            <input type="hidden" name="parent_id" value="{{ auth()->guard('webparents')->user()->id }}">
+            <input type="hidden" name="parent_id" id="parent_id" value="">
             <input type="hidden" name="student_id" id="student_id" value="">
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
@@ -114,7 +114,7 @@
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Note</label>
-                    <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                    <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="app_note"></textarea>
                 </div>
             </div>
             <div class="row justify-content-center mt-3">
@@ -148,7 +148,14 @@
         Array.prototype.forEach.call(buttons, function(btn) {
             btn.addEventListener("click", function() {
                 var studentId = this.getAttribute('data-student-id');
+                var parentId = this.getAttribute('data-parent-id');
+                var app_status = this.getAttribute('data-status');
+                var app_note = this.getAttribute('data-note');
+
                 document.getElementById('student_id').value = studentId;
+                document.getElementById('parent_id').value = parentId;
+                document.getElementById('status_update').value = app_status;
+                document.getElementById('app_note').value = app_note;
                 modal.style.display = "block";
             });
         });

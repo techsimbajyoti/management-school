@@ -72,8 +72,8 @@
                     @endif
                 
                     @if($meetingStatus == 'schedule-meeting')
-                    <div class="d-flex">
-                        <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
+                    <div class="d-flex autocomplete">
+                        <input type="text" placeholder="Search By Applicant Id..." id="applicantIds" name="applicantIds" class="ot-input form-control ot-input">
                     </div>
                     <div class="row frame-content mt-5">
                         <div class="col-6 col-md-6">
@@ -311,29 +311,109 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
- 
-    $(function() {
-        // Initialize autocomplete
-        $(".ot-input[name='applicant_id']").autocomplete({
-            source: function(request, response) {
-                
-                $.ajax({
-                    url: "{{ route('autocomplete.applicant_id') }}",
-                    dataType: "json",
-                    data: {
-                        term: request.term 
-                    },
-                    success: function(data) {
-                        response(data);
-                    }
-                });
-            },
-            minLength: 1 
-        });
-    });
-  
+  $(document).ready(function() {
+var student = <?php echo json_encode($ApplicantId); ?>;
 
- $(document).ready(function() {
+autocomplete(document.getElementById("applicantIds"), student);
+
+function autocomplete(inp, arr) {
+    var currentFocus;
+
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+        for (i = 0; i < arr.length; i++) {
+            // Check if the input value matches the start of the applicant_id or the name
+            if (arr[i].applicant_id.substr(0, val.length).toUpperCase() == val.toUpperCase() ||
+                arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                b = document.createElement("DIV");
+                // Highlight the matching part of the applicant_id and name
+                b.innerHTML = "<strong>" + arr[i].applicant_id.substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].applicant_id.substr(val.length) + " - ";
+                b.innerHTML += "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].name.substr(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i].applicant_id + " - " + arr[i].name + "'>";
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        }
+    });
+
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    document.addEventListener("click", function(e) {
+        closeAllLists(e.target);
+    });
+}
+        $('#applicantIds').on('click', function() {
+            var value = $('#applicantIds').val(); 
+            console.log("Applicant ID:", value);
+
+            $.ajax({
+                url: '/get-applicant-id', 
+                method: 'POST', 
+                data: {
+                    applicant_id: value,
+                   
+                },
+                success: function(response) {
+                   console.log(response);
+                },
+                error: function(xhr, status, error) {
+                     console.error(xhr.responseText);
+                }
+            });
+
+        });
+
+
     $('#meeting_mode_other').hide();
     $('#meeting_other').hide();
     $('#meeting_location').hide();
@@ -374,6 +454,9 @@
     });
 
 });
+   
+   
+
 
     let flatpickrInstance;
 

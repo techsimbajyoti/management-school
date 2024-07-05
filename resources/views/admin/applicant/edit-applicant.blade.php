@@ -201,8 +201,11 @@
                                     @csrf
                                     <h5>Applicant Information</h5><br>
                                     <div class="row">
-    
-                                    
+                                    @if($student != null)
+                                    <input type="hidden" name="student_id" class="student_id" value="{{$student->id}}">
+                                    @else
+                                    <input type="hidden" name="student_id" class="student_id" value="">
+                                    @endif
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('First Name:') }}</label>
@@ -358,6 +361,7 @@
 
                                 <form class="form" method="" id="form3" method="POST">
                                     @csrf
+                                    <input type="hidden" name="student_id" class="student_id" value="">
                                     <h5>Contact Information</h5><br>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -435,7 +439,7 @@
                                 <form id="form4" class="form" method="">
                                     @csrf
                                     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
-                                
+                                        <input type="hidden" name="student_id" class="student_id" value="">
                                         <h5>Upload Documents</h5>
                                         <a id="add-document" class="btn btn-lg ot-btn-primary">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Add
@@ -511,8 +515,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-   var parent_id = {{ Session::get('parent_id') }};
-   var student_id = {{ Session::get('student_id') }};
     $( function() {
    var availableTags = <?php echo json_encode($lang); ?>;
    function split( val ) {
@@ -619,12 +621,14 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "/update-student-applicant/" + student_id+ parent_id,
+                url: "{{ route('update-student-applicant', ['applicant_id'=>$parent->applicant_id,'parent_id'=>$parent->id]) }}",
                 method: 'POST',
                 data: new FormData($('#form2')[0]),
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    console.log(response.student_id);
+                    $('.student_id').val(response.student_id);
                     if (response.success) {
                         currentStep = 3;
                         updateProgressBar(currentStep);
@@ -645,10 +649,11 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "/update-contact-applicant/"+ parent_id,
+                url: "{{ route('update-contact-applicant', $parent->id) }}",
                 method: 'POST',
                 data: $('#form3').serialize(),
                 success: function(response) {
+                    $('.student_id').val(response.student_id);
                     if (response.success) {
                         currentStep = 4;
                         updateProgressBar(currentStep);
@@ -669,12 +674,13 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "/update-document-applicant/" + parent_id,
+                url: "{{ route('update-document-applicant', $parent->id) }}",
                 method: 'POST',
                 data: new FormData($('#form4')[0]),
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    $('.student_id').val(response.student_id);
                     if (response.success) {
                         Swal.fire({
                             title: "Form Updated successfully",

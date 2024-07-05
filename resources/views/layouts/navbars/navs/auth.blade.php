@@ -242,50 +242,46 @@
         });
 
        
-        $('#submitBtn').click(function(e){
-        if ($('#myForm')[0].checkValidity()) {
-            e.preventDefault();
-            e.stopPropagation();
+        $('#submitBtn').click(function(e) {
+    if ($('#myForm')[0].checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
 
-            var old_password = $('#oldPasswordInput').val();
-            var new_password = $('#newPasswordInput').val();
-            var new_password_confirmation = $('#confirmNewPasswordInput').val();
+        var old_password = $('#oldPasswordInput').val();
+        var new_password = $('#newPasswordInput').val();
+        var new_password_confirmation = $('#confirmNewPasswordInput').val();
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "{{ route('update-password') }}",
-                type: 'POST', // Ensure the method is set to POST
-                data: {
-                    old_password: old_password,
-                    new_password: new_password,
-                    new_password_confirmation: new_password_confirmation
-                },
-                success: function(response) {
-                     // Show the success message from the server
-                    if(response.error){
-                        alert(response.error);
-                        $('#exampleModal-1').modal('show'); // Close modal on success
-                    }else{
-                        alert(response.success);
-                        $('#exampleModal-1').modal('hide'); // Close modal on success
-
+        $.ajax({
+            url: "{{ route('update-password') }}",
+            type: 'POST',
+            data: {
+                old_password: old_password,
+                new_password: new_password,
+                new_password_confirmation: new_password_confirmation,
+                _token: '{{ csrf_token() }}' // Include CSRF token
+            },
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    alert(response.success);
+                    $('#exampleModal-1').modal('hide');
                     $('#myForm')[0].reset();
-                    }
-
-                },
-                error: function(xhr, status, error) {
-                    alert('Error occurred while submitting the form.');
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = xhr.status + ': ' + xhr.statusText;
+                alert('Error - ' + errorMessage);
+            }
+        });
 
-        } else {
-            e.preventDefault();
-            e.stopPropagation();
-            alert('Please fill in all fields correctly before submitting.');
-        }
+    } else {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Please fill in all fields correctly before submitting.');
+    }
 });
+
 
     });
   </script>

@@ -335,7 +335,6 @@
 
                         @endphp
                         
-                        @if($children->isNotEmpty())
                         @foreach($children as $child)
                         <div class="row p-2">
                             <div class="col-md-6">
@@ -349,31 +348,12 @@
                                         <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ $child->applicant_id }}</p>
                                     </div>
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
+                                        <a href="{{ route('update-applicant-data-parent', ['student_id' => $child->id,'parent_id'=>auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
-                    @else
-                    <div class="row p-2">
-                        <div class="col-md-6">
-                            <div class="chart-container">
-                                <canvas id="pieChart" width="200" height="200"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="text-center mt-3"><strong>Applicant Id: </strong>{{ auth()->guard('webparents')->user()->applicant_id }}</p>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <a href="{{ route('update-applicant-data', ['parent_id' => auth()->guard('webparents')->user()->id]) }}" class="btn ot-btn-primary">Complete Profile</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
                     
 
 
@@ -487,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-    
+
         // Sample data of upcoming meetings
 const meetings = [
     { title: 'Project Kickoff', date: '2024-07-01', time: '10:00 AM' },

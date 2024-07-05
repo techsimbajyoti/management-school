@@ -1,7 +1,7 @@
 <form id="form4" class="form" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="d-flex justify-content-between align-items-center" style="margin-top:30px;">
-
+        <input type="hidden" name="student_id" class="student_id">
         <h5>Upload Documents</h5>
         <a id="add-document" class="btn btn-lg ot-btn-primary">
             <i class="fa fa-plus" aria-hidden="true"></i> Add

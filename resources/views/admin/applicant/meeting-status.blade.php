@@ -358,7 +358,7 @@
     // Get the modal
     var modal = document.getElementById("myModal");
 
-    var modal1 = document.getElementById("myModal1");
+    // var modal1 = document.getElementById("myModal1");
 
     var modal2 = document.getElementById("myModal2");
     

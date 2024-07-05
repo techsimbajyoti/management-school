@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\User;
+use App\Models\StudentParent;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -60,6 +63,39 @@ class HomeController extends Controller
     {
         return view('admin.change-password');
     }
+
+    public function update_password(Request $request) {
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+    
+        if(auth()->guard('webparents')->user()->role_id == '5'){
+            # Match The Old Password
+            if (!Hash::check($request->old_password, auth()->guard('webparents')->user()->password)) {
+                return response()->json(["error" => "Old Password doesn't match!"]);
+            }
+
+            # Update the new Password
+            $user = StudentParent::whereId(auth()->guard('webparents')->user()->id)->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+        }else{
+                # Match The Old Password
+            if (!Hash::check($request->old_password, auth()->user()->password)) {
+                return response()->json(["error" => "Old Password doesn't match!"]);
+            }
+        
+            # Update the new Password
+            $user = User::whereId(auth()->guard()->user()->id)->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+        }
+    
+        return response()->json(['success' => 'Password Updated Successfully']);
+    }
+    
 
 
     public function parent_dashboard()

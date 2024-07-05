@@ -19,13 +19,19 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body text-center">
-                    @if($StudentView->image)
+                    @if($StudentView !== null)
                     <img src="{{ url('storage/student_photos/' . $StudentView->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     @else
                     <img src="{{ asset('paper') }}/img/dummy-image.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                     @endif
+
+                    @if($StudentView !== null)
                     <h5 class="my-3">{{ $StudentView->first_name }} {{ $StudentView->last_name }}</h5>
                     <p class="text-muted mb-1">Class : {{ $StudentView->class }} </p>
+                    @else
+                    <h5 class="my-3"></h5>
+                    <p class="text-muted mb-1">Class :  </p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -46,13 +52,21 @@
                             <p class="mb-0">First Name</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->first_name }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                         <div class="col-sm-3">
                             <p class="mb-0">Last Name</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->last_name }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                     </div>
                     
@@ -62,13 +76,21 @@
                             <p class="mb-0">Gender</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->gender }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                         <div class="col-sm-3">
                             <p class="mb-0">Admission For</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->class }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                        
                     </div>
@@ -78,13 +100,21 @@
                             <p class="mb-0">Date Of Birth</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->date_of_birth }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                         <div class="col-sm-3">
                             <p class="mb-0">Blood Group</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->blood_group }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -93,13 +123,21 @@
                             <p class="mb-0">Religion</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->religion }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                         <div class="col-sm-3">
                             <p class="mb-0">Category</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->category }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -108,13 +146,21 @@
                             <p class="mb-0">Language</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->language }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                         <div class="col-sm-3">
                             <p class="mb-0">Previous School</p>
                         </div>
                         <div class="col-sm-3">
+                            @if($StudentView != null)
                             <p class="text-muted mb-0">{{ $StudentView->previous_school }}</p>
+                            @else
+                            <p class="text-muted mb-0"></p>
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -130,6 +176,7 @@
                 </div>
                 <hr>
                 <div class="card-body p-0">
+                    @if($StudentView->documents != null)
                     @php
                          $documents = json_decode($StudentView->document, true);
                     @endphp
@@ -143,6 +190,11 @@
                             </li>
                         @endforeach
                     </ul>
+                    @else
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <p class="mb-0"></p>
+                    </li>
+                    @endif
                 </div>
             </div>
         </div>

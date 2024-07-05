@@ -192,15 +192,84 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Total</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                            $student = App\Models\Student::get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $student->count() }}</span>
                                     </div>
                                 </div>
                             </div>
+                            @php 
+                            // Fetch all children for the authenticated parent
+                             $totalChildren = App\Models\Student::get();
+
+                             $incompleteProfiles = [];
+                             $completeProfiles = [];
+
+                             foreach ($totalChildren as $totalC) {
+                                 $student_data = App\Models\Student::where('id', $totalC->id)
+                                     ->select(
+                                         'students.first_name as student_name',
+                                         'students.last_name as student_last_name',
+                                         'students.address as student_address',
+                                         'students.gender as student_gender',
+                                         'students.class as student_class',
+                                         'students.date_of_birth as student_dob',
+                                         'students.country as student_country',
+                                         'students.state as student_state',
+                                         'students.city as student_city',
+                                         'students.pin_code as student_pin_code',
+                                         'students.document as student_doc'
+                                     )
+                                     ->first();
+
+                                 // Check if any field is empty
+                                 if (empty($student_data->student_name) ||
+                                     empty($student_data->student_last_name) ||
+                                     empty($student_data->student_address) ||
+                                     empty($student_data->student_gender) ||
+                                     empty($student_data->student_class) ||
+                                     empty($student_data->student_dob) ||
+                                     empty($student_data->student_country) ||
+                                     empty($student_data->student_state) ||
+                                     empty($student_data->student_city) ||
+                                     empty($student_data->student_pin_code) ||
+                                     empty($student_data->student_doc)) {
+                                     
+                                     // Add incomplete profile to the array
+                                     $incompleteProfiles[] = $student_data;
+                                 }
+
+                                 // Check if all required fields are filled
+                                 if (!empty($student_data->student_name) &&
+                                     !empty($student_data->student_last_name) &&
+                                     !empty($student_data->student_address) &&
+                                     !empty($student_data->student_gender) &&
+                                     !empty($student_data->student_class) &&
+                                     !empty($student_data->student_dob) &&
+                                     !empty($student_data->student_country) &&
+                                     !empty($student_data->student_state) &&
+                                     !empty($student_data->student_city) &&
+                                     !empty($student_data->student_pin_code) &&
+                                     !empty($student_data->student_doc)) {
+                                     
+                                     // Add complete profile to the array
+                                     $completeProfiles[] = $student_data;
+                                 }
+                             }
+
+                             // Count the number of incomplete profiles
+                             $incompleteCount = count($incompleteProfiles);
+
+                             // Count the number of complete profiles
+                             $completeCount = count($completeProfiles);
+
+                             @endphp
                             <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Incomplete</span>
-                                        <span class="mini-card-number">23</span>
+                                        <span class="mini-card-number">{{ $incompleteCount }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +277,14 @@
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">New</span>
-                                        <span class="mini-card-number">41</span>
+                                        @php
+                                            $oneWeekAgo = Carbon\Carbon::now()->subWeek();
+                                            $now = Carbon\Carbon::now();
+
+                                            // Retrieve students created in the last week
+                                            $students = App\Models\Student::whereBetween('created_at', [$oneWeekAgo, $now])->get();
+                                        @endphp             
+                                        <span class="mini-card-number">{{ $students->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +292,25 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Accepted</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                            $acceptedStatus = 'accept'; // Define the accepted status value
+
+                                            // Subquery to get the latest status for each student
+                                    $latestStatuses = DB::table('applicant_statuses as sub')
+                                                        ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                        ->groupBy('sub.student_id');
+
+                                    // Retrieve students with the most recent status of 'accept'
+                                    $student_status = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                        ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                            $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                        })
+                                                        ->where('applicant_statuses.status', $acceptedStatus)
+                                                        ->select('students.*')
+                                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $student_status->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +318,25 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Rejected</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                        $acceptedStatus = 'reject'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_reject = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_reject->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +344,25 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Approved By Admin</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                        $acceptedStatus = 'Approved By Admin'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_admin = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_admin->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +370,25 @@
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Denied By Admin</span>
-                                        <span class="mini-card-number">41</span>
+                                        @php
+                                        $acceptedStatus = 'Denied By Admin'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_Denied = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_Denied->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +396,25 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Approved Applicant</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $acceptedStatus = 'Approved By Applicant'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_applicant = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_applicant->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -256,7 +422,25 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Admission Confirmed</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $acceptedStatus = 'Admission Confirmed'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_Admission = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_Admission->count() }}</span>
                                     </div>
                                 </div>
                             </div>
