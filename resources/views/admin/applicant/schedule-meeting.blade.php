@@ -14,6 +14,9 @@
 
 @section('content')
 <div class="content">
+<div id="success-message" style="display: none;" class="alert alert-success" role="alert">
+</div>
+
     <div class="row">
         <div id="book-appointment-wizard" class="col-12 col-xl-8">
             <div id="header">
@@ -41,23 +44,27 @@
                    <input type="hidden" value="{{$info->student_id}}" name="student_id">
                    <input type="hidden" value="{{$info->parent_id}}" name="parent_id">
                    <input type="hidden" value="{{$info->applicant_id}}" name="applicant_id">
-                  
+                   <input type="hidden" value="{{$info->email}}" name="email">
+                 
+                                    
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="title">Applicant Number : <span>{{$info->applicant_id}}</span></p>
-                                </div>
+                                <p class="title">Applicant Number : <span>{{$info->applicant_id}}</span></p>
+                            </div>
                                 <div class="col-md-6">
-                                    <p class="title">Father Name : <span>{{$info->father_name}}</span></p>
+                                <p class="title">Father Name : <span>{{ isset($info->father_name) ? $info->father_name:''}}</span></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="title">Student Name : <span>{{$info->first_name}} {{$info->last_name}}</span></p>
+                                    
+                                    <p class="title">Student Name : <span>{{ isset($info->first_name) ? $info->first_name : '' }} {{ isset($info->last_name) ? $info->last_name : ''}}</span></p>
+                                  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="title">Class : <span>{{$info->class}}</span></p>
+                                    <p class="title">Class : <span>{{isset($info->class) ? $info->class : ''}}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -142,10 +149,8 @@
                                     <option value="Document Submission">Document Submission</option> 
                                     <option value="other">Other</option>                        
                                 </select>
-                                <span class="invalid-feedback" id="meeting_type" style="display: none;">
-                                <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
-                          
-                            <span class="invalid-feedback" id="meeting_other" style="display: none;">
+                               <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
+                                                   
                             </div>
                             <div class="form-group">
                                 <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
@@ -222,8 +227,9 @@
                                 <div class="col-md-6">
                                     <p class="mb-0"><strong>Start:</strong></p>
                                 </div>
+                               
                                 <div class="col-md-6">
-                                    <p class="mb-0">01/07/2024 12:00 pm</p>
+                                    <p class="mb-0">{{ ($step2Data['meeting_date']) ?? '' }}, {{ $step2Data['meeting_time'] ?? '' }}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -244,7 +250,7 @@
                                     <p class="mb-0"><strong>Applicant:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">demo</p>  
+                                    <p class="mb-0">{{isset($info->first_name) ? $info->first_name: ''}} {{ isset($info->last_name) ? $info->last_name : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -252,7 +258,7 @@
                                     <p class="mb-0"><strong>Phone Number:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">1234567890</p>  
+                                    <p class="mb-0">{{ isset($info->father_mobile) ? $info->father_mobile : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -260,7 +266,7 @@
                                     <p class="mb-0"><strong>Email:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">admin@gmail.com</p>  
+                                    <p class="mb-0">{{isset($info->email) ? $info->email : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -268,15 +274,15 @@
                                     <p class="mb-0"><strong>Meeting Mode:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">Offline</p>  
+                                    <p class="mb-0">{{ isset($step1Data['meeting_mode']) ? $step1Data['meeting_mode']:''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="mb-0"><strong>Meeting Type:</strong></p>  
+                                    <p class="mb-0"><strong>Meeting Purpose:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">Student Interview</p>  
+                                    <p class="mb-0">{{isset($step1Data['meeting_type']) ? ($step1Data['meeting_type']) :'' }}</p>  
                                 </div>
                             </div>
                         </div>
@@ -302,9 +308,30 @@
 <!-- Example with CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-   
+ 
+    $(function() {
+        // Initialize autocomplete
+        $(".ot-input[name='applicant_id']").autocomplete({
+            source: function(request, response) {
+                
+                $.ajax({
+                    url: "{{ route('autocomplete.applicant_id') }}",
+                    dataType: "json",
+                    data: {
+                        term: request.term 
+                    },
+                    success: function(data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 1 
+        });
+    });
+  
 
  $(document).ready(function() {
     $('#meeting_mode_other').hide();
@@ -381,7 +408,7 @@
         e.preventDefault(); 
 
         let formData = $('#form-1').serialize(); // Serialize form data for step 1
-    
+      
         $.ajax({
             url: '{{ route("post-schedule-meeting-1") }}', // Update with your route for step 1
             type: 'POST',
@@ -454,28 +481,69 @@
     });
 
 
-        $('#form-3').click(function(e) {
-        e.preventDefault(); 
+                $('#form-3').click(function(e) {
+                e.preventDefault(); 
 
-        $.ajax({
-            url: '{{ route("final-submit") }}',
-            type: 'POST',
-            success: function(response) {
-                if(response.status === 'success') {
-                    console.log(response.message); 
-                    console.log(response.data); 
-                } else {
-                
-                    alert('Error: ' + response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
+                $.ajax({
+                    url: '{{ route("final-submit") }}',
+                    type: 'POST',
+                    success: function(response) {
+                        if(response.status === 'success') {
+                            console.log(response.message); 
+                            console.log(response.data); 
+
+                            // Extract response data
+                            var responseData = response.data;
+
+                            // Second AJAX call to update meeting status
+                            $.ajax({
+                                url: '{{ route("applicant-meeting-status-update") }}',
+                                type: 'POST',
+                                data: {
+                                    student_id: responseData.student_id,
+                                    parent_id: responseData.parent_id,
+                                    applicant_id: responseData.applicant_id,
+                                    meeting_date: responseData.meeting_date,
+                                    time_slot: responseData.meeting_time,
+                                    purpose: responseData.meeting_type,
+                                    other_purpose: responseData.meeting_other,
+                                    mode: responseData.meeting_mode,
+                                    location_url: responseData.meeting_location,
+                                    status: 'meeting scheduled', // Static status name
+                                    note: 'New meeting scheduled via form submit' // Optional note
+                                },
+                                success: function(addResponse) {
+                                    console.log('Meeting status added successfully');
+                                    console.log(addResponse);
+
+                                    // Show success message to user
+                                    Swal.fire({
+                                        title: "Meeting Scheduled successfully!",
+                                        text: "Please check your email for the scheduled meeting details.",
+                                        icon: "success",
+                                        button: "OK"
+                                    }).then((value) => {
+                                        // Redirect user to meeting status page
+                                        window.location.href = "{{ url('meeting-status') }}"; 
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log('Error adding meeting status: ' + xhr.responseText);
+                                }
+                            });
+                        } else {
+                            console.log('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+
  
-        $('#button-back-2').click(function(e){
+         $('#button-back-2').click(function(e){
             e.preventDefault(); 
             $('#wizard-frame-2').hide(); 
             $('#wizard-frame-1').show(); 

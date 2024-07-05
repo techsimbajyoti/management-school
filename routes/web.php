@@ -92,6 +92,12 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::post('update-status',[ApplicantController::class, 'applicant_parent_status_update'])->name('update-status');
 
+	Route::post('applicant-meeting-status-update',[ApplicantController::class, 'applicant_meeting_status_update'])->name('applicant-meeting-status-update');
+
+	Route::get('/autocomplete/applicant_id', [AutocompleteController::class, 'applicantId'])->name('autocomplete.applicant_id');
+
+	Route::post('/add-meeting-status', [ApplicantController::class, 'addMeetingStatus'])->name('add-meeting-status');
+
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
 	Route::get('view-applicant/{id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
 use App\Mail\AdminNotification;
+use App\Mail\ApplicantMeetingNotification;
+use App\Mail\AdminMeetingNotification;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\ApplicantStatus;
@@ -413,6 +415,10 @@ class ApplicantController extends Controller
 
     public function schedule_meeting($id){
         $meetingStatus = $id;
+        $step1Data = json_decode(Session::get('step1'), true) ?: [];
+       
+        $step2Data = json_decode(Session::get('step2'), true) ?: [];
+        // dd($step1Data);
         $info = Student::join('student_parents', function ($join) use ($id) {
             $join->on('students.parent_id', '=', 'student_parents.id')
                  ->on('students.applicant_id', '=', 'student_parents.applicant_id')
@@ -420,18 +426,12 @@ class ApplicantController extends Controller
         })
         ->select('students.*', 'student_parents.*','students.id as student_id')
         ->first();
-        return view('admin.applicant.schedule-meeting',compact('meetingStatus','info'));
+        return view('admin.applicant.schedule-meeting',compact('meetingStatus','info','step1Data', 'step2Data',));
     }
 
     public function post_schedule_meeting_1(Request $request){
 
-   
-    $validatedData = $request->validate([
-       'meeting_type' => 'required',
-       'meeting_mode' => 'required',
-       
-
-    ]);
+    $validatedData = $request->all();
 
     Session::put('step1', json_encode($validatedData));
    
@@ -454,8 +454,9 @@ class ApplicantController extends Controller
         $step2Data = json_decode(Session::get('step2'), true);
     
         $combinedData = array_merge($step1Data, $step2Data);
-    
+        
         $meeting = new MeetingStatus();
+      
         $meeting->meeting_date = $combinedData['meeting_date']; 
         $meeting->time_slot = $combinedData['meeting_time']; 
         $meeting->student_id = $combinedData['student_id'];
@@ -464,15 +465,25 @@ class ApplicantController extends Controller
         $meeting->purpose = $combinedData['meeting_type'];
         $meeting->mode = $combinedData['meeting_mode'];
         $meeting->other_purpose = $combinedData['meeting_other'];
-        $meeting->location_url = $combinedData['meeting_location'];
-        $meeting->location_url = $combinedData['meeting_mode_other'];
+        $meeting->location_url = $combinedData['meeting_mode'] === 'online' ? $combinedData['meeting_mode_other'] : $combinedData['meeting_location'];
         $meeting->status = 'active';
         $meeting->ip_address = '1';
         $meeting->created_by = 'null';
         $meeting->save();
 
+      
+        $email = StudentParent::where('student_parents.id',$combinedData['parent_id'])
+                ->select('email')
+                ->first();
+        $applicant = Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+                    ->where('students.id', $combinedData['student_id'])
+                    ->where('students.parent_id', $combinedData['parent_id'])
+                    ->first();
 
-        return response()->json(['status' => 'success', 'message' => 'All data combined', 'data' => $combinedData]);
+        Mail::to('ts.juhiverma@gmail.com')->send(new AdminMeetingNotification($meeting,$applicant));
+        Mail::to($email)->send(new ApplicantMeetingNotification($meeting,$applicant));
+           
+        return response()->json(['status' => 'success', 'message' => 'Meeting Scheduled!!', 'data' => $combinedData]);
     }
 
     public function post_applicant_data(Request $request){
@@ -1041,10 +1052,45 @@ class ApplicantController extends Controller
     }
 
 
-
+    public function applicantId(Request $request)
+    {
+        $term = $request->input('term');
+        $applicants = Student::where('applicant_id', 'like', '%' . $term . '%')
+                     ->pluck('applicant_id');
+        return response()->json($applicants);
+    }
+    
 
     public function meeting_status(){
-     return view('admin.applicant.meeting-status');
+        $meeting_data = MeetingStatus::join('students', 'meeting_statuses.student_id', '=', 'students.id')
+    ->join('student_parents', 'meeting_statuses.parent_id', '=', 'student_parents.id')
+    ->select(
+        'meeting_statuses.id',
+        'meeting_statuses.student_id',
+        'meeting_statuses.parent_id',
+        'meeting_statuses.meeting_date',
+        'meeting_statuses.time_slot',
+        'meeting_statuses.purpose',
+        'meeting_statuses.mode',
+        'meeting_statuses.status',
+        'meeting_statuses.location_url',
+        'students.first_name',
+        'students.last_name',
+        'student_parents.father_name',
+        'students.applicant_id',
+        'students.class',
+        'student_parents.father_mobile'
+    )
+    ->whereIn('meeting_statuses.id', function ($query) {
+        $query->selectRaw('MAX(id)')
+              ->from('meeting_statuses')
+              ->groupBy('student_id');
+    })
+    ->distinct()
+    ->get();
+    
+   
+    return view('admin.applicant.meeting-status', compact('meeting_data'));
     }
 
     public function change_meeting_status(){
@@ -1176,6 +1222,35 @@ class ApplicantController extends Controller
             return redirect()->back()->with('status', 'Not Updated Successfully');
         }
     }
+
+    public function applicant_meeting_status_update(Request $request){
+        // $ipAddress = $this->getPublicIpAddress();
+
+        $meeting_update = new MeetingStatus;
+        $meeting_update->student_id = $request->student_id;
+        $meeting_update->parent_id = $request->parent_id;
+        $meeting_update->applicant_id = $request->applicant_id;
+        $meeting_update->meeting_date = $request->meeting_date;
+        $meeting_update->time_slot = $request->time_slot;
+        $meeting_update->purpose = $request->purpose;
+        $meeting_update->other_purpose = $request->other_purpose;
+        $meeting_update->mode = $request->mode;
+        $meeting_update->location_url = $request->location_url;
+        $meeting_update->status = $request->status;
+        $meeting_update->note = $request->note;
+        $meeting_update->ip_address = '1';
+        $meeting_update->created_by = 'null';
+        $meeting_update->save();
+            
+        if($meeting_update){
+            return redirect()->back()->with('status', 'Meeting Status Updated Successfully!!');
+        }else{
+            return redirect()->back()->with('status', 'Failed to Update Meeting Status');
+        }
+    }
+   
+
+
 
     public function download_profile($student_id, $parent_id){
         $parent_details = StudentParent::find($parent_id);

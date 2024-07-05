@@ -178,68 +178,50 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
+                                  @foreach($meeting_data as $meeting_datas)
+                                
                                         <tr id="row_7">
-                                            <td class="serial">1</td>
+                                            <td class="serial">{{ $meeting_datas->id}}</td>
                                             <td>2023114</td>
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
-                                            <td>Two</td>
-                                            <td>Parent5</td>
+                                                <a href="{{ route('admin-student-profile')}}" target="_blank">{{ $meeting_datas->first_name}}{{ $meeting_datas->last_name}}</a></td>
+                                            <td>{{ $meeting_datas->class}}</td>
+                                            <td>{{ $meeting_datas->father_name}}</td>
                                            
-                                            <td>658932654</td>
+                                            <td>{{ $meeting_datas->father_mobile}}</td>
                                            
-                                            <td>jan 24,2024</td>
-                                            <td>2:30 pm</td>
-                                            <td>Student Interview</td>
+                                            <td>{{ substr($meeting_datas->meeting_date,0,16)}}</td>
+                                            <td>{{ $meeting_datas->time_slot}}</td>
+                                            <td>{{ $meeting_datas->purpose}}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                <span>Offline</span>
-                                                <a href="#" class="info-button applicant_mode">
+                                                <span>{{ $meeting_datas->mode}}</span>
+                                                <a href="#" class="info-button applicant_mode" data-modal-id="myModal{{ $meeting_datas->id }}">
                                                     <i class="fa fa-info"></i>
                                                 </a>
                                                 </div>
                                             </td>
-                                            <td><span class="badge-basic-success-text">Active</span></td>
+                                            <td><span class="badge-basic-success-text">{{ $meeting_datas->status}}</span></td>
 
                                             {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
                                             <td class="action">
-                                              <a class="btn ot-btn-primary admin_side_meeting">
+                                              <a class="btn ot-btn-primary admin_side_meeting" 
+                                                 data-student-id="{{ $meeting_datas->student_id }}" 
+                                                 data-parent-id="{{ $meeting_datas->parent_id }}"
+                                                 data-applicant-id="{{ $meeting_datas->applicant_id }}"
+                                                 data-meeting-date="{{ $meeting_datas->meeting_date }}"
+                                                 data-time-slot="{{ $meeting_datas->time_slot }}"
+                                                 data-purpose="{{ $meeting_datas->purpose }}"
+                                                 data-other-purpose="{{ $meeting_datas->other_purpose }}"
+                                                 data-mode="{{ $meeting_datas->mode }}"
+                                                 data-location-url="{{ $meeting_datas->location_url }}">
                                                   <i class="fas fa-cog"></i>
                                               </a>
-                                        </td>
+                                          </td>
+                                          
                                         </tr>
-                                        <tr id="row_7">
-                                            <td class="serial">2</td>
-                                            <td>2023111</td>
-                                           
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                              <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
-                                            <td>Two</td>
-                                            <td>Parent8</td>
-                                           
-                                            <td>0147852111</td>
-                                            <td>jun 05,2024</td>
-                                            <td>3:30 pm</td>
-                                            <td>Student Interview</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                <span>Offline</span>
-                                                <a href="#" class="info-button applicant_mode">
-                                                    <i class="fa fa-info"></i>
-                                                </a>
-                                                </div>
-                                            </td>
-                                            <td><span class="badge-basic-success-text">Active</span></td>
-
-                                             {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
-                                             <td class="action">
-                                              <a class="btn ot-btn-primary admin_side_meeting">
-                                                  <i class="fas fa-cog"></i>
-                                              </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                  @endforeach
                             </table>
                         </div>
                     </div>
@@ -276,33 +258,41 @@
     </div>
   
   </div>
-
+  @foreach($meeting_data as $meeting_datas)
+ 
   <!-- The Modal -->
-<div id="myModal1" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-      <div class="modal-header">
-          <h3>Meeting Mode</h3>
-          <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-          <div class="row">
-              <div class="col-md-6">
-                  <label for="">Mode</label>
-                  <p>Online / Offline</p>
-              </div>
-              <div class="col-md-6">
-                  <label for="">Url / Location</label>
-                  <p><a href="">http://example.com</a> / Vijay Nagar</p>
+  <div id="myModal{{$meeting_datas->id}}" class="modal">
+      <!-- Modal content --> 
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3>Meeting Details</h3>
+              <span class="close">&times;</span>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-6">
+                      <label for="">Mode</label>
+                      <p>{{ $meeting_datas->mode }}</p>
+                  </div>
+                  <div class="col-md-6">
+                      <label for="">URL / Location</label>
+                      @if($meeting_datas->mode === 'online')
+                          <p><a href="{{ $meeting_datas->location_url }}">{{ $meeting_datas->location_url }}</a></p>
+                      @elseif($meeting_datas->mode === 'offline')
+                          <p>{{ $meeting_datas->location_url }}</p>
+                      @else
+                          <p>No URL/Location available</p>
+                      @endif
+                  </div>
               </div>
           </div>
-      </div>
-      <div class="modal-footer">
-          <h3></h3>
+          <div class="modal-footer">
+              <h3></h3>
+          </div>
       </div>
   </div>
-</div>
-
+@endforeach
+ 
 
 
 <!-- The Modal -->
@@ -313,26 +303,38 @@
           <h3>Add Note</h3>
           <span class="close">&times;</span>
       </div>
+
       <div class="modal-body">
+        <form action="{{ route('applicant-meeting-status-update') }}" method="POST">
+          @csrf
+          <input type="hidden" name="student_id" id="student_id">
+          <input type="hidden" name="parent_id" id="parent_id">
+          <input type="hidden" name="applicant_id" id="applicant_id">
+          <input type="hidden" name="meeting_date" id="meeting_date">
+          <input type="hidden" name="time_slot" id="time_slot">
+          <input type="hidden" name="purpose" id="purpose">
+          <input type="hidden" name="other_purpose" id="other_purpose">
+          <input type="hidden" name="mode" id="mode">
+          <input type="hidden" name="location_url" id="location_url">
           <div class="row justify-content-center mt-3">
               <div class="col-md-6">
                   <label for="">Status</label>
-                  <select name="" id="" class="nice-select sections niceSelect bordered_style wide">
+                  <select name="status" id="" class="nice-select sections niceSelect bordered_style wide">
                         <option value="0">Meeting Status</option>
-                        <option value="0">Active</option>
-                        <option value="1">Reschedule Meeting Request</option>
-                        <option value="2">Accept</option>
-                        <option value="2">Meeting Schedule</option>
-                        <option value="3">Cancelled By Admin</option>
-                        <option value="3">Rejected By Admin</option>
-                        <option value="3">Upcoming Meeting</option>
+                        <option value="Active">Active</option>
+                        <option value="Reschedule Meeting Request">Reschedule Meeting Request</option>
+                        <option value="Accept">Accept</option>
+                        <option value="Meeting Schedule">Meeting Schedule</option>
+                        <option value="Cancelled By Admin">Cancelled By Admin</option>
+                        <option value="Rejected By Admin">Rejected By Admin</option>
+                        <option value="Upcoming Meeting">Upcoming Meeting</option>
                   </select>
               </div>
           </div>
           <div class="row justify-content-center mt-3">
               <div class="col-md-6">
                   <label for="">Note</label>
-                  <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                  <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
               </div>
             </div>
             <div class="row justify-content-center mt-3">
@@ -340,6 +342,7 @@
                   <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
               </div>
             </div>
+          </form>
           </div>
       <div class="modal-footer">
           <h3></h3>
@@ -374,6 +377,55 @@
       }
     }
     
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all elements with class "applicant_mode" (your info buttons)
+        var infoButtons = document.querySelectorAll('.applicant_mode');
+
+        // Function to handle modal display
+        function showModal(event) {
+            // Prevent default action (in case it's a link)
+            event.preventDefault();
+
+            // Get the modal associated with the clicked info button
+            var modalId = this.getAttribute('data-modal-id');
+            var modal = document.getElementById(modalId);
+
+            // Display the modal
+            modal.style.display = "block";
+        }
+
+        // Attach click event listener to each info button
+        infoButtons.forEach(function(button) {
+            button.addEventListener('click', showModal);
+        });
+
+        // Close modal functionality
+        var closeButtons = document.querySelectorAll('.close');
+
+        function closeModal() {
+            // Get the parent modal of the close button
+            var modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Attach click event listener to each close button
+        closeButtons.forEach(function(button) {
+            button.addEventListener('click', closeModal);
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        });
+    });
+
+
+
     // Add event listeners to all buttons with class "myBtn"
     document.addEventListener("DOMContentLoaded", function() {
         var buttons = document.getElementsByClassName("myBtn");
@@ -410,21 +462,47 @@
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var buttons = document.getElementsByClassName("admin_side_meeting");
-        Array.prototype.forEach.call(buttons, function(btn) {
-            btn.addEventListener("click", function() {
-                modal2.style.display = "block";
-            });
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('myModal2');
+    var btns = document.querySelectorAll('.admin_side_meeting');
+    var closeModal = modal.querySelector('.close');
 
-            // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close");
-        Array.prototype.forEach.call(span, function(sp) {
-            sp.addEventListener("click", function() {
-              modal2.style.display = "none";
-            });
+    btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var studentId = this.getAttribute('data-student-id');
+            var parentId = this.getAttribute('data-parent-id');
+            var applicantId = this.getAttribute('data-applicant-id');
+            var meetingDate = this.getAttribute('data-meeting-date');
+            var timeSlot = this.getAttribute('data-time-slot');
+            var purpose = this.getAttribute('data-purpose');
+            var otherPurpose = this.getAttribute('data-other-purpose');
+            var mode = this.getAttribute('data-mode');
+            var locationUrl = this.getAttribute('data-location-url');
+
+            document.getElementById('student_id').value = studentId;
+            document.getElementById('parent_id').value = parentId;
+            document.getElementById('applicant_id').value = applicantId;
+            document.getElementById('meeting_date').value = meetingDate;
+            document.getElementById('time_slot').value = timeSlot;
+            document.getElementById('purpose').value = purpose;
+            document.getElementById('other_purpose').value = otherPurpose;
+            document.getElementById('mode').value = mode;
+            document.getElementById('location_url').value = locationUrl;
+
+            modal.style.display = "block";
         });
     });
+
+    closeModal.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
     </script>
 @endpush
