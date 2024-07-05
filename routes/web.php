@@ -97,13 +97,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
-	Route::get('view-applicant/{id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
+	Route::get('view-applicant/{student_id}/{parent_id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
 
 	Route::get('edit-applicant/{student_id}/{parent_id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
 
 	Route::post('update-applicant/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant');
 
-	Route::post('update-student-applicant/{applicant_id}/{parent_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
+	Route::post('update-student-applicant/{parent_id}/{applicant_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
 
 	Route::post('update-contact-applicant/{id}', [ApplicantController::class, 'update_contact_applicant'])->name('update-contact-applicant');
 

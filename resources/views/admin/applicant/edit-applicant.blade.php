@@ -621,7 +621,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('update-student-applicant', ['applicant_id'=>$parent->applicant_id,'parent_id'=>$parent->id]) }}",
+                url: "{{ route('update-student-applicant', ['parent_id'=>$parent->id,'applicant_id'=>$student->applicant_id]) }}",
                 method: 'POST',
                 data: new FormData($('#form2')[0]),
                 processData: false,

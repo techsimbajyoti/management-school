@@ -26,6 +26,7 @@ use App\Models\ApplicantStatus;
 use Illuminate\Support\Facades\DB;
 use App\Models\MeetingStatus;
 use PDF;
+use Carbon\Carbon;
 
 
 class ApplicantController extends Controller
@@ -60,8 +61,49 @@ class ApplicantController extends Controller
                     ->from('applicant_statuses')
                     ->groupBy('student_id');
             });
+        
+            if($student_class == null && $status == null && $from != null && $to != null && $applicantid == null){
 
-            if($student_class != null){
+                $from = '2024-07-02 09:54:00';
+$to = '2024-07-05 09:55:06';
+
+                $applicant_list = DB::table('students')
+                ->select(
+                    'students.id as student_id', 
+                    'student_parents.id as parent_id', 
+                    'students.*', 
+                    'student_parents.*', 
+                    'latest.status as latest_status',
+                    'latest.note as latest_note'
+                )
+                ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+                ->leftJoinSub($latestStatuses, 'latest', function ($join) {
+                    $join->on('students.id', '=', 'latest.student_id');
+                })
+                ->where('students.class', $student_class)
+                ->where('students.created_at', '>=', $from)
+                ->where('students.created_at', '<=', $to)
+                ->get();
+
+            }else if($student_class != null && $status != null && $from == null && $to == null && $applicantid == null){
+            $applicant_list = DB::table('students')
+            ->select(
+                'students.id as student_id', 
+                'student_parents.id as parent_id', 
+                'students.*', 
+                'student_parents.*', 
+                'latest.status as latest_status',
+                'latest.note as latest_note'
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoinSub($latestStatuses, 'latest', function ($join) {
+                $join->on('students.id', '=', 'latest.student_id');
+            })
+            ->where('students.class', $student_class)
+            ->where('latest.status', $status) // Additional condition for status
+            ->get();
+
+        }else if($student_class != null){
         // Main query to get applicant list with the latest status and note
         $applicant_list = DB::table('students')
             ->select(
@@ -97,6 +139,10 @@ class ApplicantController extends Controller
             ->get();
         }else if($applicantid != null){
 
+            $parts = explode(' - ', $applicantid);
+            $id = $parts[0]; // This will be '00099111'
+            $name = $parts[1]; // This will be 'john fd'
+
             $applicant_list = DB::table('students')
             ->select(
                 'students.id as student_id', 
@@ -110,7 +156,7 @@ class ApplicantController extends Controller
             ->leftJoinSub($latestStatuses, 'latest', function ($join) {
                 $join->on('students.id', '=', 'latest.student_id');
             })
-            ->where('students.applicant_id', $applicantid)
+            ->where('students.applicant_id', $id)
             ->get();
         }
 
@@ -127,12 +173,13 @@ class ApplicantController extends Controller
                 ->whereColumn('student_id', 'students.id')
                 ->groupBy('student_id');
         });
+
     
-    // Main query to get applicant list with the latest status and note
-    $applicant_list = Student::select(
+        // Main query to get applicant list with the latest status and note
+        $applicant_list = Student::select(
             'students.id as student_id', 
-            'students.applicant_id', 
             'student_parents.id as parent_id', 
+            'students.applicant_id', 
             'students.*', 
             'student_parents.*', 
             DB::raw("(SELECT status FROM ({$latestStatuses->toSql()}) as latest WHERE latest.student_id = students.id) as latest_status"),
@@ -142,40 +189,20 @@ class ApplicantController extends Controller
         ->addBinding($latestStatuses->getBindings()) // Bind subquery parameters to the main query
         ->get();
 
-        $parent_applicant_id = StudentParent::get();
+        $parent_applicant_id = Student::select('applicant_id', 'first_name', 'last_name')->get();
         $ApplicantId = [];
+        
         foreach ($parent_applicant_id as $count) {
-            $ApplicantId[] = $count->applicant_id;
-            $ApplicantId[] = $count->father_name;
+            $ApplicantId[] = [
+                'applicant_id' => $count->applicant_id,
+                'name' => $count->first_name . ' ' . $count->last_name
+            ];
         }
     
-            
         return view('admin.applicant.applicant-list', compact('applicant_list','ApplicantId'));
     }
-        
     
-        // if ($request->has('class') && $request->class != '') {
-        //     $query->where('students.class', $request->class);
-        // }
-    
-        // if ($request->has('status_form') && $request->status_form != '') {
-        //     $query->where('applicant_statuses.status', $request->status_form);
-        // }
-    
-        // // if ($request->has('applicantIds') && $request->applicantIds != '') {
-        // //     $query->where('students.applicant_id', $request->applicantIds);
-        // // }
-
-        // if ($request->has('applicant_id') && $request->applicant_id != '') {
-        //     $query->where('students.applicant_id', 'LIKE', "%{$request->applicant_id}%");
-        // }
-    
-     
-    
-       
-    
-    
-    public function view_applicant($id)
+    public function view_applicant($student_id,$parent_id)
     {
         $country = Country::get();
         $test = [];
@@ -201,11 +228,9 @@ class ApplicantController extends Controller
             $lang[] = $lng->name;
         }
     
-        $applicant_data = Student::join('student_parents', function ($join) use ($id) {
-            $join->on('students.parent_id', '=', 'student_parents.id')
-                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
-                 ->where('student_parents.id', '=', $id);
-        })
+        $applicant_data = Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+        ->where('student_parents.id', $parent_id)
+        ->where('students.id', $student_id)
         ->select('students.*', 'student_parents.*')
         ->first();
     
@@ -842,6 +867,7 @@ class ApplicantController extends Controller
                 'username' => $parentStudent->username,
                 'password' => $parentStudent->password,
                 'class' => $request->class,
+                'gender' => $request->gender,
                 'date_of_birth' => $request->date_of_birth,
                 'blood_group' => $request->blood_group,
                 'student_language' => $request->student_language,
