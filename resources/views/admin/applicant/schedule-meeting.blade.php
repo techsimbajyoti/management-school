@@ -450,6 +450,7 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
         if (datepickerElement) {
             flatpickrInstance = flatpickr(datepickerElement, {
                 inline: true // This makes the calendar always visible
+
             });
 
             // Example of accessing selected dates

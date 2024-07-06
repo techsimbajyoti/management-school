@@ -244,43 +244,33 @@ class ApplicantController extends Controller
 
     public function applicant_list(Request $request)
     {
+       // Subquery to get the latest status for each student
+       $latestStatuses = ApplicantStatus::select('status')
+       ->whereColumn('student_id', 'students.id')
+       ->orderBy('created_at', 'desc')
+       ->limit(1);
 
-        $latestStatuses = ApplicantStatus::select('status', 'note', 'student_id')
-        ->whereIn('created_at', function ($query) {
-            $query->selectRaw('MAX(created_at)')
-                ->from('applicant_statuses')
-                ->whereColumn('student_id', 'students.id')
-                ->groupBy('student_id');
-        });
+   // Main query to get applicant list with the latest status
+   $applicant_list = Student::select(
+           'students.id as student_id', 
+           'student_parents.id as parent_id', 
+           'students.*', 
+           'student_parents.*', 
+           DB::raw("({$latestStatuses->toSql()}) as latest_status")
+       )
+       ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+       ->distinct()
+       ->get();
 
-    
-        // Main query to get applicant list with the latest status and note
-        $applicant_list = Student::select(
-            'students.id as student_id', 
-            'student_parents.id as parent_id', 
-            'students.applicant_id', 
-            'students.*', 
-            'student_parents.*', 
-            DB::raw("(SELECT status FROM ({$latestStatuses->toSql()}) as latest WHERE latest.student_id = students.id) as latest_status"),
-            DB::raw("(SELECT note FROM ({$latestStatuses->toSql()}) as latest WHERE latest.student_id = students.id) as latest_note")
-        )
-        ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
-        ->addBinding($latestStatuses->getBindings()) // Bind subquery parameters to the main query
-        ->get();
-
-        $parent_applicant_id = Student::select('applicant_id', 'first_name', 'last_name')->get();
-
+        $parent_applicant_id = Student::get();
         $ApplicantId = [];
-        
         foreach ($parent_applicant_id as $count) {
-            $ApplicantId[] = [
-                'applicant_id' => $count->applicant_id,
-                'name' => $count->first_name . ' ' . $count->last_name
-            ];
+            $ApplicantId[] = $count->applicant_id;
         }
-
+            
         return view('admin.applicant.applicant-list', compact('applicant_list','ApplicantId'));
     }
+        
     
     public function view_applicant($student_id,$parent_id)
     {
@@ -1519,17 +1509,7 @@ class ApplicantController extends Controller
             ];
         }
 
-         // Example steps data
-    $steps = [
-        ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
-        ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
-        ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
-        ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-        ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-        ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
-    ];
-
-        return view('admin.applicant.meeting-tracking',compact('steps','ApplicantId'));
+        return view('admin.applicant.meeting-tracking',compact('ApplicantId'));
     }
 
     public function get_applicant_status(Request $request){
@@ -1647,6 +1627,7 @@ class ApplicantController extends Controller
         $children = StudentParent::join('students', 'students.parent_id', '=', 'student_parents.id')
             ->leftJoin('meeting_statuses', 'meeting_statuses.student_id', '=', 'students.id')
             ->where('student_parents.id', $parent_id)
+            ->where('meeting_statuses.status', 'Meeting Schedule')
             ->select('students.*', 'meeting_statuses.meeting_date', 'meeting_statuses.time_slot', 'meeting_statuses.purpose', 'meeting_statuses.mode', 'meeting_statuses.status','meeting_statuses.id as meeting_id','meeting_statuses.note'
                        ,'meeting_statuses.other_purpose','meeting_statuses.location_url','meeting_statuses.note')
             ->distinct()
