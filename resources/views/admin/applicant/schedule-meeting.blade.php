@@ -398,7 +398,7 @@ function autocomplete(inp, arr) {
 
             $.ajax({
                 url: '/get-applicant-id', 
-                method: 'POST', 
+                method: 'POST', // Adjust HTTP method as per your requirement
                 data: {
                     applicant_id: value,
                    

@@ -179,7 +179,7 @@
                                     </thead>
                                     <tbody class="tbody">
                                   @foreach($meeting_data as $meeting_datas)
-                                
+                              
                                         <tr id="row_7">
                                             <td class="serial">{{ $meeting_datas->id}}</td>
                                             <td>2023114</td>
@@ -196,29 +196,32 @@
                                             <td>{{ $meeting_datas->purpose}}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                <span>{{ $meeting_datas->mode}}</span>
-                                                <a href="#" class="info-button applicant_mode" data-modal-id="myModal{{ $meeting_datas->id }}">
-                                                    <i class="fa fa-info"></i>
-                                                </a>
+                                                    <span>{{ $meeting_datas->mode}}</span>
+                                                    <a href="#" class="info-button applicant_mode" data-modal-id="myModal{{$meeting_datas->id}}">
+                                                        <i class="fa fa-info"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                             <td><span class="badge-basic-success-text">{{ $meeting_datas->status}}</span></td>
 
                                             {{-- <td><div style="background: rgb(224, 224, 224);width:50%;" class="text-center"><a class="myBtn"><i class="fa fa-eye"></i></a></div></td> --}}
                                             <td class="action">
-                                              <a class="btn ot-btn-primary admin_side_meeting" 
-                                                 data-student-id="{{ $meeting_datas->student_id }}" 
-                                                 data-parent-id="{{ $meeting_datas->parent_id }}"
-                                                 data-applicant-id="{{ $meeting_datas->applicant_id }}"
-                                                 data-meeting-date="{{ $meeting_datas->meeting_date }}"
-                                                 data-time-slot="{{ $meeting_datas->time_slot }}"
-                                                 data-purpose="{{ $meeting_datas->purpose }}"
-                                                 data-other-purpose="{{ $meeting_datas->other_purpose }}"
-                                                 data-mode="{{ $meeting_datas->mode }}"
-                                                 data-location-url="{{ $meeting_datas->location_url }}">
-                                                  <i class="fas fa-cog"></i>
-                                              </a>
-                                          </td>
+                                                <a class="btn ot-btn-primary admin_side_meeting"
+                                                   data-student-id="{{ $meeting_datas->student_id }}"
+                                                   data-parent-id="{{ $meeting_datas->parent_id }}"
+                                                   data-applicant-id="{{ $meeting_datas->applicant_id }}"
+                                                   data-meeting-date="{{ $meeting_datas->meeting_date }}"
+                                                   data-time-slot="{{ $meeting_datas->time_slot }}"
+                                                   data-purpose="{{ $meeting_datas->purpose }}"
+                                                   data-other-purpose="{{ $meeting_datas->other_purpose }}"
+                                                   data-mode="{{ $meeting_datas->mode }}"
+                                                   data-location-url="{{ $meeting_datas->location_url }}"
+                                                   data-status="{{ $meeting_datas->status }}"
+                                                   data-note="{{ $meeting_datas->note }}"
+                                                   data-modal-id="myModal">
+                                                    <i class="fas fa-cog"></i>
+                                                </a>
+                                            </td>
                                           
                                         </tr>
                                   @endforeach
@@ -234,7 +237,7 @@
 </div>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+{{-- <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -257,7 +260,7 @@
       </div>
     </div>
   
-  </div>
+  </div> --}}
   @foreach($meeting_data as $meeting_datas)
  
   <!-- The Modal -->
@@ -296,7 +299,7 @@
 
 
 <!-- The Modal -->
-<div id="myModal2" class="modal">
+<div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
       <div class="modal-header">
@@ -319,7 +322,7 @@
           <div class="row justify-content-center mt-3">
               <div class="col-md-6">
                   <label for="">Status</label>
-                  <select name="status" id="" class="nice-select sections niceSelect bordered_style wide">
+                  <select name="status" id="status" class="nice-select sections niceSelect bordered_style wide">
                         <option value="0">Meeting Status</option>
                         <option value="Active">Active</option>
                         <option value="Reschedule Meeting Request">Reschedule Meeting Request</option>
@@ -334,7 +337,7 @@
           <div class="row justify-content-center mt-3">
               <div class="col-md-6">
                   <label for="">Note</label>
-                  <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                  <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note"  id="note"></textarea>
               </div>
             </div>
             <div class="row justify-content-center mt-3">
@@ -355,56 +358,18 @@
 
 @push('scripts')
 <script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // var modal1 = document.getElementById("myModal1");
-
-    var modal2 = document.getElementById("myModal2");
-    
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-
-      if (event.target == modal1) {
-        modal1.style.display = "none";
-      }
-
-      if (event.target == modal2) {
-        modal2.style.display = "none";
-      }
-    }
-    
-
     document.addEventListener("DOMContentLoaded", function() {
-        // Get all elements with class "applicant_mode" (your info buttons)
-        var infoButtons = document.querySelectorAll('.applicant_mode');
+    function showModal(event) {
+        event.preventDefault();
 
-        // Function to handle modal display
-        function showModal(event) {
-            // Prevent default action (in case it's a link)
-            event.preventDefault();
+        var modalId = this.getAttribute('data-modal-id');
+        var modal = document.getElementById(modalId);
 
-            // Get the modal associated with the clicked info button
-            var modalId = this.getAttribute('data-modal-id');
-            var modal = document.getElementById(modalId);
-
-            // Display the modal
-            modal.style.display = "block";
+        modal.style.display = "block";
         }
 
-        // Attach click event listener to each info button
-        infoButtons.forEach(function(button) {
-            button.addEventListener('click', showModal);
-        });
-
-        // Close modal functionality
-        var closeButtons = document.querySelectorAll('.close');
-
-        function closeModal() {
-            // Get the parent modal of the close button
+        // Function to close the modal
+        function closeModal(event) {
             var modal = this.closest('.modal');
             if (modal) {
                 modal.style.display = "none";
@@ -412,6 +377,7 @@
         }
 
         // Attach click event listener to each close button
+        var closeButtons = document.querySelectorAll('.close');
         closeButtons.forEach(function(button) {
             button.addEventListener('click', closeModal);
         });
@@ -422,87 +388,39 @@
                 event.target.style.display = "none";
             }
         });
-    });
 
+        // Attach event listeners to all applicant_mode buttons
+        var infoButtons = document.querySelectorAll('.applicant_mode');
+        infoButtons.forEach(function(button) {
+            button.addEventListener('click', showModal);
+        });
 
+        // Attach event listeners to all admin_side_meeting buttons
+        var adminButtons = document.querySelectorAll('.admin_side_meeting');
+        adminButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var modal = document.getElementById('myModal');
+                
+                document.getElementById('student_id').value = this.getAttribute('data-student-id');
+                document.getElementById('parent_id').value = this.getAttribute('data-parent-id');
+                document.getElementById('applicant_id').value = this.getAttribute('data-applicant-id');
+                document.getElementById('meeting_date').value = this.getAttribute('data-meeting-date');
+                document.getElementById('time_slot').value = this.getAttribute('data-time-slot');
+                document.getElementById('purpose').value = this.getAttribute('data-purpose');
+                document.getElementById('other_purpose').value = this.getAttribute('data-other-purpose');
+                document.getElementById('mode').value = this.getAttribute('data-mode');
+                document.getElementById('location_url').value = this.getAttribute('data-location-url');
 
-    // Add event listeners to all buttons with class "myBtn"
-    document.addEventListener("DOMContentLoaded", function() {
-        var buttons = document.getElementsByClassName("myBtn");
-        Array.prototype.forEach.call(buttons, function(btn) {
-            btn.addEventListener("click", function() {
+                var status = this.getAttribute('data-status');
+                var note = this.getAttribute('data-note');
+                
+                document.querySelector('select[name="status"]').value = status;
+                document.querySelector('textarea[name="note"]').value = note;
+                 
                 modal.style.display = "block";
             });
         });
-
-            // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close");
-        Array.prototype.forEach.call(span, function(sp) {
-            sp.addEventListener("click", function() {
-                modal.style.display = "none";
-            });
-        });
     });
-
-        // Add event listeners to all buttons with class "myBtn"
-        document.addEventListener("DOMContentLoaded", function() {
-        var buttons = document.getElementsByClassName("applicant_mode");
-        Array.prototype.forEach.call(buttons, function(btn) {
-            btn.addEventListener("click", function() {
-                modal1.style.display = "block";
-            });
-        });
-
-            // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close");
-        Array.prototype.forEach.call(span, function(sp) {
-            sp.addEventListener("click", function() {
-                modal1.style.display = "none";
-            });
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-    var modal = document.getElementById('myModal2');
-    var btns = document.querySelectorAll('.admin_side_meeting');
-    var closeModal = modal.querySelector('.close');
-
-    btns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var studentId = this.getAttribute('data-student-id');
-            var parentId = this.getAttribute('data-parent-id');
-            var applicantId = this.getAttribute('data-applicant-id');
-            var meetingDate = this.getAttribute('data-meeting-date');
-            var timeSlot = this.getAttribute('data-time-slot');
-            var purpose = this.getAttribute('data-purpose');
-            var otherPurpose = this.getAttribute('data-other-purpose');
-            var mode = this.getAttribute('data-mode');
-            var locationUrl = this.getAttribute('data-location-url');
-
-            document.getElementById('student_id').value = studentId;
-            document.getElementById('parent_id').value = parentId;
-            document.getElementById('applicant_id').value = applicantId;
-            document.getElementById('meeting_date').value = meetingDate;
-            document.getElementById('time_slot').value = timeSlot;
-            document.getElementById('purpose').value = purpose;
-            document.getElementById('other_purpose').value = otherPurpose;
-            document.getElementById('mode').value = mode;
-            document.getElementById('location_url').value = locationUrl;
-
-            modal.style.display = "block";
-        });
-    });
-
-    closeModal.addEventListener('click', function() {
-        modal.style.display = "none";
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-});
-
-    </script>
+</script>
 @endpush
+
