@@ -44,9 +44,37 @@ class ApplicantController extends Controller
     }
 
     public function applicant(){
-        return view('pages.applicant');
-    }
 
+     $upcoming_data = Student::join('student_parents','students.parent_id','=','student_parents.id')
+                      ->join('meeting_statuses', 'students.id', '=', 'meeting_statuses.student_id')
+                      ->select(
+                        'meeting_statuses.id',
+                        'meeting_statuses.meeting_date',
+                        'meeting_statuses.time_slot',
+                        'meeting_statuses.purpose',
+                        'meeting_statuses.mode',
+                        'meeting_statuses.status',
+                        'students.first_name',
+                        'students.last_name',
+                        'student_parents.father_name',
+                        'students.applicant_id',
+                        'students.class',
+                        'student_parents.father_mobile'
+                    )
+                    ->where('meeting_statuses.status', 'Meeting Schedule')
+                    ->whereIn('meeting_statuses.id', function ($query) {
+                        $query->selectRaw('MAX(id)')
+                            ->from('meeting_statuses')
+                            ->groupBy('student_id');
+                    })
+                    ->distinct()
+                    ->get();
+
+
+            return view('pages.applicant', compact('upcoming_data'));
+        }
+
+    
     public function search_student(Request $request){
 
         $student_class = $request->input('student_class');
@@ -690,6 +718,18 @@ class ApplicantController extends Controller
         return view('admin.applicant.schedule-meeting',compact('meetingStatus','info','step1Data', 'step2Data','ApplicantId'));
     }
 
+                // public function get_Applicant_Id(Request $request){
+         
+                //      $applicant_id = $request->applicant_id;
+
+                //          $new_schedule_meeting = Student::join('student_parents','student.parent_id','=','student_parents.id')
+                //              ->On('meeting_statuses','students.id','=','meeting_statuses.student_id' )
+                //              ->where('student.applicant_id',$applicant_id)
+                //               ->select('student.*','student_parents.*')
+                //              ->first();
+
+                // }
+ 
 
 
     public function post_schedule_meeting_1(Request $request){
@@ -1595,21 +1635,65 @@ class ApplicantController extends Controller
         return view('admin.applicant.add-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
     }
 
-    public function parent_meeting_status(){
-        return view('admin.applicant.parent-meeting-status');
+    public function parent_meeting_status() {
+        $parent_id = auth()->guard('webparents')->user()->id;
+    
+        // Fetch students
+        $students = StudentParent::join('students', 'students.parent_id', '=', 'student_parents.id')
+            ->where('student_parents.id', $parent_id)
+            ->get();
+    
+        // Fetch meeting statuses for each student
+        $children = StudentParent::join('students', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoin('meeting_statuses', 'meeting_statuses.student_id', '=', 'students.id')
+            ->where('student_parents.id', $parent_id)
+            ->select('students.*', 'meeting_statuses.meeting_date', 'meeting_statuses.time_slot', 'meeting_statuses.purpose', 'meeting_statuses.mode', 'meeting_statuses.status','meeting_statuses.id as meeting_id','meeting_statuses.note'
+                       ,'meeting_statuses.other_purpose','meeting_statuses.location_url','meeting_statuses.note')
+            ->distinct()
+            ->get();
+    
+        return view('admin.applicant.parent-meeting-status', compact('students', 'children'));
+    }
+    
+    public function parent_meeting_status_update(Request $request) {
+
+        $parent_meeting_update = new MeetingStatus;
+        $parent_meeting_update->student_id = $request->student_id;
+        $parent_meeting_update->parent_id = $request->parent_id;
+        $parent_meeting_update->applicant_id = $request->applicant_id;
+        $parent_meeting_update->meeting_date = $request->meeting_date;
+        $parent_meeting_update->time_slot = $request->time_slot;
+        $parent_meeting_update->purpose = $request->purpose;
+        $parent_meeting_update->other_purpose = $request->other_purpose;
+        $parent_meeting_update->mode = $request->mode;
+        $parent_meeting_update->location_url = $request->location_url;
+        $parent_meeting_update->status = $request->status;
+        $parent_meeting_update->note = $request->note;
+        $parent_meeting_update->ip_address = '1';
+        $parent_meeting_update->created_by = 'null';
+        $parent_meeting_update->save();
+            
+        if($parent_meeting_update){
+            return redirect()->back()->with('status', 'Meeting Status Updated Successfully!!');
+        }else{
+            return redirect()->back()->with('status', 'Failed to Update Meeting Status');
+        }
     }
 
-    public function parent_meeting_track(){
-        $steps = [
-            ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
-            ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
-            ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
-            ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-            ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-            ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
-        ];
 
-        return view('admin.applicant.parent-meeting-track',compact('steps'));
+
+    public function parent_meeting_track(){
+        $parent_applicant_id = Student::where('parent_id', auth()->guard('webparents')->user()->id)->select('applicant_id', 'first_name', 'last_name')->get();
+        $ApplicantId = [];
+        
+        foreach ($parent_applicant_id as $count) {
+            $ApplicantId[] = [
+                'applicant_id' => $count->applicant_id,
+                'name' => $count->first_name . ' ' . $count->last_name
+            ];
+        }
+
+        return view('admin.applicant.parent-meeting-track',compact('ApplicantId'));
     }
  
     public function applicant_student_profile($id){

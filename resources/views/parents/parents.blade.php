@@ -71,15 +71,47 @@
                     
                     <div class="card-footer">
                     {{-- <div id="meeting-details"></div> --}}
+                    @php
+                    $parent_id = App\Models\Student::where('parent_id', auth()->guard('webparents')->user()->id)->first()->parent_id;
+
+                        $meeting_data = App\Models\MeetingStatus::join('students', 'meeting_statuses.student_id', '=', 'students.id')
+                            ->join('student_parents', 'meeting_statuses.parent_id', '=', 'student_parents.id')
+                            ->select(
+                                'meeting_statuses.applicant_id',
+                                'meeting_statuses.meeting_date',
+                                'meeting_statuses.time_slot',
+                                'meeting_statuses.purpose',
+                                'meeting_statuses.mode',
+                                'meeting_statuses.status',
+                                'meeting_statuses.location_url'
+                            )
+                            ->where('meeting_statuses.parent_id', $parent_id)
+                            ->where('meeting_statuses.status', 'Meeting Schedule')
+                            ->whereIn('meeting_statuses.id', function ($query) {
+                                $query->selectRaw('MAX(id)')
+                                    ->from('meeting_statuses')
+                                    ->groupBy('student_id')
+                                    ->where('status', 'Meeting Schedule');
+                            })
+                            ->distinct()
+                            ->get();
+                     
+                                       
+                    @endphp
+                  
                     <div class="row">
+                        
+                    @foreach($meeting_data as $datas)
                         <div class="col-md-6">
                             <div class="card mini-card">
-                                <div class="card-header">
-                                    <h6 class="card-title">Mode</h6>
+                                <div class="card-header d-flex justify-content-between">
+                                    <h6 class="card-title">Mode </h6>  
+                                    <p>App Id:{{$datas->applicant_id}}</p>    
                                 </div>
+                              
                                 <div class="card-body">
-                                    <p class="card-text">Offline</p>
-                                    <p class="card-text">Vijay Nagar Scheme No. 54</p>
+                                    <p class="card-text">{{$datas->mode}}</p>
+                                    <p class="card-text">{{$datas->location_url}}</p>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +121,7 @@
                                     <h6 class="card-title">Purpose</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">Interview</p>
+                                    <p class="card-text">{{$datas->purpose}}</p>
                                 </div>
                             </div>
                         </div>
@@ -99,10 +131,12 @@
                                     <h6 class="card-title">Date & Time</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">26/06/2024 at 12:30pm</p>
+                                    <p class="card-text">{{ substr($datas->meeting_date,0,16)}}{{$datas->time}}</p>
                                 </div>
                             </div>
                         </div>
+                       
+                        @endforeach
                         {{-- <div class="col-md-6">
                             <div class="card mini-card">
                                 <div class="card-header">
@@ -113,6 +147,7 @@
                                 </div>
                             </div>
                         </div> --}}
+                       
                     </div>
                     </div>
                     <hr>

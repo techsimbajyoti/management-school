@@ -729,47 +729,29 @@
                                             </tr>
                                         </thead>
                                         <tbody class="tbody">
+                                            @foreach($upcoming_data as $upcoming_meetings)
                                             <tr id="row_7">
-                                                <td class="serial">1</td>
-                                                <td>2023114</td>
+                                                <td class="serial">{{$upcoming_meetings->id}}</td>
+                                                <td>{{$upcoming_meetings->applicant_id}}</td>
                                                 
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                    <a href="{{ route('admin-student-profile')}}" target="_blank">John</a></td>
-                                                <td>Two</td>
-                                                <td>Parent5</td>
+                                                    <a href="{{ route('admin-student-profile')}}" target="_blank">{{$upcoming_meetings->first_name}} {{$upcoming_meetings->last_name}}</a></td>
+                                                <td>{{$upcoming_meetings->class}}</td>
+                                                <td>{{$upcoming_meetings->father_name}}</td>
                                                
-                                                <td>658932654</td>
+                                                <td>{{$upcoming_meetings->father_mobile}}</td>
                                                
-                                                <td>jan 24,2024</td>
-                                                <td>2:30 pm</td>
-                                                <td>Student Interview</td>
+                                                <td>{{$upcoming_meetings->meeeting_date}}</td>
+                                                <td>{{$upcoming_meetings->time_slot}}</td>
+                                                <td>{{$upcoming_meetings->purpose}}</td>
                                                 <td>
                                                     <div class="d-flex">
-                                                    <span>Offline</span>
+                                                    <span>{{$upcoming_meetings->mode}}</span>
                                                     </div>
                                                 </td>
-                                                <td><span class="badge-basic-success-text">Active</span></td>
+                                                <td><span class="badge-basic-success-text">{{$upcoming_meetings->status}}</span></td>
                                             </tr>
-                                            <tr id="row_7">
-                                                <td class="serial">2</td>
-                                                <td>2023111</td>
-                                               
-                                                <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                  <a href="{{ route('admin-student-profile')}}" target="_blank">William</a></td>
-                                                <td>Two</td>
-                                                <td>Parent8</td>
-                                               
-                                                <td>0147852111</td>
-                                                <td>jun 05,2024</td>
-                                                <td>3:30 pm</td>
-                                                <td>Student Interview</td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                    <span>Offline</span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="badge-basic-success-text">Active</span></td>
-                                        </tr>
+                                            @endforeach
                                     </tbody>
                                 </table>
                             </div>
