@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicantRegistered;
 use App\Mail\AdminNotification;
+use App\Mail\ApplicantMeetingNotification;
+use App\Mail\AdminMeetingNotification;
 use App\Mail\ApplicantStatusUpdate;
 use App\Mail\AdminStatusReceive;
 use Illuminate\Support\Facades\Crypt;
@@ -53,6 +55,53 @@ class ApplicantController extends Controller
         $to = $request->input('to');
         $applicantid = $request->input('applicantid');
 
+        $applicant_view = $request->input('applicant_view');
+        $applicant_status = $request->input('applicant_status');
+
+        if(($applicant_view != null && $applicant_status != null) && ($student_class || $status || $from || $to || $applicantid) == null){
+
+            $applicant_list = DB::table('students')
+            ->select(
+                'students.id as student_id',
+                'student_parents.id as parent_id',
+                'students.*',
+                'student_parents.*',
+                'meeting_statuses.status as latest_status',
+                'meeting_statuses.note as latest_note',
+                'meeting_statuses.meeting_date as latest_date',
+                'meeting_statuses.time_slot as latest_time_slot',
+                'meeting_statuses.purpose as meeting_type',
+                'meeting_statuses.mode as meeting_mode',
+                'meeting_statuses.status as meeting_status',
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->join('meeting_statuses', 'students.id', '=', 'meeting_statuses.student_id')
+            ->where('students.applicant_id', $applicant_view)
+            ->where('meeting_statuses.status', $applicant_status)
+            ->get();
+
+        }else if(($applicant_view != null && $applicant_status == null) && ($student_class || $status || $from || $to || $applicantid) == null){
+            $applicant_list = DB::table('students')
+            ->select(
+                'students.id as student_id',
+                'student_parents.id as parent_id',
+                'students.*',
+                'student_parents.*',
+                'meeting_statuses.status as latest_status',
+                'meeting_statuses.note as latest_note',
+                'meeting_statuses.meeting_date as meeting_date',
+                'meeting_statuses.time_slot as time_slot',
+                'meeting_statuses.purpose as meeting_type',
+                'meeting_statuses.mode as meeting_mode',
+                'meeting_statuses.status as meeting_status',
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoin('meeting_statuses', 'students.id', '=', 'meeting_statuses.student_id')
+            ->where('students.applicant_id', $applicant_view)
+            ->get();
+
+        }else{
+
         // Subquery to get the latest status and note for each student
         $latestStatuses = DB::table('applicant_statuses as sub')
             ->select('sub.student_id', 'sub.status', 'sub.note')
@@ -64,8 +113,8 @@ class ApplicantController extends Controller
         
             if($student_class == null && $status == null && $from != null && $to != null && $applicantid == null){
 
-                $from = '2024-07-02 09:54:00';
-$to = '2024-07-05 09:55:06';
+                $fromDate = $from.' '.'01:00:00';
+                $toDate = $to.' '.'00:00:00';
 
                 $applicant_list = DB::table('students')
                 ->select(
@@ -81,8 +130,8 @@ $to = '2024-07-05 09:55:06';
                     $join->on('students.id', '=', 'latest.student_id');
                 })
                 ->where('students.class', $student_class)
-                ->where('students.created_at', '>=', $from)
-                ->where('students.created_at', '<=', $to)
+                ->where('student_parents.created_at', '>=', $from)
+                ->where('student_parents.created_at', '<=', $to)
                 ->get();
 
             }else if($student_class != null && $status != null && $from == null && $to == null && $applicantid == null){
@@ -103,7 +152,7 @@ $to = '2024-07-05 09:55:06';
             ->where('latest.status', $status) // Additional condition for status
             ->get();
 
-        }else if($student_class != null){
+        }else if($student_class != null && $status == null && $from == null && $to == null && $applicantid == null){
         // Main query to get applicant list with the latest status and note
         $applicant_list = DB::table('students')
             ->select(
@@ -120,7 +169,7 @@ $to = '2024-07-05 09:55:06';
             })
             ->where('students.class', $student_class)
             ->get();
-        }else if($status != null){
+        }else if($student_class == null && $status != null && $from == null && $to == null && $applicantid == null){
 
             $applicant_list = DB::table('students')
             ->select(
@@ -137,7 +186,7 @@ $to = '2024-07-05 09:55:06';
             })
             ->where('latest.status', $status)
             ->get();
-        }else if($applicantid != null){
+        }else if($student_class == null && $status == null && $from == null && $to == null && $applicantid != null){
 
             $parts = explode(' - ', $applicantid);
             $id = $parts[0]; // This will be '00099111'
@@ -159,13 +208,15 @@ $to = '2024-07-05 09:55:06';
             ->where('students.applicant_id', $id)
             ->get();
         }
+    }
 
-        return response()->json(['success' => 'true', 'applicant_list' => $applicant_list]);
+        return response()->json(['success' => true, 'applicant_list' => $applicant_list]);
 
     }
 
     public function applicant_list(Request $request)
     {
+
         $latestStatuses = ApplicantStatus::select('status', 'note', 'student_id')
         ->whereIn('created_at', function ($query) {
             $query->selectRaw('MAX(created_at)')
@@ -190,6 +241,7 @@ $to = '2024-07-05 09:55:06';
         ->get();
 
         $parent_applicant_id = Student::select('applicant_id', 'first_name', 'last_name')->get();
+
         $ApplicantId = [];
         
         foreach ($parent_applicant_id as $count) {
@@ -198,7 +250,7 @@ $to = '2024-07-05 09:55:06';
                 'name' => $count->first_name . ' ' . $count->last_name
             ];
         }
-    
+
         return view('admin.applicant.applicant-list', compact('applicant_list','ApplicantId'));
     }
     
@@ -605,25 +657,53 @@ $to = '2024-07-05 09:55:06';
 
     public function schedule_meeting($id){
         $meetingStatus = $id;
+        $step1Data = json_decode(Session::get('step1'), true) ?: [];
+       
+        $step2Data = json_decode(Session::get('step2'), true) ?: [];
+        // dd($step1Data);
         $info = Student::join('student_parents', function ($join) use ($id) {
             $join->on('students.parent_id', '=', 'student_parents.id')
-                 ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                //  ->on('students.applicant_id', '=', 'student_parents.applicant_id')
                  ->where('students.applicant_id', '=', $id);
         })
         ->select('students.*', 'student_parents.*','students.id as student_id')
         ->first();
-        return view('admin.applicant.schedule-meeting',compact('meetingStatus','info'));
+
+        $parent_applicant_id = Student::select('applicant_id', 'first_name', 'last_name')->get();
+        $ApplicantId = [];
+        
+        foreach ($parent_applicant_id as $count) {
+            $ApplicantId[] = [
+                'applicant_id' => $count->applicant_id,
+                'name' => $count->first_name . ' ' . $count->last_name
+            ];
+        }
+
+
+    //   $new_schedule_meeting = Student::join('student_parents','student.parent_id','=','student_parents.id')
+    //                          ->where('student.applicant_id',$request->applicant_id)
+    //                          ->where('student.first_name',$request->first_name)
+    //                          ->where('student.last_name',$request->last_name)
+    //                          ->select('student.*','student_parents.*')
+    //                          ->first();
+
+        return view('admin.applicant.schedule-meeting',compact('meetingStatus','info','step1Data', 'step2Data','ApplicantId'));
     }
+
+
 
     public function post_schedule_meeting_1(Request $request){
 
-   
-    $validatedData = $request->validate([
-       'meeting_type' => 'required',
-       'meeting_mode' => 'required',
-       
+        $validatedData = $request->validate([
+            'meeting_type' => 'required',
+            'meeting_mode' => 'required',
+        ], [
+            'meeting_type.required' => 'The Purpose field is required.',
+            'meeting_mode.required' => 'The Meeting mode field is required.',
+        ]);
 
-    ]);
+        
+    $validatedData = $request->all();
 
     Session::put('step1', json_encode($validatedData));
    
@@ -632,12 +712,11 @@ $to = '2024-07-05 09:55:06';
     }
      public function post_schedule_meeting_2(Request $request)
      {
-         
         $validatedData = $request->all();
 
-         Session::put('step2', json_encode($validatedData));
+        Session::put('step2', json_encode($validatedData));
  
-         return response()->json(['status' => 'success', 'message' => 'Data stored in session']);
+        return response()->json(['status' => 'success', 'message' => 'Data stored in session']);
      }
 
      public function final_submit(Request $request) {
@@ -646,8 +725,9 @@ $to = '2024-07-05 09:55:06';
         $step2Data = json_decode(Session::get('step2'), true);
     
         $combinedData = array_merge($step1Data, $step2Data);
-    
-        $meeting = new MeetingStatus();
+        
+        $meeting = new MeetingStatus;
+            
         $meeting->meeting_date = $combinedData['meeting_date']; 
         $meeting->time_slot = $combinedData['meeting_time']; 
         $meeting->student_id = $combinedData['student_id'];
@@ -656,15 +736,25 @@ $to = '2024-07-05 09:55:06';
         $meeting->purpose = $combinedData['meeting_type'];
         $meeting->mode = $combinedData['meeting_mode'];
         $meeting->other_purpose = $combinedData['meeting_other'];
-        $meeting->location_url = $combinedData['meeting_location'];
-        $meeting->location_url = $combinedData['meeting_mode_other'];
+        $meeting->location_url = $combinedData['meeting_mode'] === 'online' ? $combinedData['meeting_mode_other'] : $combinedData['meeting_location'];
         $meeting->status = 'active';
         $meeting->ip_address = '1';
         $meeting->created_by = 'null';
         $meeting->save();
 
+      
+        $email = StudentParent::where('student_parents.id',$combinedData['parent_id'])
+                ->select('email')
+                ->first();
+        $applicant = Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+                    ->where('students.id', $combinedData['student_id'])
+                    ->where('students.parent_id', $combinedData['parent_id'])
+                    ->first();
 
-        return response()->json(['status' => 'success', 'message' => 'All data combined', 'data' => $combinedData]);
+        Mail::to('ts.juhiverma@gmail.com')->send(new AdminMeetingNotification($meeting,$applicant));
+        Mail::to($email)->send(new ApplicantMeetingNotification($meeting,$applicant));
+           
+        return response()->json(['status' => 'success', 'message' => 'Meeting Scheduled!!', 'data' => $combinedData]);
     }
 
     public function post_applicant_data(Request $request){
@@ -1329,10 +1419,48 @@ $to = '2024-07-05 09:55:06';
     }
 
 
-
+    public function applicantId(Request $request)
+    {
+        $term = $request->input('term');
+        $applicants = Student::where('applicant_id', 'like', '%' . $term . '%')
+                     ->pluck('applicant_id');
+        return response()->json($applicants);
+    }
+    
 
     public function meeting_status(){
-     return view('admin.applicant.meeting-status');
+        $meeting_data = MeetingStatus::join('students', 'meeting_statuses.student_id', '=', 'students.id')
+        ->join('student_parents', 'meeting_statuses.parent_id', '=', 'student_parents.id')
+        ->select(
+            'meeting_statuses.id',
+            'meeting_statuses.student_id',
+            'meeting_statuses.parent_id',
+            'meeting_statuses.meeting_date',
+            'meeting_statuses.time_slot',
+            'meeting_statuses.note as latest_note',
+            'meeting_statuses.status as latest_status',
+            'meeting_statuses.purpose',
+            'meeting_statuses.mode',
+            'meeting_statuses.status',
+            'meeting_statuses.location_url',
+            'students.first_name',
+            'students.last_name',
+            'student_parents.father_name',
+            'students.applicant_id',
+            'students.class',
+            'student_parents.father_mobile'
+        )
+        ->whereIn('meeting_statuses.id', function ($query) {
+            $query->selectRaw('MAX(id)')
+                ->from('meeting_statuses')
+                ->groupBy('student_id');
+        })
+        ->distinct()
+        ->get();
+
+        $ApplicantId = Student::select('applicant_id', 'first_name', 'last_name')->get();
+   
+        return view('admin.applicant.meeting-status', compact('meeting_data','ApplicantId'));
     }
 
     public function change_meeting_status(){
@@ -1340,6 +1468,17 @@ $to = '2024-07-05 09:55:06';
     }
 
     public function meeting_tracking(){
+
+        $parent_applicant_id = Student::select('applicant_id', 'first_name', 'last_name')->get();
+        $ApplicantId = [];
+        
+        foreach ($parent_applicant_id as $count) {
+            $ApplicantId[] = [
+                'applicant_id' => $count->applicant_id,
+                'name' => $count->first_name . ' ' . $count->last_name
+            ];
+        }
+
          // Example steps data
     $steps = [
         ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
@@ -1350,7 +1489,42 @@ $to = '2024-07-05 09:55:06';
         ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
     ];
 
-        return view('admin.applicant.meeting-tracking',compact('steps'));
+        return view('admin.applicant.meeting-tracking',compact('steps','ApplicantId'));
+    }
+
+    public function get_applicant_status(Request $request){
+
+        $applicant_id = $request->input('applicant_id');
+
+        $steps = DB::table('students')
+            ->select(
+                'students.id as student_id',
+                'student_parents.id as parent_id',
+                'students.*',
+                'student_parents.*',
+                'meeting_statuses.status as meeting_status',
+                'meeting_statuses.note as meeting_note',
+                'meeting_statuses.meeting_date',
+                'meeting_statuses.time_slot',
+                'applicant_statuses.status as applicant_status',
+                'applicant_statuses.note as applicant_note'
+            )
+            ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->leftJoin('meeting_statuses', function ($join) {
+                $join->on('students.id', '=', 'meeting_statuses.student_id');
+                $join->on('meeting_statuses.applicant_id', '=', 'students.applicant_id');
+            })
+            ->leftJoin('applicant_statuses', function ($join) {
+                $join->on('students.id', '=', 'applicant_statuses.student_id');
+                $join->on('applicant_statuses.applicant_id', '=', 'students.applicant_id');
+            })
+            ->where('students.applicant_id', $applicant_id)
+            ->orderBy('meeting_statuses.meeting_date')
+            ->orderBy('meeting_statuses.time_slot')
+            ->get();
+            
+            return response()->json($steps);
+
     }
 
     public function applicant_parent_list($id){
@@ -1485,6 +1659,35 @@ $to = '2024-07-05 09:55:06';
         }
     }
 
+    public function applicant_meeting_status_update(Request $request){
+        // $ipAddress = $this->getPublicIpAddress();
+
+        $meeting_update = new MeetingStatus;
+        $meeting_update->student_id = $request->student_id;
+        $meeting_update->parent_id = $request->parent_id;
+        $meeting_update->applicant_id = $request->applicant_id;
+        $meeting_update->meeting_date = $request->meeting_date;
+        $meeting_update->time_slot = $request->time_slot;
+        $meeting_update->purpose = $request->purpose;
+        $meeting_update->other_purpose = $request->other_purpose;
+        $meeting_update->mode = $request->mode;
+        $meeting_update->location_url = $request->location_url;
+        $meeting_update->status = $request->status;
+        $meeting_update->note = $request->note;
+        $meeting_update->ip_address = '1';
+        $meeting_update->created_by = 'null';
+        $meeting_update->save();
+            
+        if($meeting_update){
+            return redirect()->back()->with('status', 'Meeting Status Updated Successfully!!');
+        }else{
+            return redirect()->back()->with('status', 'Failed to Update Meeting Status');
+        }
+    }
+   
+
+
+
     public function download_profile($student_id, $parent_id){
         $parent_details = StudentParent::find($parent_id);
         $student_details = Student::find($student_id);
@@ -1575,6 +1778,20 @@ $to = '2024-07-05 09:55:06';
         
         return view('admin.applicant.update-applicant-data',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent'));
         
+    }
+
+    public function get_applicant_id(Request $request){
+        $applicant_id = $request->input('applicant_id');
+
+        $info = Student::join('student_parents', function ($join) use ($applicant_id) {
+            $join->on('students.parent_id', '=', 'student_parents.id')
+                //  ->on('students.applicant_id', '=', 'student_parents.applicant_id')
+                 ->where('students.applicant_id', '=', $applicant_id);
+        })
+        ->select('students.*', 'student_parents.*','students.id as student_id')
+        ->first();
+
+        return response()->json(['success' => true, 'info' => $info]);
     }
  
 }

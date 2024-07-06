@@ -14,6 +14,9 @@
 
 @section('content')
 <div class="content">
+<div id="success-message" style="display: none;" class="alert alert-success" role="alert">
+</div>
+
     <div class="row">
         <div id="book-appointment-wizard" class="col-12 col-xl-8">
             <div id="header">
@@ -41,23 +44,27 @@
                    <input type="hidden" value="{{$info->student_id}}" name="student_id">
                    <input type="hidden" value="{{$info->parent_id}}" name="parent_id">
                    <input type="hidden" value="{{$info->applicant_id}}" name="applicant_id">
-                  
+                   <input type="hidden" value="{{$info->email}}" name="email">
+                 
+                                    
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="title">Applicant Number : <span>{{$info->applicant_id}}</span></p>
-                                </div>
+                                <p class="title">Applicant Number : <span>{{$info->applicant_id}}</span></p>
+                            </div>
                                 <div class="col-md-6">
-                                    <p class="title">Father Name : <span>{{$info->father_name}}</span></p>
+                                <p class="title">Father Name : <span>{{ isset($info->father_name) ? $info->father_name:''}}</span></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="title">Student Name : <span>{{$info->first_name}} {{$info->last_name}}</span></p>
+                                    
+                                    <p class="title">Student Name : <span>{{ isset($info->first_name) ? $info->first_name : '' }} {{ isset($info->last_name) ? $info->last_name : ''}}</span></p>
+                                  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="title">Class : <span>{{$info->class}}</span></p>
+                                    <p class="title">Class : <span>{{isset($info->class) ? $info->class : ''}}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -65,8 +72,13 @@
                     @endif
                 
                     @if($meetingStatus == 'schedule-meeting')
-                    <div class="d-flex">
-                        <input type="text" placeholder="Search By Applicant Id..." name="applicant_id" class="ot-input form-control ot-input">
+                    <input type="hidden" value="" name="student_id" class="student_id">
+                   <input type="hidden" value="" name="parent_id" class="parent_id">
+                   <input type="hidden" value="" name="applicant_id" class="applicant_id">
+                   <input type="hidden" value="" name="email" class="email">
+                    <div class="d-flex autocomplete">
+                        <input type="text" placeholder="Search By Applicant Id..." autocomplete="off" id="applicantIds" name="applicantIds" class="ot-input form-control ot-input">
+                        <input type="hidden" id="selectedApplicantId" name="selectedApplicantId">
                     </div>
                     <div class="row frame-content mt-5">
                         <div class="col-6 col-md-6">
@@ -134,7 +146,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="select-service">Purpose <span class="fillable">*</span></label>
-                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" name="meeting_type" >
+                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" name="meeting_type" required>
                                     <option value="School Type">School Type</option>  
                                     <option value="Entrance Exam">Entrance Exam</option> 
                                     <option value="Student Interview">Student Interview</option>
@@ -142,14 +154,12 @@
                                     <option value="Document Submission">Document Submission</option> 
                                     <option value="other">Other</option>                        
                                 </select>
-                                <span class="invalid-feedback" id="meeting_type" style="display: none;">
-                                <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
-                          
-                            <span class="invalid-feedback" id="meeting_other" style="display: none;">
+                               <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
+                                                   
                             </div>
                             <div class="form-group">
                                 <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
-                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" name="meeting_mode">
+                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" name="meeting_mode" required>
                                     <option value="">Please select one of these</option>
                                     <option value="offline">Offline</option>  
                                     <option value="online">Online</option>
@@ -222,8 +232,9 @@
                                 <div class="col-md-6">
                                     <p class="mb-0"><strong>Start:</strong></p>
                                 </div>
+                               
                                 <div class="col-md-6">
-                                    <p class="mb-0">01/07/2024 12:00 pm</p>
+                                    <p class="mb-0 start_date_time"></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -244,7 +255,7 @@
                                     <p class="mb-0"><strong>Applicant:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">demo</p>  
+                                    <p class="mb-0 applicant_first_last">{{isset($info->first_name) ? $info->first_name: ''}} {{ isset($info->last_name) ? $info->last_name : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -252,7 +263,7 @@
                                     <p class="mb-0"><strong>Phone Number:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">1234567890</p>  
+                                    <p class="mb-0 applicant_phone_number">{{ isset($info->father_mobile) ? $info->father_mobile : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -260,7 +271,7 @@
                                     <p class="mb-0"><strong>Email:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">admin@gmail.com</p>  
+                                    <p class="mb-0 applicant_email">{{isset($info->email) ? $info->email : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -268,15 +279,15 @@
                                     <p class="mb-0"><strong>Meeting Mode:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">Offline</p>  
+                                    <p class="mb-0 applicant_meeting_mode"></p>  
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="mb-0"><strong>Meeting Type:</strong></p>  
+                                    <p class="mb-0"><strong>Meeting Purpose:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">Student Interview</p>  
+                                    <p class="mb-0 applicant_meeting_purpose"></p>  
                                 </div>
                             </div>
                         </div>
@@ -302,51 +313,138 @@
 <!-- Example with CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
+  $(document).ready(function() {
+
+var student = <?php echo json_encode($ApplicantId); ?>;
+
+autocomplete(document.getElementById("applicantIds"), student);
+
+function autocomplete(inp, arr) {
+    var currentFocus;
+
+    inp.addEventListener("input", function(e) {
+        var a, b, i, val = this.value;
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].applicant_id.substr(0, val.length).toUpperCase() == val.toUpperCase() ||
+                arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                b = document.createElement("DIV");
+                b.innerHTML = "<strong>" + arr[i].applicant_id.substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].applicant_id.substr(val.length) + " - ";
+                b.innerHTML += "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].name.substr(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i].applicant_id + " - " + arr[i].name + "' data-id='" + arr[i].applicant_id + "'>";
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    var selectedApplicantId = this.getElementsByTagName("input")[0].getAttribute('data-id');
+                    document.getElementById('selectedApplicantId').value = selectedApplicantId;
+                    console.log("Selected Applicant ID: " + selectedApplicantId);
+                    closeAllLists();
+
+                    // Trigger a custom event to indicate a selection has been made
+                    var event = new CustomEvent('applicantSelected', { detail: selectedApplicantId });
+                    inp.dispatchEvent(event);
+                });
+                a.appendChild(b);
+            }
+        }
+    });
+
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    document.addEventListener("click", function(e) {
+        closeAllLists(e.target);
+    });
+}
+
+// Listen for the custom event
+document.getElementById("applicantIds").addEventListener('applicantSelected', function(e) {
+    var value = e.detail; 
+
+    $.ajax({
+        url: '/get-applicant-id',
+        method: 'POST',
+        data: {
+            applicant_id: value,
+            _token: '{{ csrf_token() }}' // Include CSRF token if required
+        },
+        success: function(response) {
+            console.log(response);
+            $('#first-name').val(response.info.first_name);
+            $('#last-name').val(response.info.last_name);
+            $('#email').val(response.info.email);
+            $('#phone-number').val(response.info.father_mobile);
+            $('#address').val(response.info.address);
+            $('#city').val(response.info.city);
+            $('#zip-code').val(response.info.pin_code);
+
+            $('.student_id').val(response.info.student_id);
+            $('.parent_id').val(response.info.id);
+            $('.applicant_id').val(response.info.applicant_id);
+            $('.email').val(response.info.email);
+
+            $('.applicant_first_last').text(response.info.first_name);
+            $('.applicant_phone_number').text(response.info.father_mobile);  
+            $('.applicant_email').text(response.info.email);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+});
+
+  
+});
+   
    
 
- $(document).ready(function() {
-    $('#meeting_mode_other').hide();
-    $('#meeting_other').hide();
-    $('#meeting_location').hide();
-
-    $('#meeting_type').change(function(){
-        if($(this).val() == 'other'){
-            $('#meeting_other').show();
-        }else{
-            $('#meeting_other').hide();
-        }
-    });
-
-    $('#meeting_mode').change(function(){
-        if($(this).val() == 'online'){
-            $('#meeting_mode_other').show();
-        }else{
-            $('#meeting_mode_other').hide();
-        }
-
-        if($(this).val() == 'offline'){
-            $('#meeting_location').show();
-        }else{
-            $('#meeting_location').hide();
-        }
-    });
-
-    // $('#timezone-select').change(function() {
-    //     if ($(this).val() !== '') {
-    //         $('#available-hours').show();
-    //     } else {
-    //         $('#available-hours').hide();
-    //     }
-    // });
-
-    $('#available-hours').on('click', '.available-hour', function() {
-        $('.available-hour').removeClass('selected-hour');
-        $(this).addClass('selected-hour');
-    });
-
-});
 
     let flatpickrInstance;
 
@@ -366,6 +464,42 @@
 
 
     $(document).ready(function() {
+
+    $('#meeting_mode_other').hide();
+    $('#meeting_other').hide();
+    $('#meeting_location').hide();
+
+    $('#meeting_type').change(function(){
+        if($(this).val() == 'other'){
+            $('#meeting_other').show();
+            $('#meeting_other').prop('required', true);
+        }else{
+            $('#meeting_other').hide();
+        }
+    });
+
+    $('#meeting_mode').change(function(){
+        if($(this).val() == 'online'){
+            $('#meeting_mode_other').show();
+            $('#meeting_mode_other').prop('required', true);
+        }else{
+            $('#meeting_mode_other').hide();
+        }
+
+        if($(this).val() == 'offline'){
+            $('#meeting_location').show();
+            $('#meeting_location').prop('required', true);
+        }else{
+            $('#meeting_location').hide();
+        }
+    });
+
+    $('#available-hours').on('click', '.available-hour', function() {
+        $('.available-hour').removeClass('selected-hour');
+        $(this).addClass('selected-hour');
+    });
+
+
     // Set the CSRF token in the header of every AJAX request
     $.ajaxSetup({
         headers: {
@@ -381,7 +515,12 @@
         e.preventDefault(); 
 
         let formData = $('#form-1').serialize(); // Serialize form data for step 1
-    
+
+        var meeting = $('#meeting_mode').val();
+        var meeting_type = $('#meeting_type').val();
+        $('.applicant_meeting_mode').text(meeting);
+        $('.applicant_meeting_purpose').text(meeting_type);
+
         $.ajax({
             url: '{{ route("post-schedule-meeting-1") }}', // Update with your route for step 1
             type: 'POST',
@@ -400,7 +539,17 @@
                 }
             },
             error: function(xhr, status, error) {
-                console.log(xhr.responseText);
+                // Check for validation errors
+                if (xhr.status === 422) { // 422 Unprocessable Entity
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessage = 'Validation Errors:\n';
+                    $.each(errors, function(field, messages) {
+                        errorMessage += field + ': ' + messages.join(', ') + '\n';
+                    });
+                    alert(errorMessage);
+                } else {
+                    console.log(xhr.responseText);
+                }
             }
         });
     });
@@ -424,8 +573,9 @@
             // 'timezone': timezone
         };
        
-        console.log(formData);
-  
+        var combined_date_time = selectedDates[0] + ' ' + meeting_time;
+        $('.start_date_time').text(combined_date_time);
+
         
         $.ajax({
             url: "{{ route('post-schedule-meeting-2') }}", // Update with your route for step 1
@@ -454,28 +604,69 @@
     });
 
 
-        $('#form-3').click(function(e) {
-        e.preventDefault(); 
+                $('#form-3').click(function(e) {
+                e.preventDefault(); 
 
-        $.ajax({
-            url: '{{ route("final-submit") }}',
-            type: 'POST',
-            success: function(response) {
-                if(response.status === 'success') {
-                    console.log(response.message); 
-                    console.log(response.data); 
-                } else {
-                
-                    alert('Error: ' + response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
+                $.ajax({
+                    url: '{{ route("final-submit") }}',
+                    type: 'POST',
+                    success: function(response) {
+                        if(response.status === 'success') {
+                            console.log(response.message); 
+                            console.log(response.data); 
+
+                            // Extract response data
+                            var responseData = response.data;
+
+                            // Second AJAX call to update meeting status
+                            $.ajax({
+                                url: '{{ route("applicant-meeting-status-update") }}',
+                                type: 'POST',
+                                data: {
+                                    student_id: responseData.student_id,
+                                    parent_id: responseData.parent_id,
+                                    applicant_id: responseData.applicant_id,
+                                    meeting_date: responseData.meeting_date,
+                                    time_slot: responseData.meeting_time,
+                                    purpose: responseData.meeting_type,
+                                    other_purpose: responseData.meeting_other,
+                                    mode: responseData.meeting_mode,
+                                    location_url: responseData.meeting_location,
+                                    status: 'meeting scheduled', // Static status name
+                                    note: 'New meeting scheduled via form submit' // Optional note
+                                },
+                                success: function(addResponse) {
+                                    console.log('Meeting status added successfully');
+                                    console.log(addResponse);
+
+                                    // Show success message to user
+                                    Swal.fire({
+                                        title: "Meeting Scheduled successfully!",
+                                        text: "Please check your email for the scheduled meeting details.",
+                                        icon: "success",
+                                        button: "OK"
+                                    }).then((value) => {
+                                        // Redirect user to meeting status page
+                                        window.location.href = "{{ url('meeting-status') }}"; 
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log('Error adding meeting status: ' + xhr.responseText);
+                                }
+                            });
+                        } else {
+                            console.log('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+
  
-        $('#button-back-2').click(function(e){
+         $('#button-back-2').click(function(e){
             e.preventDefault(); 
             $('#wizard-frame-2').hide(); 
             $('#wizard-frame-1').show(); 

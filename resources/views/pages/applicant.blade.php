@@ -476,7 +476,11 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Total</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                            // Retrieve students with the most recent status of 'accept'
+                                            $totalmeeting = App\Models\MeetingStatus::get();
+                                        @endphp
+                                        <span class="mini-card-number">{{$totalmeeting->count()}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -484,7 +488,11 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Active</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                           $activeMeetings = App\Models\MeetingStatus::where('status', 'active')
+                                           ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{$activeMeetings->count()}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -492,7 +500,11 @@
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Reschedule Meeting Request</span>
-                                        <span class="mini-card-number">41</span>
+                                        @php
+                                        $RescheduleMeetingRequest = App\Models\MeetingStatus::where('status', 'Reschedule Meeting Request')
+                                        ->get();
+                                     @endphp
+                                        <span class="mini-card-number">{{ $RescheduleMeetingRequest->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -500,7 +512,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Accepted</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                            $Accepted = App\Models\MeetingStatus::where('status', 'Accepted')
+                                            ->get();
+                                         @endphp
+                                        <span class="mini-card-number">{{ $Accepted->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -508,7 +524,11 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Meeting Schedule</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                            $MeetingSchedule = App\Models\MeetingStatus::where('status', 'Meeting Schedule')
+                                            ->get();
+                                         @endphp
+                                        <span class="mini-card-number">{{ $MeetingSchedule->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -516,7 +536,11 @@
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Cancelled By Admin</span>
-                                        <span class="mini-card-number">23</span>
+                                        @php
+                                            $CancelledByAdmin = App\Models\MeetingStatus::where('status', 'Cancelled By Admin')
+                                            ->get();
+                                         @endphp
+                                        <span class="mini-card-number">{{ $CancelledByAdmin->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -524,7 +548,11 @@
                                 <div class="mini-card rejected">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Rejected By Admin</span>
-                                        <span class="mini-card-number">41</span>
+                                        @php
+                                        $RejectedByAdmin = App\Models\MeetingStatus::where('status', 'Rejected By Admin')
+                                        ->get();
+                                     @endphp
+                                    <span class="mini-card-number">{{ $RejectedByAdmin->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -532,7 +560,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Rejected By Applicant</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $RejectedByApplicant = App\Models\MeetingStatus::where('status', 'Rejected By Applicant')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $RejectedByApplicant->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -540,7 +572,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Upcoming Meeting</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $UpcomingMeeting = App\Models\MeetingStatus::where('status', 'Upcoming Meeting')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $UpcomingMeeting->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -554,7 +590,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">School Visit</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $SchoolVisit = App\Models\MeetingStatus::where('purpose', 'School Visit')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $SchoolVisit->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -562,7 +602,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Doc Submission</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $DocSubmission = App\Models\MeetingStatus::where('purpose', 'Doc Submission')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $DocSubmission->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -570,7 +614,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Student Interview</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $StudentInterview = App\Models\MeetingStatus::where('purpose', 'Student Interview')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $StudentInterview->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -578,7 +626,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Entrance Exam</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $EntranceExam = App\Models\MeetingStatus::where('purpose', 'Entrance Exam')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $EntranceExam->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -586,7 +638,11 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Student Interview</span>
-                                        <span class="mini-card-number">22</span>
+                                        @php
+                                        $StudentInterview = App\Models\MeetingStatus::where('purpose', 'Student Interview')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $StudentInterview->count() }}</span>
                                     </div>
                                 </div>
                             </div>

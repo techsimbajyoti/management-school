@@ -79,7 +79,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
+	Route::post('get-applicant-id',[ApplicantController::class, 'get_applicant_id'])->name('get-applicant-id');
+
 	Route::get('admin-download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('admin-download-profile');
+
+	Route::post('get-applicant-status',[ApplicantController::class,'get_applicant_status'])->name('get-applicant-status');
 
 	Route::post('search-student',[ApplicantController::class, 'search_student'])->name('search-student');
 
@@ -94,6 +98,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('new-applicant-student-profile/{id}', [ApplicantController::class, 'applicant_student_profile'])->name('new-applicant-student-profile');
 	
 	Route::post('update-status',[ApplicantController::class, 'applicant_parent_status_update'])->name('update-status');
+
+	Route::post('applicant-meeting-status-update',[ApplicantController::class, 'applicant_meeting_status_update'])->name('applicant-meeting-status-update');
+
+	Route::get('/autocomplete/applicant_id', [AutocompleteController::class, 'applicantId'])->name('autocomplete.applicant_id');
+
+	Route::post('/add-meeting-status', [ApplicantController::class, 'addMeetingStatus'])->name('add-meeting-status');
 
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
