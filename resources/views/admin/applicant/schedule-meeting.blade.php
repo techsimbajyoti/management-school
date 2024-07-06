@@ -72,8 +72,13 @@
                     @endif
                 
                     @if($meetingStatus == 'schedule-meeting')
+                    <input type="hidden" value="" name="student_id" class="student_id">
+                   <input type="hidden" value="" name="parent_id" class="parent_id">
+                   <input type="hidden" value="" name="applicant_id" class="applicant_id">
+                   <input type="hidden" value="" name="email" class="email">
                     <div class="d-flex autocomplete">
-                        <input type="text" placeholder="Search By Applicant Id..." id="applicantIds" name="applicantIds" class="ot-input form-control ot-input">
+                        <input type="text" placeholder="Search By Applicant Id..." autocomplete="off" id="applicantIds" name="applicantIds" class="ot-input form-control ot-input">
+                        <input type="hidden" id="selectedApplicantId" name="selectedApplicantId">
                     </div>
                     <div class="row frame-content mt-5">
                         <div class="col-6 col-md-6">
@@ -141,7 +146,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="select-service">Purpose <span class="fillable">*</span></label>
-                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" name="meeting_type" >
+                                <select id="meeting_type" class="nice-select niceSelect bordered_style wide" name="meeting_type" required>
                                     <option value="School Type">School Type</option>  
                                     <option value="Entrance Exam">Entrance Exam</option> 
                                     <option value="Student Interview">Student Interview</option>
@@ -154,7 +159,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
-                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" name="meeting_mode">
+                                <select id="meeting_mode" class="nice-select niceSelect bordered_style wide" name="meeting_mode" required>
                                     <option value="">Please select one of these</option>
                                     <option value="offline">Offline</option>  
                                     <option value="online">Online</option>
@@ -229,7 +234,7 @@
                                 </div>
                                
                                 <div class="col-md-6">
-                                    <p class="mb-0">{{ ($step2Data['meeting_date']) ?? '' }}, {{ $step2Data['meeting_time'] ?? '' }}</p>
+                                    <p class="mb-0 start_date_time"></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -250,7 +255,7 @@
                                     <p class="mb-0"><strong>Applicant:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">{{isset($info->first_name) ? $info->first_name: ''}} {{ isset($info->last_name) ? $info->last_name : ''}}</p>  
+                                    <p class="mb-0 applicant_first_last">{{isset($info->first_name) ? $info->first_name: ''}} {{ isset($info->last_name) ? $info->last_name : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -258,7 +263,7 @@
                                     <p class="mb-0"><strong>Phone Number:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">{{ isset($info->father_mobile) ? $info->father_mobile : ''}}</p>  
+                                    <p class="mb-0 applicant_phone_number">{{ isset($info->father_mobile) ? $info->father_mobile : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -266,7 +271,7 @@
                                     <p class="mb-0"><strong>Email:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">{{isset($info->email) ? $info->email : ''}}</p>  
+                                    <p class="mb-0 applicant_email">{{isset($info->email) ? $info->email : ''}}</p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -274,7 +279,7 @@
                                     <p class="mb-0"><strong>Meeting Mode:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">{{ isset($step1Data['meeting_mode']) ? $step1Data['meeting_mode']:''}}</p>  
+                                    <p class="mb-0 applicant_meeting_mode"></p>  
                                 </div>
                             </div>
                             <div class="row">
@@ -282,7 +287,7 @@
                                     <p class="mb-0"><strong>Meeting Purpose:</strong></p>  
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="mb-0">{{isset($step1Data['meeting_type']) ? ($step1Data['meeting_type']) :'' }}</p>  
+                                    <p class="mb-0 applicant_meeting_purpose"></p>  
                                 </div>
                             </div>
                         </div>
@@ -312,6 +317,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
   $(document).ready(function() {
+
 var student = <?php echo json_encode($ApplicantId); ?>;
 
 autocomplete(document.getElementById("applicantIds"), student);
@@ -329,19 +335,24 @@ function autocomplete(inp, arr) {
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < arr.length; i++) {
-            // Check if the input value matches the start of the applicant_id or the name
             if (arr[i].applicant_id.substr(0, val.length).toUpperCase() == val.toUpperCase() ||
                 arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                 b = document.createElement("DIV");
-                // Highlight the matching part of the applicant_id and name
                 b.innerHTML = "<strong>" + arr[i].applicant_id.substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].applicant_id.substr(val.length) + " - ";
                 b.innerHTML += "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].name.substr(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i].applicant_id + " - " + arr[i].name + "'>";
+                b.innerHTML += "<input type='hidden' value='" + arr[i].applicant_id + " - " + arr[i].name + "' data-id='" + arr[i].applicant_id + "'>";
                 b.addEventListener("click", function(e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    var selectedApplicantId = this.getElementsByTagName("input")[0].getAttribute('data-id');
+                    document.getElementById('selectedApplicantId').value = selectedApplicantId;
+                    console.log("Selected Applicant ID: " + selectedApplicantId);
                     closeAllLists();
+
+                    // Trigger a custom event to indicate a selection has been made
+                    var event = new CustomEvent('applicantSelected', { detail: selectedApplicantId });
+                    inp.dispatchEvent(event);
                 });
                 a.appendChild(b);
             }
@@ -392,67 +403,45 @@ function autocomplete(inp, arr) {
         closeAllLists(e.target);
     });
 }
-        $('#applicantIds').on('click', function() {
-            var value = $('#applicantIds').val(); 
-            console.log("Applicant ID:", value);
-
-            $.ajax({
-                url: '/get-applicant-id', 
-                method: 'POST', // Adjust HTTP method as per your requirement
-                data: {
-                    applicant_id: value,
-                   
-                },
-                success: function(response) {
-                   console.log(response);
-                },
-                error: function(xhr, status, error) {
-                     console.error(xhr.responseText);
-                }
-            });
-
-        });
 
 
-    $('#meeting_mode_other').hide();
-    $('#meeting_other').hide();
-    $('#meeting_location').hide();
+// Listen for the custom event
+document.getElementById("applicantIds").addEventListener('applicantSelected', function(e) {
+    var value = e.detail; 
 
-    $('#meeting_type').change(function(){
-        if($(this).val() == 'other'){
-            $('#meeting_other').show();
-        }else{
-            $('#meeting_other').hide();
+    $.ajax({
+        url: '/get-applicant-id',
+        method: 'POST',
+        data: {
+            applicant_id: value,
+            _token: '{{ csrf_token() }}' // Include CSRF token if required
+        },
+        success: function(response) {
+            console.log(response);
+            $('#first-name').val(response.info.first_name);
+            $('#last-name').val(response.info.last_name);
+            $('#email').val(response.info.email);
+            $('#phone-number').val(response.info.father_mobile);
+            $('#address').val(response.info.address);
+            $('#city').val(response.info.city);
+            $('#zip-code').val(response.info.pin_code);
+
+            $('.student_id').val(response.info.student_id);
+            $('.parent_id').val(response.info.id);
+            $('.applicant_id').val(response.info.applicant_id);
+            $('.email').val(response.info.email);
+
+            $('.applicant_first_last').text(response.info.first_name);
+            $('.applicant_phone_number').text(response.info.father_mobile);  
+            $('.applicant_email').text(response.info.email);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
         }
     });
+});
 
-    $('#meeting_mode').change(function(){
-        if($(this).val() == 'online'){
-            $('#meeting_mode_other').show();
-        }else{
-            $('#meeting_mode_other').hide();
-        }
-
-        if($(this).val() == 'offline'){
-            $('#meeting_location').show();
-        }else{
-            $('#meeting_location').hide();
-        }
-    });
-
-    // $('#timezone-select').change(function() {
-    //     if ($(this).val() !== '') {
-    //         $('#available-hours').show();
-    //     } else {
-    //         $('#available-hours').hide();
-    //     }
-    // });
-
-    $('#available-hours').on('click', '.available-hour', function() {
-        $('.available-hour').removeClass('selected-hour');
-        $(this).addClass('selected-hour');
-    });
-
+  
 });
    
    
@@ -465,6 +454,7 @@ function autocomplete(inp, arr) {
         if (datepickerElement) {
             flatpickrInstance = flatpickr(datepickerElement, {
                 inline: true // This makes the calendar always visible
+
             });
 
             // Example of accessing selected dates
@@ -476,6 +466,42 @@ function autocomplete(inp, arr) {
 
 
     $(document).ready(function() {
+
+    $('#meeting_mode_other').hide();
+    $('#meeting_other').hide();
+    $('#meeting_location').hide();
+
+    $('#meeting_type').change(function(){
+        if($(this).val() == 'other'){
+            $('#meeting_other').show();
+            $('#meeting_other').prop('required', true);
+        }else{
+            $('#meeting_other').hide();
+        }
+    });
+
+    $('#meeting_mode').change(function(){
+        if($(this).val() == 'online'){
+            $('#meeting_mode_other').show();
+            $('#meeting_mode_other').prop('required', true);
+        }else{
+            $('#meeting_mode_other').hide();
+        }
+
+        if($(this).val() == 'offline'){
+            $('#meeting_location').show();
+            $('#meeting_location').prop('required', true);
+        }else{
+            $('#meeting_location').hide();
+        }
+    });
+
+    $('#available-hours').on('click', '.available-hour', function() {
+        $('.available-hour').removeClass('selected-hour');
+        $(this).addClass('selected-hour');
+    });
+
+
     // Set the CSRF token in the header of every AJAX request
     $.ajaxSetup({
         headers: {
@@ -491,7 +517,12 @@ function autocomplete(inp, arr) {
         e.preventDefault(); 
 
         let formData = $('#form-1').serialize(); // Serialize form data for step 1
-      
+
+        var meeting = $('#meeting_mode').val();
+        var meeting_type = $('#meeting_type').val();
+        $('.applicant_meeting_mode').text(meeting);
+        $('.applicant_meeting_purpose').text(meeting_type);
+
         $.ajax({
             url: '{{ route("post-schedule-meeting-1") }}', // Update with your route for step 1
             type: 'POST',
@@ -510,7 +541,17 @@ function autocomplete(inp, arr) {
                 }
             },
             error: function(xhr, status, error) {
-                console.log(xhr.responseText);
+                // Check for validation errors
+                if (xhr.status === 422) { // 422 Unprocessable Entity
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessage = 'Validation Errors:\n';
+                    $.each(errors, function(field, messages) {
+                        errorMessage += field + ': ' + messages.join(', ') + '\n';
+                    });
+                    alert(errorMessage);
+                } else {
+                    console.log(xhr.responseText);
+                }
             }
         });
     });
@@ -534,8 +575,9 @@ function autocomplete(inp, arr) {
             // 'timezone': timezone
         };
        
-        console.log(formData);
-  
+        var combined_date_time = selectedDates[0] + ' ' + meeting_time;
+        $('.start_date_time').text(combined_date_time);
+
         
         $.ajax({
             url: "{{ route('post-schedule-meeting-2') }}", // Update with your route for step 1
@@ -592,7 +634,7 @@ function autocomplete(inp, arr) {
                                     other_purpose: responseData.meeting_other,
                                     mode: responseData.meeting_mode,
                                     location_url: responseData.meeting_location,
-                                    status: 'meeting scheduled', // Static status name
+                                    status: 'Meeting Schedule', // Static status name
                                     note: 'New meeting scheduled via form submit' // Optional note
                                 },
                                 success: function(addResponse) {

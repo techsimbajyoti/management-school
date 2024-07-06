@@ -79,7 +79,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
+	Route::post('get-applicant-id',[ApplicantController::class, 'get_applicant_id'])->name('get-applicant-id');
+
 	Route::get('admin-download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('admin-download-profile');
+
+	Route::post('get-applicant-status',[ApplicantController::class,'get_applicant_status'])->name('get-applicant-status');
 
 	Route::post('search-student',[ApplicantController::class, 'search_student'])->name('search-student');
 
@@ -103,13 +107,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('applicant-list', [ApplicantController::class, 'applicant_list'])->name('applicant-list');
 
-	Route::get('view-applicant/{id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
+	Route::get('view-applicant/{student_id}/{parent_id}', [ApplicantController::class, 'view_applicant'])->name('view-applicant');
 
 	Route::get('edit-applicant/{student_id}/{parent_id}', [ApplicantController::class, 'edit_applicant'])->name('edit-applicant');
 
 	Route::post('update-applicant/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant');
 
-	Route::post('update-student-applicant/{applicant_id}/{parent_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
+	Route::post('update-student-applicant/{parent_id}/{applicant_id}', [ApplicantController::class, 'update_student_applicant'])->name('update-student-applicant');
 
 	Route::post('update-contact-applicant/{id}', [ApplicantController::class, 'update_contact_applicant'])->name('update-contact-applicant');
 

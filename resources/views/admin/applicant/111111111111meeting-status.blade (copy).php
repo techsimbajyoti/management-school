@@ -179,7 +179,8 @@
                                             <td class="serial">{{ $meeting_datas->id}}</td>
                                             <td>{{ $meeting_datas->applicant_id}}</td>
                                             
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">{{ $meeting_datas->first_name}}{{ $meeting_datas->last_name}}</td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{ route('admin-student-profile')}}" target="_blank">{{ $meeting_datas->first_name}}{{ $meeting_datas->last_name}}</a></td>
                                             <td>{{ $meeting_datas->class}}</td>
                                             <td>{{ $meeting_datas->father_name}}</td>
                                            
@@ -207,8 +208,6 @@
                                                  data-meeting-date="{{ $meeting_datas->meeting_date }}"
                                                  data-time-slot="{{ $meeting_datas->time_slot }}"
                                                  data-purpose="{{ $meeting_datas->purpose }}"
-                                                 data-meeting-status="{{ $meeting_datas->latest_status }}"
-                                                 data-meeting-note="{{ $meeting_datas->latest_note }}"
                                                  data-other-purpose="{{ $meeting_datas->other_purpose }}"
                                                  data-mode="{{ $meeting_datas->mode }}"
                                                  data-location-url="{{ $meeting_datas->location_url }}">
@@ -256,6 +255,7 @@
   </div>
 
   @foreach($meeting_data as $meeting_datas)
+ 
   <!-- The Modal -->
   <div id="myModal{{$meeting_datas->id}}" class="modal">
       <!-- Modal content --> 
@@ -288,7 +288,6 @@
       </div>
   </div>
 @endforeach
-
  
 
 
@@ -316,7 +315,7 @@
           <div class="row justify-content-center mt-3">
               <div class="col-md-6">
                   <label for="">Status</label>
-                  <select name="status" id="meetingStatus" class="nice-select sections niceSelect bordered_style wide">
+                  <select name="status" id="" class="nice-select sections niceSelect bordered_style wide">
                         <option value="0">Meeting Status</option>
                         <option value="Active">Active</option>
                         <option value="Reschedule Meeting Request">Reschedule Meeting Request</option>
@@ -331,7 +330,7 @@
           <div class="row justify-content-center mt-3">
               <div class="col-md-6">
                   <label for="">Note</label>
-                  <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="meetingNote"></textarea>
+                  <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
               </div>
             </div>
             <div class="row justify-content-center mt-3">
@@ -418,24 +417,18 @@
             var purpose = event.target.getAttribute('data-purpose');
             var mode = event.target.getAttribute('data-mode');
             var locationUrl = event.target.getAttribute('data-location-url');
-            var meetingStatus = event.target.getAttribute('data-meeting-status');
-            var meetingNote = event.target.getAttribute('data-meeting-note');
 
             // Update modal content with fetched data
-            document.getElementById('student_id').value = studentId;
-            document.getElementById('parent_id').value = parentId;
-            document.getElementById('applicant_id').value = applicantId;
-            document.getElementById('meeting_date').value = meetingDate;
-            document.getElementById('time_slot').value = timeSlot;
-            document.getElementById('purpose').value = purpose;
-            document.getElementById('mode').value = mode;
-            document.getElementById('location_url').value = locationUrl;
-            document.getElementById('meetingStatus').value = meetingStatus;
-            document.getElementById('meetingNote').value = meetingNote;
+            document.getElementById('student_id').value = studentId || '';
+            document.getElementById('parent_id').value = parentId || '';
+            document.getElementById('applicant_id').value = applicantId || '';
+            document.getElementById('meeting_date').value = meetingDate || '';
+            document.getElementById('time_slot').value = timeSlot || '';
+            document.getElementById('purpose').value = purpose || '';
+            document.getElementById('mode').value = mode || '';
+            document.getElementById('location_url').value = locationUrl || '';
         }
     });
-
-    
 
     // AJAX request for searching students
     $('#search-student').on('click', function(e) {
