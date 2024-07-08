@@ -191,7 +191,7 @@
                             <div class="col-md-6">
                                 <div class="mini-card accepted">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Total fffff</span>
+                                        <span class="mini-card-title">Total</span>
                                         @php
                                             $student = App\Models\Student::get();
                                         @endphp
