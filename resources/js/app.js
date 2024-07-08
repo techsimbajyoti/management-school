@@ -6,6 +6,8 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -17,6 +19,19 @@ const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
+
+// Initialize Flatpickr with inline mode
+document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("#datepicker", {
+        dateFormat: "Y-m-d", // Date format (e.g., YYYY-MM-DD)
+        defaultDate: "today", // Default date (today's date)
+        inline: true, // Always show the calendar
+        onChange: function(selectedDates, dateStr, instance) {
+            alert('Selected Date: ' + dateStr); // Show selected date in an alert
+        }
+    });
+});
+
 
 /**
  * The following block of code may be used to automatically register your

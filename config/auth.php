@@ -61,6 +61,11 @@ return [
             'provider' => 'accountants',
         ],
 
+        'webadmissions' => [
+            'driver' => 'session',
+            'provider' => 'admissions',
+        ],
+
     ],
 
     /*
@@ -104,12 +109,12 @@ return [
         'accountants' => [
             'driver' => 'eloquent',
             'model' => App\Models\Accountant::class,
-        ]
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admissions' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admission::class, // Ensure this model exists
+        ],
     ],
 
     /*
@@ -134,11 +139,22 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_reset_tokens',
+            'table' => 'password_resets',
             'expire' => 60,
-            'throttle' => 60,
         ],
+        'parents' => [
+            'provider' => 'parents',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'students' => [
+            'provider' => 'students',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        // Add other password reset configurations as needed
     ],
+
 
     /*
     |--------------------------------------------------------------------------

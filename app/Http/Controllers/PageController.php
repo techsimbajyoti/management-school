@@ -13,7 +13,28 @@ class PageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();
+
+            // Check if the user's role_id is 1 (example)
+            if ($user && $user->role_id == 2) {
+                // If the user's role_id is 1, add the 'webfranchiseuser' middleware
+                $this->middleware('webteachers');
+            } elseif ($user && $user->role_id == 3) { 
+                // If the user's role_id is not 1, add the 'webcontactuser' middleware
+                $this->middleware('webaccountants');
+            }elseif ($user && $user->role_id == 4) { 
+                // If the user's role_id is not 1, add the 'webcontactuser' middleware
+                $this->middleware('webstudents');
+            }elseif ($user && $user->role_id == 5) { 
+                // If the user's role_id is not 1, add the 'webcontactuser' middleware
+                $this->middleware('webparents');
+            }else{
+                $this->middleware('auth');
+            }
+
+            return $next($request);
+        });
     }
 
     /**

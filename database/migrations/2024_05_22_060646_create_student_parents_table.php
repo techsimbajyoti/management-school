@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('father_name');
             $table->string('father_mobile');
-            $table->string('father_profession');
+            $table->string('father_profession')->nullable();
             $table->string('father_image');
+            $table->string('username');
             $table->string('email');
             $table->string('password');
             $table->string('guardian_name');
@@ -27,8 +28,14 @@ return new class extends Migration
             $table->string('guardian_address');
             $table->string('guardian_relation');
             $table->string('father_nationality');
+            $table->string('office_number');
+            $table->string('office_address');
+            $table->string('applicant_id');
             $table->string('status');
+            $table->string('status_note');
+            $table->string('applicant_status');
             $table->string('role_id');
+            $table->string('ip_address');
             $table->string('created_by');
             $table->timestamps();
         });
@@ -39,6 +46,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parents');
+        Schema::dropIfExists('student_parents');
     }
 };

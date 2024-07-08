@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,7 @@ class Student extends Authenticatable
         'last_name',
         'mobile',
         'email',
+        'username',
         'password',
         'class',
         'section',
@@ -37,13 +39,20 @@ class Student extends Authenticatable
         'parent_name',
         'parent_mobile',
         'place_of_birth',
-        'student_nationality',
-        'CPR_number',
+        'country',
+        'state',
+        'city',
+        'pin_code',
         'student_language',
-        'residance_address',
+        'residence_address',
         'document',
+        'parent_id',
+        'applicant_id',
         'status',
+        'note',
+        'applicant_status',
         'role_id',
+        'ip_address',
         'created_by'
     ];
 

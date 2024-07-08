@@ -1,9 +1,15 @@
+
 @extends('layouts.app', [
     'class' => '',
     'elementActive' => 'profile'
 ])
 
 @section('content')
+<style>
+    :root {
+    --ot-border-primary: #cdcece; /* A shade of blue */
+}
+</style>
     <div class="content">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
@@ -16,230 +22,234 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-md-4">
-                <div class="card card-user">
-                    <div class="image">
-                        <img src="{{ asset('paper/img/damir-bosnjak.jpg') }}" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <a href="#">
-                                <img class="avatar border-gray" src="{{ asset('paper/img/mike.jpg') }}" alt="...">
-
-                                <h5 class="title">{{ __(auth()->user()->name)}}</h5>
-                            </a>
-                            <p class="description">
-                            @ {{ __(auth()->user()->name)}}
-                            </p>
-                        </div>
-                        <p class="description text-center">
-                            {{ __('I like the way you work it') }}
-                            <br> {{ __('No diggity') }}
-                            <br> {{ __('I wanna bag it up') }}
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <hr>
-                        <div class="button-container">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 col-6 ml-auto">
-                                    <h5>{{ __('12') }}
-                                        <br>
-                                        <small>{{ __('Files') }}</small>
-                                    </h5>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                                    <h5>{{ __('2GB') }}
-                                        <br>
-                                        <small>{{ __('Used') }}</small>
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 mr-auto">
-                                    <h5>{{ __('24,6$') }}
-                                        <br>
-                                        <small>{{ __('Spent') }}</small>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-lg-4">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-body text-center">
+                        <img src="{{ asset('paper') }}/img/dummy-image.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">Admin</h5>
+                        <p class="text-muted mb-1">Contact Number : 0000000000</p>
+                        <p class="text-muted mb-4">Address : Dummy</p>
                     </div>
                 </div>
-                <div class="card">
+            
+                {{-- <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="card-title">{{ __('Team Members') }}</h4>
+                        <h4 class="mb-0">Documents Uploaded</h4>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled team-members">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="{{ asset('paper/img/faces/ayo-ogunseinde-2.jpg') }}" alt="Circle Image"
-                                                class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        {{ __('DJ Khaled') }}
-                                        <br />
-                                        <span class="text-muted">
-                                            <small>{{ __('Offline') }}</small>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                                class="fa fa-envelope"></i></button>
-                                    </div>
-                                </div>
+                    <hr>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p class="mb-0">Transfer Certificate</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
                             </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="{{ asset('paper/img/faces/joe-gardner-2.jpg') }}" alt="Circle Image"
-                                                class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                            {{ __('Creative Tim') }}
-                                        <br />
-                                        <span class="text-success">
-                                            <small>{{ __('Available') }}</small>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                                class="fa fa-envelope"></i></button>
-                                    </div>
-                                </div>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p class="mb-0">Attested Copy of Adhaar Card</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
                             </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="{{ asset('paper/img/faces/clem-onojeghuo-2.jpg') }}" alt="Circle Image"
-                                                class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-ms-7 col-7">
-                                        {{ __('Flume') }}
-                                        <br />
-                                        <span class="text-danger">
-                                            <small>{{ __('Busy') }}</small>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                                class="fa fa-envelope"></i></button>
-                                    </div>
-                                </div>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p class="mb-0">Previous Year Marksheet</p><a href="#" class="btn ot-btn-primary"><i class="fa fa-download" aria-hidden="true"></i></a>
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
-            <div class="col-md-8 text-center">
-                <form class="col-md-12" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="title">{{ __('Edit Profile') }}</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <label class="col-md-3 col-form-label">{{ __('Name') }}</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="Name" value="{{ auth()->user()->name }}" required>
-                                    </div>
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-md-3 col-form-label">{{ __('Email') }}</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ auth()->user()->email }}" required>
-                                    </div>
-                                    @if ($errors->has('email'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn btn-info btn-round">{{ __('Save Changes') }}</button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-lg-8">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 title">{{ __('General Information') }}</h5>
+                        <a href="{{route('admin-edit')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-edit"></i> Edit</a>
                     </div>
-                </form>
-                <form class="col-md-12" action="{{ route('profile.password') }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="title">{{ __('Change Password') }}</h5>
+                    <hr>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">John Smith</p>
+                            </div>
+                            {{-- <div class="col-sm-3">
+                                <p class="mb-0">Blood Group</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">O+</p>
+                            </div> --}}
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <label class="col-md-3 col-form-label">{{ __('Old Password') }}</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <input type="password" name="old_password" class="form-control" placeholder="Old password" required>
-                                    </div>
-                                    @if ($errors->has('old_password'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('old_password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                        
+                        <hr>
+                        <div class="row">
+                            {{-- <div class="col-sm-3">
+                                <p class="mb-0">Class </p>
                             </div>
-                            <div class="row">
-                                <label class="col-md-3 col-form-label">{{ __('New Password') }}</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <input type="password" name="password" class="form-control" placeholder="Password" required>
-                                    </div>
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">Two</p>
+                            </div> --}}
+                            <div class="col-sm-3">
+                                <p class="mb-0">Gender</p>
                             </div>
-                            <div class="row">
-                                <label class="col-md-3 col-form-label">{{ __('Password Confirmation') }}</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <input type="password" name="password_confirmation" class="form-control" placeholder="Password Confirmation" required>
-                                    </div>
-                                    @if ($errors->has('password_confirmation'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">Male</p>
                             </div>
                         </div>
-                        <div class="card-footer ">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn btn-info btn-round">{{ __('Save Changes') }}</button>
-                                </div>
+                        <hr>
+                        {{-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Section</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">A</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="mb-0">Religion</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">Hindu</p>
+                            </div>
+                        </div> --}}
+                        {{-- <hr> --}}
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Date Of Birth</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">05 April, 2014</p>
+                            </div>
+                            {{-- <div class="col-sm-3">
+                                <p class="mb-0">Category</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="text-muted mb-0">OBC</p>
+                            </div> --}}
+                        </div>
+                        <hr>
+                        {{-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Admission Date</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">12 Aug, 2021</p>
                             </div>
                         </div>
+                        <hr> --}}
+                        {{-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Parent Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">Steve Smith</p>
+                            </div>
+                        </div>
+                        <hr> --}}
                     </div>
-                </form>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Contact Information</h4>
+                    </div>
+                    <hr>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">Bay Area</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Country</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">United States Of America</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">State</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">California</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">City</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">San Francisco</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Pin Code</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">125896</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Contact</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">(097) 234-5678</p>
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">example@example.com</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Password</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">123456789</p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function(){
+        $('.change-password').hide();
+        $('.edit-admin').hide();
+
+    $('#edit-admin-profile').click(function(){
+        $('.edit-admin').show();
+        $('.edit').hide();
+    })
+
+    $('.update-admin-password').click(function(){
+        $('.edit-admin').hide();
+        $('.edit').hide();
+        $('.change-password').show();
+
+    })
+
+    $('.nav-link').click(function() {
+            // Remove active class from all buttons
+            $('.nav-link').removeClass('active');
+            // Add active class to the clicked button
+            $(this).addClass('active');
+        });
+});
+</script>
+@endpush

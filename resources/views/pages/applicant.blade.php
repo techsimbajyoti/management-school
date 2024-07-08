@@ -1,0 +1,1157 @@
+@extends('layouts.app', [
+    'class' => '',
+    'elementActive' => 'applicant'
+])
+
+@section('content')
+<style>
+    /* Custom card styles */
+  .card-stats {
+            border: 1px solid #e3e3e3;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .card-stats:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-body .icon-big {
+            font-size: 2.5rem;
+        }
+
+        .card-body .numbers {
+            text-align: right;
+        }
+
+        .card-body .card-category {
+            font-size: 1.2rem;
+            color: #777;
+        }
+
+        .card-body .card-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .mini-card {
+            border: 1px solid #e3e3e3;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: #000;
+        }
+
+       
+
+        .mini-card.accepted {
+            color: #262b6e;
+        }
+
+        .mini-card.rejected {
+            color: #262b6e;
+        }
+
+        .mini-card.pending {
+            color: #262b6e;
+        }
+
+        .mini-card-body {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mini-card-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .mini-card-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .card-footer {
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #e3e3e3;
+        }
+
+        .card-footer .stats {
+            display: flex;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+
+    .event-color-c {
+    display: flex;
+    margin: 16px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.event-color-label {
+    flex: 1 0 auto;
+}
+
+.event-color {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 10px;
+    margin-left: 240px;
+    background: #5ac8fa;
+}
+
+.crud-color-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+.crud-color-c {
+    padding: 3px;
+    margin: 2px;
+}
+
+.crud-color {
+    position: relative;
+    min-width: 46px;
+    min-height: 46px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 23px;
+    background: #5ac8fa;
+}
+
+.crud-color-c.selected,
+.crud-color-c:hover {
+    box-shadow: inset 0 0 0 3px #007bff;
+    border-radius: 48px;
+}
+
+.crud-color:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    color: #f7f7f7;
+    font-size: 20px;
+    text-shadow: 0 0 3px #000;
+    display: none;
+}
+
+.crud-color-c.selected .crud-color:before {
+    display: block;
+}
+  
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 20%;
+    background-color: #ffe4b3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+</style>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-circle">
+                                    <i class="fas fa-user-edit text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category"><strong>Applicant Statistics</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total</span>
+                                        @php
+                                            $student = App\Models\Student::get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $student->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @php 
+                            // Fetch all children for the authenticated parent
+                             $totalChildren = App\Models\Student::get();
+
+                             $incompleteProfiles = [];
+                             $completeProfiles = [];
+
+                             foreach ($totalChildren as $totalC) {
+                                 $student_data = App\Models\Student::where('id', $totalC->id)
+                                     ->select(
+                                         'students.first_name as student_name',
+                                         'students.last_name as student_last_name',
+                                         'students.address as student_address',
+                                         'students.gender as student_gender',
+                                         'students.class as student_class',
+                                         'students.date_of_birth as student_dob',
+                                         'students.country as student_country',
+                                         'students.state as student_state',
+                                         'students.city as student_city',
+                                         'students.pin_code as student_pin_code',
+                                         'students.document as student_doc'
+                                     )
+                                     ->first();
+
+                                 // Check if any field is empty
+                                 if (empty($student_data->student_name) ||
+                                     empty($student_data->student_last_name) ||
+                                     empty($student_data->student_address) ||
+                                     empty($student_data->student_gender) ||
+                                     empty($student_data->student_class) ||
+                                     empty($student_data->student_dob) ||
+                                     empty($student_data->student_country) ||
+                                     empty($student_data->student_state) ||
+                                     empty($student_data->student_city) ||
+                                     empty($student_data->student_pin_code) ||
+                                     empty($student_data->student_doc)) {
+                                     
+                                     // Add incomplete profile to the array
+                                     $incompleteProfiles[] = $student_data;
+                                 }
+
+                                 // Check if all required fields are filled
+                                 if (!empty($student_data->student_name) &&
+                                     !empty($student_data->student_last_name) &&
+                                     !empty($student_data->student_address) &&
+                                     !empty($student_data->student_gender) &&
+                                     !empty($student_data->student_class) &&
+                                     !empty($student_data->student_dob) &&
+                                     !empty($student_data->student_country) &&
+                                     !empty($student_data->student_state) &&
+                                     !empty($student_data->student_city) &&
+                                     !empty($student_data->student_pin_code) &&
+                                     !empty($student_data->student_doc)) {
+                                     
+                                     // Add complete profile to the array
+                                     $completeProfiles[] = $student_data;
+                                 }
+                             }
+
+                             // Count the number of incomplete profiles
+                             $incompleteCount = count($incompleteProfiles);
+
+                             // Count the number of complete profiles
+                             $completeCount = count($completeProfiles);
+
+                             @endphp
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Incomplete</span>
+                                        <span class="mini-card-number">{{ $incompleteCount }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">New</span>
+                                        @php
+                                            $oneWeekAgo = Carbon\Carbon::now()->subWeek();
+                                            $now = Carbon\Carbon::now();
+
+                                            // Retrieve students created in the last week
+                                            $students = App\Models\Student::whereBetween('created_at', [$oneWeekAgo, $now])->get();
+                                        @endphp             
+                                        <span class="mini-card-number">{{ $students->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Accepted</span>
+                                        @php
+                                            $acceptedStatus = 'accept'; // Define the accepted status value
+
+                                            // Subquery to get the latest status for each student
+                                    $latestStatuses = DB::table('applicant_statuses as sub')
+                                                        ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                        ->groupBy('sub.student_id');
+
+                                    // Retrieve students with the most recent status of 'accept'
+                                    $student_status = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                        ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                            $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                        })
+                                                        ->where('applicant_statuses.status', $acceptedStatus)
+                                                        ->select('students.*')
+                                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $student_status->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Rejected</span>
+                                        @php
+                                        $acceptedStatus = 'reject'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_reject = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_reject->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Approved By Admin</span>
+                                        @php
+                                        $acceptedStatus = 'Approved By Admin'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_admin = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_admin->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Denied By Admin</span>
+                                        @php
+                                        $acceptedStatus = 'Denied By Admin'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_Denied = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_Denied->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Approved Applicant</span>
+                                        @php
+                                        $acceptedStatus = 'Approved By Applicant'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_applicant = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_applicant->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Admission Confirmed</span>
+                                        @php
+                                        $acceptedStatus = 'Admission Confirmed'; // Define the accepted status value
+
+                                        // Subquery to get the latest status for each student
+                                        $latestStatuses = DB::table('applicant_statuses as sub')
+                                                            ->select('sub.student_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                                                            ->groupBy('sub.student_id');
+
+                                        // Retrieve students with the most recent status of 'accept'
+                                        $student_Admission = App\Models\Student::join('applicant_statuses', 'students.id', '=', 'applicant_statuses.student_id')
+                                                            ->joinSub($latestStatuses, 'latest_statuses', function($join) {
+                                                                $join->on('applicant_statuses.student_id', '=', 'latest_statuses.student_id')
+                                                                    ->on('applicant_statuses.created_at', '=', 'latest_statuses.latest_created_at');
+                                                            })
+                                                            ->where('applicant_statuses.status', $acceptedStatus)
+                                                            ->select('students.*')
+                                                            ->get();
+                                            @endphp
+                                        <span class="mini-card-number">{{ $student_Admission->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <hr>
+                        <div class="stats">
+                            {{-- <i class="fa fa-refresh"></i> Update Now --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-circle" style="background-color: #6bd098">
+                                    <i class="fas fa-handshake" style="color: #1d7042"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category"><strong>Meeting Statistics</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Total</span>
+                                        @php
+                                            // Retrieve students with the most recent status of 'accept'
+                                            $totalmeeting = App\Models\MeetingStatus::get();
+                                        @endphp
+                                        <span class="mini-card-number">{{$totalmeeting->count()}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Active</span>
+                                        @php
+                                           $activeMeetings = App\Models\MeetingStatus::where('status', 'active')
+                                           ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{$activeMeetings->count()}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Reschedule Meeting Request</span>
+                                        @php
+                                        $RescheduleMeetingRequest = App\Models\MeetingStatus::where('status', 'Reschedule Meeting Request')
+                                        ->get();
+                                     @endphp
+                                        <span class="mini-card-number">{{ $RescheduleMeetingRequest->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Accepted</span>
+                                        @php
+                                            $Accepted = App\Models\MeetingStatus::where('status', 'Accepted')
+                                            ->get();
+                                         @endphp
+                                        <span class="mini-card-number">{{ $Accepted->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Meeting Schedule</span>
+                                        @php
+                                            $MeetingSchedule = App\Models\MeetingStatus::where('status', 'Meeting Schedule')
+                                            ->get();
+                                         @endphp
+                                        <span class="mini-card-number">{{ $MeetingSchedule->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Cancelled By Admin</span>
+                                        @php
+                                            $CancelledByAdmin = App\Models\MeetingStatus::where('status', 'Cancelled By Admin')
+                                            ->get();
+                                         @endphp
+                                        <span class="mini-card-number">{{ $CancelledByAdmin->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Rejected By Admin</span>
+                                        @php
+                                        $RejectedByAdmin = App\Models\MeetingStatus::where('status', 'Rejected By Admin')
+                                        ->get();
+                                     @endphp
+                                    <span class="mini-card-number">{{ $RejectedByAdmin->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Rejected By Applicant</span>
+                                        @php
+                                        $RejectedByApplicant = App\Models\MeetingStatus::where('status', 'Rejected By Applicant')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $RejectedByApplicant->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Upcoming Meeting</span>
+                                        @php
+                                        $UpcomingMeeting = App\Models\MeetingStatus::where('status', 'Upcoming Meeting')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $UpcomingMeeting->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="numbers text-right">
+                            <p class="card-category"><strong>Meeting Purpose</strong></p>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">School Visit</span>
+                                        @php
+                                        $SchoolVisit = App\Models\MeetingStatus::where('purpose', 'School Visit')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $SchoolVisit->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Doc Submission</span>
+                                        @php
+                                        $DocSubmission = App\Models\MeetingStatus::where('purpose', 'Doc Submission')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $DocSubmission->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Student Interview</span>
+                                        @php
+                                        $StudentInterview = App\Models\MeetingStatus::where('purpose', 'Student Interview')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $StudentInterview->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Entrance Exam</span>
+                                        @php
+                                        $EntranceExam = App\Models\MeetingStatus::where('purpose', 'Entrance Exam')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $EntranceExam->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card pending">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Student Interview</span>
+                                        @php
+                                        $StudentInterview = App\Models\MeetingStatus::where('purpose', 'Student Interview')
+                                        ->get();
+                                        @endphp
+                                        <span class="mini-card-number">{{ $StudentInterview->count() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <hr>
+                        <div class="stats">
+                            {{-- <i class="fa fa-refresh"></i> Update Now --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12" style="margin-top: -270px">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-circle" style="background-color: #9fe5fa">
+                                    <i class="fas fa-coins" style="color: #1d5d70"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category"><strong>Revenue Statistics</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mini-card accepted">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Paid Amount</span>
+                                        <span class="mini-card-number">23</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mini-card rejected">
+                                    <div class="mini-card-body">
+                                        <span class="mini-card-title">Remaining</span>
+                                        <span class="mini-card-number">41</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <hr>
+                        <div class="stats">
+                            {{-- <i class="fa fa-refresh"></i> Update Now --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-content table-basic mt-20 activeStudentList" id="activeStudentList">
+                    <div class="card ot-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0 title">Upcoming Meetings</h4>
+                        </div>
+                        
+                        <hr>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered role-table myTable">
+                                    <thead class="thead">
+                                        <tr>
+                                            <th class="serial">SR No.</th>
+                                            <th class="purchase">Applicant NO</th>
+                                            <th class="purchase">Applicant name</th>
+                                            <th class="purchase">Class</th>
+                                            <th class="purchase">Parent name</th>
+                                            <th class="action">Contact</th>
+                                            <th class="action">Date</th>
+                                            <th class="action">Time Slot</th>
+                                            <th class="action">Purpose</th>
+                                            <th class="action">Mode</th>
+                                            <th class="action">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                            @foreach($upcoming_data as $upcoming_meetings)
+                                            <tr id="row_7">
+                                                <td class="serial">{{$upcoming_meetings->id}}</td>
+                                                <td>{{$upcoming_meetings->applicant_id}}</td>
+                                                
+                                                <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                    <a href="{{ route('admin-student-profile')}}" target="_blank">{{$upcoming_meetings->first_name}} {{$upcoming_meetings->last_name}}</a></td>
+                                                <td>{{$upcoming_meetings->class}}</td>
+                                                <td>{{$upcoming_meetings->father_name}}</td>
+                                               
+                                                <td>{{$upcoming_meetings->father_mobile}}</td>
+                                               
+                                                <td>{{$upcoming_meetings->meeeting_date}}</td>
+                                                <td>{{$upcoming_meetings->time_slot}}</td>
+                                                <td>{{$upcoming_meetings->purpose}}</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                    <span>{{$upcoming_meetings->mode}}</span>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge-basic-success-text">{{$upcoming_meetings->status}}</span></td>
+                                            </tr>
+                                            @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Note Details</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ligula arcu, ultricies vitae porttitor ut, eleifend vel nisl. Nulla dui metus, ornare sit amet dolor aliquam, eleifend gravida dolor. </p>
+            </div>
+            <div class="col-md-6">
+                <p>00/00/0000</p>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       <h3></h3>
+      </div>
+    </div>
+  
+  </div>
+
+  <!-- The Modal -->
+<div id="myModal1" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3>Meeting Mode</h3>
+          <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+                  <label for="">Mode</label>
+                  <p>Online / Offline</p>
+              </div>
+              <div class="col-md-6">
+                  <label for="">Url / Location</label>
+                  <p><a href="">http://example.com</a> / Vijay Nagar</p>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <h3></h3>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- The Modal -->
+<div id="myModal2" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3>Add Note</h3>
+          <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+          <div class="row justify-content-center mt-3">
+              <div class="col-md-6">
+                  <label for="">Status</label>
+                  <select name="" id="" class="nice-select sections niceSelect bordered_style wide">
+                        <option value="0">Meeting Status</option>
+                        <option value="0">Active</option>
+                        <option value="1">Reschedule Meeting Request</option>
+                        <option value="2">Accept</option>
+                        <option value="2">Meeting Schedule</option>
+                        <option value="3">Cancelled By Admin</option>
+                        <option value="3">Reject By Admin</option>
+                        <option value="3">Upcoming Meeting</option>
+                  </select>
+              </div>
+          </div>
+          <div class="row justify-content-center mt-3">
+              <div class="col-md-6">
+                  <label for="">Note</label>
+                  <textarea class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+              </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+              <div class="col-md-4 mt-3">
+                  <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
+              </div>
+            </div>
+          </div>
+      <div class="modal-footer">
+          <h3></h3>
+      </div>
+    </div>
+
+  </div>
+</div>
+@endsection
+
+@push('scripts')
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            // Get today's date in the format "01 Jun 2024"
+            var todayDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+            var chartTitle = "Today's Attendance (" + todayDate + ")";
+
+            // Sample data (replace with actual data retrieval)
+            var classWiseAttendance = {
+                "Class 1": 30,
+                "Class 2": 25,
+                "Class 3": 28,
+                "Class 4": 32,
+                "Class 5": 29
+            };
+
+            // Extract class names and attendance counts
+            var classNames = Object.keys(classWiseAttendance);
+            var attendanceCounts = Object.values(classWiseAttendance);
+
+            // Create the chart
+            var ctx = document.getElementById('attendanceChart').getContext('2d');
+            var attendanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: classNames,
+                    datasets: [{
+                        label: 'Total Attendance',
+                        data: attendanceCounts,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)', // Blue color for bars
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: chartTitle,
+                            font: {
+                                size: 18
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Attendance Count'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Class'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+  window.onload = function () {
+            var options = {
+                animationEnabled: true, 
+                title: {
+                    text: "Yearly Metrics"
+                },
+                axisX: {
+                    valueFormatString: "YYYY"
+                },
+                axisY: {
+                    title: "Amount (in USD)",
+                    prefix: "$"
+                },
+                data: [
+                    {
+                        type: "spline",
+                        name: "Total Income",
+                        showInLegend: true,
+                        yValueFormatString: "$#,###",
+                        xValueFormatString: "YYYY",
+                        dataPoints: [
+                            { x: new Date(2018, 0), y: 10000 },
+                            { x: new Date(2019, 0), y: 15000 },
+                            { x: new Date(2020, 0), y: 20000 },
+                            { x: new Date(2021, 0), y: 25000 },
+                            { x: new Date(2022, 0), y: 30000 },
+                            { x: new Date(2023, 0), y: 35000 }
+                        ]
+                    },
+                    {
+                        type: "spline",
+                        name: "Total Expense",
+                        showInLegend: true,
+                        yValueFormatString: "$#,###",
+                        xValueFormatString: "YYYY",
+                        dataPoints: [
+                            { x: new Date(2018, 0), y: 5000 },
+                            { x: new Date(2019, 0), y: 7000 },
+                            { x: new Date(2020, 0), y: 9000 },
+                            { x: new Date(2021, 0), y: 11000 },
+                            { x: new Date(2022, 0), y: 13000 },
+                            { x: new Date(2023, 0), y: 15000 }
+                        ]
+                    },
+                    {
+                        type: "spline",
+                        name: "Total Balance",
+                        showInLegend: true,
+                        yValueFormatString: "$#,###",
+                        xValueFormatString: "YYYY",
+                        dataPoints: [
+                            { x: new Date(2018, 0), y: 5000 },
+                            { x: new Date(2019, 0), y: 8000 },
+                            { x: new Date(2020, 0), y: 11000 },
+                            { x: new Date(2021, 0), y: 14000 },
+                            { x: new Date(2022, 0), y: 17000 },
+                            { x: new Date(2023, 0), y: 20000 }
+                        ]
+                    }
+                ]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+        }
+
+         $(document).ready(function() {
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: 'School Visiting',
+                        start: '2024-05-23'
+                    },
+                    {
+                        title: 'Parents Meeting',
+                        start: '2024-06-05'
+                    },
+                    {
+                        title: 'Document Submission',
+                        start: '2024-06-08',
+                        end: '2024-06-03'
+                    }
+                    // more events here
+                ]
+            });
+            calendar.render();
+        });
+
+        const xValues = [50,60,70,80,90,100,110,120,130,140,150];
+const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  }
+});
+
+mobiscroll.setOptions({
+  theme: 'ios',
+  themeVariant: 'light'
+});
+
+$(function () {
+  var inst = $('#demo-desktop-month-view')
+    .mobiscroll()
+    .eventcalendar({
+      clickToCreate: false,
+      dragToCreate: false,
+      dragToMove: false,
+      dragToResize: false,
+      eventDelete: false,
+      view: {
+        calendar: { labels: true },
+      },
+      onEventClick: function (args) {
+        mobiscroll.toast({
+          message: args.event.title,
+        });
+      },
+    })
+    .mobiscroll('getInst');
+
+  $.getJSON(
+    'https://trial.mobiscroll.com/events/?vers=5&callback=?',
+    function (events) {
+      inst.setEvents(events);
+    },
+    'jsonp',
+  );
+});
+
+
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+var modal1 = document.getElementById("myModal1");
+
+var modal2 = document.getElementById("myModal2");
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+
+  if (event.target == modal1) {
+    modal1.style.display = "none";
+  }
+
+  if (event.target == modal2) {
+    modal2.style.display = "none";
+  }
+}
+
+// Add event listeners to all buttons with class "myBtn"
+document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.getElementsByClassName("myBtn");
+    Array.prototype.forEach.call(buttons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal.style.display = "block";
+        });
+    });
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(span, function(sp) {
+        sp.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+    });
+});
+
+    // Add event listeners to all buttons with class "myBtn"
+    document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.getElementsByClassName("applicant_mode");
+    Array.prototype.forEach.call(buttons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal1.style.display = "block";
+        });
+    });
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(span, function(sp) {
+        sp.addEventListener("click", function() {
+            modal1.style.display = "none";
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.getElementsByClassName("admin_side_meeting");
+    Array.prototype.forEach.call(buttons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal2.style.display = "block";
+        });
+    });
+
+        // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(span, function(sp) {
+        sp.addEventListener("click", function() {
+          modal2.style.display = "none";
+        });
+    });
+});
+  
+</script>
+@endpush

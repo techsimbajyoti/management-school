@@ -8,7 +8,7 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
             </div>
-            <a class="navbar-brand" href="#pablo">{{ __('Paper Dashboard') }}</a>
+            <a class="navbar-brand" href="#pablo">{{ __('School Management') }}</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
             aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,43 +17,13 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form>
-                <div class="input-group no-border">
-                    <input type="text" value="" class="form-control" placeholder="Search...">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i class="nc-icon nc-zoom-split"></i>
-                        </div>
-                    </div>
-                </div>
-            </form>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn-magnify" href="#pablo">
-                        <i class="nc-icon nc-layout-11"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ __('Stats') }}</span>
-                        </p>
-                    </a>
-                </li>
+            @if(auth()->guard('web')->check() && auth()->guard('web')->user()->role_id == 1)
                 <li class="nav-item btn-rotate dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="nc-icon nc-bell-55"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ __('Some Actions') }}</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">{{ __('Action') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Another action') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Something else here') }}</a>
-                    </div>
-                </li>
-                <li class="nav-item btn-rotate dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink2"
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('web')->user()->name }}
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
                         </p>
@@ -63,12 +33,256 @@
                             @csrf
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ route('edit-admin') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
-                            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('My profile') }}</a>
                         </div>
                     </div>
                 </li>
+            @elseif(auth()->guard('webteachers')->check() && auth()->guard('webteachers')->user()->role_id == 2)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webteachers')->user()->first_name }}
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            
+                            <a class="dropdown-item" href="{{ route('edit-teacher') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                        </div>
+                    </div>
+                </li>
+
+                @elseif(auth()->guard('webaccountants')->check() && auth()->guard('webaccountants')->user()->role_id == 3)
+                    <li class="nav-item btn-rotate dropdown">
+                        <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="nc-icon nc-settings-gear-65"></i>
+                            {{ auth()->guard('webaccountants')->user()->accountant_name }}
+                            <p>
+                                <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                            </p>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                            <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ route('accountant-edit') }}">{{ __('My profile') }}</a>
+                                <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                                <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            </div>
+                        </div>
+                    </li>
+
+                @elseif(auth()->guard('webstudents')->check() && auth()->guard('webstudents')->user()->role_id == 4)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary"  href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webstudents')->user()->first_name }}
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            
+                            <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                        </div>
+                    </div>
+                </li>
+                @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webparents')->user()->father_name }}
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            @if(auth()->guard('webparents')->user()->applicant_status == 'applicant')
+                            <a class="dropdown-item" href="{{ route('applicant-profile') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            @else
+                            <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                            @endif
+                        </div>
+                    </div>
+                </li>
+                @elseif(auth()->guard('webadmissions')->check() && auth()->guard('webadmissions')->user()->role_id == 6)
+                <li class="nav-item btn-rotate dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-sm ot-btn-primary" href="" id="navbarDropdownMenuLink2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        {{ auth()->guard('webadmissions')->user()->admission_name }}
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Account') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
+                        <form class="dropdown-item" action="{{ route('logout') }}" id="formLogOut" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            
+                            <a class="dropdown-item" href="">{{ __('My profile') }}</a>
+                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
+                        </div>
+                    </div>
+                </li>
+                @endif
             </ul>
         </div>
     </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+          <button type="button" class="close model-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-12">
+                  <div class="card">
+  
+                      <form method="POST" action="" id="myForm">
+                          @csrf
+                          <div class="card-body">
+                              <div class="mb-3">
+                                  <label for="oldPasswordInput" class="form-label">Old Password</label>
+                                  <input name="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror" id="oldPasswordInput"
+                                      placeholder="Old Password" required>
+                                  @error('old_password')
+                                      <span class="text-danger">{{ $message }}</span>
+                                  @enderror
+                              </div>
+                              <div class="mb-3">
+                                  <label for="newPasswordInput" class="form-label">New Password</label>
+                                  <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput"
+                                      placeholder="New Password" required>
+                                  @error('new_password')
+                                      <span class="text-danger">{{ $message }}</span>
+                                  @enderror
+                              </div>
+                              <div class="mb-3">
+                                  <label for="confirmNewPasswordInput" class="form-label">Confirm New Password</label>
+                                  <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput"
+                                      placeholder="Confirm New Password" required>
+                              </div>
+  
+                          </div>
+  
+                          <div class="card-footer change-button">
+                              <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
+                          </div>
+  
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="" class="btn btn-secondary model-close" data-dismiss="modal">Close</button>
+          <!-- Add additional buttons or actions as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @push('scripts')
+
+  <script>
+    jQuery.noConflict();
+    
+    $(document).ready(function() {
+    $('.change-password').click(function(){
+            $('#exampleModal-1').modal('show');
+            $('#myForm')[0].reset();
+        });
+
+        $('.model-close').click(function(){
+            $('#exampleModal-1').modal('hide');
+            $('#myForm')[0].reset();
+        });
+
+       
+        $('#submitBtn').click(function(e) {
+    if ($('#myForm')[0].checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var old_password = $('#oldPasswordInput').val();
+        var new_password = $('#newPasswordInput').val();
+        var new_password_confirmation = $('#confirmNewPasswordInput').val();
+
+        $.ajax({
+            url: "{{ route('update-password') }}",
+            type: 'POST',
+            data: {
+                old_password: old_password,
+                new_password: new_password,
+                new_password_confirmation: new_password_confirmation,
+                _token: '{{ csrf_token() }}' // Include CSRF token
+            },
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    alert(response.success);
+                    $('#exampleModal-1').modal('hide');
+                    $('#myForm')[0].reset();
+                }
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = xhr.status + ': ' + xhr.statusText;
+                alert('Error - ' + errorMessage);
+            }
+        });
+
+    } else {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Please fill in all fields correctly before submitting.');
+    }
+});
+
+
+    });
+  </script>
+  @endpush
