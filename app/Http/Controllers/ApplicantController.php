@@ -1460,7 +1460,6 @@ class ApplicantController extends Controller
 
     public function meeting_status(){
         $meeting_data = MeetingStatus::join('students', 'meeting_statuses.student_id', '=', 'students.id')
-
         ->join('student_parents', 'meeting_statuses.parent_id', '=', 'student_parents.id')
         ->select(
             'meeting_statuses.id',
@@ -1490,7 +1489,6 @@ class ApplicantController extends Controller
         ->get();
 
         $ApplicantId = Student::select('applicant_id', 'first_name', 'last_name')->get();
-
    
         return view('admin.applicant.meeting-status', compact('meeting_data','ApplicantId'));
     }
@@ -1511,17 +1509,7 @@ class ApplicantController extends Controller
             ];
         }
 
-         // Example steps data
-    $steps = [
-        ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
-        ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
-        ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
-        ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-        ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-        ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
-    ];
-
-        return view('admin.applicant.meeting-tracking',compact('steps','ApplicantId'));
+        return view('admin.applicant.meeting-tracking',compact('ApplicantId'));
     }
 
     public function get_applicant_status(Request $request){
@@ -1676,16 +1664,17 @@ class ApplicantController extends Controller
 
 
     public function parent_meeting_track(){
-        $steps = [
-            ['name' => 'New', 'date' => '01/01/2024', 'status' => 'completed'],
-            ['name' => 'Accepted by Admin', 'date' => '02/01/2024', 'status' => 'completed'],
-            ['name' => 'Meeting Schedule', 'date' => '03/01/2024', 'status' => 'completed'],
-            ['name' => 'Accepted by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-            ['name' => 'Approve by Parent', 'date' => '00/00/0000', 'status' => 'completed'],
-            ['name' => 'Done', 'date' => '00/00/0000', 'status' => 'completed'],
-        ];
+        $parent_applicant_id = Student::where('parent_id', auth()->guard('webparents')->user()->id)->select('applicant_id', 'first_name', 'last_name')->get();
+        $ApplicantId = [];
+        
+        foreach ($parent_applicant_id as $count) {
+            $ApplicantId[] = [
+                'applicant_id' => $count->applicant_id,
+                'name' => $count->first_name . ' ' . $count->last_name
+            ];
+        }
 
-        return view('admin.applicant.parent-meeting-track',compact('steps'));
+        return view('admin.applicant.parent-meeting-track',compact('ApplicantId'));
     }
  
     public function applicant_student_profile($id){

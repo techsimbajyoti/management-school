@@ -171,7 +171,7 @@
                             <div class="form-group">
                                 <label for="select-service">Purpose <span class="fillable">*</span></label>
                                 <select id="meeting_type" class="nice-select niceSelect bordered_style wide" name="meeting_type" required>
-                                    <option value="School Type">School Type</option>  
+                                    <option value="">Please Select Purpose</option>  
                                     <option value="Entrance Exam">Entrance Exam</option> 
                                     <option value="Student Interview">Student Interview</option>
                                     <option value="Parent Interview">Parent Interview</option>    
@@ -179,7 +179,6 @@
                                     <option value="other">Other</option>                        
                                 </select>
                                <input type="text" placeholder="Enter Meeting Type" class="nice-select niceSelect bordered_style wide" name="meeting_other" id="meeting_other">
-                                                   
                             </div>
                             <div class="form-group">
                                 <label for="select-provider">Meeting Mode <span class="fillable">*</span></label>
@@ -468,9 +467,6 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
   
 });
    
-   
-
-
     let flatpickrInstance;
 
     document.addEventListener('DOMContentLoaded', function() {
