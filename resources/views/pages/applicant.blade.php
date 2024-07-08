@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category"><strong>Applicant Statistics</strong></p>
+                                    <p class="card-category"><strong>Applicant jyoti Statistics</strong></p>
                                 </div>
                             </div>
                         </div>
