@@ -131,7 +131,7 @@
                                     <h6 class="card-title">Date & Time</h6>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">{{ substr($datas->meeting_date,0,16)}}{{$datas->time}}</p>
+                                    <p class="card-text">{{ substr($datas->meeting_date,0,16)}} {{$datas->time_slot}}</p>
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,31 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 @section('content')
+<style>
+    #spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+        z-index: 9999; /* Ensure it is above other elements */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #spinner img {
+        width: 50px; /* Adjust size as needed */
+        height: 50px; /* Adjust size as needed */
+    }
+    
+    
+    </style>
 <div class="content">
+    <div id="spinner" style="display:none;">
+        <img src="{{asset('paper/img/spinner/Spinner.gif')}}" alt="Loading..." />
+    </div>
 <div id="success-message" style="display: none;" class="alert alert-success" role="alert">
 </div>
 
@@ -577,7 +601,7 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
        
         var combined_date_time = selectedDates[0] + ' ' + meeting_time;
         $('.start_date_time').text(combined_date_time);
-
+     
         
         $.ajax({
             url: "{{ route('post-schedule-meeting-2') }}", // Update with your route for step 1
@@ -608,12 +632,13 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
 
                 $('#form-3').click(function(e) {
                 e.preventDefault(); 
-
+                $('#spinner').show();
                 $.ajax({
                     url: '{{ route("final-submit") }}',
                     type: 'POST',
                     success: function(response) {
                         if(response.status === 'success') {
+                            $('#spinner').hide();  
                             console.log(response.message); 
                             console.log(response.data); 
 
@@ -637,7 +662,9 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
                                     status: 'Meeting Schedule', // Static status name
                                     note: 'New meeting scheduled via form submit' // Optional note
                                 },
+                               
                                 success: function(addResponse) {
+                                   
                                     console.log('Meeting status added successfully');
                                     console.log(addResponse);
 

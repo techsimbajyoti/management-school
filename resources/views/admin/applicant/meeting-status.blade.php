@@ -176,7 +176,7 @@
                                     <tbody class="tbody">
                                         @foreach($meeting_data as $meeting_datas)
                                         <tr id="row_7">
-                                            <td class="serial">{{ $meeting_datas->id}}</td>
+                                            <td class="serial">{{ $loop->iteration}}</td>
                                             <td>{{ $meeting_datas->applicant_id}}</td>
                                             
                                             <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">{{ $meeting_datas->first_name}}{{ $meeting_datas->last_name}}</td>
