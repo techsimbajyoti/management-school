@@ -157,7 +157,6 @@ class ApplicantController extends Controller
                 ->leftJoinSub($latestStatuses, 'latest', function ($join) {
                     $join->on('students.id', '=', 'latest.student_id');
                 })
-                ->where('students.class', $student_class)
                 ->where('student_parents.created_at', '>=', $from)
                 ->where('student_parents.created_at', '<=', $to)
                 ->get();
