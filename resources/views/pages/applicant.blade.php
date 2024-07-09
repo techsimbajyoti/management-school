@@ -45,12 +45,12 @@
             border: 1px solid #e3e3e3;
             border-radius: 8px;
             margin-bottom: 10px;
-            
+
             transition: transform 0.2s, box-shadow 0.2s;
             color: #000;
         }
 
-       
+
 
         .mini-card.accepted {
             color: #262b6e;
@@ -157,7 +157,7 @@
 .crud-color-c.selected .crud-color:before {
     display: block;
 }
-  
+
 .icon-circle {
     width: 80px;
     height: 80px;
@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category"><strong>Applicant Statistics</strong></p>
+                                    <p class="card-category"><strong>Applicant jyoti Statistics</strong></p>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +199,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @php 
+                            @php
                             // Fetch all children for the authenticated parent
                              $totalChildren = App\Models\Student::get();
 
@@ -235,7 +235,7 @@
                                      empty($student_data->student_city) ||
                                      empty($student_data->student_pin_code) ||
                                      empty($student_data->student_doc)) {
-                                     
+
                                      // Add incomplete profile to the array
                                      $incompleteProfiles[] = $student_data;
                                  }
@@ -252,7 +252,7 @@
                                      !empty($student_data->student_city) &&
                                      !empty($student_data->student_pin_code) &&
                                      !empty($student_data->student_doc)) {
-                                     
+
                                      // Add complete profile to the array
                                      $completeProfiles[] = $student_data;
                                  }
@@ -283,7 +283,7 @@
 
                                             // Retrieve students created in the last week
                                             $students = App\Models\Student::whereBetween('created_at', [$oneWeekAgo, $now])->get();
-                                        @endphp             
+                                        @endphp
                                         <span class="mini-card-number">{{ $students->count() }}</span>
                                     </div>
                                 </div>
@@ -454,7 +454,7 @@
                     </div>
                 </div>
             </div>
-      
+
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="card card-stats">
                     <div class="card-body">
@@ -708,7 +708,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="mb-0 title">Upcoming Meetings</h4>
                         </div>
-                        
+
                         <hr>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -733,14 +733,14 @@
                                             <tr id="row_7">
                                                 <td class="serial">{{$upcoming_meetings->id}}</td>
                                                 <td>{{$upcoming_meetings->applicant_id}}</td>
-                                                
+
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
                                                     <a href="{{ route('admin-student-profile')}}" target="_blank">{{$upcoming_meetings->first_name}} {{$upcoming_meetings->last_name}}</a></td>
                                                 <td>{{$upcoming_meetings->class}}</td>
                                                 <td>{{$upcoming_meetings->father_name}}</td>
-                                               
+
                                                 <td>{{$upcoming_meetings->father_mobile}}</td>
-                                               
+
                                                 <td>{{$upcoming_meetings->meeeting_date}}</td>
                                                 <td>{{$upcoming_meetings->time_slot}}</td>
                                                 <td>{{$upcoming_meetings->purpose}}</td>
@@ -786,7 +786,7 @@
        <h3></h3>
       </div>
     </div>
-  
+
   </div>
 
   <!-- The Modal -->
@@ -933,7 +933,7 @@
 
   window.onload = function () {
             var options = {
-                animationEnabled: true, 
+                animationEnabled: true,
                 title: {
                     text: "Yearly Metrics"
                 },
@@ -1152,6 +1152,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-  
+
 </script>
 @endpush
