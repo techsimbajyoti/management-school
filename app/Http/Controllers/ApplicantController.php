@@ -848,61 +848,13 @@ class ApplicantController extends Controller
         $parent_student = StudentParent::where('email', $request->email)
         ->first();
 
-        if($parent_student !== null){
+        if($parent_student != null){
+            return response()->json(['success'=>'false','message'=>'Email Already Exists.']);
+        }else{
 
         $randomuserId = Str::random(8);
 
         $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
-
-            $applicant = StudentParent::where('email', $request->email)->update([
-                'father_name' => $request->parent_name,
-                'father_mobile' => $request->contact_number,
-                'username' => $parent_student->username,
-                'email' => $request->email,
-                'password' => $parent_student->password,
-                'father_profession' => $request->profession,
-                // 'applicant_id' => $randomApplicantId,
-                'role_id' => $request->role_id,
-                'status' => $request->status,
-                'applicant_status' => $request->applicant_status,                                                                                                           
-                'ip_address' => '127.0.0.1',
-                'created_by' => 'null',
-            ]);
-
-        if($applicant_id != null){
-            $app_id = Student::where('id', $student_id)
-            ->first();
-        }else{
-            $applicant_1 = new Student;
-
-            $applicant_1->parent_id = $parent_student->id;
-            $applicant_1->applicant_id = $randomApplicantId;
-            $applicant_1->applicant_status = $parent_student->status;
-    
-            $applicant_1->save();
-    
-            $app = new ApplicantStatus;
-            $app->student_id = $applicant_1->id;
-            $app->parent_id = $applicant_1->id;
-            $app->applicant_id = $applicant_1->applicant_id;
-            $app->status = $applicant_1->applicant_status;
-            $app->note = 'null';
-            $app->ip_address = '1';
-            $app->created_by = '1';
-            $app->save();
-
-            $app_id = Student::where('id', $applicant_1->id)
-            ->first();
-        }
-
-        return response()->json(['success'=>'true','action'=>$request->action,'parent_id'=>$parent_student->id,'applicant_id'=>$app_id->applicant_id, 'update'=>'yes','email'=>$request->email,]);
-
-                
-        }else{
-
-            $randomuserId = Str::random(8);
-
-            $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
@@ -945,7 +897,6 @@ class ApplicantController extends Controller
         $applicant->email = $request->email;
         $applicant->password = Hash::make($request->password);
         $applicant->father_profession = $request->profession;
-        // $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $status; 
         $applicant->applicant_status = $request->applicant_status;                                                                                                           
@@ -977,8 +928,7 @@ class ApplicantController extends Controller
         Mail::to($request->email)->send(new ApplicantRegistered($applicant));
         
         return response()->json(['success'=>'true','action'=>$request->action,'student_id'=>$applicant_1->id, 'parent_id' => $applicant_1->parent_id, 'applicant_id' => $applicant_1->applicant_id]);
-
-       }
+        }
     }
 
     // Function to calculate profile completion percentage based on fields

@@ -124,6 +124,7 @@ $(document).ready(function() {
                     $('.parent_id').val(response.parent_id);
                     $('.applicant_id').val(response.applicant_id);
                     $('.student_id').val(response.student_id);
+                    if (response.success === 'true') {
                         Swal.fire({
                             title: "Email sent successfully!",
                             text: "Please proceed with the registration process or check your email to verify your account.",
@@ -134,6 +135,18 @@ $(document).ready(function() {
                                 location.reload(); // Reload the page
                             }
                         });
+                    }else{
+                        Swal.fire({
+                            title: "Email Already Exists",
+                            text: "Please proceed with the registration process or check your email to verify your account.",
+                            icon: "success",
+                            button: "OK"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(); // Reload the page
+                            }
+                        });
+                    }
                     
                 } else {
                     Swal.fire({
