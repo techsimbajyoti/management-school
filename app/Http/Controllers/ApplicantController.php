@@ -139,27 +139,85 @@ class ApplicantController extends Controller
                     ->groupBy('student_id');
             });
         
-            if($student_class == null && $status == null && $from != null && $to != null && $applicantid == null){
+            if($student_class != null && $status != null && $from != null && $to != null && $applicantid == null){
+                $fromDate = $from . ' 00:00:00'; // Start of the day
+                $toDate = $to . ' 23:59:59';     // End of the day
 
-                $fromDate = $from.' '.'01:00:00';
-                $toDate = $to.' '.'00:00:00';
+                // Subquery to get the latest status for each applicant
+                $latestStatuses = DB::table('applicant_statuses as sub')
+                    ->select('sub.applicant_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                    ->groupBy('sub.applicant_id');
 
-                $applicant_list = DB::table('students')
-                ->select(
-                    'students.id as student_id', 
-                    'student_parents.id as parent_id', 
-                    'students.*', 
-                    'student_parents.*', 
-                    'latest.status as latest_status',
-                    'latest.note as latest_note'
-                )
-                ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
-                ->leftJoinSub($latestStatuses, 'latest', function ($join) {
-                    $join->on('students.id', '=', 'latest.student_id');
-                })
-                ->where('student_parents.created_at', '>=', $from)
-                ->where('student_parents.created_at', '<=', $to)
-                ->get();
+                // Query to get the latest statuses joined with student and parent data
+                $applicant_list = DB::table('student_parents')
+                    ->join('students', 'students.parent_id', '=', 'student_parents.id')
+                    ->join('applicant_statuses', function ($join) use ($latestStatuses) {
+                        $join->on('students.applicant_id', '=', 'applicant_statuses.applicant_id')
+                            ->joinSub($latestStatuses, 'latest', function ($join) {
+                                $join->on('applicant_statuses.applicant_id', '=', 'latest.applicant_id')
+                                    ->on('applicant_statuses.created_at', '=', 'latest.latest_created_at');
+                            });
+                    })
+                    ->select(
+                        'students.id as student_id',
+                        'student_parents.id as parent_id',
+                        'students.*',
+                        'student_parents.*',
+                        'applicant_statuses.status as latest_status',
+                        'applicant_statuses.note as latest_note'
+                    )
+                    ->where('student_parents.created_at', '>=', $fromDate)
+                    ->where('student_parents.created_at', '<=', $toDate);
+
+                // Filter by student class
+                if ($student_class) {
+                    $applicant_list->where('students.class', $student_class);
+                }
+
+                // Filter by status
+                if ($status) {
+                    $applicant_list->where('applicant_statuses.status', $status);
+                }
+
+                $applicant_list = $applicant_list->distinct()->get();
+
+                // Return or use $applicant_list as needed
+
+
+            }else if($student_class == null && $status == null && $from != null && $to != null && $applicantid == null){
+
+                $fromDate = $from . ' 00:00:00'; // Start of the day
+                $toDate = $to . ' 23:59:59'; // End of the day
+
+                // Subquery to get the latest status for each applicant
+                $latestStatuses = DB::table('applicant_statuses as sub')
+                    ->select('sub.applicant_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                    ->groupBy('sub.applicant_id');
+
+                // Query to get the latest statuses joined with student and parent data
+                $applicant_list = DB::table('student_parents')
+                    ->join('students', 'students.parent_id', '=', 'student_parents.id')
+                    ->join('applicant_statuses', function ($join) use ($latestStatuses) {
+                        $join->on('students.applicant_id', '=', 'applicant_statuses.applicant_id')
+                            ->joinSub($latestStatuses, 'latest', function ($join) {
+                                $join->on('applicant_statuses.applicant_id', '=', 'latest.applicant_id')
+                                    ->on('applicant_statuses.created_at', '=', 'latest.latest_created_at');
+                            });
+                    })
+                    ->select(
+                        'students.id as student_id',
+                        'student_parents.id as parent_id',
+                        'students.*',
+                        'student_parents.*',
+                        'applicant_statuses.status as latest_status',
+                        'applicant_statuses.note as latest_note'
+                    )
+                    ->where('student_parents.created_at', '>=', $fromDate)
+                    ->where('student_parents.created_at', '<=', $toDate)
+                    ->distinct()
+                    ->get();
+
+
 
             }else if($student_class != null && $status != null && $from == null && $to == null && $applicantid == null){
             $applicant_list = DB::table('students')

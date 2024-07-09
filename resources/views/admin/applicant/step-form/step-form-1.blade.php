@@ -1,4 +1,4 @@
-<form class="form active" method="POST" action="" id="form1">
+<form class="form" method="POST" action="" id="form1">
     @csrf
     <h5>Parent Information</h5><br>
     <input type="hidden" name="parent_id" class="parent_id">
@@ -65,12 +65,9 @@
     <div class="card-footer mt-5">
         <div class="d-flex justify-content-end">
             <input type="hidden" name="action" id="form-action" value="save">
-            <button type="button" id="save-continue" class="btn btn-lg ot-btn-primary">
-                <i class="fa fa-save"></i> {{ __('Save & Continue') }}
-            </button>
-            {{-- <button type="button" id="save" class="btn btn-lg ot-btn-primary ml-3">
+            <button type="submit" id="save" class="btn btn-lg ot-btn-primary ml-3">
                 <i class="fa fa-save"></i> {{ __('Save') }}
-            </button> --}}
+            </button>
         </div>
     </div>    
 </form>
