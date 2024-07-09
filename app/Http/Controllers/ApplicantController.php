@@ -845,12 +845,6 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        $parent_id = $request->input('parent_id');
-        $applicant_id = $request->input('applicant_id');
-        $student_id = $request->input('student_id');
-
-        // $ipAddress = $this->getPublicIpAddress();
-    
         $parent_student = StudentParent::where('email', $request->email)
         ->first();
 
