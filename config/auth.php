@@ -89,31 +89,43 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'table' => 'users',
+            'remember' => true,
         ],
 
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
+            'table' => 'students',
+            'remember' => true,
         ],
 
         'teachers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Teacher::class,
+            'table' => 'teachers',
+            'remember' => true,
         ],
 
         'parents' => [
             'driver' => 'eloquent',
             'model' => App\Models\StudentParent::class,
+            'table' => 'student_parents',
+            'remember' => true,
         ],
 
         'accountants' => [
             'driver' => 'eloquent',
             'model' => App\Models\Accountant::class,
+            'table' => 'accountants',
+            'remember' => true,
         ],
 
         'admissions' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admission::class, // Ensure this model exists
+            'table' => 'admissions',
+            'remember' => true,
         ],
     ],
 

@@ -86,7 +86,8 @@ class VerificationController extends Controller
         // Determine the guard based on the email
         $email = request('email');
         $guard = null;
-    
+
+       
         if (User::where('email', $email)->exists()) {
             $guard = ''; // Default guard for admin
         } elseif (StudentParent::where('email', $email)->exists()) {
