@@ -32,7 +32,11 @@
         height: 50px; /* Adjust size as needed */
     }
     
-    
+    .invalid-feedback {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+}
     </style>
 <div class="content">
     <div id="spinner" style="display:none;">
@@ -213,17 +217,20 @@
                             <div id="select-time">
                                 <div class="form-group">
                                     <label for="select-timezone">Timezone</label>
-                                    <select id="timezone-select" class="nice-select niceSelect bordered_style wide" value="UTC">
+                                    <select id="timezone-select" class="nice-select niceSelect bordered_style wide" value="UTC" name="meeting_date">
                                         <option value="Asia/Kolkata" selected>Kolkata (+5:30)</option>
                                     </select>
+                                   
                                 </div>
-                                <div id="available-hours">
+                                <div id="available-hours" name="meeting_time">
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour selected-hour">1:30 pm </button>
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour">2:30 pm </button>
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour">3:30 pm </button>
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour">4:30 pm </button>
                                     <button class="btn btn-outline-primary  btn-block shadow-none available-hour">5:30 pm </button>
                                 </div>
+                             
+                                
                             </div>
                         </div>
                     </div>
@@ -617,16 +624,26 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
                 }
             },
             error: function(xhr, status, error) {
-                console.log(xhr.responseText);
+                // Check for validation errors
+                if (xhr.status === 422) { // 422 Unprocessable Entity
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessage = 'Validation Errors:\n';
+                    $.each(errors, function(field, messages) {
+                        errorMessage += field + ': ' + messages.join(', ') + '\n';
+                    });
+                    alert(errorMessage);
+                } else {
+                    console.log(xhr.responseText);
+                }
             }
         });
-         } else {
+    } else {
         alert("Flatpickr is not initialized");
     }
-    });
+});
 
 
-                $('#form-3').click(function(e) {
+                $('#button-next-3').click(function(e) {
                 e.preventDefault(); 
                 $('#spinner').show();
                 $.ajax({

@@ -148,7 +148,7 @@
                                                             <a href="{{ route('admin-download-profile', ['student_id' => $applicant_lists->student_id, 'parent_id' => $applicant_lists->parent_id]) }}" class="dropdown-item">
                                                                 <i class="fa fa-download"></i> {{ __('Download') }}
                                                             </a> 
-                                                            <a class="dropdown-item" href="{{ route('delete-applicant', $applicant_lists->parent_id) }}"><i class="fa fa-trash"></i> {{ __('Delete') }}</a>
+                                                            <a class="dropdown-item" href="{{ route('delete-applicant', $applicant_lists->parent_id) }}" onClick="return confirm('Are you sure you want to delete this applicant?');"><i class="fa fa-trash"></i> {{ __('Delete') }}</a>
                                                         </div>
                                                     </div>
                                                 </div>

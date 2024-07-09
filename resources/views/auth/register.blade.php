@@ -111,6 +111,9 @@
       });
   } );
 
+
+  
+
 $(document).ready(function() {
     demo.checkFullPageBackgroundImage();
 
@@ -153,7 +156,8 @@ $(document).ready(function() {
     });
 }
 
-    function submitForm() {
+
+   function submitForm() {
     var formData = $('#form1').serialize();
 
     // Show the spinner
@@ -250,20 +254,7 @@ $(document).ready(function() {
     });
 }
 
-
-
-
-function displayValidationErrors(errors) {
-    $('.invalid-feedback').hide(); // Hide all error messages initially
-    $.each(errors, function(key, messages) {
-        var errorElement = $('#' + key + '_error');
-        errorElement.text(messages.join(', '));
-        errorElement.show();
-    });
-}
-
-
-    $('#form2').submit(function(event) {
+  $('#form2').submit(function(event) {
         event.preventDefault();
 
         // Create a new FormData object
@@ -408,8 +399,8 @@ function displayValidationErrors(errors) {
     updateProgressBar(currentStep);
     showForm(currentStep);
 
-
-    $('#other-gender').hide();
+         
+            $('#other-gender').hide();
             $('#other-language').hide();
             $('#other-category').hide();
             $('#other-religion').hide();

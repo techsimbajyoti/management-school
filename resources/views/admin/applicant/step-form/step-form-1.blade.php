@@ -15,7 +15,7 @@
                     <input type="text" placeholder="Parent Name" class="nice-select sections niceSelect bordered_style wide" id="parent_name" name="parent_name" pattern="[A-Za-z ]+" title="Please enter letters only.">
 
                 </div>
-                <span class="invalid-feedback" id="parent_name_error" style="display: none;" role="alert"></span>
+                 <span class="invalid-feedback" id="parent_name_error" style="display:none;" role="alert"></span>
             </div>
         </div>
         <div class="col-md-6">
@@ -23,7 +23,7 @@
             <label class="form-label">{{ __('Email:') }}</label>
             <div class="form-group">
                 <input type="email" name="email" id="email" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" required>
-                <span class="invalid-feedback" id="email_error" style="display: none;"></span>
+                <span class="invalid-feedback" id="email_error" style="display:none;"></span>
             </div>
         </div>
         <div class="col-md-6">
@@ -31,7 +31,7 @@
             <label for="password" class="form-label">{{ __('Password:') }}</label>
             <div class="form-group">
                 <input type="password" name="password" id="password" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Password" pattern=".{8,}" title="Eight or more characters" required>
-                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
+                <span class="invalid-feedback" id="password_error" style="display:none;"></span>
             </div>
         </div>
         <div class="col-md-6">
@@ -39,7 +39,7 @@
             <label for="password-confirmation" class="form-label">{{ __('Confirm Password:') }}</label>
             <div class="form-group">
                 <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide" placeholder="Enter Confirm Password" pattern=".{8,}" title="Eight or more characters" required>
-                <span class="invalid-feedback" id="password_confirmation_error" style="display: none;"></span>
+                <span class="invalid-feedback" id="password_confirmation_error" style="display:none;"></span>
             </div>
         </div>
         <div class="col-md-6">

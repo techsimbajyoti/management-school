@@ -91,17 +91,18 @@
                                 $query->selectRaw('MAX(id)')
                                     ->from('meeting_statuses')
                                     ->groupBy('student_id')
-                                    ->where('status', 'Meeting Schedule');
+                                    ->orderBy('created_at','desc');
                             })
                             ->distinct()
                             ->get();
                      
                                        
                     @endphp
-                  
+                
                     <div class="row">
                         
                     @foreach($meeting_data as $datas)
+                   
                         <div class="col-md-6">
                             <div class="card mini-card">
                                 <div class="card-header d-flex justify-content-between">

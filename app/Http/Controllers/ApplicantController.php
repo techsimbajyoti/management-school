@@ -742,8 +742,17 @@ class ApplicantController extends Controller
     }
      public function post_schedule_meeting_2(Request $request)
      {
-        $validatedData = $request->all();
-
+        $validatedData = $request->validate([
+            'meeting_date' =>'required',
+            'meeting_time' => 'required',
+            ],
+        [
+            'meeting_date.required' =>'The Meeting date field is required.',
+            'meeting_time.required' => 'The Meeting time field is required.',
+        ]
+        );
+        
+           
         Session::put('step2', json_encode($validatedData));
  
         return response()->json(['status' => 'success', 'message' => 'Data stored in session']);
@@ -858,9 +867,27 @@ class ApplicantController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:8',
             'password_confirmation' => 'required|same:password',
-            'contact_number' => 'required|digits_between:10,15',
+            'contact_number' => 'required|numeric|digits_between:10,15',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
-        ]);
+        ],
+        [
+            'parent_name.required' => 'The parent name field is required.',
+            'parent_name.string' => 'The parent name must be a string.',
+            'parent_name.regex' => 'The parent name must only contain letters and spaces.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'The password must be a string.',
+            'password.min' => 'The password must be at least 8 characters.',
+            'password_confirmation.required' => 'The password confirmation field is required.',
+            'password_confirmation.same' => 'The password confirmation does not match.',
+            'contact_number.required' => 'The contact number field is required.',
+            'contact_number.numeric' => 'The contact number field must contain only digits.',
+            'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
+            'profession.string' => 'The profession must be a string.',
+            'profession.regex' => 'The profession must only contain letters and spaces.',
+        ]
+    ); 
 
         $student_data = [
             'parent_name' => $request->parent_name,
@@ -987,13 +1014,17 @@ class ApplicantController extends Controller
                 'username' => $parentStudent->username,
                 'password' => $parentStudent->password,
                 'class' => $request->class,
+                'religion' => $request->religion,
+                'other_religion' => $request->religion === 'other' ? $request->other_religion : '',
                 'gender' => $request->gender,
+                'other_gender'=> $request->gender === 'other' ? $request->other_gender : '',
                 'date_of_birth' => $request->date_of_birth,
                 'blood_group' => $request->blood_group,
                 'student_language' => $request->student_language,
                 'image' => $parentStudent->image,
                 'previous_school' => $request->previous_school,
                 'category' => $request->category,
+                'other_category' => $request->category === 'other' ? $request->other_category : '',
                 'parent_id' => $parentStudent->parent_id,
                 'applicant_id' => $parentStudent->applicant_id,
                 'role_id' => $request->role_id,
@@ -1019,9 +1050,40 @@ class ApplicantController extends Controller
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-    
-        // $ipAddress = $this->getPublicIpAddress();
+        ],[
+            'first_name.required' => 'The first name field is required.',
+            'first_name.string' => 'The first name must be a string.',
+            'first_name.regex' => 'The first name must only contain letters and spaces.',
+            
+            'last_name.required' => 'The last name field is required.',
+            'last_name.string' => 'The last name must be a string.',
+            'last_name.regex' => 'The last name must only contain letters and spaces.',
+            
+            'gender.required' => 'The gender field is required.',
+            
+            'class.required' => 'The class field is required.',
+            
+            'date_of_birth.required' => 'The date of birth field is required.',
+            'date_of_birth.date' => 'The date of birth must be a valid date.',
+            'date_of_birth.before' => 'The date of birth must be before today\'s date.',
+            
+            'student_language.string' => 'The student language must be a string.',
+            
+            'category.string' => 'The category must be a string.',
+            
+            'blood_group.string' => 'The blood group must be a string.',
+            
+            'religion.string' => 'The religion must be a string.',
+            
+            'previous_school.string' => 'The previous school must be a string.',
+            
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The image must be a valid image file.',
+            'image.mimes' => 'The image must be a file of type: jpg, png, jpeg.',
+            'image.max' => 'The image must not be greater than 2 MB.',
+        ]
+    );
+       // $ipAddress = $this->getPublicIpAddress();
         try {
             // $student = new Student;
     
@@ -1073,7 +1135,7 @@ class ApplicantController extends Controller
             // $student->save();
 
 
-            $student_update = Student::where('parent_id', $parent_id)
+        $student_update = Student::where('parent_id', $parent_id)
         ->where('applicant_id',$applicant_id)
         ->firstOrFail();
         
@@ -1627,10 +1689,10 @@ class ApplicantController extends Controller
         $children = StudentParent::join('students', 'students.parent_id', '=', 'student_parents.id')
             ->leftJoin('meeting_statuses', 'meeting_statuses.student_id', '=', 'students.id')
             ->where('student_parents.id', $parent_id)
-            ->where('meeting_statuses.status', 'Meeting Schedule')
             ->select('students.*', 'meeting_statuses.meeting_date', 'meeting_statuses.time_slot', 'meeting_statuses.purpose', 'meeting_statuses.mode', 'meeting_statuses.status','meeting_statuses.id as meeting_id','meeting_statuses.note'
                        ,'meeting_statuses.other_purpose','meeting_statuses.location_url','meeting_statuses.note')
             ->distinct()
+            ->orderBy('meeting_statuses.created_at','desc')
             ->get();
     
         return view('admin.applicant.parent-meeting-status', compact('students', 'children'));

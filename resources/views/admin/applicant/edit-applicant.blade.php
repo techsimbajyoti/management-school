@@ -199,6 +199,7 @@
 
                                 <form id="form2" class="form" method="POST"  action="" enctype="multipart/form-data">
                                     @csrf
+                                   
                                     <h5>Applicant Information</h5><br>
                                     <div class="row">
                                     @if($student != null)
@@ -236,9 +237,12 @@
                                                     <option value="">Select one of these</option>
                                                     <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
                                                     <option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                                    <option value="other" {{ $student->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                                                    <option value="other" {{ $student->gender == 'other' ? 'selected' : '' }}>Other</option>
                                                 </select>
+                                                @if($student->gender === 'other')
                                                 <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_gender }}">
+                                                @else
+                                                @endif
                                                 <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -283,11 +287,14 @@
                                                 <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
                                                     <option value="">Select one of these</option>
                                                     @foreach($Religion as $Religions)
-                                                    <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
+                                                       <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
                                                     @endforeach
-                                                    <option  value="other">Other</option>
+                                                    <option  value="{{ $student->religion === 'other'}}">Other</option>
                                                 </select>
-                                                <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                @if($student->religion === 'other')
+                                                  <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify" value="{{$student->other_religion}}">
+                                                @else
+                                                   @endif
                                                 <span class="invalid-feedback" id="religion_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -302,7 +309,10 @@
                                                     <option  value="ST"  {{ $student->category == 'ST' ? 'selected': '' }}>ST</option>
                                                     <option  value="other"  {{ $student->category == 'other' ? 'selected': '' }}>Other</option>
                                                 </select>
-                                                <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                @if($student->category === 'other')
+                                                <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify" value="{{$student->other_category}}">
+                                               @else
+                                                @endif
                                                 <span class="invalid-feedback" id="category_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -718,10 +728,10 @@ $(document).ready(function() {
    updateProgressBar(currentStep);
    showForm(currentStep);
 
-   $('#other-gender').hide();
-           $('#other-language').hide();
-           $('#other-category').hide();
-           $('#other-religion').hide();
+        //    $('#other-gender').hide();
+        //    $('#other-language').hide();
+        //    $('#other-category').hide();
+        //    $('#other-religion').hide();
 
            $('#gender').change(function() {
            if (this.value === 'other') {

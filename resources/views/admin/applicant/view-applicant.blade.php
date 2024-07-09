@@ -240,6 +240,12 @@
                                                 
                                                 <label class="form-label">Gender:</label>
                                                 <input type="text" name="gender" class="nice-select niceSelect bordered_style wide" placeholder="choose .." value="{{ $applicant_data->gender}}" readonly>
+                                                @if($applicant_data->gender === 'other')
+                                                <input type="text" name="other_gender" class="nice-select niceSelect bordered_style wide" placeholder="choose .." value="{{ $applicant_data->other_gender}}" readonly>
+                                               @else
+                                                                                              
+                                                @endif
+
                                                 <input type="text" id="other-gender" name="other_gender" class="hidden form-control mt-2" placeholder="Please specify">
                                                
                                             </div>
@@ -273,16 +279,21 @@
                                         
                                             <label class="form-label">Religion:</label>
                                             <input name="religion"  type="text" class="form-control date-pick" placeholder="Choose" value="{{ $applicant_data->religion}}">  
-                                            </div>
+                                            @if($applicant_data->religion === 'other')
+                                            <input name="other_religion"  type="text" class="form-control date-pick" placeholder="Choose" value="{{ $applicant_data->other_religion}}">  
+                                            @else
+                                            @endif
+                                        </div>
                                         </div>
                                         
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Category:</label>
                                                 <input type="text" name="category" class="nice-select niceSelect bordered_style wide" placeholder="Choose" value="{{ $applicant_data->category}}" readonly>
-                                                
-                                              
-                                               
+                                                @if($applicant_data->category === 'other')
+                                                <input type="text" name="other_category" class="nice-select niceSelect bordered_style wide" placeholder="Choose" value="{{ $applicant_data->other_category}}" readonly>
+                                                @else
+                                                @endif
                                             </div>
                                         </div>
                                         
