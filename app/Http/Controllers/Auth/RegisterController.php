@@ -99,8 +99,8 @@ class RegisterController extends Controller
         foreach($Language as $lng){
             $lang[] = $lng->name;
         }
-
-        return view('auth.register',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
+        $class_master = ClassMaster::get();
+        return view('auth.register',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','class_master'));
     }
 
    

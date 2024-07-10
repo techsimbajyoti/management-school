@@ -97,89 +97,90 @@
       });
   } );
 
+
+  
+
 $(document).ready(function() {
     demo.checkFullPageBackgroundImage();
 
+
     $('#form1').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); // Prevent the default form submission
+    var formData = $(this).serialize();
 
-        var formData = $(this).serialize();
+    // Additional client-side validation
+    var emailInput = $('#email').val();
+    if (emailInput !== emailInput.toLowerCase()) {
+        $('#email_error').text('The email must be in lowercase.').show();
+        return; // Stop form submission
+    }
 
-        // Show the spinner
-        $('#spinner').show();
+    $('#spinner').show();
 
-        $.ajax({
-            url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                console.log(response);
+    $.ajax({
+        url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            $('#spinner').hide();
 
-                // Hide the spinner
-                $('#spinner').hide();
-
-                if (response.success) {
-                    console.log('parent', response.parent_id);
-                    console.log('applicant_id', response.applicant_id);
-                    $('.parent_id').val(response.parent_id);
-                    $('.applicant_id').val(response.applicant_id);
-                    $('.student_id').val(response.student_id);
-                    if (response.success === 'true') {
-                        Swal.fire({
-                            title: "Email sent successfully!",
-                            text: "Please proceed with the registration process or check your email to verify your account.",
-                            icon: "success",
-                            button: "OK"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload(); // Reload the page
-                            }
-                        });
-                    }else{
-                        Swal.fire({
-                            title: "Email Already Exists",
-                            text: "Please proceed with the registration process or check your email to verify your account.",
-                            icon: "success",
-                            button: "OK"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload(); // Reload the page
-                            }
-                        });
+            if (response.success) {
+                $('.parent_id').val(response.parent_id);
+                $('.applicant_id').val(response.applicant_id);
+                $('.student_id').val(response.student_id);
+                Swal.fire({
+                    title: "Email sent successfully!",
+                    text: "Please proceed with the registration process or check your email to verify your account.",
+                    icon: "success",
+                    button: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // Reload the page
                     }
-                    
-                } else {
-                    Swal.fire({
-                        title: "Error",
-                        text: "An error occurred while submitting the application.",
-                        icon: "error",
-                        button: "OK",
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-
-                // Hide the spinner
-                $('#spinner').hide();
-                
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.errors;
-                    displayValidationErrors(errors); // Display validation errors if any
-                } else {
-                    Swal.fire({
-                        title: "Error",
-                        text: "An error occurred while submitting the application.",
-                        icon: "error",
-                        button: "OK",
-                    });
-                }
+                });
+            } else {
+                Swal.fire({
+                    title: "Email Already Exists",
+                    text: "Please proceed with the registration process or check your email to verify your account.",
+                    icon: "success",
+                    button: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); 
+                    }
+                });
             }
-        });
+        },
+        error: function(xhr, status, error) {
+            $('#spinner').hide();
+            
+            if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                displayValidationErrors(errors);
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "An error occurred while submitting the application.",
+                    icon: "error",
+                    button: "OK",
+                });
+            }
+        }
     });
+});
+
+function displayValidationErrors(errors) {
+    $('.invalid-feedback').hide(); // Hide all error messages initially
+    $.each(errors, function(key, messages) {
+        var errorElement = $('#' + key + '_error');
+        errorElement.text(messages.join(', '));
+        errorElement.show();
+    });
+}
 
 
-    $('#other-gender').hide();
+          $('#other-gender').hide();
+
             $('#other-language').hide();
             $('#other-category').hide();
             $('#other-religion').hide();

@@ -16,13 +16,16 @@ class ApplicantRegistered extends Mailable
 
     protected $applicant;
     protected $verificationLink;
+    public $plainPassword;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(StudentParent $applicant)
+    public function __construct(StudentParent $applicant,$plainPassword)
     {
         $this->applicant = $applicant;
         $this->verificationLink = url('login/');
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -47,6 +50,7 @@ class ApplicantRegistered extends Mailable
                   'applicant' => $this->applicant,
                   'applicant_id' => $this->applicant->applicant_id,
                   'verificationLink' => $this->verificationLink,
+                  'plainPassword' => $this->plainPassword,
                    ],
            
         );

@@ -731,7 +731,7 @@
                                         <tbody class="tbody">
                                             @foreach($upcoming_data as $upcoming_meetings)
                                             <tr id="row_7">
-                                                <td class="serial">{{$upcoming_meetings->id}}</td>
+                                                <td class="serial">{{$loop->iteration}}</td>
                                                 <td>{{$upcoming_meetings->applicant_id}}</td>
 
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
@@ -740,8 +740,8 @@
                                                 <td>{{$upcoming_meetings->father_name}}</td>
 
                                                 <td>{{$upcoming_meetings->father_mobile}}</td>
+                                                <td>{{substr($upcoming_meetings->meeting_date,0,16)}}</td>
 
-                                                <td>{{$upcoming_meetings->meeeting_date}}</td>
                                                 <td>{{$upcoming_meetings->time_slot}}</td>
                                                 <td>{{$upcoming_meetings->purpose}}</td>
                                                 <td>

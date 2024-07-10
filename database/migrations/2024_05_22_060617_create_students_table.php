@@ -25,8 +25,11 @@ return new class extends Migration
             $table->string('section');
             $table->string('date_of_birth');
             $table->string('religion');
+            $table->string('other_religion');
             $table->string('gender');
+            $table->string('other_gender');
             $table->string('category');
+            $table->string('other_category');
             $table->string('blood_group');
             $table->string('admission_date');
             $table->string('image');

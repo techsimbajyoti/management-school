@@ -20,6 +20,7 @@ class AdminNotification extends Mailable
     public function __construct(StudentParent $applicant)
     {
         $this->applicant = $applicant;
+       
     }
 
     /**
@@ -42,6 +43,7 @@ class AdminNotification extends Mailable
             with:[
                 'applicant' => $this->applicant,
                 'applicant_id' => $this->applicant->applicant_id,
+              
             ]
         );
     }

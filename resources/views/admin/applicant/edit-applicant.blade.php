@@ -199,6 +199,7 @@
 
                                 <form id="form2" class="form" method="POST"  action="" enctype="multipart/form-data">
                                     @csrf
+                                   
                                     <h5>Applicant Information</h5><br>
                                     <div class="row">
                                     @if($student != null)
@@ -236,9 +237,13 @@
                                                     <option value="">Select one of these</option>
                                                     <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
                                                     <option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                                    <option value="other" {{ $student->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                                                    <option value="other" {{ $student->gender == 'other' ? 'selected' : '' }}>Other</option>
                                                 </select>
+                                                @if($student->gender === 'other')
                                                 <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_gender }}">
+                                                @else
+                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="">
+                                                @endif
                                                 <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -247,8 +252,16 @@
                                             <span style="color:red">*</span>
                                                 <label class="form-label">{{ __('Class:') }}</label>
                                                     <div class="form-group">
-                                                        <input name="class" value="{{ $student->class}}" type="text" class="form-control" placeholder="Enter Class" required>
-                                                            <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
+                                                        <select class="nice-select niceSelect bordered_style wide" id="class-name" name="class" data-fouc data-placeholder="Choose.." required>
+                                                            <option value="">Select one of these</option>
+                                                             @foreach($class_master as $class_masters)
+                                                             
+                                                                <option value="{{ $class_masters->class_name}}" {{ $class_masters->class_name == $student->class? 'selected' : '' }}>
+                                                                    {{ $class_masters->class_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                     </div>
                                                     
                                         </div>  
@@ -280,14 +293,18 @@
                                             <div class="form-group">
                                     
                                                 <label class="form-label">Religion:</label>
-                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
+                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
                                                     @foreach($Religion as $Religions)
-                                                    <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
+                                                       <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
                                                     @endforeach
                                                     <option  value="other">Other</option>
                                                 </select>
-                                                <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                @if($student->religion === 'other')
+                                                <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_religion }}">
+                                                @else
+                                                <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="">
+                                                @endif
                                                 <span class="invalid-feedback" id="religion_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -302,7 +319,11 @@
                                                     <option  value="ST"  {{ $student->category == 'ST' ? 'selected': '' }}>ST</option>
                                                     <option  value="other"  {{ $student->category == 'other' ? 'selected': '' }}>Other</option>
                                                 </select>
-                                                <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                @if($student->category === 'other')
+                                                <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify" value="{{$student->other_category}}">
+                                               @else
+                                               <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify" value="">
+                                                @endif
                                                 <span class="invalid-feedback" id="category_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -314,22 +335,19 @@
                                         </div>
                                        
                                         <div class="col-md-6">
-                                            
-                                                <label class="form-label">
-                                                    <span style="color:red">*</span> {{ __('Student Photo:') }}  </label>
-                                                    <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
-                                              
-                                                <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
-                                                <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
-                                                @if($student->image)
-                                                   
-                                                        <img src="{{ url('storage/student_photos/' . $student->image) }}"  height="100px" width="100px">
-                                                    
-                                                    <p id="pic">File: {{ $student->image }}</p>
-                                                @else
-                                                    <p id="pic">File: No File Uploaded</p>
-                                                @endif
-                                            
+                                            <label class="form-label">
+                                                <span style="color:red">*</span> {{ __('Student Photo:') }}  
+                                            </label>
+                                            <span class="text-info">Accepted Images: jpeg,jpg,png. Max file size 2Mb.</span>
+                                            <input class="form-control" type="file" name="image" id="image" accept=".png,.jpg,.jpeg">
+                                            <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
+                                            @if($student->image)
+                                                <img src="{{ url('storage/student_photos/' . $student->image) }}" height="100px" width="100px">
+                                                <p id="pic">File: {{ $student->image }}</p>
+                                                <input type="hidden" name="current_image" value="{{ $student->image }}">
+                                            @else
+                                                <p id="pic">File: No File Uploaded</p>
+                                            @endif
                                         </div>
                                         
                                           <div class="col-md-6">
@@ -369,8 +387,8 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->last_name}}">
-                                                   
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->address}}">
+                                                    <span class="invalid-feedback" id="residence_address_error" style="display: none;" role="alert"></span>    
                                                 </div>
                                                 
                                         </div>
@@ -457,34 +475,54 @@
                                                             <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="student-document">
                                                         @php
                                                             $documents = json_decode($student->document);
                                                         @endphp
-                            
+                                                    
                                                         @if (!empty($documents))
                                                             @foreach ($documents as $document)
                                                             <tr>
                                                                 <td>
-                                                                    <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" value="{{$document->name}}">
+                                                                    <input type="text" class="form-control" name="document_name[]"placeholder="Enter Document Name" value="{{ $document->name }}">
+                                                                  
                                                                 </td>
                                                                 <td>
-                                                                    <input type="file" class="form-control" name="document_file[]" value="{{ $document->file}}"  style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                                    <input type="file" class="form-control" name="document_file[]" style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
                                                                     <a href="{{ url('storage/student_documents/' . $document->file) }}" target="_blank">
                                                                         File: {{ $document->file }}
                                                                     </a>
+                                                                
                                                                 </td>
-                                                                <td>
-                                                                    <!-- Add action buttons if needed -->
-                                                                </td>
+                                                                
+                                                                {{-- <td>
+                                                                    <button type="button"  class="btn btn-danger remove-document">
+                                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                                    </button>
+                                                                </td> --}}
                                                             </tr>
                                                             @endforeach
                                                         @else
                                                             <tr>
-                                                                <td colspan="3">No documents uploaded</td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="document_name[]" required  placeholder="Enter Document Name">
+                                                                    <span class="invalid-feedback" id="document_name_error" style="display:none;" role="alert"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="file" class="form-control" name="document_file[]" required style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                                    <span class="invalid-feedback" id="document_file_error" style="display:none;" role="alert"></span>
+                                                                </td>
+                                                                {{-- <td>
+                                                                    <button type="button" class="btn btn-danger remove-document">
+                                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                                    </button>
+                                                                </td> --}}
                                                             </tr>
                                                         @endif
                                                     </tbody>
+                                                  
+                                                    
+                                                 
                                                 </table>
                                             </div>
                                         </div>
@@ -694,6 +732,10 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     console.log('Error:', error);
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        displayValidationErrors(errors);
+                    }
                 }
             });
         });
@@ -717,47 +759,52 @@ $(document).ready(function() {
 
    updateProgressBar(currentStep);
    showForm(currentStep);
+ 
+    $(document).ready(function() {
+        // Initially hide the other fields
+        $('#other-gender').hide();
+        $('#other-language').hide();
+        $('#other-category').hide();
+        $('#other-religion').hide();
 
-   $('#other-gender').hide();
-           $('#other-language').hide();
-           $('#other-category').hide();
-           $('#other-religion').hide();
+        // Show/hide the other-gender field based on the selected value of gender
+        $('#gender').change(function() {
+            if (this.value === 'other') {
+                $('#other-gender').show();
+            } else {
+                $('#other-gender').hide();
+            }
+        });
+        $('#gender').trigger('change');
+        // Show/hide the other-language field based on the selected value of language
+        // $('#student_language').change(function() {
+        //     if (this.value === 'other') {
+        //         $('#other-language').show();
+        //     } else {
+        //         $('#other-language').hide();
+        //     }
+        // });
 
-           $('#gender').change(function() {
-           if (this.value === 'other') {
-               // $('#other-gender').removeClass('hidden').attr('required', true);
+        // Show/hide the other-category field based on the selected value of category
+        $('#category').change(function() {
+            if (this.value === 'other') {
+                $('#other-category').show();
+            } else {
+                $('#other-category').hide();
+            }
+        });
+        $('#category').trigger('change');
+     
+        $('#religion').change(function() {
+            if (this.value === 'other') {
+                $('#other-religion').show();
+            } else {
+                $('#other-religion').hide();
+            }
+        });
+    });
 
-               $('#other-gender').show();
-           } else {
-               // $('#other-gender').addClass('hidden').removeAttr('required');
-               $('#other-gender').hide();
-           }
-       });
-
-       // $('#student_language').change(function() {
-       //     if (this.value === 'other') {
-       //         $('#other-language').show();
-       //     } else {
-       //         $('#other-language').hide();
-       //     }
-       // });
-
-       $('#category').change(function(){
-           if (this.value === 'other') {
-               $('#other-category').show();
-           } else {
-               $('#other-category').hide();
-           }
-       })
-
-       $('#religion').change(function(){
-           if (this.value === 'other') {
-               $('#other-religion').show();
-           } else {
-               $('#other-religion').hide();
-           }
-       })
-
+    $('#religion').trigger('change');
            
 
      var countries = <?php echo json_encode($test); ?>;
@@ -856,32 +903,31 @@ $(document).ready(function() {
 });
 
 document.getElementById('add-document').addEventListener('click', function() {
-       var tableBody = document.querySelector('#student-document tbody');
-       var newRow = document.createElement('tr');
+        var tableBody = document.querySelector('#student-document tbody');
+        var newRow = document.createElement('tr');
 
-       newRow.innerHTML = `
-           <td>
-               <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name">
-           </td>
-           <td>
-               <input type="file" class="form-control" name="document_file[]">
-           </td>
-           <td>
-               <button type="button" class="btn btn-danger remove-document">
-                   <i class="fa fa-times" aria-hidden="true"></i>
-               </button>
-           </td>
-       `;
+        newRow.innerHTML = `
+            <td>
+                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" required>
+            </td>
+            <td>
+                <input type="file" class="form-control" name="document_file[]" required>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger remove-document">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </td>
+        `;
 
-       tableBody.appendChild(newRow);
-   });
+        tableBody.appendChild(newRow);
+    });
 
-   document.querySelector('#student-document tbody').addEventListener('click', function(event) {
-       if (event.target.classList.contains('remove-document')) {
-           event.target.closest('tr').remove();
-       }
-   });
-
+    document.querySelector('#student-document tbody').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-document')) {
+            event.target.closest('tr').remove();
+        }
+    });
    document.addEventListener('DOMContentLoaded', function() {
        var today = new Date();
        var year = today.getFullYear();
