@@ -54,8 +54,13 @@
                                         <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Admission   For:') }}</label>
                                                 <div class="form-group">
-                                                    <input name="class"  type="text" class="form-control" placeholder="Enter Class" required>
-                                                        <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
+                                                    <select class="nice-select niceSelect bordered_style wide" id="class" name="class"  data-fouc data-placeholder="Choose..">
+                                                        <option value="">Select one of these</option>
+                                                        @foreach($class_master as $class_masters)
+                                                        <option  value="{{ $class_masters->class_name}}">{{ $class_masters->class_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                 </div>
                                     </div>  
                                     

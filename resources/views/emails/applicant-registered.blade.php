@@ -14,7 +14,7 @@
     <p><a href="{{ $verificationLink }}">Verify Email Address</a></p>
     <p>Your login details are as follows:</p>
     <p>Username : {{ $applicant->username}}</p>
-    <p>Password : 123456789 </p>
+    <p>Password : {{$plainPassword}}</p>
     <p>Once you have logged in, please complete the applicant's profile.</p>
     <p>Our team will review the application and get back to you shortly.</p>
      

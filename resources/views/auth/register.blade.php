@@ -39,23 +39,9 @@
                 <div class="col-lg-10 col-md-10 offset-md-1 mr-auto">
                     <div id="success-message" style="display:none;" class="alert alert-success"></div>
                     <div id="error-message" style="display:none;" class="alert alert-danger"></div>
-                    <div class="progress-container">
-                        <ul id="progressbar">
-                            <li class="step active" id="step1"><strong>Step 1</strong></li>
-                            <li class="step" id="step2"><strong>Step 2</strong></li>
-                            <li class="step" id="step3"><strong>Step 3</strong></li>
-                            <li class="step" id="step4"><strong>Step 4</strong></li>
-                        </ul>
-                    </div>
                     <div class="card ot-card">
                         <div class="card-body">
                             @include('admin.applicant.step-form.step-form-1')
-
-                            @include('admin.applicant.step-form.step-form-2')
-
-                            @include('admin.applicant.step-form.step-form-3')
-
-                            @include('admin.applicant.step-form.step-form-4')
                         </div>
                     </div>
                 </div>
@@ -117,37 +103,73 @@
 $(document).ready(function() {
     demo.checkFullPageBackgroundImage();
 
-    let currentStep = 1;
-    const totalSteps = 4;
 
-    function updateProgressBar(step) {
-        const percentage = (step - 1) / (totalSteps - 1) * 100;
-        $('.progress-bar').css('width', `${percentage}%`);
-        $('#progressbar li').removeClass('active');
-        for (let i = 1; i <= step; i++) {
-            $(`#step${i}`).addClass('active');
+    $('#form1').on('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    var formData = $(this).serialize();
+
+    // Additional client-side validation
+    var emailInput = $('#email').val();
+    if (emailInput !== emailInput.toLowerCase()) {
+        $('#email_error').text('The email must be in lowercase.').show();
+        return; // Stop form submission
+    }
+
+    $('#spinner').show();
+
+    $.ajax({
+        url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            $('#spinner').hide();
+
+            if (response.success) {
+                $('.parent_id').val(response.parent_id);
+                $('.applicant_id').val(response.applicant_id);
+                $('.student_id').val(response.student_id);
+                Swal.fire({
+                    title: "Email sent successfully!",
+                    text: "Please proceed with the registration process or check your email to verify your account.",
+                    icon: "success",
+                    button: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // Reload the page
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: "Email Already Exists",
+                    text: "Please proceed with the registration process or check your email to verify your account.",
+                    icon: "success",
+                    button: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); 
+                    }
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            $('#spinner').hide();
+            
+            if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                displayValidationErrors(errors);
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "An error occurred while submitting the application.",
+                    icon: "error",
+                    button: "OK",
+                });
+            }
         }
-    }
-
-    function showForm(step) {
-        $('#form1, #form2, #form3, #form4').hide();
-        $(`#form${step}`).show();
-    }
-
-
-    $('#save').click(function(e) {
-        e.preventDefault();
-        $('#form-action').val('save');
-        submitForm();
     });
+});
 
-    $('#save-continue').click(function(e) {
-        e.preventDefault();
-        $('#form-action').val('save-continue');
-        submitForm();
-    });
-
-    function displayValidationErrors(errors) {
+function displayValidationErrors(errors) {
     $('.invalid-feedback').hide(); // Hide all error messages initially
     $.each(errors, function(key, messages) {
         var errorElement = $('#' + key + '_error');
@@ -157,250 +179,8 @@ $(document).ready(function() {
 }
 
 
-   function submitForm() {
-    var formData = $('#form1').serialize();
+          $('#other-gender').hide();
 
-    // Show the spinner
-    $('#spinner').show();
-
-    $.ajax({
-        url: "{{ route('post-applicant-data') }}", // Ensure this route matches your Laravel route definition
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            console.log(response);
-
-            // Hide the spinner
-            $('#spinner').hide();
-
-            if (response.success) {
-                console.log('parent', response.parent_id);
-                console.log('applicant_id', response.applicant_id);
-                $('.parent_id').val(response.parent_id);
-                $('.applicant_id').val(response.applicant_id);
-                $('.student_id').val(response.student_id);
-                if (response.action === 'save') {
-                    
-                    location.reload(); // Reload the page after saving
-                } else if (response.action === 'save-continue' && response.update === 'yes') {
-                    $('#step1').removeClass('active');
-                    $('#step2').addClass('active');
-                    // Update form visibility based on current step
-                    $('#form1').hide();
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form4').hide();
-
-                } else if (response.action === 'save-continue' && response.update === 'yes' && response.email != null) {
-                    Swal.fire({
-                        title: "You Already Have an Account!",
-                        text: "Please proceed with the new applicant.",
-                        icon: "success",
-                        button: "OK"
-                    });
-
-                    $('#step1').removeClass('active');
-                    $('#step2').addClass('active');
-                    // Update form visibility based on current step
-                    $('#form1').hide();
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form4').hide();
-                } else if (response.action === 'save-continue') {
-
-                    Swal.fire({
-                        title: "Email sent successfully!",
-                        text: "Please proceed with the registration process or check your email to verify your account.",
-                        icon: "success",
-                        button: "OK"
-                    });
-
-                    $('#step1').removeClass('active');
-                    $('#step2').addClass('active');
-                    // Update form visibility based on current step
-                    $('#form1').hide();
-                    $('#form2').show();
-                    $('#form3').hide();
-                    $('#form4').hide();
-                }
-            } else {
-                Swal.fire({
-                    title: "Error",
-                    text: "An error occurred while submitting the application.",
-                    icon: "error",
-                    button: "OK",
-                });
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log('Error:', error);
-
-            // Hide the spinner
-            $('#spinner').hide();
-            // $('#parent_id').val(response.parent_id);
-            // $('#applicant_id').val(response.applicant_id);
-            if (xhr.status === 422) {
-                var errors = xhr.responseJSON.errors;
-                displayValidationErrors(errors); // Display validation errors if any
-            } else {
-                Swal.fire({
-                    title: "Error",
-                    text: "An error occurred while submitting the application.",
-                    icon: "error",
-                    button: "OK",
-                });
-            }
-        }
-    });
-}
-
-  $('#form2').submit(function(event) {
-        event.preventDefault();
-
-        // Create a new FormData object
-        var formData = new FormData(this);
-
-        $('#spinner').show();
-
-        $.ajax({
-            url: "{{ route('post-applicant-student-data') }}",
-            type: 'POST',
-            data: formData,
-            contentType: false, 
-            processData: false, 
-            enctype: 'multipart/form-data',
-            success: function(response) {
-                console.log(response);
-
-                $('#spinner').hide();
-
-                $('.student_id').val(response.student_id);
-
-                $('#step2').removeClass('active');
-                $('#step3').addClass('active');
-                if ($('#step3').hasClass('active')) {
-                    $('#form3').show();
-                    $('#form2').hide();
-                    $('#form1').hide();
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.errors;
-                    displayValidationErrors(errors);
-                }
-            }
-        });
-    });
-
-
-   $('#form3').submit(function (event) {
-
-            event.preventDefault();
-            var formData = $('#form3').serialize(); 
-
-            $('#spinner').show();
-
-            $.ajax({
-                    url: "{{ route('post-applicant-contact-data') }}",
-                    type: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        // $(form).trigger("reset");
-                        $('.student_id').val(response.student_id);
-                        $('#spinner').hide();
-                    console.log(response);
-                        $('#step3').removeClass('active');
-                        $('#step4').addClass('active');
-                        if ($('#step4').hasClass('active')) {
-                            $('#form4').show();
-                            $('#form3').hide();
-                            $('#form2').hide();
-                            $('#form1').hide();
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                console.log('Error:', error);
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.errors;
-                    displayValidationErrors(errors);
-                }
-            }
-        });
-    });
-
-
-        $('#form4').submit(function (event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-
-            $('#spinner').show();
-
-            $.ajax({
-                url: "{{ route('post-applicant-document-data') }}",
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    console.log(response);
-                    $('#spinner').hide();
-                    if (response.success) {
-                        Swal.fire({
-                        title: "Application completed successfully",
-                        text: "The application was submitted successfully!",
-                        icon: "success",
-                        button: "OK",
-                        }).then((value) => {
-                        window.location.href = "/login"; // Redirect to the dashboard page
-                        });
-                        $('#step4').removeClass('active');
-                        $('#step1').addClass('active');
-                        if ($('#step1').hasClass('active')) {
-                            $('#form1').hide();
-                            $('#form3').hide();
-                            $('#form2').hide();
-                            $('#form4').hide();
-                            
-                            $('#success-message').text(response.message).show();
-                        }
-                    } else {
-                        $('#error-message').text(response.errors).show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error:', error);
-                    $('#error-message').text('An error occurred while submitting the form. Please try again.').show();
-                }
-            });
-            
-        });
-
-
-    $('.back_1').click(function() {
-        currentStep = 1;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
-    });
-
-    $('.back_2').click(function() {
-        currentStep = 2;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
-    });
-
-    $('.back_3').click(function() {
-        currentStep = 3;
-        updateProgressBar(currentStep);
-        showForm(currentStep);
-    });
-
-    updateProgressBar(currentStep);
-    showForm(currentStep);
-
-         
-            $('#other-gender').hide();
             $('#other-language').hide();
             $('#other-category').hide();
             $('#other-religion').hide();

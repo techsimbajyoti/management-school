@@ -11,6 +11,7 @@ use App\Models\State;
 use App\Models\Country;
 use App\Models\StudentParent;
 use App\Models\Student;
+use App\Models\ClassMaster;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -139,28 +140,85 @@ class ApplicantController extends Controller
                     ->groupBy('student_id');
             });
         
-            if($student_class == null && $status == null && $from != null && $to != null && $applicantid == null){
+            if($student_class != null && $status != null && $from != null && $to != null && $applicantid == null){
+                $fromDate = $from . ' 00:00:00'; // Start of the day
+                $toDate = $to . ' 23:59:59';     // End of the day
 
-                $fromDate = $from.' '.'01:00:00';
-                $toDate = $to.' '.'00:00:00';
+                // Subquery to get the latest status for each applicant
+                $latestStatuses = DB::table('applicant_statuses as sub')
+                    ->select('sub.applicant_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                    ->groupBy('sub.applicant_id');
 
-                $applicant_list = DB::table('students')
-                ->select(
-                    'students.id as student_id', 
-                    'student_parents.id as parent_id', 
-                    'students.*', 
-                    'student_parents.*', 
-                    'latest.status as latest_status',
-                    'latest.note as latest_note'
-                )
-                ->join('student_parents', 'students.parent_id', '=', 'student_parents.id')
-                ->leftJoinSub($latestStatuses, 'latest', function ($join) {
-                    $join->on('students.id', '=', 'latest.student_id');
-                })
-                ->where('students.class', $student_class)
-                ->where('student_parents.created_at', '>=', $from)
-                ->where('student_parents.created_at', '<=', $to)
-                ->get();
+                // Query to get the latest statuses joined with student and parent data
+                $applicant_list = DB::table('student_parents')
+                    ->join('students', 'students.parent_id', '=', 'student_parents.id')
+                    ->join('applicant_statuses', function ($join) use ($latestStatuses) {
+                        $join->on('students.applicant_id', '=', 'applicant_statuses.applicant_id')
+                            ->joinSub($latestStatuses, 'latest', function ($join) {
+                                $join->on('applicant_statuses.applicant_id', '=', 'latest.applicant_id')
+                                    ->on('applicant_statuses.created_at', '=', 'latest.latest_created_at');
+                            });
+                    })
+                    ->select(
+                        'students.id as student_id',
+                        'student_parents.id as parent_id',
+                        'students.*',
+                        'student_parents.*',
+                        'applicant_statuses.status as latest_status',
+                        'applicant_statuses.note as latest_note'
+                    )
+                    ->where('student_parents.created_at', '>=', $fromDate)
+                    ->where('student_parents.created_at', '<=', $toDate);
+
+                // Filter by student class
+                if ($student_class) {
+                    $applicant_list->where('students.class', $student_class);
+                }
+
+                // Filter by status
+                if ($status) {
+                    $applicant_list->where('applicant_statuses.status', $status);
+                }
+
+                $applicant_list = $applicant_list->distinct()->get();
+
+                // Return or use $applicant_list as needed
+
+
+            }else if($student_class == null && $status == null && $from != null && $to != null && $applicantid == null){
+
+                $fromDate = $from . ' 00:00:00'; // Start of the day
+                $toDate = $to . ' 23:59:59'; // End of the day
+
+                // Subquery to get the latest status for each applicant
+                $latestStatuses = DB::table('applicant_statuses as sub')
+                    ->select('sub.applicant_id', DB::raw('MAX(sub.created_at) as latest_created_at'))
+                    ->groupBy('sub.applicant_id');
+
+                // Query to get the latest statuses joined with student and parent data
+                $applicant_list = DB::table('student_parents')
+                    ->join('students', 'students.parent_id', '=', 'student_parents.id')
+                    ->join('applicant_statuses', function ($join) use ($latestStatuses) {
+                        $join->on('students.applicant_id', '=', 'applicant_statuses.applicant_id')
+                            ->joinSub($latestStatuses, 'latest', function ($join) {
+                                $join->on('applicant_statuses.applicant_id', '=', 'latest.applicant_id')
+                                    ->on('applicant_statuses.created_at', '=', 'latest.latest_created_at');
+                            });
+                    })
+                    ->select(
+                        'students.id as student_id',
+                        'student_parents.id as parent_id',
+                        'students.*',
+                        'student_parents.*',
+                        'applicant_statuses.status as latest_status',
+                        'applicant_statuses.note as latest_note'
+                    )
+                    ->where('student_parents.created_at', '>=', $fromDate)
+                    ->where('student_parents.created_at', '<=', $toDate)
+                    ->distinct()
+                    ->get();
+
+
 
             }else if($student_class != null && $status != null && $from == null && $to == null && $applicantid == null){
             $applicant_list = DB::table('students')
@@ -322,8 +380,7 @@ class ApplicantController extends Controller
         $country = Country::get(['id','country']);
         $state = State::get(['id','state']);
 
-
-
+        $class_master = ClassMaster::get();
         $Religion = Religion::get();
         $BloodGroup = BloodGroup::get();
 
@@ -350,7 +407,7 @@ class ApplicantController extends Controller
         // print_r($applicant_data);
         // exit;
         
-        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent','request'));
+        return view('admin.applicant.edit-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent','request','class_master'));
     }
 
 
@@ -394,7 +451,24 @@ class ApplicantController extends Controller
             'contact_number' => 'required|digits_between:10,15',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
            
+        ], [
+            'parent_name.required' => 'The parent name field is required.',
+            'parent_name.string' => 'The parent name must be a string.',
+            'parent_name.regex' => 'The parent name must only contain letters and spaces.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'The password must be a string.',
+            'password.min' => 'The password must be at least 8 characters.',
+            'password_confirmation.required' => 'The password confirmation field is required.',
+            'password_confirmation.same' => 'The password confirmation does not match.',
+            'contact_number.required' => 'The contact number field is required.',
+            'contact_number.numeric' => 'The contact number field must contain only digits.',
+            'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
+            'profession.string' => 'The profession must be a string.',
+            'profession.regex' => 'The profession must only contain letters and spaces.',
         ]);
+        
     
         // $ipAddress = $this->getPublicIpAddress();
     
@@ -433,18 +507,56 @@ class ApplicantController extends Controller
             'blood_group'=>'nullable|string',
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        ],
+      [
+        
+            'first_name.required' => 'The first name field is required.',
+            'first_name.string' => 'The first name must be a string.',
+            'first_name.regex' => 'The first name must only contain letters and spaces.',
+            
+            'last_name.required' => 'The last name field is required.',
+            'last_name.string' => 'The last name must be a string.',
+            'last_name.regex' => 'The last name must only contain letters and spaces.',
+            
+            'gender.required' => 'The gender field is required.',
+            
+            'class.required' => 'The class field is required.',
+            
+            'date_of_birth.required' => 'The date of birth field is required.',
+            'date_of_birth.date' => 'The date of birth must be a valid date.',
+            'date_of_birth.before' => 'The date of birth must be before today\'s date.',
+            
+            'student_language.string' => 'The student language must be a string.',
+            
+            'category.string' => 'The category must be a string.',
+            
+            'blood_group.string' => 'The blood group must be a string.',
+            
+            'religion.string' => 'The religion must be a string.',
+            
+            'previous_school.string' => 'The previous school must be a string.',
+        
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The image must be a valid image file.',
+            'image.mimes' => 'The image must be a file of type: jpg, png, jpeg.',
+            'image.uploaded' => 'The image must not be greater than 2 MB.',
         ]);
+    
         
         // $ipAddress = $this->getPublicIpAddress();
         
         $parent_id = Session::get('parent_id');
+
+        $student = Student::find($applicant_id);
 
         if($request->student_id != null){
         $student_update = Student::where('parent_id', $parent_id)
         ->where('id',$request->student_id)
         ->firstOrFail();
         
+       
+       
         if ($request->hasFile('image')) {
             // Delete existing image if it exists
             if (!is_null($student_update->image)) {
@@ -452,16 +564,14 @@ class ApplicantController extends Controller
                     Storage::delete('public/student_photos/' . $student_update->image);
                 }
             }
-        
-            // Upload new image
+          // Upload new image
             $originalFileName = $request->file('image')->getClientOriginalName();
             $currentDateTime = now()->format('YmdHis');
             $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
             $student_update->image = $currentDateTime . '_' . $originalFileName;
         } else {
-            // No new image uploaded, do nothing
+          
         }
-        
 
         $student_update->first_name = $request->first_name;
         $student_update->last_name = $request->last_name;
@@ -478,19 +588,22 @@ class ApplicantController extends Controller
 
 
         if ($request->category === 'other') {
-            $student_update->category = $request->other_category;
+            $student_update->category = $request->category;
+            $student_update->other_category = $request->other_category;
         } else {
             $student_update->category = $request->category;
         }
         
         if ($request->religion === 'other') {
-            $student_update->religion = $request->other_religion;
+            $student_update->religion = $request->religion;
+            $student_update->other_religion = $request->other_religion;
         } else {
             $student_update->religion = $request->religion;
         }
         
         if ($request->gender === 'other') {
-            $student_update->gender = $request->other_gender;
+            $student_update->gender = $request->gender;
+            $student_update->other_gender = $request->other_gender;
         } else {
             $student_update->gender = $request->gender;
         }
@@ -569,7 +682,20 @@ class ApplicantController extends Controller
             'state' => 'required',
             'city' => 'required',
             'pin_code' => 'required|digits:6',
-        ]);
+        ],
+       [
+        'residence_address.required' => 'The residence address field is required.',
+        'residence_address.min' => 'The residence address must be at least 3 characters long.',
+        'residence_address.max' => 'The residence address must not exceed 255 characters.',
+        'country.required' => 'The country field is required.',
+        'country.string' => 'The country must be a valid string.',
+        'country.regex' => 'The country must only contain letters and spaces.',
+        'state.required' => 'The state field is required.',
+        'city.required' => 'The city field is required.',
+        'pin_code.required' => 'The pin code field is required.',
+        'pin_code.digits' => 'The pin code must be exactly 6 digits.',
+       ]
+    );
               
         $student_id = $request->student_id;
       
@@ -592,6 +718,20 @@ class ApplicantController extends Controller
 
    public function update_document_applicant(Request $request, $parent_id)
     {
+        $validatedData = $request->validate([
+           
+          
+            // 'document_file' => 'required|array|min:1',
+            // 'document_file.*' => 'required|file|mimes:jpg,png,jpeg,pdf|max:2048',
+        ], [
+           
+          
+            // 'document_file.required' => 'At least one document file is required.',
+            // 'document_file.*.required' => 'Each document file is required.',
+            // 'document_file.*.mimes' => 'Each document file must be a file of type: jpg, png, jpeg, pdf.,.doc,.xls,.docx',
+            // 'document_file.*.max' => 'Each document file must not be greater than 2 MB.',
+        ]);
+    
         if (is_null($request->student_id)) {
             return response()->json(['success' => false, 'errors' => 'Student ID not found']);
         }
@@ -797,70 +937,16 @@ class ApplicantController extends Controller
     }
 
     public function post_applicant_data(Request $request){
-        $parent_id = $request->input('parent_id');
-        $applicant_id = $request->input('applicant_id');
-        $student_id = $request->input('student_id');
-
-        // $ipAddress = $this->getPublicIpAddress();
-    
         $parent_student = StudentParent::where('email', $request->email)
         ->first();
 
-        if($parent_student !== null){
+        if($parent_student != null){
+            return response()->json(['success'=>'false','message'=>'Email Already Exists.']);
+        }else{
 
         $randomuserId = Str::random(8);
 
         $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
-
-            $applicant = StudentParent::where('email', $request->email)->update([
-                'father_name' => $request->parent_name,
-                'father_mobile' => $request->contact_number,
-                'username' => $parent_student->username,
-                'email' => $request->email,
-                'password' => $parent_student->password,
-                'father_profession' => $request->profession,
-                // 'applicant_id' => $randomApplicantId,
-                'role_id' => $request->role_id,
-                'status' => $request->status,
-                'applicant_status' => $request->applicant_status,                                                                                                           
-                'ip_address' => '127.0.0.1',
-                'created_by' => 'null',
-            ]);
-
-        if($applicant_id != null){
-            $app_id = Student::where('id', $student_id)
-            ->first();
-        }else{
-            $applicant_1 = new Student;
-
-            $applicant_1->parent_id = $parent_student->id;
-            $applicant_1->applicant_id = $randomApplicantId;
-            $applicant_1->applicant_status = $parent_student->status;
-    
-            $applicant_1->save();
-    
-            $app = new ApplicantStatus;
-            $app->student_id = $applicant_1->id;
-            $app->parent_id = $applicant_1->id;
-            $app->applicant_id = $applicant_1->applicant_id;
-            $app->status = $applicant_1->applicant_status;
-            $app->note = 'null';
-            $app->ip_address = '1';
-            $app->created_by = '1';
-            $app->save();
-
-            $app_id = Student::where('id', $applicant_1->id)
-            ->first();
-        }
-
-        return response()->json(['success'=>'true','action'=>$request->action,'parent_id'=>$parent_student->id,'applicant_id'=>$app_id->applicant_id, 'update'=>'yes','email'=>$request->email,]);
-
-                
-        }else{
-
-            $randomuserId = Str::random(8);
-
-            $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
         $validatedData = $request->validate([
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
@@ -869,8 +955,7 @@ class ApplicantController extends Controller
             'password_confirmation' => 'required|same:password',
             'contact_number' => 'required|numeric|digits_between:10,15',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
-        ],
-        [
+        ], [
             'parent_name.required' => 'The parent name field is required.',
             'parent_name.string' => 'The parent name must be a string.',
             'parent_name.regex' => 'The parent name must only contain letters and spaces.',
@@ -886,8 +971,13 @@ class ApplicantController extends Controller
             'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
             'profession.string' => 'The profession must be a string.',
             'profession.regex' => 'The profession must only contain letters and spaces.',
-        ]
-    ); 
+        ]);
+        
+        if (strtolower($request->email) !== $request->email) {
+            return back()->withErrors(['email' => 'The email must be in lowercase.']);
+        }
+        
+       
 
         $student_data = [
             'parent_name' => $request->parent_name,
@@ -909,19 +999,20 @@ class ApplicantController extends Controller
 
         // Calculate profile completion percentage
         $profileCompletionPercentage = $this->calculateProfileCompletionPercentage((object)$student_data);
-
+       
         // Determine status based on profile completion percentage
         $status = $profileCompletionPercentage < 100 ? 'Incomplete' : 'Complete';
 
         $applicant = new StudentParent;
+
+        $plainPassword = $request->password; 
                 
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
         $applicant->username = $randomuserId;
         $applicant->email = $request->email;
-        $applicant->password = Hash::make($request->password);
+        $applicant->password = Hash::make($plainPassword);
         $applicant->father_profession = $request->profession;
-        // $applicant->applicant_id = $randomApplicantId;
         $applicant->role_id = $request->role_id;
         $applicant->status = $status; 
         $applicant->applicant_status = $request->applicant_status;                                                                                                           
@@ -950,11 +1041,10 @@ class ApplicantController extends Controller
 
         Mail::to('ts.juhiverma@gmail.com')->send(new AdminNotification($applicant));
       
-        Mail::to($request->email)->send(new ApplicantRegistered($applicant));
+        Mail::to($request->email)->send(new ApplicantRegistered($applicant,$plainPassword));
         
         return response()->json(['success'=>'true','action'=>$request->action,'student_id'=>$applicant_1->id, 'parent_id' => $applicant_1->parent_id, 'applicant_id' => $applicant_1->applicant_id]);
-
-       }
+        }
     }
 
     // Function to calculate profile completion percentage based on fields
@@ -1668,13 +1758,15 @@ class ApplicantController extends Controller
         $Religion = Religion::get();
         $BloodGroup = BloodGroup::get();
 
+        $class_master = ClassMaster::get();
+
         $Language = Language::get();
         $lang = [];
         foreach($Language as $lng){
             $lang[] = $lng->name;
         }
 
-        return view('admin.applicant.add-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing'));
+        return view('admin.applicant.add-applicant',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','class_master'));
     }
 
     public function parent_meeting_status() {

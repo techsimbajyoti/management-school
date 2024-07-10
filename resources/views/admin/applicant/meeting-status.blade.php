@@ -472,7 +472,7 @@
                             '<td>' + (applicant.meeting_type || '') + '</td>' +
                             '<td><div class="d-flex">' +
                             '<span>' + (applicant.meeting_mode || '') + '</span>' +
-                            '<a href="#" class="info-button applicant_mode" data-modal-id="myModal' + (applicant.id || '') + '">' +
+                            '<a href="#" class="info-button applicant_mode" data-modal-id="myModal' + (applicant.id) + '">' +
                             '<i class="fa fa-info"></i></a></div></td>' +
                             '<td><span class="badge-basic-success-text">' + (applicant.meeting_status || '') + '</span></td>' +
                             '<td class="action">' +
@@ -501,6 +501,7 @@
         });
     });
 });
+
 
     </script>
 @endpush
