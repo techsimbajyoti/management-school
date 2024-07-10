@@ -81,15 +81,22 @@ class LoginController extends Controller
     {
         $loginField = $request->input('login');
         $password = $request->input('password');
-    
+        
         // Determine if the input is an email or username
         $field = filter_var($loginField, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-  
-        // Attempt login based on the determined field
+        
+        // Define the credentials array
         $credentials = [
             $field => $loginField,
             'password' => $password,
         ];
+
+        // Attempt login for students (users) with username only
+        if ($field === 'username' && Auth::guard('webparents')->attempt([$field => $loginField, 'password' => $password])) {
+            if (Auth::guard('webparents')->user()->role_id == 5) {
+                return redirect()->route('parent-dashboard');
+            }
+        }
     
       
         // Attempt login for different guards
@@ -100,10 +107,6 @@ class LoginController extends Controller
         } elseif (Auth::guard('webteachers')->attempt($credentials)) {
             if (Auth::guard('webteachers')->user()->role_id == 2) {
                 return redirect()->route('teacher-dashboard');
-            }
-        } elseif (Auth::guard('webparents')->attempt($credentials)) {
-            if (Auth::guard('webparents')->user()->role_id == 5) {
-                return redirect()->route('parent-dashboard');
             }
         } elseif (Auth::guard('webaccountants')->attempt($credentials)) {
             if (Auth::guard('webaccountants')->user()->role_id == 3) {
