@@ -132,7 +132,7 @@
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Email:') }}</label>
                                                 <div class="form-group">
-                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email"  value="{{ $parent->email}}" >
+                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email"  value="{{ $parent->email}}" readonly>
                                                     <span class="invalid-feedback" id="email_error" style="display: none;"></span>
                                               
                                                 </div>
@@ -140,24 +140,22 @@
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Password:') }}</label>
-                                        
+                                            @php
+                                            try {
+                                                $newPassword = Crypt::decryptString($applicant_data->password);
+                                            } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                                                $newPassword = '';
+                                            }
+                                        @endphp
                                             <div class="form-group">
-                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password"  value="{{ $parent->password}}" readonly>
+                                                <input type="text" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password"  value="{{ $newPassword}}" readonly>
+                                               
                                                 <span class="invalid-feedback" id="password_error" style="display: none;"></span>
                                                
                                             </div>
                                         </div>
                                         
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Confirm Password:') }}</label>
-                                        
-                                            <div class="form-group">
-                                                <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password"  value="{{ $parent->password}}" readonly>
-                                                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
-                                                
-                                            </div>
-                                        </div>
+                                      
                                         
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
@@ -250,7 +248,7 @@
                                         
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
-                                                <label class="form-label">{{ __('Class:') }}</label>
+                                                <label class="form-label">{{ __('Admission For:') }}</label>
                                                     <div class="form-group">
                                                         <select class="nice-select niceSelect bordered_style wide" id="class-name" name="class" data-fouc data-placeholder="Choose.." required>
                                                             <option value="">Select one of these</option>
@@ -298,7 +296,7 @@
                                                     @foreach($Religion as $Religions)
                                                        <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
                                                     @endforeach
-                                                    <option  value="{{ $student->religion === 'other'}}">Other</option>
+                                                    <option  value="other" {{ $student->religion == 'other' ? 'selected' : '' }}>Other</option>
                                                 </select>
                                                 @if($student->religion === 'other')
                                                 <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_religion }}">
@@ -352,7 +350,7 @@
                                         
                                           <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
-                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $student->previous_school}}">
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School Name" id="previous_school"  name="previous_school" value="{{ $student->previous_school}}">
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                                 <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                         </div>
@@ -387,7 +385,7 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->address}}">
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" required value="{{ $student->address}}">
                                                     <span class="invalid-feedback" id="residence_address_error" style="display: none;" role="alert"></span>    
                                                 </div>
                                                 
@@ -430,7 +428,7 @@
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="{{ $student->pin_code}}">
+                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Enter Pin Code" required value="{{ $student->pin_code}}">
                                                     <span class="invalid-feedback" id="pin_code_error" style="display: none;" role="alert"></span>
                                                 </div>
                                                 

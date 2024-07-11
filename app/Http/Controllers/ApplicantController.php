@@ -356,12 +356,14 @@ class ApplicantController extends Controller
             $lang[] = $lng->name;
         }
     
+       
+
         $applicant_data = Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
         ->where('student_parents.id', $parent_id)
         ->where('students.id', $student_id)
         ->select('students.*', 'student_parents.*')
         ->first();
-    
+       
         return view('admin.applicant.view-applicant', compact('lang', 'Language', 'BloodGroup', 'Religion', 'state', 'country', 'test', 'testing', 'applicant_data'));
     }
     
@@ -629,7 +631,6 @@ class ApplicantController extends Controller
 
             $student_update->first_name = $request->first_name;
             $student_update->last_name = $request->last_name;
-            $student_update->username = $randomUsername;
             $student_update->password = $hashPassword;
             $student_update->class = $request->class;
             $student_update->date_of_birth = $request->date_of_birth;
@@ -1006,12 +1007,11 @@ class ApplicantController extends Controller
         $applicant = new StudentParent;
 
         $plainPassword = $request->password; 
-                
+        
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
-        $applicant->username = $randomuserId;
-        $applicant->email = $request->email;
-        $applicant->password = Hash::make($plainPassword);
+         $applicant->email = $request->email;
+        $applicant->password =Crypt::encryptString($plainPassword);
         $applicant->father_profession = $request->profession;
         $applicant->role_id = $request->role_id;
         $applicant->status = $status; 
@@ -1091,7 +1091,7 @@ class ApplicantController extends Controller
         $randomPassword = Str::random(8);
         $hashPassword = Hash::make($randomPassword);
 
-        $randomUsername = Str::random(8);
+      
 
         $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
@@ -1101,7 +1101,6 @@ class ApplicantController extends Controller
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'username' => $parentStudent->username,
                 'password' => $parentStudent->password,
                 'class' => $request->class,
                 'religion' => $request->religion,
@@ -1309,7 +1308,6 @@ class ApplicantController extends Controller
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'username' => $parentStudent->username,
                 'password' => $parentStudent->password,
                 'class' => $request->class,
                 'date_of_birth' => $request->date_of_birth,
@@ -1399,7 +1397,6 @@ class ApplicantController extends Controller
 
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
-            $student->username = $randomUsername;
             $student->password = $hashPassword;
             $student->class = $request->class;
             $student->date_of_birth = $request->date_of_birth;
@@ -1416,19 +1413,22 @@ class ApplicantController extends Controller
             $student->created_by = 'null';
 
             if ($request->category === 'other') {
-                $student->category = $request->other_category;
+                $student->category = $request->category;
+                $student->other_category = $request->other_category;
             } else {
                 $student->category = $request->category;
             }
 
             if ($request->religion === 'other') {
-                $student->religion = $request->other_religion;
+                $student->religion = $request->religion;
+                $student->other_religion = $request->other_religion;
             } else {
                 $student->religion = $request->religion;
             }
 
             if ($request->gender === 'other') {
-                $student->gender = $request->other_gender;
+                $student->other_gender = $request->other_gender;
+                $student->gender = $request->gender;
             } else {
                 $student->gender = $request->gender;
             }
@@ -1985,7 +1985,6 @@ class ApplicantController extends Controller
                 'profession' => $parent_details->father_profession,
                 'email' => $parent_details->email,
                 'phone' => '0000000000',
-                'username' => $parent_details->username,
                 'password' => $decrypted_password
             ],
             'student' => [
