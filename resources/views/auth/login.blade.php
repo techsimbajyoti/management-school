@@ -61,61 +61,57 @@
                     <div class="card-body ">
                         <form class="form" method="POST" action="{{ route('login') }}">
                             @csrf
-                            
-                                    <div class="card-header">
-                                        <h3 class="header text-center">{{ __('Login') }}</h3>
+                            <div class="card-header">
+                                <h3 class="header text-center">{{ __('Login') }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-single-02"></i>
+                                        </span>
                                     </div>
-                                <div class="card-body">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="nc-icon nc-single-02"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" name="login" required autofocus>
-                                        @if ($errors->has('login'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('login') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-        
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="nc-icon nc-single-02"></i>
-                                            </span>
-                                        </div>
-                                        <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password" required>
-                                        
-                                        @if ($errors->has('password'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-        
-                                    <div class="form-group">
-                                        {{-- <div class="form-check"> --}}
-                                             <label class="form-check-label">
-                                                <input name="remember" type="checkbox" value="" {{ old('remember') ? 'checked' : '' }}>
-                                                <span class="form-check-sign"></span>
-                                                {{ __('Remember me') }}
-                                            </label>
-                                        {{-- </div> --}}
-                                    </div>
+                                    <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" autocomplete="off" name="login" required>
+                                    @if ($errors->has('login'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('login') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
-        
-                                <div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn ot-btn-primary mb-3">{{ __('Sign in') }}</button>
+                        
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-single-02"></i>
+                                        </span>
                                     </div>
-                                    <a href="{{ route('password.request') }}" class="btn btn-link" style="margin-button:10px;">
-                                        {{ __('Forgot password') }}
-                                    </a>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="off" placeholder="{{ __('Password') }}" type="password" required>
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
-                            
+                        
+                                <div class="form-group">
+                                    <label class="form-check-label">
+                                        <input name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
+                                        <span class="form-check-sign"></span>
+                                        {{ __('Remember me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        
+                            <div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn ot-btn-primary mb-3">{{ __('Sign in') }}</button>
+                                </div>
+                                <a href="{{ route('password.request') }}" class="btn btn-link" style="margin-bottom: 10px;">
+                                    {{ __('Forgot password?') }}
+                                </a>
+                            </div>
                         </form>
+                            
                         <div>
                         </div>
                     </div>

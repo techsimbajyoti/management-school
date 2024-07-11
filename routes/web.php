@@ -18,7 +18,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FeesController;
@@ -48,7 +48,7 @@ Route::get('/reset-password/{token}', function ($token) {
 	return view('auth.passwords.reset', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
-Route::post('update-password',[HomeController::class, 'update_password'])->name('update-password');
+
 
 Route::get('/verify-registration/{applicant_id}', [App\Http\Controllers\VerificationController::class, 'verifyRegistration'])->name('verify.registration');
 
@@ -70,8 +70,9 @@ Route::post('post-applicant-contact-data',[ApplicantController::class,'post_appl
 
 Route::post('post-applicant-document-data',[ApplicantController::class,'post_applicant_document_data'])->name('post-applicant-document-data');
 
+Route::post('update-password',[HomeController::class, 'update_password'])->name('update-password');
 
-
+Route::get('change-password', [HomeController::class, 'change_password'])->name('change-password');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
@@ -337,8 +338,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('student-fees-payment', [FeesController::class, 'student_payment'])->name('student-fees-payment');
 
 	Route::get('admin-manage-payment', [FeesController::class, 'admin_manage_payment'])->name('admin-manage-payment');
-
-	Route::post('update-password', [HomeController::class, 'update_password'])->name('update-password');
 
 	Route::get('view-video', [HomeController::class, 'view_video'])->name('view-video');
 

@@ -59,9 +59,8 @@ class HomeController extends Controller
         return view('students.students-dashboard');
     }
 
-    public function change_password()
-    {
-        return view('admin.change-password');
+    public function change_password(){
+        return view('auth.change-password');
     }
 
     public function update_password(Request $request) {
@@ -71,10 +70,10 @@ class HomeController extends Controller
             'new_password' => 'required|confirmed',
         ]);
     
-        if(auth()->guard('webparents')->user()->role_id == '5'){
+        if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == '5'){
             # Match The Old Password
             if (!Hash::check($request->old_password, auth()->guard('webparents')->user()->password)) {
-                return response()->json(["error" => "Old Password doesn't match!"]);
+                return back()->with('status', "Old Password doesn't match!");
             }
 
             # Update the new Password
@@ -84,7 +83,7 @@ class HomeController extends Controller
         }else{
                 # Match The Old Password
             if (!Hash::check($request->old_password, auth()->user()->password)) {
-                return response()->json(["error" => "Old Password doesn't match!"]);
+                return back()->with('status', "Old Password doesn't match!");
             }
         
             # Update the new Password
@@ -93,7 +92,8 @@ class HomeController extends Controller
             ]);
         }
     
-        return response()->json(['success' => 'Password Updated Successfully']);
+        return back()->with('status', 'Password Updated Successfully');
+
     }
     
 

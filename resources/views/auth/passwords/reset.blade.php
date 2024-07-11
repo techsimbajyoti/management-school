@@ -21,7 +21,10 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ $email ?? old('email') }}" required autocomplete="off" autofocus>
+                                    @php
+                                        $email = request()->query('email');
+                                    @endphp
+                                    <input class="form-control" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ $email }}" required autocomplete="off" readonly>
                                 </div>
                                 @error('email')
                                     <p class='text-danger inputerror'>{{ $message }} </p>

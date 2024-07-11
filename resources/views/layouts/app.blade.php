@@ -70,6 +70,7 @@ The above copyright notice and this permission notice shall be included in all c
     @endif
 
     <!--   Core JS Files   -->
+    <script src="{{ asset('paper') }}/js/paper-dashboard.js"></script>
     <script src="{{ asset('paper') }}/js/core/jquery.min.js"></script>
     <script src="{{ asset('paper') }}/js/core/popper.min.js"></script>
     <script src="{{ asset('paper') }}/js/core/bootstrap.min.js"></script>

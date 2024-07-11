@@ -179,7 +179,8 @@
                                             <td class="serial">{{ $loop->iteration}}</td>
                                             <td>{{ $meeting_datas->applicant_id}}</td>
                                             
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">{{ $meeting_datas->first_name}}{{ $meeting_datas->last_name}}</td>
+                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{route('new-applicant-student-profile',$meeting_datas->student_id)}}">{{ $meeting_datas->first_name}}{{ $meeting_datas->last_name}}</a></td>
                                             <td>{{ $meeting_datas->class}}</td>
                                             <td>{{ $meeting_datas->father_name}}</td>
                                            

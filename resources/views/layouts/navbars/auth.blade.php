@@ -729,7 +729,7 @@
 
             @elseif(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == 5)
             
-            @if(auth()->guard('webparents')->user()->applicant_status == 'applicant')
+            @if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->applicant_status == 'applicant')
 
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">
                 <a href="{{ route('parent-dashboard') }}">

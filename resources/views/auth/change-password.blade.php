@@ -1,0 +1,64 @@
+@extends('layouts.app', [
+    'class' => '',
+    'elementActive' => 'change-password'
+])
+@section('content')
+<div class="content">
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('password_status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('password_status') }}
+        </div>
+    @endif
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Change Password</h4>
+                </div>
+                <hr>
+                <form method="POST" action="{{ route('update-password') }}" id="myForm">
+                    @csrf
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="oldPasswordInput" class="form-label">Old Password</label>
+                            <input name="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror" id="oldPasswordInput"
+                                placeholder="Old Password" required>
+                            @error('old_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPasswordInput" class="form-label">New Password</label>
+                            <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput"
+                                placeholder="New Password" required>
+                            @error('new_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmNewPasswordInput" class="form-label">Confirm New Password</label>
+                            <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput"
+                                placeholder="Confirm New Password" required>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer change-button">
+                        <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection 
+
+
+
+
