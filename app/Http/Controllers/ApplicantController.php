@@ -718,19 +718,19 @@ class ApplicantController extends Controller
 
    public function update_document_applicant(Request $request, $parent_id)
     {
-        $validatedData = $request->validate([
+        // $validatedData = $request->validate([
            
           
-            // 'document_file' => 'required|array|min:1',
-            // 'document_file.*' => 'required|file|mimes:jpg,png,jpeg,pdf|max:2048',
-        ], [
+        //     'document_file' => 'required|array|min:1',
+        //     'document_file.*' => 'required|file|mimes:jpg,png,jpeg,pdf|max:2048',
+        // ], [
            
           
-            // 'document_file.required' => 'At least one document file is required.',
-            // 'document_file.*.required' => 'Each document file is required.',
-            // 'document_file.*.mimes' => 'Each document file must be a file of type: jpg, png, jpeg, pdf.,.doc,.xls,.docx',
-            // 'document_file.*.max' => 'Each document file must not be greater than 2 MB.',
-        ]);
+        //     'document_file.required' => 'At least one document file is required.',
+        //     'document_file.*.required' => 'Each document file is required.',
+        //     'document_file.*.mimes' => 'Each document file must be a file of type: jpg, png, jpeg, pdf.,.doc,.xls,.docx',
+        //     'document_file.*.max' => 'Each document file must not be greater than 2 MB.',
+        // ]);
     
         if (is_null($request->student_id)) {
             return response()->json(['success' => false, 'errors' => 'Student ID not found']);
@@ -1349,7 +1349,40 @@ class ApplicantController extends Controller
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ], [
+        
+            'first_name.required' => 'The first name field is required.',
+            'first_name.string' => 'The first name must be a string.',
+            'first_name.regex' => 'The first name must only contain letters and spaces.',
+            
+            'last_name.required' => 'The last name field is required.',
+            'last_name.string' => 'The last name must be a string.',
+            'last_name.regex' => 'The last name must only contain letters and spaces.',
+            
+            'gender.required' => 'The gender field is required.',
+            
+            'class.required' => 'The class field is required.',
+            
+            'date_of_birth.required' => 'The date of birth field is required.',
+            'date_of_birth.date' => 'The date of birth must be a valid date.',
+            'date_of_birth.before' => 'The date of birth must be before today\'s date.',
+            
+            'student_language.string' => 'The student language must be a string.',
+            
+            'category.string' => 'The category must be a string.',
+            
+            'blood_group.string' => 'The blood group must be a string.',
+            
+            'religion.string' => 'The religion must be a string.',
+            
+            'previous_school.string' => 'The previous school must be a string.',
+        
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The image must be a valid image file.',
+            'image.mimes' => 'The image must be a file of type: jpg, png, jpeg.',
+            'image.uploaded' => 'The image must not be greater than 2 MB.',
         ]);
+    
     
         // $ipAddress = $this->getPublicIpAddress();
         try {
@@ -1421,10 +1454,22 @@ class ApplicantController extends Controller
                 'city' => 'required',
                 'pin_code' => 'required|digits:6',
                
-            ],
+            ], 
+            [
+             'residence_address.required' => 'The residence address field is required.',
+             'residence_address.min' => 'The residence address must be at least 3 characters long.',
+             'residence_address.max' => 'The residence address must not exceed 255 characters.',
+             'country.required' => 'The country field is required.',
+             'country.string' => 'The country must be a valid string.',
+             'country.regex' => 'The country must only contain letters and spaces.',
+             'state.required' => 'The state field is required.',
+             'city.required' => 'The city field is required.',
+             'pin_code.required' => 'The pin code field is required.',
+             'pin_code.digits' => 'The pin code must be exactly 6 digits.',
+            ]
+         );
                   
-        );
-        
+    
         $student_id = $request->input('student_id');
 
         if (is_null($student_id)) {
@@ -1459,11 +1504,24 @@ class ApplicantController extends Controller
                 'city' => 'required',
                 'pin_code' => 'required|digits:6',
             
-            ],
+            ],[
+                'residence_address.required' => 'The residence address field is required.',
+                'residence_address.min' => 'The residence address must be at least 3 characters long.',
+                'residence_address.max' => 'The residence address must not exceed 255 characters.',
+                'country.required' => 'The country field is required.',
+                'country.string' => 'The country must be a valid string.',
+                'country.regex' => 'The country must only contain letters and spaces.',
+                'state.required' => 'The state field is required.',
+                'city.required' => 'The city field is required.',
+                'pin_code.required' => 'The pin code field is required.',
+                'pin_code.digits' => 'The pin code must be exactly 6 digits.',
+
+
+            ]
                 
         );
     
-        $student_id = session::get('student_id');
+        $student_id = $request->input('student_id');
 
         if (is_null($student_id)) {
         return response()->json(['success' => false, 'errors' => 'Student ID not found']);
@@ -1481,7 +1539,7 @@ class ApplicantController extends Controller
 
             $student->save();
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'student_id' => $student->id]);
         } catch (\Exception $e) {
             // Log the error for debugging
             \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
@@ -1539,51 +1597,51 @@ class ApplicantController extends Controller
 }
 
     public function post_applicant_document_parent_data(Request $request){
-        $student_id = session::get('student_id');
+        $student_id = $request->input('student_id');
 
         if (is_null($student_id)) {
-            return response()->json(['success' => false, 'errors' => 'Student ID not found']);
+        return response()->json(['success' => false, 'errors' => 'Student ID not found']);
         }
-    
-        try {
-            $student = Student::find($student_id);
-            if (!$student) {
-                return response()->json(['success' => false, 'errors' => 'Student not found']);
-            }
-    
-            $documents = [];
-    
-            if ($request->hasFile('document_file')) {
-                foreach ($request->file('document_file') as $key => $file) {
-                    $originalFileName = $file->getClientOriginalName();
-                    $currentDateTime = now()->format('YmdHis');
-                    $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
-    
-                    $documents[] = [
-                        'name' => $request->input('document_name')[$key],
-                        'file' => $currentDateTime . '_' . $originalFileName,
-                    ];
-                }
-    
-                // If documents already exist, merge them
-                if (!is_null($student->document)) {
-                    $existingDocuments = json_decode($student->document, true);
-                    if (is_array($existingDocuments)) {
-                        $documents = array_merge($existingDocuments, $documents);
-                    }
-                }
-    
-                $student->document = json_encode($documents);
-            }
-    
-            $student->save();
-    
-            return response()->json(['success' => true, 'message' => 'Form submitted successfully!']);
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
-            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+
+    try {
+        $student = Student::find($student_id);
+        if (!$student) {
+            return response()->json(['success' => false, 'errors' => 'Student not found']);
         }
+
+        $documents = [];
+
+        if ($request->hasFile('document_file')) {
+            foreach ($request->file('document_file') as $key => $file) {
+                $originalFileName = $file->getClientOriginalName();
+                $currentDateTime = now()->format('YmdHis');
+                $documentPath = $file->storeAs('public/student_documents', $currentDateTime . '_' . $originalFileName);
+
+                $documents[] = [
+                    'name' => $request->input('document_name')[$key],
+                    'file' => $currentDateTime . '_' . $originalFileName,
+                ];
+            }
+
+            // If documents already exist, merge them
+            if (!is_null($student->document)) {
+                $existingDocuments = json_decode($student->document, true);
+                if (is_array($existingDocuments)) {
+                    $documents = array_merge($existingDocuments, $documents);
+                }
+            }
+
+            $student->document = json_encode($documents);
+        }
+
+        $student->save();
+
+        return response()->json(['success' => true, 'message' => 'Form submitted successfully!']);
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error('Error saving student data:', ['error' => $e->getMessage()]);
+        return response()->json(['success' => false, 'errors' => $e->getMessage()]);
+    }
     }
 
     public function showApplicantDocuments($id)
@@ -1968,7 +2026,7 @@ class ApplicantController extends Controller
         $country = Country::get(['id','country']);
         $state = State::get(['id','state']);
 
-
+       $class_master =  ClassMaster::get();
 
         $Religion = Religion::get();
         $BloodGroup = BloodGroup::get();
@@ -1995,7 +2053,8 @@ class ApplicantController extends Controller
         // print_r($applicant_data);
         // exit;
         
-        return view('admin.applicant.update-applicant-data',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent'));
+       $class_master =  ClassMaster::get();
+        return view('admin.applicant.update-applicant-data',compact('lang','Language','BloodGroup','Religion','state','country','test','testing','student','parent','class_master'));
         
     }
 

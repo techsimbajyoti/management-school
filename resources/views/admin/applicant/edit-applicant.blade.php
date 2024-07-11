@@ -298,7 +298,7 @@
                                                     @foreach($Religion as $Religions)
                                                        <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
                                                     @endforeach
-                                                    <option  value="other">Other</option>
+                                                    <option  value="{{ $student->religion === 'other'}}">Other</option>
                                                 </select>
                                                 @if($student->religion === 'other')
                                                 <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_religion }}">
@@ -802,9 +802,10 @@ $(document).ready(function() {
                 $('#other-religion').hide();
             }
         });
+        $('#religion').trigger('change');
     });
 
-    $('#religion').trigger('change');
+   
            
 
      var countries = <?php echo json_encode($test); ?>;
