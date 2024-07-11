@@ -41,10 +41,12 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <span style="color:red">*</span>
-                <label class="form-label">{{ __('Contact Number:') }}</label>
-                <div class="form-group">
-                    <input type="text" name="contact_number" id="contact_number" class="nice-select niceSelect bordered_style wide" placeholder="Enter Contact Number" pattern="\d+" title="Please enter digits only." required>
+                <span class="fillable">* </span><label for="">Contact Number</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">+91</span>
+                    </div>
+                    <input class="nice-select niceSelect bordered_style form-control"style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;font-size: 0.875rem;" type="text" name="contact_number" placeholder="Enter Contact Number" pattern="\d+" title="Please enter digits only." required>
                     <span class="invalid-feedback" id="contact_number_error" style="display: none;"></span>
                 </div>
             </div>
