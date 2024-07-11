@@ -71,7 +71,7 @@
                                             <i class="nc-icon nc-single-02"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" name="login" required autofocus>
+                                    <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" autocomplete="off" name="login" required>
                                     @if ($errors->has('login'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('login') }}</strong>
@@ -85,7 +85,7 @@
                                             <i class="nc-icon nc-single-02"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password" required>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="off" placeholder="{{ __('Password') }}" type="password" required>
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>

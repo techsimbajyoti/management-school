@@ -41,6 +41,14 @@ seq2 = 0, delays2 = 80, durations2 = 500;
 
 $(document).ready(function() {
 
+  setTimeout(function() {
+    var statusMessage = $('.alert-success');
+    if (statusMessage.length) {
+        statusMessage.fadeOut('slow');
+    }
+}, 5000); // 5000 milliseconds = 5 seconds
+
+
   if ($('.full-screen-map').length == 0 && $('.bd-docs').length == 0) {
     // On click navbar-collapse the menu will be white not transparent
     $('.collapse').on('show.bs.collapse', function() {

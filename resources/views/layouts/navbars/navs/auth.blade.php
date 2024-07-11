@@ -34,7 +34,7 @@
                         </form>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{ route('edit-admin') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" href="{{ route('change-password') }}">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             
                             <a class="dropdown-item" href="{{ route('edit-teacher') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item change-password" href="{{ route('change-password') }}">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             </form>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{{ route('accountant-edit') }}">{{ __('My profile') }}</a>
-                                <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                                <a class="dropdown-item change-password" href="{{ route('change-password') }}">{{ __('Change Password') }}</a>
                                 <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             
                             <a class="dropdown-item" href="{{ route('student-edit') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item change-password" href="{{ route('change-password') }}">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
@@ -123,11 +123,11 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             @if(auth()->guard('webparents')->user()->applicant_status == 'applicant')
                             <a class="dropdown-item" href="{{ route('applicant-profile') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item change-password" href="{{ route('change-password') }}">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             @else
                             <a class="dropdown-item" href="{{ route('edit-parent-profile') }}">{{ __('My profile') }}</a>
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item change-password" href="{{ route('change-password') }}">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                             @endif
                         </div>
@@ -150,7 +150,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             
                             <a class="dropdown-item" href="">{{ __('My profile') }}</a>
-                            <a class="dropdown-item change-password">{{ __('Change Password') }}</a>
+                            <a class="dropdown-item" href="{{route('change-password')}}">{{ __('Change Password') }}</a>
                             <a class="dropdown-item" onclick="document.getElementById('formLogOut').submit();">{{ __('Log out') }}</a>
                         </div>
                     </div>
@@ -160,129 +160,3 @@
         </div>
     </div>
 </nav>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-          <button type="button" class="close model-close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-md-12">
-                  <div class="card">
-  
-                      <form method="POST" action="" id="myForm">
-                          @csrf
-                          <div class="card-body">
-                              <div class="mb-3">
-                                  <label for="oldPasswordInput" class="form-label">Old Password</label>
-                                  <input name="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror" id="oldPasswordInput"
-                                      placeholder="Old Password" required>
-                                  @error('old_password')
-                                      <span class="text-danger">{{ $message }}</span>
-                                  @enderror
-                              </div>
-                              <div class="mb-3">
-                                  <label for="newPasswordInput" class="form-label">New Password</label>
-                                  <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput"
-                                      placeholder="New Password" required>
-                                  @error('new_password')
-                                      <span class="text-danger">{{ $message }}</span>
-                                  @enderror
-                              </div>
-                              <div class="mb-3">
-                                  <label for="confirmNewPasswordInput" class="form-label">Confirm New Password</label>
-                                  <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput"
-                                      placeholder="Confirm New Password" required>
-                              </div>
-  
-                          </div>
-  
-                          <div class="card-footer change-button">
-                              <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
-                          </div>
-  
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="" class="btn btn-secondary model-close" data-dismiss="modal">Close</button>
-          <!-- Add additional buttons or actions as needed -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  @push('scripts')
-
-  <script>
-    jQuery.noConflict();
-    
-    $(document).ready(function() {
-    $('.change-password').click(function(){
-            $('#exampleModal-1').modal('show');
-            $('#myForm')[0].reset();
-        });
-
-        $('.model-close').click(function(){
-            $('#exampleModal-1').modal('hide');
-            $('#myForm')[0].reset();
-        });
-
-       
-        $('#submitBtn').click(function(e) {
-    if ($('#myForm')[0].checkValidity()) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var old_password = $('#oldPasswordInput').val();
-        var new_password = $('#newPasswordInput').val();
-        var new_password_confirmation = $('#confirmNewPasswordInput').val();
-
-        $.ajax({
-            url: "{{ route('update-password') }}",
-            type: 'POST',
-            data: {
-                old_password: old_password,
-                new_password: new_password,
-                new_password_confirmation: new_password_confirmation,
-                _token: '{{ csrf_token() }}' // Include CSRF token
-            },
-            success: function(response) {
-                if (response.error) {
-                    alert(response.error);
-                } else {
-                    alert(response.success);
-                    $('#exampleModal-1').modal('hide');
-                    $('#myForm')[0].reset();
-                }
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = xhr.status + ': ' + xhr.statusText;
-                alert('Error - ' + errorMessage);
-            }
-        });
-
-    } else {
-        e.preventDefault();
-        e.stopPropagation();
-        alert('Please fill in all fields correctly before submitting.');
-    }
-});
-
-
-    });
-  </script>
-  @endpush
