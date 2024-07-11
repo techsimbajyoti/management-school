@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\BloodGroup;
 use App\Models\Language;
+use App\Models\ClassMaster;
 use App\Models\Religion;
 use App\Models\State;
 use App\Models\Country;

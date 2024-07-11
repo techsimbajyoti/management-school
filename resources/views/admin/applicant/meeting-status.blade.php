@@ -231,7 +231,7 @@
 </div>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+{{-- <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -254,7 +254,7 @@
       </div>
     </div>
   
-  </div>
+  </div> --}}
 
   @foreach($meeting_data as $meeting_datas)
   <!-- The Modal -->
@@ -294,7 +294,7 @@
 
 
 <!-- The Modal -->
-<div id="myModal2" class="modal">
+<div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
       <div class="modal-header">
@@ -356,7 +356,7 @@
    document.addEventListener("DOMContentLoaded", function() {
     // Get the modals
     var modal = document.getElementById("myModal");
-    var modal2 = document.getElementById("myModal2");
+    var modal2 = document.getElementById("myModal");
 
     // Function to show a specific modal
     function showModal(modalId) {
@@ -407,7 +407,7 @@
     document.body.addEventListener('click', function(event) {
         if (event.target.classList.contains('admin_side_meeting')) {
             event.preventDefault();
-            var modalId = 'myModal2'; // Assuming this is the ID for your admin side meeting modal
+            var modalId = 'myModal'; // Assuming this is the ID for your admin side meeting modal
             showModal(modalId);
 
             // Populate modal fields based on data attributes

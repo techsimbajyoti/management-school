@@ -290,6 +290,7 @@ function displayValidationErrors(errors) {
             },
             error: function(xhr, status, error) {
                 console.log('Error:', error);
+                $('#spinner').hide(); 
                 if (xhr.status === 422) {
                     var errors = xhr.responseJSON.errors;
                     displayValidationErrors(errors);
@@ -312,10 +313,11 @@ function displayValidationErrors(errors) {
                     data: formData,
                     success: function(response) {
                         // $(form).trigger("reset");
-                        $('#spinner').hide();
-                        $('.student_id').val(response.student_id);
-                $('.applicant_id').val(response.applicant_id);
                     console.log(response);
+                    $('#spinner').hide();
+                       $('.student_id').val(response.student_id);
+                       $('.applicant_id').val(response.applicant_id);
+
                         $('#step2').removeClass('active');
                         $('#step3').addClass('active');
                         if ($('#step3').hasClass('active')) {
@@ -327,6 +329,7 @@ function displayValidationErrors(errors) {
                     },
                     error: function(xhr, status, error) {
                 console.log('Error:', error);
+                $('#spinner').hide(); 
                 if (xhr.status === 422) {
                     var errors = xhr.responseJSON.errors;
                     displayValidationErrors(errors);
@@ -336,11 +339,10 @@ function displayValidationErrors(errors) {
     });
 
 
-        $('#form4').submit(function (event) {
+    $('#form4').submit(function (event) {
             event.preventDefault();
             var formData = new FormData(this);
-
-            $('#spinner').show();
+             $('#spinner').show();
 
             $.ajax({
                 url: "{{ route('post-applicant-document-parent-data') }}",
@@ -350,7 +352,10 @@ function displayValidationErrors(errors) {
                 processData: false,
                 success: function(response) {
                     console.log(response);
+                   
                     $('#spinner').hide();
+                       $('.student_id').val(response.student_id);
+                       $('.applicant_id').val(response.applicant_id);
                     if (response.success) {
                         Swal.fire({
                         title: "Application completed successfully",

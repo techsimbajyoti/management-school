@@ -239,9 +239,13 @@
                                                     <option value="">Select one of these</option>
                                                     <option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
                                                     <option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                                    <option value="other" {{ $student->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                                                    <option value="other" {{ $student->gender == 'other' ? 'selected' : '' }}>Other</option>
                                                 </select>
-                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_gender }}">
+                                                    @if($student->gender === 'other')
+                                                    <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_gender }}">
+                                                    @else
+                                                    <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="">
+                                                    @endif
                                                 @else
                                                 <select class="nice-select sections niceSelect bordered_style wide" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
@@ -249,7 +253,6 @@
                                                     <option value="Female">Female</option>
                                                     <option value="other">Other</option>
                                                 </select>
-                                                <input type="text" id="other-gender" name="other_gender" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="">
                                                 @endif
                                                 <span class="invalid-feedback" id="gender_error" style="display: none;" role="alert"></span>
                                             </div>
@@ -260,9 +263,27 @@
                                                 <label class="form-label">{{ __('Class:') }}</label>
                                                     <div class="form-group">
                                                         @if($student != null)
-                                                        <input name="class" value="{{ $student->class}}" type="text" class="form-control" placeholder="Enter Class" required>
+                                                        <select class="nice-select niceSelect bordered_style wide" id="class-name" name="class" data-fouc data-placeholder="Choose.." required>
+                                                            <option value="">Select one of these</option>
+                                                             @foreach($class_master as $class_masters)
+                                                             
+                                                                <option value="{{ $class_masters->class_name}}" {{ $class_masters->class_name == $student->class? 'selected' : '' }}>
+                                                                    {{ $class_masters->class_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        
                                                         @else
-                                                        <input name="class" value="" type="text" class="form-control" placeholder="Enter Class" required>
+                                                        <select class="nice-select niceSelect bordered_style wide" id="class-name" name="class" data-fouc data-placeholder="Choose.." required>
+                                                            <option value="">Select one of these</option>
+                                                             @foreach($class_master as $class_masters)
+                                                             
+                                                                <option value="{{ $class_masters->class_name}}" {{ $class_masters->class_name == $student->class? 'selected' : '' }}>
+                                                                    {{ $class_masters->class_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                       
                                                         @endif
                                                         <span class="invalid-feedback" id="class_error" style="display: none;" role="alert"></span>
                                                     </div>
@@ -319,6 +340,11 @@
                                                     @endforeach
                                                     <option  value="other">Other</option>
                                                 </select>
+                                                    @if($student->religion === 'other')
+                                                    <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_religion }}">
+                                                    @else
+                                                    <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="">
+                                                    @endif
                                                 @else
                                                 <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
                                                     <option value="">Select one of these</option>
@@ -328,7 +354,6 @@
                                                     <option  value="other">Other</option>
                                                 </select>
                                                 @endif
-                                                <input type="text" id="other-religion" name="other_religion" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
                                                 <span class="invalid-feedback" id="religion_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -344,6 +369,11 @@
                                                     <option  value="ST"  {{ $student->category == 'ST' ? 'selected': '' }}>ST</option>
                                                     <option  value="other"  {{ $student->category == 'other' ? 'selected': '' }}>Other</option>
                                                 </select>
+                                                    @if($student->category === 'other')
+                                                    <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify" value="{{$student->other_category}}">
+                                                   @else
+                                                   <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                                 @endif
                                                 @else
                                                 <select class="nice-select niceSelect bordered_style wide" id="category" name="category"  data-fouc data-placeholder="Choose.." name="category">
                                                     <option value="">Select one of these</option>
@@ -354,7 +384,7 @@
                                                     <option  value="other">Other</option>
                                                 </select>
                                                 @endif
-                                                <input type="text" id="other-category" name="other_category" class="hidden nice-select niceSelect bordered_style wide mt-2" placeholder="Please specify">
+                                               
                                                 <span class="invalid-feedback" id="category_error" style="display: none;" role="alert"></span>
                                             </div>
                                         </div>
@@ -434,7 +464,7 @@
             
                                                 <div class="form-group">
                                                     @if($student != null)
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->last_name}}">
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->address}}">
                                                    @else
                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="">
                                                    @endif
@@ -540,46 +570,45 @@
                                                             <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="student-document">
                                                         @if($student != null)
                                                         @php
                                                             $documents = json_decode($student->document);
                                                         @endphp
-                            
+                                                    
                                                         @if (!empty($documents))
                                                             @foreach ($documents as $document)
                                                             <tr>
                                                                 <td>
-                                                                    <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" value="{{$document->name}}">
+                                                                    <input type="text" class="form-control" name="document_name[]"placeholder="Enter Document Name" value="{{ $document->name }}">
+                                                                  
                                                                 </td>
                                                                 <td>
-                                                                    <input type="file" class="form-control" name="document_file[]" value="{{ $document->file}}"  style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                                    <input type="file" class="form-control" name="document_file[]" style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
                                                                     <a href="{{ url('storage/student_documents/' . $document->file) }}" target="_blank">
                                                                         File: {{ $document->file }}
                                                                     </a>
-                                                                </td>
-                                                                <td>
-                                                                    <!-- Add action buttons if needed -->
+                                                                
                                                                 </td>
                                                             </tr>
                                                             @endforeach
                                                         @else
                                                             <tr>
-                                                                <td colspan="3">No documents uploaded</td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="document_name[]" required  placeholder="Enter Document Name">
+                                                                    <span class="invalid-feedback" id="document_name_error" style="display:none;" role="alert"></span>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="file" class="form-control" name="document_file[]" required style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                                    <span class="invalid-feedback" id="document_file_error" style="display:none;" role="alert"></span>
+                                                                </td>
                                                             </tr>
+                                                           
                                                         @endif
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" class="form-control" name="document_name[]" placeholder="Enter Document Name" value="">
-                                                            </td>
-                                                            <td>
-                                                                <input type="file" class="form-control" name="document_file[]" value=""  style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
-                                                            </td>
-                                                            <td>
-                                                                <!-- Add action buttons if needed -->
-                                                            </td>
-                                                        </tr>
                                                         @else
+                                                        <tr>
+                                                            <td colspan="3">No documents uploaded</td>
+                                                        </tr>
                                                         @endif
                                                     </tbody>
                                                 </table>
@@ -813,47 +842,50 @@ $(document).ready(function() {
    updateProgressBar(currentStep);
    showForm(currentStep);
 
-   $('#other-gender').hide();
-           $('#other-language').hide();
-           $('#other-category').hide();
-           $('#other-religion').hide();
+   $(document).ready(function() {
+        // Initially hide the other fields
+        $('#other-gender').hide();
+        $('#other-language').hide();
+        $('#other-category').hide();
+        $('#other-religion').hide();
 
-           $('#gender').change(function() {
-           if (this.value === 'other') {
-               // $('#other-gender').removeClass('hidden').attr('required', true);
+        // Show/hide the other-gender field based on the selected value of gender
+        $('#gender').change(function() {
+            if (this.value === 'other') {
+                $('#other-gender').show();
+            } else {
+                $('#other-gender').hide();
+            }
+        });
+        $('#gender').trigger('change');
+        // Show/hide the other-language field based on the selected value of language
+        // $('#student_language').change(function() {
+        //     if (this.value === 'other') {
+        //         $('#other-language').show();
+        //     } else {
+        //         $('#other-language').hide();
+        //     }
+        // });
 
-               $('#other-gender').show();
-           } else {
-               // $('#other-gender').addClass('hidden').removeAttr('required');
-               $('#other-gender').hide();
-           }
-       });
-
-       // $('#student_language').change(function() {
-       //     if (this.value === 'other') {
-       //         $('#other-language').show();
-       //     } else {
-       //         $('#other-language').hide();
-       //     }
-       // });
-
-       $('#category').change(function(){
-           if (this.value === 'other') {
-               $('#other-category').show();
-           } else {
-               $('#other-category').hide();
-           }
-       })
-
-       $('#religion').change(function(){
-           if (this.value === 'other') {
-               $('#other-religion').show();
-           } else {
-               $('#other-religion').hide();
-           }
-       })
-
-           
+        // Show/hide the other-category field based on the selected value of category
+        $('#category').change(function() {
+            if (this.value === 'other') {
+                $('#other-category').show();
+            } else {
+                $('#other-category').hide();
+            }
+        });
+        $('#category').trigger('change');
+     
+        $('#religion').change(function() {
+            if (this.value === 'other') {
+                $('#other-religion').show();
+            } else {
+                $('#other-religion').hide();
+            }
+        });
+        $('#religion').trigger('change');
+    });
 
      var countries = <?php echo json_encode($test); ?>;
    autocomplete(document.getElementById("country"), countries);  
