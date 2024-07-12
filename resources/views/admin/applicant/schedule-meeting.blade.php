@@ -657,32 +657,7 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
 
                             // Extract response data
                             var responseData = response.data;
-
-                            // Second AJAX call to update meeting status
-                            $.ajax({
-                                url: '{{ route("applicant-meeting-status-update") }}',
-                                type: 'POST',
-                                data: {
-                                    student_id: responseData.student_id,
-                                    parent_id: responseData.parent_id,
-                                    applicant_id: responseData.applicant_id,
-                                    meeting_date: responseData.meeting_date,
-                                    time_slot: responseData.meeting_time,
-                                    purpose: responseData.meeting_type,
-                                    other_purpose: responseData.meeting_other,
-                                    mode: responseData.meeting_mode,
-                                    location_url: responseData.meeting_location,
-                                    status: 'Meeting Schedule', // Static status name
-                                    note: 'New meeting scheduled via form submit' // Optional note
-                                },
-                               
-                                success: function(addResponse) {
-                                   
-                                    console.log('Meeting status added successfully');
-                                    console.log(addResponse);
-
-                                    // Show success message to user
-                                    Swal.fire({
+                            Swal.fire({
                                         title: "Meeting Scheduled successfully!",
                                         text: "Please check your email for the scheduled meeting details.",
                                         icon: "success",
@@ -691,11 +666,6 @@ document.getElementById("applicantIds").addEventListener('applicantSelected', fu
                                         // Redirect user to meeting status page
                                         window.location.href = "{{ url('meeting-status') }}"; 
                                     });
-                                },
-                                error: function(xhr, status, error) {
-                                    console.log('Error adding meeting status: ' + xhr.responseText);
-                                }
-                            });
                         } else {
                             console.log('Error: ' + response.message);
                         }

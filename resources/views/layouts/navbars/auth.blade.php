@@ -745,13 +745,7 @@
                 </a>
             </li> --}}
 
-            <li class="{{ $elementActive == 'add-applicant' ? 'active' : '' }}">
-                <a href="{{ route('add-applicant') }}">
-                    <i class="fa fa-user-plus"></i> 
-                    <p>{{ __('Add Applicant') }}</p>
-                </a>
-            </li>
-
+            
             @php
                 $latestStatuses = App\Models\ApplicantStatus::where('parent_id', auth()->guard('webparents')->user()->id)
                 ->get();
@@ -759,13 +753,22 @@
             @endphp
             
             @if($list->status != 'Incomplete')
+            
+            <li class="{{ $elementActive == 'add-applicant' ? 'active' : '' }}">
+                <a href="{{ route('add-applicant') }}">
+                    <i class="fa fa-user-plus"></i> 
+                    <p>{{ __('Add Applicant') }}</p>
+                </a>
+            </li>
+
+          @endif
+
             <li class="{{ $elementActive == 'applicant-parent-list' ? 'active' : '' }}">
                 <a href="{{ route('applicant-parent-list', auth()->guard('webparents')->user()->id ) }}">
                     <i class="fas fa-list"></i> 
                     <p>{{ __('Applicant List') }}</p>
                 </a>
             </li>
-          @endif
 
             <li class="{{ $elementActive == 'parent-meeting-status' ? 'active' : '' }}">
                 <a href="{{ route('parent-meeting-status') }}">

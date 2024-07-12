@@ -68,12 +68,11 @@
                         </div>
                     </div>
                     <hr>
-                    
+                
                     <div class="card-footer">
-                    {{-- <div id="meeting-details"></div> --}}
-                    @php
-                    $parent_id = App\Models\Student::where('parent_id', auth()->guard('webparents')->user()->id)->first()->parent_id;
-
+                        @php
+                        $parent_id = App\Models\Student::where('parent_id', auth()->guard('webparents')->user()->id)->first()->parent_id;
+                
                         $meeting_data = App\Models\MeetingStatus::join('students', 'meeting_statuses.student_id', '=', 'students.id')
                             ->join('student_parents', 'meeting_statuses.parent_id', '=', 'student_parents.id')
                             ->select(
@@ -95,64 +94,58 @@
                             })
                             ->distinct()
                             ->get();
-                     
-                                       
-                    @endphp
+                        @endphp
                 
-                    <div class="row">
-                        
-                    @foreach($meeting_data as $datas)
-                   
-                        <div class="col-md-6">
-                            <div class="card mini-card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <h6 class="card-title">Mode </h6>  
-                                    <p>App Id:{{$datas->applicant_id}}</p>    
+                        <div class="row">
+                            @if($meeting_data->count() > 0)
+                                @foreach($meeting_data as $datas)
+                                    <div class="col-md-6">
+                                        <div class="card mini-card">
+                                            <div class="card-header d-flex justify-content-between">
+                                                <h6 class="card-title">Mode </h6>  
+                                                <p>App Id:{{$datas->applicant_id}}</p>    
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">{{$datas->mode}}</p>
+                                                <p class="card-text">{{$datas->location_url}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mini-card">
+                                            <div class="card-header">
+                                                <h6 class="card-title">Purpose</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">{{$datas->purpose}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mini-card">
+                                            <div class="card-header">
+                                                <h6 class="card-title">Date & Time</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">{{ substr($datas->meeting_date, 0, 16) }} {{$datas->time_slot}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center align-items-center" style="height: 150px;">
+                                        <div class="alert m-0 text-dark title">
+                                            No meeting schedule
+                                        </div>
+                                    </div>
                                 </div>
-                              
-                                <div class="card-body">
-                                    <p class="card-text">{{$datas->mode}}</p>
-                                    <p class="card-text">{{$datas->location_url}}</p>
-                                </div>
-                            </div>
+                            @endif
                         </div>
-                        <div class="col-md-6">
-                            <div class="card mini-card">
-                                <div class="card-header">
-                                    <h6 class="card-title">Purpose</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">{{$datas->purpose}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mini-card">
-                                <div class="card-header">
-                                    <h6 class="card-title">Date & Time</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">{{ substr($datas->meeting_date,0,16)}} {{$datas->time_slot}}</p>
-                                </div>
-                            </div>
-                        </div>
-                       
-                        @endforeach
-                        {{-- <div class="col-md-6">
-                            <div class="card mini-card">
-                                <div class="card-header">
-                                    <h6 class="card-title">Interview</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">26/06/2024 at 12:30pm</p>
-                                </div>
-                            </div>
-                        </div> --}}
-                       
-                    </div>
                     </div>
                     <hr>
                 </div>
+                
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-6">

@@ -496,6 +496,25 @@ class ApplicantController extends Controller
 
     public function update_student_applicant(Request $request ,$parent_id, $applicant_id)
     {
+        if($request->image_1 != null){
+            $validatedData = $request->validate([
+                'image' => 'mimes:jpeg,jpg,png|max:2048',
+            ],
+            [
+                'image.mimes' => 'The image must be a file of type: jpg, png, jpeg.',
+                'image.uploaded' => 'The image must not be greater than 2 MB.',
+            ]);
+        }else{
+            $validatedData = $request->validate([
+                'image' => 'required|mimes:jpeg,jpg,png|max:2048',
+            ],
+            [
+                'image.required' => 'The image field is required.',
+                'image.mimes' => 'The image must be a file of type: jpg, png, jpeg.',
+                'image.uploaded' => 'The image must not be greater than 2 MB.',
+            ]);
+        }
+
         $validatedData = $request->validate([
             'first_name' =>'required|string|regex:/^[A-Za-z ]+$/',
             'last_name' =>'required|string|regex:/^[A-Za-z ]+$/',
@@ -507,7 +526,6 @@ class ApplicantController extends Controller
             'blood_group'=>'nullable|string',
             'religion'=>'nullable|string',
             'previous_school'=>'nullable|string',
-            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ],
       [
         
@@ -536,11 +554,6 @@ class ApplicantController extends Controller
             'religion.string' => 'The religion must be a string.',
             
             'previous_school.string' => 'The previous school must be a string.',
-        
-            'image.required' => 'The image field is required.',
-            'image.image' => 'The image must be a valid image file.',
-            'image.mimes' => 'The image must be a file of type: jpg, png, jpeg.',
-            'image.uploaded' => 'The image must not be greater than 2 MB.',
         ]);
     
         
@@ -775,7 +788,7 @@ class ApplicantController extends Controller
                 'password' => $parent_p->password,
                 'contact' => $parent_p->father_mobile,
                 'parent_name' => $parent_p->father_name,
-                'student_doc' => $student->document, // assuming document is already filled
+                'student_doc' => $student->document, 
                 'student_pin_code' => $student->pin_code,
                 'student_city' => $student->city,
                 'student_state' => $student->state,
@@ -802,7 +815,7 @@ class ApplicantController extends Controller
             $applicantStatus->created_by = '1';
             $applicantStatus->save();
     
-            return response()->json(['success' => true, 'message' => 'Documents updated successfully']);
+            return response()->json(['success' => true, 'message' => 'Documents updated successfully','student'=>$student]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'errors' => $e->getMessage()]);
         }
@@ -916,7 +929,8 @@ class ApplicantController extends Controller
         $meeting->mode = $combinedData['meeting_mode'];
         $meeting->other_purpose = $combinedData['meeting_other'];
         $meeting->location_url = $combinedData['meeting_mode'] === 'online' ? $combinedData['meeting_mode_other'] : $combinedData['meeting_location'];
-        $meeting->status = 'active';
+        $meeting->status = 'Meeting Schedule';
+        $meeting->note = 'New meeting scheduled via form submit';
         $meeting->ip_address = '1';
         $meeting->created_by = 'null';
         $meeting->save();
@@ -1175,56 +1189,7 @@ class ApplicantController extends Controller
     );
        // $ipAddress = $this->getPublicIpAddress();
         try {
-            // $student = new Student;
-    
-            // if ($request->hasFile('image')) {
-            //     $originalFileName = $request->file('image')->getClientOriginalName();
-            //     $currentDateTime = now()->format('YmdHis');
-            //     $profileImagePath = $request->file('image')->storeAs('public/student_photos', $currentDateTime . '_' . $originalFileName);
-            //     $student->image = $currentDateTime . '_' .$originalFileName;
-            // } else {
-            //     $student->image = null;
-            // }
-
-            // $student->first_name = $request->first_name;
-            // $student->last_name = $request->last_name;
-            // $student->username = $randomUsername;
-            // $student->password = $hashPassword;
-            // $student->class = $request->class;
-            // $student->date_of_birth = $request->date_of_birth;
-            // $student->blood_group = $request->blood_group;
-            // $student->student_language = $request->student_language;
-            // $student->previous_school = $request->previous_school;
-            // $student->category = $request->category;
-            // $student->parent_id = $parent_id;
-            // $student->applicant_id = $randomApplicantId;
-            // $student->role_id = $request->role_id;
-            // $student->ip_address = '1';
-            // $student->status = $request->status;
-            // $student->applicant_status = $request->applicant_status;
-            // $student->created_by = 'null';
-
-            // if ($request->category === 'other') {
-            //     $student->category = $request->other_category;
-            // } else {
-            //     $student->category = $request->category;
-            // }
-
-            // if ($request->religion === 'other') {
-            //     $student->religion = $request->other_religion;
-            // } else {
-            //     $student->religion = $request->religion;
-            // }
-
-            // if ($request->gender === 'other') {
-            //     $student->gender = $request->other_gender;
-            // } else {
-            //     $student->gender = $request->gender;
-            // }
-
-            // $student->save();
-
-
+            
         $student_update = Student::where('parent_id', $parent_id)
         ->where('applicant_id',$applicant_id)
         ->firstOrFail();
@@ -1841,7 +1806,6 @@ class ApplicantController extends Controller
             ->where('student_parents.id', $parent_id)
             ->select('students.*', 'meeting_statuses.meeting_date', 'meeting_statuses.time_slot', 'meeting_statuses.purpose', 'meeting_statuses.mode', 'meeting_statuses.status','meeting_statuses.id as meeting_id','meeting_statuses.note'
                        ,'meeting_statuses.other_purpose','meeting_statuses.location_url','meeting_statuses.note')
-            ->distinct()
             ->orderBy('meeting_statuses.created_at','desc')
             ->get();
     
@@ -2070,6 +2034,31 @@ class ApplicantController extends Controller
         ->first();
 
         return response()->json(['success' => true, 'info' => $info]);
+    }
+
+
+    public function get_applicant_status_by_id(Request $request){
+        $student_id = $request->input('student_id');
+        $applicant_id = $request->input('applicant_id');
+
+        $applicant_status = ApplicantStatus::where('student_id', $student_id)
+        ->where('applicant_id', $applicant_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json(['success' => true, 'applicant_status' => $applicant_status]);
+    }
+
+    public function get_meeting_status_by_id(Request $request){
+        $student_id = $request->input('student_id');
+        $id = $request->input('id');
+
+        $meeting_status = MeetingStatus::where('student_id', $student_id)
+        ->where('id', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json(['success' => true, 'meeting_status' => $meeting_status]);
     }
  
 }

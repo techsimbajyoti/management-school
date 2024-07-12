@@ -66,10 +66,13 @@
                                     </thead>
                                     <tbody class="tbody">
                                         @foreach($children->where('id', $student->id) as $child)
-                                        
+
                                         <tr id="row_7">
                                             <td class="serial">{{$loop->iteration}}</td>
-                                            <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">{{$child->first_name}} {{$child->last_name}}</td>
+                                            <td> 
+                                                <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
+                                                <a href="{{route('applicant-student-profile', $child->id)}}" target="_blank">{{$child->first_name}} {{$child->last_name}}</a>
+                                            </td>
                                             <td>{{$child->class}}</td>
                                             <td>{{substr($child->meeting_date,0,16)}}</td>
                                             <td>{{$child->time_slot}}</td>
@@ -85,6 +88,7 @@
                                             <td><span class="badge-basic-info-text">{{$child->status}}</span></td>
                                             <td class="action">
                                                 <a class="btn ot-btn-primary applicant_status"
+                                                data-status-id="{{ $child->meeting_id }}"
                                                 data-student-id="{{ $child->id }}"
                                                 data-parent-id="{{ $child->parent_id }}"
                                                 data-applicant-id="{{ $child->applicant_id }}"
@@ -123,6 +127,20 @@
           <h3>Add Note</h3>
           <span class="close">&times;</span>
       </div>
+        <div class="modal-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody id="status-table-body">
+                </tbody>
+            </table>
+        </div>
       <div class="modal-body">
         <form action="{{ route('parent-meeting-status-update') }}" method="POST">
             @csrf
@@ -139,19 +157,20 @@
               <div class="col-md-6">
                   <label for="">Status</label>
                   <select name="status" id="status" class="nice-select sections niceSelect bordered_style wide">
+                    <option value="">Please select meeting status</option>
                     <option value="Reschedule Meeting Request">Reschedule Meeting Request</option>
                     <option value="Accepted By Applicant">Accepted By Applicant</option>
                     <option value="Cancelled By Applicant">Cancelled By Applicant</option>
                   </select>
               </div>
-          </div>
-          <div class="row justify-content-center mt-3">
+          {{-- </div>
+          <div class="row justify-content-center mt-3"> --}}
               <div class="col-md-6">
                   <label for="">Note</label>
-                  <textarea note="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
+                  <textarea note="note" class="nice-select niceSelect bordered_style wide" placeholder="Enter Note..." value="" id="note"></textarea>
               </div>
-            </div>
-            <div class="row justify-content-center mt-3">
+            {{-- </div>
+            <div class="row justify-content-center mt-3"> --}}
               <div class="col-md-4 mt-3">
                   <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
               </div>
@@ -195,6 +214,7 @@
 @endsection
 
 @push('scripts')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
     // Get the modal
  var modal = document.getElementById("myModal");
@@ -279,14 +299,51 @@
                 document.getElementById('mode').value = this.getAttribute('data-mode');
                 document.getElementById('location_url').value = this.getAttribute('data-location-url');
 
-                var status = this.getAttribute('data-status');
-                var note = this.getAttribute('data-note');
-                
-                document.querySelector('select[name="status"]').value = status;
-                document.querySelector('textarea[name="note"]').value = note;
+               
                  
                 modal.style.display = "block";
             });
+        });
+
+
+        $(document).ready(function() {
+            $('.applicant_status').click(function(){
+            var student_id = this.getAttribute('data-student-id');
+            var id = this.getAttribute('data-status-id');
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('get-meeting-status-by-id') }}",
+                    method: 'POST',
+                    data: {
+                        student_id: student_id,
+                        id:id
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.success) {
+                                var tbody = $('#status-table-body');
+                                tbody.empty(); // Clear existing table body content
+
+                                response.meeting_status.forEach(function(status) {
+                                    var row = '<tr>' +
+                                        '<td>' + status.id + '</td>' +
+                                        '<td>' + status.status + '</td>' +
+                                        '<td>' + status.note + '</td>' +
+                                        '<td>' + status.meeting_date + '</td>' +
+                                        '</tr>';
+
+                                    tbody.append(row);
+                                });
+                            }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
+            })
         });
     
 </script>
