@@ -8,7 +8,7 @@
                                         <label class="form-label">{{ __('Address:') }}</label>
         
                                             <div class="form-group">
-                                                <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required>
+                                                <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" required>
                                             </div>
                                            
                                             <span class="invalid-feedback" id="residence_address_error" style="display: none;" role="alert"></span>  
@@ -50,7 +50,7 @@
                                         <label class="form-label">{{ __('Pin Code:') }}</label>
         
                                             <div class="form-group">
-                                                <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required>
+                                                <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Enter Pin Code" required>
                                             </div>
                                             <span class="invalid-feedback" id="pin_code_error" style="display: none;" role="alert"></span>
                                     </div>

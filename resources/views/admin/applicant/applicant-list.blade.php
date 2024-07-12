@@ -114,9 +114,9 @@
                                     </thead>
                                     <tbody class="tbody">
                                         @foreach($applicant_list as $applicant_lists)
-                                       <input type = "hidden" name="student_id" value="{{$applicant_lists->student_id}}">
+                                       <input type = "hidden" class="student_id" name="student_id" value="{{$applicant_lists->student_id}}">
                                        <input type = "hidden" name="parent_id" value="{{$applicant_lists->parent_id}}">
-                                       
+                                       <input type = "hidden" class="applicant_id" name="parent_id" value="{{$applicant_lists->applicant_id}}">
                                         <tr id="row_7">
                                             <td class="serial">{{$applicant_lists->id}}</td>
                                             <td>{{$applicant_lists->applicant_id}}</td>
@@ -207,6 +207,20 @@
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody id="status-table-body">
+                </tbody>
+              </table>
+        </div>
+        <div class="modal-body">
             <form action="{{route('update-status')}}" method="POST">
               @csrf
                 <input type="hidden" name="student_id" id="student_id" value="">
@@ -216,25 +230,22 @@
                     <div class="col-md-6">
                         <label for="">Status</label>
                         <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
-                            <option>Incomplete</option>
-                            <option>New</option>
+                            <option value="">Please select status</option>
                             <option>Accept</option>
                             <option>Reject</option>
-                            <option>Meeting Schedule</option>
                             <option>Approved By Admin</option>
                             <option>Denied By Admin</option>
-                            <option>Approved By Applicant</option>
                             <option>Admission Confirmed</option>
                         </select>
                     </div>
-                </div>
-                <div class="row justify-content-center mt-3">
+                {{-- </div>
+                <div class="row justify-content-center mt-3"> --}}
                     <div class="col-md-6">
                         <label for="">Note</label>
                         <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="note"></textarea>
                     </div>
-                </div>
-                <div class="row justify-content-center mt-3">    
+                {{-- </div>
+                <div class="row justify-content-center mt-3">     --}}
                     <div class="col-md-4 mt-3">
                         <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
                     </div>
@@ -250,8 +261,95 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
+    var modal1 = document.getElementById("myModal1");
+var modal = document.getElementById("myModal");
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal1) {
+    modal1.style.display = "none";
+  } else if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+// Add event listeners to all buttons with class "applicant_status" and "view_document"
+document.addEventListener("DOMContentLoaded", function() {
+    var applicantStatusButtons = document.getElementsByClassName("applicant_status");
+    var viewDocumentButtons = document.getElementsByClassName("view_document");
+    
+    // Applicant status buttons
+    Array.prototype.forEach.call(applicantStatusButtons, function(btn) {
+        btn.addEventListener("click", function() {
+            var studentId = this.getAttribute('data-student-id');
+            var parentId = this.getAttribute('data-parent-id');
+            document.getElementById('student_id').value = studentId;
+            document.getElementById('parent_id').value = parentId;
+            modal1.style.display = "block";
+        });
+    });
+
+    // View document buttons
+    Array.prototype.forEach.call(viewDocumentButtons, function(btn) {
+        btn.addEventListener("click", function() {
+            modal.style.display = "block";
+        });
+    });
+
+    // Get the <span> elements that close the modals
+    var closeButtons = document.getElementsByClassName("close");
+    Array.prototype.forEach.call(closeButtons, function(sp) {
+        sp.addEventListener("click", function() {
+            modal1.style.display = "none";
+            modal.style.display = "none";
+        });
+    });
+});
+
+// AJAX call to load documents and open modal
+$(document).on('click', '.view_document', function(e) {
+    e.preventDefault();
+    var applicantId = $(this).data('id');
+
+    $.ajax({
+        url: '/students/' + applicantId + '/documents',
+        method: 'GET',
+        success: function(response) {
+            if(response.success) {
+                // Populate modal with the returned data
+                var tableBody = $('#myModal .modal-body tbody');
+                tableBody.empty();
+                response.documents.forEach(function(document) {
+                    tableBody.append(
+                        '<tr>' +
+                            '<td class="text-center">' + document.name + '</td>' +
+                            '<td class="text-center"><a class="btn btn-lg ot-btn-primary" href="/storage/student_documents/' + document.file + '" download><i class="fa fa-download" aria-hidden="true"></i> Download</a></td>' +
+                        '</tr>'
+                    );
+                });
+
+                // Open the modal
+                $('#myModal').show();
+            } else {
+                alert('Failed to load documents');
+            }
+        },
+        error: function(response) {
+            console.log(response);
+            alert('An error occurred while fetching documents');
+        }
+    });
+});
+
+
+// Close the modal
+$(document).on('click', '.close', function() {
+    $('#myModal').hide();
+});
+
 $(document).ready(function() {
 
     var student = <?php echo json_encode($ApplicantId); ?>;
@@ -395,9 +493,6 @@ $(document).ready(function() {
 
                     tableBody.append(newRow);
                 });
-
-                // Re-bind event handlers after appending new rows
-                bindEventHandlers();
             },
             error: function(response) {
                 console.log(response);
@@ -406,88 +501,43 @@ $(document).ready(function() {
         });
     });
 
-    // Function to bind event handlers for dynamically added elements
-    function bindEventHandlers() {
-        var modal1 = $('#myModal1');
-        var modal = $('#myModal');
 
-        // When the user clicks anywhere outside of the modal, close it
-        $(window).on('click', function(event) {
-            if (event.target == modal1[0]) {
-                modal1.modal('hide');
-            } else if (event.target == modal[0]) {
-                modal.modal('hide');
-            }
-        });
-
-        // Event handler for clicking on the close buttons
-        $('.close').on('click', function() {
-            modal1.modal('hide');
-            modal.modal('hide');
-        });
-
-        // Handle click on .applicant_status buttons
-        $(document).on('click', '.applicant_status', function(e) {
-            e.preventDefault();
-
-            var status = $(this).data('status');
-            var note = $(this).data('note');
-            var studentId = $(this).data('student-id');
-            var parentId = $(this).data('parent-id');
-
-            // Update modal content with the extracted data
-            $('#status_update').val(status);
-            $('#note').text(note);
-            $('#student_id').val(studentId);
-            $('#parent_id').val(parentId);
-
-            // Open the modal
-            $('#myModal1').modal('show');
-        });
-
-        // Handle click on .view_document buttons
-        $(document).on('click', '.view_document', function(e) {
-            e.preventDefault();
-
-            var applicantId = $(this).data('id');
+    $('.applicant_status').click(function(){
+            var student_id = this.getAttribute('data-student-id');
 
             $.ajax({
-                url: '/students/' + applicantId + '/documents',
-                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('get-applicant-status-by-id-admin') }}",
+                method: 'POST',
+                data: {
+                    student_id: student_id
+                },
                 success: function(response) {
+                    console.log(response);
                     if (response.success) {
-                        var tableBody = $('#myModal .modal-body tbody');
-                        tableBody.empty();
-                        
-                        response.documents.forEach(function(document) {
-                            tableBody.append(
-                                '<tr>' +
-                                    '<td class="text-center">' + document.name + '</td>' +
-                                    '<td class="text-center"><a class="btn btn-lg ot-btn-primary" href="/storage/student_documents/' + document.file + '" download><i class="fa fa-download" aria-hidden="true"></i> Download</a></td>' +
-                                '</tr>'
-                            );
-                        });
+                            var tbody = $('#status-table-body');
+                            tbody.empty(); // Clear existing table body content
 
-                        // Open the modal
-                        $('#myModal').modal('show');
-                    } else {
-                        alert('Failed to load documents');
+                            response.applicant_status.forEach(function(status) {
+                                var row = '<tr>' +
+                                    '<td>' + status.id + '</td>' +
+                                    '<td>' + status.status + '</td>' +
+                                    '<td>' + status.note + '</td>' +
+                                    '<td>' + status.created_at + '</td>' +
+                                    '</tr>';
+
+                                tbody.append(row);
+                            });
                     }
                 },
-                error: function(response) {
-                    console.log(response);
-                    alert('An error occurred while fetching documents');
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
                 }
             });
-        });
-    }
-
-    // Initialize event handlers on document ready
-    bindEventHandlers();
+        })
 });
-
-
-
 
 </script>
 @endpush

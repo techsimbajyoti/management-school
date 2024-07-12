@@ -25,16 +25,6 @@
                                     </div>
                             
                                 
-                                    {{-- <div class="col-md-6">
-                                        <span style="color:red">*</span>
-                                        <label class="form-label">{{ __('User Name:') }}</label>
-                                    
-                                        <div class="form-group">
-                                            <input type="text" name="user_name" class="nice-select niceSelect bordered_style wide" placeholder="User Name" required >
-                                        </div>
-                                        <span class="invalid-feedback" id="user_name_error" style="display: none;" role="alert"></span>
-                                    </div>  --}}
-                                    
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <span style="color:red">*</span>
@@ -90,7 +80,7 @@
                                         <div class="form-group">
                                     
                                             <label class="form-label">Religion:</label>
-                                            <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion"  data-fouc data-placeholder="Choose.." name="section">
+                                            <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion"  data-fouc data-placeholder="Choose..">
                                                 <option value="">Select one of these</option>
                                                 @foreach($Religion as $Religions)
                                                 <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
@@ -135,7 +125,7 @@
                                   
                                     <div class="col-md-6">
                                         <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
-                                        <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school">
+                                        <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School Name" id="previous_school"  name="previous_school">
                                         <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                 
                                     </div>

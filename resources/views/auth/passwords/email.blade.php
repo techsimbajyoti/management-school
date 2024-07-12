@@ -20,9 +20,9 @@
                         @endif
                         <form role="form" method="POST" action="{{ route('verify') }}" class="text-start">
                             @csrf
-                            <div class="input-group input-group-outline my-3">
+                            <div class="form-group input-group-outline my-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email">
+                                <input type="email" class="form-control" name="email"required>
                             </div>
                             @error('email')
                             <p class='text-danger inputerror'>{{ $message }} </p>

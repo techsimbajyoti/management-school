@@ -4,6 +4,24 @@
 ])
 
 @section('content')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('email_verified'))
+            alert('Email verified successfully!.');
+        @endif
+    });
+</script>
+ @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('password_status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('password_status') }}
+        </div>
+    @endif
+   
 <div class="content" style="margin-top: 40px;">
     <div class="container" style="background-color: red;">
         <div class="row">
@@ -71,7 +89,7 @@
                                             <i class="nc-icon nc-single-02"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" autocomplete="off" name="login" required>
+                                    <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" autocomplete="off" name="login" placeholder="Username" required>
                                     @if ($errors->has('login'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('login') }}</strong>
@@ -82,7 +100,7 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="nc-icon nc-single-02"></i>
+                                            <i class="fas fa-key"></i>
                                         </span>
                                     </div>
                                     <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="off" placeholder="{{ __('Password') }}" type="password" required>

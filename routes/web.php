@@ -48,7 +48,7 @@ Route::get('/reset-password/{token}', function ($token) {
 	return view('auth.passwords.reset', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
-
+Route::get('/verify-email/{id}', [VerificationController::class, 'verify_email'])->name('verify-email');
 
 Route::get('/verify-registration/{applicant_id}', [App\Http\Controllers\VerificationController::class, 'verifyRegistration'])->name('verify.registration');
 
@@ -81,6 +81,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
 	Route::post('get-applicant-id',[ApplicantController::class, 'get_applicant_id'])->name('get-applicant-id');
+
+	Route::post('get-meeting-status-by-id-admin',[ApplicantController::class, 'get_meeting_status_by_id_admin'])->name('get-meeting-status-by-id-admin');
+
+	Route::post('get-applicant-status-by-id-admin',[ApplicantController::class, 'get_applicant_status_by_id_admin'])->name('get-applicant-status-by-id-admin');
 
 	Route::get('admin-download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('admin-download-profile');
 

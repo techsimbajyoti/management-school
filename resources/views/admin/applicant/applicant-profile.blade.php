@@ -89,7 +89,14 @@
                                 <p class="mb-0">Password</p>
                             </div>
                             <div class="col-sm-3">
-                                <p class="text-muted mb-0">{{ $applicant_profile->password }}</p>
+                                @php
+                                try {
+                                    $newPassword = Crypt::decryptString($applicant_profile->password);
+                                } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                                    $newPassword = '';
+                                }
+                            @endphp
+                                <p class="text-muted mb-0">{{ $newPassword }}</p>
                             </div>
                             
                         </div>

@@ -356,12 +356,14 @@ class ApplicantController extends Controller
             $lang[] = $lng->name;
         }
     
+       
+
         $applicant_data = Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
         ->where('student_parents.id', $parent_id)
         ->where('students.id', $student_id)
         ->select('students.*', 'student_parents.*')
         ->first();
-    
+       
         return view('admin.applicant.view-applicant', compact('lang', 'Language', 'BloodGroup', 'Religion', 'state', 'country', 'test', 'testing', 'applicant_data'));
     }
     
@@ -448,7 +450,7 @@ class ApplicantController extends Controller
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
             'email' => 'required',
             'password' => 'required',
-            'contact_number' => 'required|digits_between:10,15',
+            'contact_number' => 'required|digits_between:10,12',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
            
         ], [
@@ -464,7 +466,7 @@ class ApplicantController extends Controller
             'password_confirmation.same' => 'The password confirmation does not match.',
             'contact_number.required' => 'The contact number field is required.',
             'contact_number.numeric' => 'The contact number field must contain only digits.',
-            'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
+            'contact_number.digits_between' => 'The contact number must be between 10 and 1 digits.',
             'profession.string' => 'The profession must be a string.',
             'profession.regex' => 'The profession must only contain letters and spaces.',
         ]);
@@ -642,7 +644,6 @@ class ApplicantController extends Controller
 
             $student_update->first_name = $request->first_name;
             $student_update->last_name = $request->last_name;
-            $student_update->username = $randomUsername;
             $student_update->password = $hashPassword;
             $student_update->class = $request->class;
             $student_update->date_of_birth = $request->date_of_birth;
@@ -967,7 +968,7 @@ class ApplicantController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:8',
             'password_confirmation' => 'required|same:password',
-            'contact_number' => 'required|numeric|digits_between:10,15',
+            'contact_number' => 'required|numeric|digits_between:10,12',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ], [
             'parent_name.required' => 'The parent name field is required.',
@@ -982,7 +983,7 @@ class ApplicantController extends Controller
             'password_confirmation.same' => 'The password confirmation does not match.',
             'contact_number.required' => 'The contact number field is required.',
             'contact_number.numeric' => 'The contact number field must contain only digits.',
-            'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
+            'contact_number.digits_between' => 'The contact number must be between 10 and 12 digits.',
             'profession.string' => 'The profession must be a string.',
             'profession.regex' => 'The profession must only contain letters and spaces.',
         ]);
@@ -1020,11 +1021,10 @@ class ApplicantController extends Controller
         $applicant = new StudentParent;
 
         $plainPassword = $request->password; 
-                
+        
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
-        $applicant->username = $randomuserId;
-        $applicant->email = $request->email;
+         $applicant->email = $request->email;
         $applicant->password = Hash::make($plainPassword);
         $applicant->father_profession = $request->profession;
         $applicant->role_id = $request->role_id;
@@ -1105,7 +1105,7 @@ class ApplicantController extends Controller
         $randomPassword = Str::random(8);
         $hashPassword = Hash::make($randomPassword);
 
-        $randomUsername = Str::random(8);
+      
 
         $randomApplicantId = str_pad(random_int(0, 99999), 8, '0', STR_PAD_LEFT);
 
@@ -1115,7 +1115,6 @@ class ApplicantController extends Controller
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'username' => $parentStudent->username,
                 'password' => $parentStudent->password,
                 'class' => $request->class,
                 'religion' => $request->religion,
@@ -1274,7 +1273,6 @@ class ApplicantController extends Controller
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'username' => $parentStudent->username,
                 'password' => $parentStudent->password,
                 'class' => $request->class,
                 'date_of_birth' => $request->date_of_birth,
@@ -1364,7 +1362,6 @@ class ApplicantController extends Controller
 
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
-            $student->username = $randomUsername;
             $student->password = $hashPassword;
             $student->class = $request->class;
             $student->date_of_birth = $request->date_of_birth;
@@ -1381,19 +1378,22 @@ class ApplicantController extends Controller
             $student->created_by = 'null';
 
             if ($request->category === 'other') {
-                $student->category = $request->other_category;
+                $student->category = $request->category;
+                $student->other_category = $request->other_category;
             } else {
                 $student->category = $request->category;
             }
 
             if ($request->religion === 'other') {
-                $student->religion = $request->other_religion;
+                $student->religion = $request->religion;
+                $student->other_religion = $request->other_religion;
             } else {
                 $student->religion = $request->religion;
             }
 
             if ($request->gender === 'other') {
-                $student->gender = $request->other_gender;
+                $student->other_gender = $request->other_gender;
+                $student->gender = $request->gender;
             } else {
                 $student->gender = $request->gender;
             }
@@ -1949,7 +1949,6 @@ class ApplicantController extends Controller
                 'profession' => $parent_details->father_profession,
                 'email' => $parent_details->email,
                 'phone' => '0000000000',
-                'username' => $parent_details->username,
                 'password' => $decrypted_password
             ],
             'student' => [
@@ -2046,7 +2045,11 @@ class ApplicantController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return response()->json(['success' => true, 'applicant_status' => $applicant_status]);
+
+        $applicant_last = ApplicantStatus::where('student_id', $student_id)->get();
+        $applicant_last_status = $applicant_last->last();
+
+        return response()->json(['success' => true, 'applicant_status' => $applicant_status,'applicant_last_status'=>$applicant_last_status->status]);
     }
 
     public function get_meeting_status_by_id(Request $request){
@@ -2059,6 +2062,27 @@ class ApplicantController extends Controller
         ->get();
 
         return response()->json(['success' => true, 'meeting_status' => $meeting_status]);
+    }
+
+    public function get_meeting_status_by_id_admin(Request $request){
+        $student_id = $request->input('student_id');
+
+        $meeting_status = MeetingStatus::where('student_id', $student_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json(['success' => true, 'meeting_status' => $meeting_status]);
+    }
+
+    public function get_applicant_status_by_id_admin(Request $request){
+        $student_id = $request->input('student_id');
+        $applicant_id = $request->input('applicant_id');
+
+        $applicant_status = ApplicantStatus::where('student_id', $student_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json(['success' => true, 'applicant_status' => $applicant_status]);
     }
  
 }

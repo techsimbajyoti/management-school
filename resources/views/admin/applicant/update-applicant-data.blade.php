@@ -2,6 +2,9 @@
     'class' => '',
     'elementActive' => 'applicant-profile'
 ])
+@push('scripts')
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+@endpush
 @section('content')
 <style>
     /* Progress Bar */
@@ -128,7 +131,7 @@
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Email:') }}</label>
                                                 <div class="form-group">
-                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email"  value="{{ $parent->email}}" >
+                                                    <input type="email" name="email" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email"  value="{{ $parent->email}}" readonly>
                                                     <span class="invalid-feedback" id="email_error" style="display: none;"></span>
                                               
                                                 </div>
@@ -136,24 +139,21 @@
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Password:') }}</label>
-                                        
+                                            @php
+                                            try {
+                                                $newPassword = Crypt::decryptString($parent->password);
+                                            } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                                                $newPassword = '';
+                                            }
+                                            @endphp
                                             <div class="form-group">
-                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password"  value="{{ $parent->password}}" readonly>
+                                                <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password"  value="{{$parent->password}}" readonly>
                                                 <span class="invalid-feedback" id="password_error" style="display: none;"></span>
                                                
                                             </div>
                                         </div>
                                         
-                                        <div class="col-md-6">
-                                            <span style="color:red">*</span>
-                                            <label class="form-label">{{ __('Confirm Password:') }}</label>
-                                        
-                                            <div class="form-group">
-                                                <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password_confirmation') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password"  value="{{ $parent->password}}" readonly>
-                                                <span class="invalid-feedback" id="password_error" style="display: none;"></span>
-                                                
-                                            </div>
-                                        </div>
+                                       
                                         
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
@@ -260,7 +260,7 @@
                                         
                                         <div class="col-md-6">
                                             <span style="color:red">*</span>
-                                                <label class="form-label">{{ __('Class:') }}</label>
+                                                <label class="form-label">{{ __('Admission For:') }}</label>
                                                     <div class="form-group">
                                                         @if($student != null)
                                                         <select class="nice-select niceSelect bordered_style wide" id="class-name" name="class" data-fouc data-placeholder="Choose.." required>
@@ -333,12 +333,12 @@
                                     
                                                 <label class="form-label">Religion:</label>
                                                 @if($student != null)
-                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose.." name="section">
+                                                <select class="nice-select niceSelect bordered_style wide" id="religion" name="religion" data-fouc data-placeholder="Choose..">
                                                     <option value="">Select one of these</option>
                                                     @foreach($Religion as $Religions)
                                                     <option  value="{{ $Religions->religion_code}}">{{ $Religions->religion_name}}</option>
                                                     @endforeach
-                                                    <option  value="other">Other</option>
+                                                    <option  value="other" {{ $student->religion == 'other' ? 'selected' : '' }}>Other</option>
                                                 </select>
                                                     @if($student->religion === 'other')
                                                     <input type="text" id="other-religion" name="other_religion" class="form-control mt-2" placeholder="Please specify" style="display: none;" value="{{ $student->other_religion }}">
@@ -422,9 +422,9 @@
                                           <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
                                             @if($student != null)
-                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $student->previous_school}}">
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School Name" id="previous_school"  name="previous_school" value="{{ $student->previous_school}}">
                                             @else
-                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="">
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School Name" id="previous_school"  name="previous_school" value="">
                                             @endif
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                                 <span class="invalid-feedback" id="previous_school_error" style="display: none;">
@@ -461,10 +461,11 @@
             
                                                 <div class="form-group">
                                                     @if($student != null)
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="{{ $student->address}}">
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" required value="{{ $student->address}}">
                                                    @else
-                                                   <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" required value="">
+                                                   <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" required value="">
                                                    @endif
+                                                   <span class="invalid-feedback" id="residence_address_error" style="display: none;" role="alert"></span>   
                                                 </div>
                                                 
                                         </div>
@@ -519,9 +520,9 @@
             
                                                 <div class="form-group">
                                                     @if($student != null)
-                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="{{ $student->pin_code}}">
+                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Enter Pin Code" required value="{{ $student->pin_code}}">
                                                    @else
-                                                   <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" required value="">
+                                                   <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Enter Pin Code" required value="">
                                                    @endif
                                                     <span class="invalid-feedback" id="pin_code_error" style="display: none;" role="alert"></span>
                                                 </div>

@@ -173,7 +173,7 @@
                 
             </div>
         </div>
-
+        @if($StudentView != '')
         <div class="col-md-4" style="margin-top: -180px;">
             <div class="card">
                 <div class="card-header">
@@ -203,6 +203,19 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="col-md-4" style="margin-top: -180px;">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">No Documents Uploaded</h4>
+                </div>
+                <hr>
+                <div class="card-body p-0">
+                    <p class="card-text">You have no uploaded documents at this time.</p>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

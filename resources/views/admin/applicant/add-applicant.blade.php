@@ -426,7 +426,7 @@ function displayValidationErrors(errors) {
             }
         });
 
-        // $('#student_language').change(function() {
+        // $('#student_language').change(function() { 
         //     if (this.value === 'other') {
         //         $('#other-language').show();
         //     } else {

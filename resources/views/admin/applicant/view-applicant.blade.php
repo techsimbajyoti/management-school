@@ -150,26 +150,22 @@
                                 
                                                 <div class="form-group">
                                                     @if($applicant_data != null)
-                                                    <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password" value="{{ $applicant_data->password }}" readonly>
-                                                    @else
+                                                    @php
+                                                    try {
+                                                        $newPassword = Crypt::decryptString($applicant_data->password);
+                                                    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                                                        $newPassword = '';
+                                                    }
+                                                @endphp
+                                                   
+                                                    <input type="text" name="password" id="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password" value= "{{ $newPassword }}" readonly>
+                                                     @else
                                                     <input type="password" name="password" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" placeholder="Enter Password" value="" readonly>
                                                     @endif
                                                 </div>
                                                 
                                         </div>
-                                        <div class="col-md-6">
-                                           
-                                            <label class="form-label">{{ __('Confirm Password:') }}</label>
-                                
-                                                <div class="form-group">
-                                                    @if($applicant_data != null)
-                                                    <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password" value="{{ $applicant_data->password}}" readonly>
-                                                    @else
-                                                    <input type="password" name="password_confirmation" class="nice-select niceSelect bordered_style wide @error('password') is-invalid @enderror" autocomplete="current-password" placeholder="Enter Confirm Password" value="" readonly>
-                                                    @endif
-                                                </div>
-                                                
-                                        </div>
+                                       
                                         <div class="col-md-6">
                                            
                                             <label class="form-label">{{ __('Contact Number:') }}</label>
@@ -306,7 +302,7 @@
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Student Photo:') }}</label>
                                             <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
-                                            <input class="form-control" type="text" name="profile_image" value="{{ $applicant_data->image}}">
+                                            <input class="form-control" type="text" name="profile_image" value="{{ $applicant_data->image}}" readonly>
                                             
                                                 @if($applicant_data->image)
                                                   <img src="{{ url('storage/student_photos/' . $applicant_data->image) }}" height="100px" width="100px" readonly>
@@ -320,7 +316,7 @@
                                       
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
-                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="{{ $applicant_data->previous_school}}" readonly>
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School Name" id="previous_school"  name="previous_school" value="{{ $applicant_data->previous_school}}" readonly>
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                     
                                         </div>
@@ -415,7 +411,7 @@
                                       
                                         <div class="col-md-6">
                                             <label class="form-label">{{ __('Previous School') }} <span class="text-info">(If Applicable):</span></label>
-                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School" id="previous_school"  name="previous_school" value="" readonly>
+                                            <input type="text" class="nice-select niceSelect bordered_style wide" placeholder="Enter Previous School Name" id="previous_school"  name="previous_school" value="" readonly>
                                             <span class="invalid-feedback" id="previous_school_error" style="display: none;">
                                     
                                         </div>
@@ -446,7 +442,7 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" value="{{ $applicant_data->address}}" readonly>
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" value="{{ $applicant_data->address}}" readonly>
                                                 </div>
                                                
                                         </div>
@@ -485,7 +481,7 @@
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" value="{{ $applicant_data->pin_code}}" readonly>
+                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Enter Pin Code" value="{{ $applicant_data->pin_code}}" readonly>
                                                 </div>
                                               
                                         </div>
@@ -497,7 +493,7 @@
                                             <label class="form-label">{{ __('Address:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residance Address" value="" readonly>
+                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" value="" readonly>
                                                 </div>
                                                
                                         </div>
@@ -536,7 +532,7 @@
                                             <label class="form-label">{{ __('Pin Code:') }}</label>
             
                                                 <div class="form-group">
-                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Pin Code" value="" readonly>
+                                                    <input type="text" name="pin_code" class="nice-select niceSelect bordered_style wide" placeholder="Enter Pin Code" value="" readonly>
                                                 </div>
                                               
                                         </div>
@@ -659,7 +655,12 @@ $(document).ready(function() {
             }
         })
 
+        
 });     
+      document.addEventListener("DOMContentLoaded", function() {
+        var passwordField = document.getElementById('password');
+        console.log('Password Field Value:', passwordField.value);
+    });
 
 </script>
 @endpush

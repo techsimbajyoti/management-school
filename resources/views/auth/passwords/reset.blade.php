@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="nc-icon nc-key-25"></i></span>
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
                                     <input class="form-control" name="password" placeholder="{{ __('Password') }}" type="password" value="{{ old('password') }}" autocomplete="off" required>
                                 </div>
@@ -46,10 +46,13 @@
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="nc-icon nc-key-25"></i></span>
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
                                     </div>
                                     <input class="form-control" name="password_confirmation" placeholder="{{ __('Password Confirmation') }}" type="password" value="{{ old('password_confirmation') }}" required>
                                 </div>
+                                @error('password_confirmation')
+                                    <p class='text-danger inputerror'>{{ $message }} </p>
+                                    @enderror
                             </div>
 
                             <div class="text-center">

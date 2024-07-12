@@ -167,7 +167,7 @@
           <div class="row justify-content-center mt-3"> --}}
               <div class="col-md-6">
                   <label for="">Note</label>
-                  <textarea note="note" class="nice-select niceSelect bordered_style wide" placeholder="Enter Note..." value="" id="note"></textarea>
+                  <textarea name="note" class="nice-select niceSelect bordered_style wide" placeholder="Enter Note..." value="" id="note"></textarea>
               </div>
             {{-- </div>
             <div class="row justify-content-center mt-3"> --}}

@@ -192,7 +192,7 @@
                                             <td>
                                                 <div class="d-flex">
                                                 <span>{{ $meeting_datas->mode}}</span>
-                                                <a href="#" class="info-button applicant_mode" data-modal-id="myModal{{ $meeting_datas->id }}">
+                                                <a class="info-button applicant_mode" data-modal-id="myModal{{ $meeting_datas->id }}">
                                                     <i class="fa fa-info"></i>
                                                 </a>
                                                 </div>
@@ -301,7 +301,20 @@
           <h3>Add Note</h3>
           <span class="close">&times;</span>
       </div>
-
+      <div class="modal-body">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Status</th>
+                <th scope="col">Note</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody id="status-table-body">
+            </tbody>
+        </table>
+    </div>
       <div class="modal-body">
         <form action="{{ route('applicant-meeting-status-update') }}" method="POST">
           @csrf
@@ -318,24 +331,24 @@
               <div class="col-md-6">
                   <label for="">Status</label>
                   <select name="status" id="meetingStatus" class="nice-select sections niceSelect bordered_style wide">
-                        <option value="0">Meeting Status</option>
-                        <option value="Active">Active</option>
-                        <option value="Reschedule Meeting Request">Reschedule Meeting Request</option>
+                        <option>Please select status</option>
+                        {{-- <option value="Active">Active</option> --}}
+                        {{-- <option value="Reschedule Meeting Request">Reschedule Meeting Request</option> --}}
                         <option value="Accept">Accept</option>
                         <option value="Meeting Schedule">Meeting Schedule</option>
                         <option value="Cancelled By Admin">Cancelled By Admin</option>
                         <option value="Rejected By Admin">Rejected By Admin</option>
-                        <option value="Upcoming Meeting">Upcoming Meeting</option>
+                        {{-- <option value="Upcoming Meeting">Upcoming Meeting</option> --}}
                   </select>
               </div>
-          </div>
-          <div class="row justify-content-center mt-3">
+          {{-- </div>
+          <div class="row justify-content-center mt-3"> --}}
               <div class="col-md-6">
                   <label for="">Note</label>
                   <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="meetingNote"></textarea>
               </div>
-            </div>
-            <div class="row justify-content-center mt-3">
+            {{-- </div>
+            <div class="row justify-content-center mt-3"> --}}
               <div class="col-md-4 mt-3">
                   <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
               </div>
@@ -352,6 +365,7 @@
 @endsection
 
 @push('scripts')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
    document.addEventListener("DOMContentLoaded", function() {
     // Get the modals
@@ -419,7 +433,7 @@
             var purpose = event.target.getAttribute('data-purpose');
             var mode = event.target.getAttribute('data-mode');
             var locationUrl = event.target.getAttribute('data-location-url');
-            var meetingStatus = event.target.getAttribute('data-meeting-status');
+            // var meetingStatus = event.target.getAttribute('data-meeting-status');
             var meetingNote = event.target.getAttribute('data-meeting-note');
 
             // Update modal content with fetched data
@@ -431,7 +445,7 @@
             document.getElementById('purpose').value = purpose;
             document.getElementById('mode').value = mode;
             document.getElementById('location_url').value = locationUrl;
-            document.getElementById('meetingStatus').value = meetingStatus;
+            // document.getElementById('meetingStatus').value = meetingStatus;
             document.getElementById('meetingNote').value = meetingNote;
         }
     });
@@ -503,6 +517,44 @@
     });
 });
 
+
+$(document).ready(function() {
+            $('.admin_side_meeting').click(function(){
+            var student_id = this.getAttribute('data-student-id');
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('get-meeting-status-by-id-admin') }}",
+                    method: 'POST',
+                    data: {
+                        student_id: student_id,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.success) {
+                                var tbody = $('#status-table-body');
+                                tbody.empty(); // Clear existing table body content
+
+                                response.meeting_status.forEach(function(status) {
+                                    var row = '<tr>' +
+                                        '<td>' + status.id + '</td>' +
+                                        '<td>' + status.status + '</td>' +
+                                        '<td>' + status.note + '</td>' +
+                                        '<td>' + status.meeting_date + '</td>' +
+                                        '</tr>';
+
+                                    tbody.append(row);
+                                });
+                            }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
+            })
+        });
 
     </script>
 @endpush
