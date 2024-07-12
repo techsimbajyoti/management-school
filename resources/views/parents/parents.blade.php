@@ -68,8 +68,9 @@
                         </div>
                     </div>
                     <hr>
-                    
+                
                     <div class="card-footer">
+
                     {{-- <div id="meeting-details"></div> --}}
                     @php
                     $user = auth()->guard('webparents')->user();
@@ -142,8 +143,8 @@
                                 </div>
                             @endforeach
                         @else
-                            <div class="col-md-6">
-                                <div class="card mini-card" style="height: 200px; width: 250px;">
+                            <div class="col-md-6" style="margin-left:75px;">
+                                <div class="card mini-card" style="height: 200px; width: 250px;padding:30px;">
                                     <div class="card-header d-flex justify-content-between">
                                         <h6 class="card-title">No Upcoming Meeting</h6>
                                     </div>
@@ -158,9 +159,11 @@
                       
                        
                     </div>
+
                     </div>
                     <hr>
                 </div>
+                
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-6">

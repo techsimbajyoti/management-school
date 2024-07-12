@@ -4,23 +4,41 @@
 ])
 
 @section('content')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        @if(session('email_verified'))
-            alert('Email verified successfully!.');
-        @endif
-    });
-</script>
- @if (session('status'))
+    @if(session('email_verified'))
+      @push('scripts')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+         @endpush
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Email Verified',
+                    text: 'Email verified successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '{{ url("/login") }}';
+                    }
+                });
+            });
+        </script>
+      
+   
+    @else
+    @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
         </div>
     @endif
+
     @if (session('password_status'))
         <div class="alert alert-success" role="alert">
             {{ session('password_status') }}
         </div>
     @endif
+
+
    
 <div class="content" style="margin-top: 40px;">
     <div class="container" style="background-color: red;">
@@ -147,3 +165,4 @@
         });
     </script>
 @endpush
+@endif

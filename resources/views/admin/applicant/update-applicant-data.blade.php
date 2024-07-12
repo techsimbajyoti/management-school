@@ -141,7 +141,7 @@
                                             <label class="form-label">{{ __('Password:') }}</label>
                                             @php
                                             try {
-                                                $newPassword = Crypt::decryptString($parent->password);
+                                                $newPassword = Crypt::decryptString($parent->hash_password);
                                             } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
                                                 $newPassword = '';
                                             }
@@ -404,20 +404,17 @@
                                                 <label class="form-label">
                                                     <span style="color:red">*</span> {{ __('Student Photo:') }}  </label>
                                                     <span class="text-info">Accepted Images: jpeg,jpg,png.Max file size 2Mb.</span>
-                                                    @if($student != null)
-                                                <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
-                                                <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
-                                                @if($student->image)
-                                                   
-                                                        <img src="{{ url('storage/student_photos/' . $student->image) }}"  height="100px" width="100px">
+                                                  
+                                                @if($student->image !== null)
+                                                    <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg" value="{{$student->image}}">
+                                                    <input class="form-control" type="hidden" name="image_1" value="{{$student->image}}">
+                                                    <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
+                                                    <img src="{{ url('storage/student_photos/' . $student->image) }}"  height="100px" width="100px">
                                                     
                                                     <p id="pic">File: {{ $student->image }}</p>
                                                 @else
-                                                    <p id="pic">File: No File Uploaded</p>
-                                                @endif
-                                                @else
-                                                <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
-
+                                                    <input class="form-control" type="file" name="image" accept=".png,.jpg,.jpeg">
+                                                    <span class="invalid-feedback" id="image_error" style="display: none;" role="alert"></span>
                                                 @endif
                                             
                                         </div>
@@ -573,39 +570,39 @@
                                                     </thead>
                                                     <tbody id="student-document">
                                                         @if($student != null)
-                                                        @php
-                                                            $documents = json_decode($student->document);
-                                                        @endphp
+                                                            @php
+                                                                $documents = json_decode($student->document);
+                                                            @endphp
                                                     
-                                                        @if (!empty($documents))
-                                                            @foreach ($documents as $document)
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="text" class="form-control" name="document_name[]"placeholder="Enter Document Name" value="{{ $document->name }}">
-                                                                  
-                                                                </td>
-                                                                <td>
-                                                                    <input type="file" class="form-control" name="document_file[]" style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
-                                                                    <a href="{{ url('storage/student_documents/' . $document->file) }}" target="_blank">
-                                                                        File: {{ $document->file }}
-                                                                    </a>
-                                                                
-                                                                </td>
-                                                            </tr>
-                                                            @endforeach
-                                                        @else
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="text" class="form-control" name="document_name[]" required  placeholder="Enter Document Name">
-                                                                    <span class="invalid-feedback" id="document_name_error" style="display:none;" role="alert"></span>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="file" class="form-control" name="document_file[]" required style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
-                                                                    <span class="invalid-feedback" id="document_file_error" style="display:none;" role="alert"></span>
-                                                                </td>
-                                                            </tr>
-                                                           
-                                                        @endif
+                                                            @if (!empty($documents))
+                                                                @foreach ($documents as $document)
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" class="form-control" name="document_name[]"placeholder="Enter Document Name" value="{{ $document->name }}">
+                                                                    
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="file" class="form-control" name="document_file[]" style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                                        <a href="{{ url('storage/student_documents/' . $document->file) }}" target="_blank">
+                                                                            File: {{ $document->file }}
+                                                                        </a>
+                                                                    
+                                                                    </td>
+                                                                </tr>
+                                                                @endforeach
+                                                            @else
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" class="form-control" name="document_name[]" required  placeholder="Enter Document Name">
+                                                                        <span class="invalid-feedback" id="document_name_error" style="display:none;" role="alert"></span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="file" class="form-control" name="document_file[]" required style="margin-top:15px;" accept=".png,.jpg,.jpeg,.pdf,.xls,.doc,.docx">
+                                                                        <span class="invalid-feedback" id="document_file_error" style="display:none;" role="alert"></span>
+                                                                    </td>
+                                                                </tr>
+                                                            
+                                                            @endif
                                                         @else
                                                         <tr>
                                                             <td colspan="3">No documents uploaded</td>
@@ -816,6 +813,8 @@ $(document).ready(function() {
                             window.location.href = "/parent-dashboard";
                         });
                     }
+
+                    console.log(response.student);
                 },
                 error: function(xhr, status, error) {
                     console.log('Error:', error);

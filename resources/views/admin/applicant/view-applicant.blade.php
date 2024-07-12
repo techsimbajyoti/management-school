@@ -152,7 +152,7 @@
                                                     @if($applicant_data != null)
                                                     @php
                                                     try {
-                                                        $newPassword = Crypt::decryptString($applicant_data->password);
+                                                        $newPassword = Crypt::decryptString($applicant_data->hash_password);
                                                     } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
                                                         $newPassword = '';
                                                     }

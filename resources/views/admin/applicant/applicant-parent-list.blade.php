@@ -44,6 +44,8 @@
                                     <tbody class="tbody">
                                         @foreach($studentDetails as $details)
                                         <tr id="row_7">
+                                            <input type="hidden" class="applicant_id" value="{{ $details->applicant_id }}">
+                                            <input type="hidden" class="student_id" value="{{ $details->id }}">
                                             <td class="serial">{{ $details->id }}</td>
                                             <td>{{ $details->applicant_id }}</td>
                                             
@@ -96,6 +98,20 @@
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody id="status-table-body">
+                </tbody>
+              </table>
+        </div>
+        <div class="modal-body">
         <form action="{{route('applicant-parent-status-update')}}" method="POST">
             @csrf
             <input type="hidden" name="parent_id" id="parent_id" value="">
@@ -103,21 +119,21 @@
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Status</label>
-                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
-                        <option>Incomplete</option>
+                    <select name="status_update" class="nice-select sections niceSelect bordered_style wide">
+                        <option>Please select status</option>
                         <option>Accept</option>
                         <option>Reject</option>
                         <option>Denied By Applicant</option>
                     </select>
                 </div>
-            </div>
-            <div class="row justify-content-center mt-3">
+            {{-- </div>
+            <div class="row justify-content-center mt-3"> --}}
                 <div class="col-md-6">
                     <label for="">Note</label>
                     <textarea name="note" class="nice-select sections niceSelect bordered_style wide" placeholder="Enter Note" value="" id="app_note"></textarea>
                 </div>
-            </div>
-            <div class="row justify-content-center mt-3">
+            {{-- </div> --}}
+            {{-- <div class="row justify-content-center mt-3"> --}}
                 <div class="col-md-4 mt-3">
                     <button type="submit" class="btn btn-lg w-100 ot-btn-primary"><i class="fa fa-save"></i> Submit</button>
                 </div>
@@ -131,6 +147,7 @@
 </div>
 @endsection 
 @push('scripts')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
     // Get the modal
  var modal = document.getElementById("myModal");
@@ -149,13 +166,9 @@
             btn.addEventListener("click", function() {
                 var studentId = this.getAttribute('data-student-id');
                 var parentId = this.getAttribute('data-parent-id');
-                var app_status = this.getAttribute('data-status');
-                var app_note = this.getAttribute('data-note');
 
                 document.getElementById('student_id').value = studentId;
                 document.getElementById('parent_id').value = parentId;
-                document.getElementById('status_update').value = app_status;
-                document.getElementById('app_note').value = app_note;
                 modal.style.display = "block";
             });
         });
@@ -211,6 +224,45 @@
                 $('.allStudentList').show();
             }
         });
+
+
+        $('.applicant_status').click(function(){
+            var applicant_id = $('.applicant_id').val();
+            var student_id = $('.student_id').val();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ route('get-applicant-status-by-id') }}",
+                method: 'POST',
+                data: {
+                    student_id: student_id,
+                    applicant_id: applicant_id
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                            var tbody = $('#status-table-body');
+                            tbody.empty(); // Clear existing table body content
+
+                            response.applicant_status.forEach(function(status) {
+                                var row = '<tr>' +
+                                    '<td>' + status.id + '</td>' +
+                                    '<td>' + status.status + '</td>' +
+                                    '<td>' + status.note + '</td>' +
+                                    '<td>' + status.created_at + '</td>' +
+                                    '</tr>';
+
+                                tbody.append(row);
+                            });
+                        }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        })
     });
 </script>
 @endpush

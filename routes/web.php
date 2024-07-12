@@ -484,6 +484,11 @@ Route::group(['middleware' => 'auth.webteachers'], function () {
 });
 
 Route::group(['middleware' => 'auth.webparents'], function () {
+
+	Route::post('get-applicant-status-by-id',[ApplicantController::class, 'get_applicant_status_by_id'])->name('get-applicant-status-by-id');
+
+	Route::post('get-meeting-status-by-id',[ApplicantController::class, 'get_meeting_status_by_id'])->name('get-meeting-status-by-id');
+
 	Route::post('update-applicant-parent/{id}', [ApplicantController::class, 'update_applicant'])->name('update-applicant-parent');
 
 	Route::post('get-applicant-status-parent',[ApplicantController::class,'get_applicant_status'])->name('get-applicant-status-parent');

@@ -91,7 +91,7 @@
                             <div class="col-sm-3">
                                 @php
                                 try {
-                                    $newPassword = Crypt::decryptString($applicant_profile->password);
+                                    $newPassword = Crypt::decryptString($applicant_profile->hash_password);
                                 } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
                                     $newPassword = '';
                                 }
