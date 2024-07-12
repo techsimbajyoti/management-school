@@ -2,6 +2,9 @@
     'class' => '',
     'elementActive' => 'applicant-profile'
 ])
+@push('scripts')
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+@endpush
 @section('content')
 <style>
     /* Progress Bar */
@@ -138,7 +141,7 @@
                                             <label class="form-label">{{ __('Password:') }}</label>
                                             @php
                                             try {
-                                                $newPassword = Crypt::decryptString($applicant_data->password);
+                                                $newPassword = Crypt::decryptString($parent->password);
                                             } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
                                                 $newPassword = '';
                                             }
@@ -465,6 +468,7 @@
                                                    @else
                                                    <input type="text" name="residence_address" class="nice-select niceSelect bordered_style wide" placeholder="Residence Address" required value="">
                                                    @endif
+                                                   <span class="invalid-feedback" id="residence_address_error" style="display: none;" role="alert"></span>   
                                                 </div>
                                                 
                                         </div>

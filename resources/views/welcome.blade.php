@@ -79,7 +79,7 @@
                                             </div>
                                             {{-- <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required> --}}
                                             
-                                            <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" name="login" required autofocus>
+                                            <input type="text" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" id="login" name="login"  placeholder="{{ __('Username') }}"  required autofocus>
                                             @if ($errors->has('login'))
                                                 <span class="invalid-feedback" style="display: block;" role="alert">
                                                     <strong>{{ $errors->first('login') }}</strong>
@@ -90,7 +90,7 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                    <i class="nc-icon nc-single-02"></i>
+                                                    <i class="fas fa-key"></i>
                                                 </span>
                                             </div>
                                             <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password" required>

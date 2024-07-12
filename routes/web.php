@@ -48,7 +48,7 @@ Route::get('/reset-password/{token}', function ($token) {
 	return view('auth.passwords.reset', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
-
+Route::get('/verify-email/{id}', [VerificationController::class, 'verify_email'])->name('verify-email');
 
 Route::get('/verify-registration/{applicant_id}', [App\Http\Controllers\VerificationController::class, 'verifyRegistration'])->name('verify.registration');
 

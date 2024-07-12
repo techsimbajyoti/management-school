@@ -82,6 +82,9 @@ class LoginController extends Controller
         $request->validate([
             'login' => 'required',
             'password' => 'required'
+        ],[
+            'login.required' => 'The Uername field is required',
+            'password.required' => 'The password field is required',
         ]);
         
         $loginField = $request->input('login');
@@ -121,7 +124,7 @@ class LoginController extends Controller
         }
     
         // If the authentication fails or the role is not correct, redirect to the login page
-        return redirect('/')->withErrors(['email_or_username' => 'Your provided credentials could not be verified.']);
+        return redirect()->route('login')->withErrors(['password' => 'Your provided credentials could not be verified.']);
     }
     
 }

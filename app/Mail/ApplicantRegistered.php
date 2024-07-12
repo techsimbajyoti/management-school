@@ -24,7 +24,7 @@ class ApplicantRegistered extends Mailable
     public function __construct(StudentParent $applicant,$plainPassword)
     {
         $this->applicant = $applicant;
-        $this->verificationLink = url('login/');
+        $this->verificationLink = url('verify-email/' . $applicant->id); 
         $this->plainPassword = $plainPassword;
     }
 

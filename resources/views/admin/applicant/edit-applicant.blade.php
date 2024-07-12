@@ -2,6 +2,9 @@
     'class' => '',
     'elementActive' => 'applicant-profile'
 ])
+@push('scripts')
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+@endpush
 @section('content')
 <style>
     /* Progress Bar */
@@ -142,7 +145,7 @@
                                             <label class="form-label">{{ __('Password:') }}</label>
                                             @php
                                             try {
-                                                $newPassword = Crypt::decryptString($applicant_data->password);
+                                                $newPassword = Crypt::decryptString($parent->password);
                                             } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
                                                 $newPassword = '';
                                             }
@@ -561,37 +564,38 @@
    }
 
    $( "#student_language" )
-     // don't navigate away from the field on tab when selecting an item
-     .on( "keydown", function( event ) {
-       if ( event.keyCode === $.ui.keyCode.TAB &&
-           $( this ).autocomplete( "instance" ).menu.active ) {
-         event.preventDefault();
-       }
-     })
-     .autocomplete({
-       minLength: 0,
-       source: function( request, response ) {
-         // delegate back to autocomplete, but extract the last term
-         response( $.ui.autocomplete.filter(
-           availableTags, extractLast( request.term ) ) );
-       },
-       focus: function() {
-         // prevent value inserted on focus
-         return false;
-       },
-       select: function( event, ui ) {
-         var terms = split( this.value );
-         // remove the current input
-         terms.pop();
-         // add the selected item
-         terms.push( ui.item.value );
-         // add placeholder to get the comma-and-space at the end
-         terms.push( "" );
-         this.value = terms.join( ", " );
-         return false;
-       }
-     });
- } );
+      // don't navigate away from the field on tab when selecting an item
+      .on( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).autocomplete( "instance" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+      .autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          // delegate back to autocomplete, but extract the last term
+          response( $.ui.autocomplete.filter(
+            availableTags, extractLast( request.term ) ) );
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        }
+      });
+  } );
+
 
 $(document).ready(function() {
    demo.checkFullPageBackgroundImage();

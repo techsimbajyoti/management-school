@@ -450,7 +450,7 @@ class ApplicantController extends Controller
             'parent_name' => 'required|string|regex:/^[A-Za-z ]+$/',
             'email' => 'required',
             'password' => 'required',
-            'contact_number' => 'required|digits_between:10,15',
+            'contact_number' => 'required|digits_between:10,12',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
            
         ], [
@@ -466,7 +466,7 @@ class ApplicantController extends Controller
             'password_confirmation.same' => 'The password confirmation does not match.',
             'contact_number.required' => 'The contact number field is required.',
             'contact_number.numeric' => 'The contact number field must contain only digits.',
-            'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
+            'contact_number.digits_between' => 'The contact number must be between 10 and 1 digits.',
             'profession.string' => 'The profession must be a string.',
             'profession.regex' => 'The profession must only contain letters and spaces.',
         ]);
@@ -954,7 +954,7 @@ class ApplicantController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:8',
             'password_confirmation' => 'required|same:password',
-            'contact_number' => 'required|numeric|digits_between:10,15',
+            'contact_number' => 'required|numeric|digits_between:10,12',
             'profession' => 'nullable|string|regex:/^[A-Za-z ]+$/',
         ], [
             'parent_name.required' => 'The parent name field is required.',
@@ -969,7 +969,7 @@ class ApplicantController extends Controller
             'password_confirmation.same' => 'The password confirmation does not match.',
             'contact_number.required' => 'The contact number field is required.',
             'contact_number.numeric' => 'The contact number field must contain only digits.',
-            'contact_number.digits_between' => 'The contact number must be between 10 and 15 digits.',
+            'contact_number.digits_between' => 'The contact number must be between 10 and 12 digits.',
             'profession.string' => 'The profession must be a string.',
             'profession.regex' => 'The profession must only contain letters and spaces.',
         ]);

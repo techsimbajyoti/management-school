@@ -32,6 +32,9 @@ class VerificationController extends Controller
         // Validate the request
         $attributes = request()->validate([
             'email' => 'required|email',
+        ],[
+            'email.required' => 'Email field is required.',
+            'email.email' => 'Email field must be a valid email address.'
         ]);
     
         // Check if a user with the provided email exists for each guard
@@ -63,7 +66,7 @@ class VerificationController extends Controller
             );
     
             return $status === Password::RESET_LINK_SENT
-                ? back()->with(['status' => __($status)])
+                ? back()->with(['status' => __('Check Your Email')])
                 : back()->withErrors(['email' => __($status)]);
         }
     
@@ -80,8 +83,16 @@ class VerificationController extends Controller
         request()->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-        ]);
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
+        ],[
+            'email.required' => 'The email address is required.',
+            'email.email' => 'Please provide a valid email address.',
+            'password.required' => 'The password field is required.',
+            'password.min' => 'The password must be at least 8 characters.',
+            'password_confirmation.same' => 'The password confirmation does not match.', 
+        ]
+    );
     
         // Determine the guard based on the email
         $email = request('email');
@@ -121,6 +132,17 @@ class VerificationController extends Controller
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
+    }
+
+
+
+    public function verify_email($id)
+    {
+        $applicant = StudentParent::findOrFail($id);
+        $applicant->email_status = 'verified';
+        $applicant->save();
+
+        return redirect()->route('login')->with('email_verified', true);
     }
     
 }

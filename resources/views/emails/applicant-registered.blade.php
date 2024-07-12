@@ -13,7 +13,7 @@
     <p>To proceed, please verify your email address by clicking the link below:</p>
     <p><a href="{{ $verificationLink }}">Verify Email Address</a></p>
     <p>Your login details are as follows:</p>
-    <p>Username : {{ $applicant->username}}</p>
+    <p>Username/Email : {{ $applicant->email}}</p>
     <p>Password : {{$plainPassword}}</p>
     <p>Once you have logged in, please complete the applicant's profile.</p>
     <p>Our team will review the application and get back to you shortly.</p>
