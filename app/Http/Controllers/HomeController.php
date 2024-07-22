@@ -67,7 +67,14 @@ class HomeController extends Controller
         # Validation
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+            'new_password' => 'required|min:8',
+            'new_password_confirmation' => 'required|same:new_password'
+
+        ],[
+            'old_password.required' => 'Old Password field is required',
+            'new_password.required' => 'New Password field is required',
+            'new_password.min' => 'The password must be at least 8 characters.',
+            'new_password_confirmation.same' => 'Password Confirmation does not match new password.',
         ]);
     
         if(auth()->guard('webparents')->check() && auth()->guard('webparents')->user()->role_id == '5'){

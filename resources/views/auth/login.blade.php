@@ -4,23 +4,41 @@
 ])
 
 @section('content')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        @if(session('email_verified'))
-            alert('Email verified successfully!.');
-        @endif
-    });
-</script>
- @if (session('status'))
+    @if(session('email_verified'))
+      @push('scripts')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+         @endpush
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Email Verified',
+                    text: 'Email verified successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '{{ url("/login") }}';
+                    }
+                });
+            });
+        </script>
+      
+   
+    @else
+    @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
         </div>
     @endif
+
     @if (session('password_status'))
         <div class="alert alert-success" role="alert">
             {{ session('password_status') }}
         </div>
     @endif
+
+
    
 <div class="content" style="margin-top: 40px;">
     <div class="container" style="background-color: red;">
@@ -52,24 +70,9 @@
                             <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
                             <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> spacious rooms equipped with desks</li>
                             <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> whiteboards/blackboards</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="info-area info-horizontal">
-                    <div class="description">
-                        <ul style="list-style: none;">
                             <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> A quiet space with a diverse collection of books</li>
                             <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> digital resources for reading and research</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="info-area info-horizontal">
-                    <div class="description">
-                        <ul style="list-style: none;">
                             <li style="font-weight: bold"><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check">  Science labs for subjects like physics, chemistry, and biology with necessary equipment and safety measures</li>
-                            {{-- <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> ventilated seats</li>
-                            <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> spacious rooms equipped with desks</li>
-                            <li><img src="{{asset('paper/img/list1.png')}}" width="20px" alt="check"> whiteboards/blackboards</li> --}}
                         </ul>
                     </div>
                 </div>
@@ -147,3 +150,4 @@
         });
     </script>
 @endpush
+@endif

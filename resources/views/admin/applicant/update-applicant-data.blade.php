@@ -141,7 +141,7 @@
                                             <label class="form-label">{{ __('Password:') }}</label>
                                             @php
                                             try {
-                                                $newPassword = Crypt::decryptString($parent->password);
+                                                $newPassword = Crypt::decryptString($parent->hash_password);
                                             } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
                                                 $newPassword = '';
                                             }
@@ -1024,5 +1024,10 @@ document.getElementById('add-document').addEventListener('click', function() {
 
 
 @endpush
+
+
+
+
+
 
 

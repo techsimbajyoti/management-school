@@ -45,7 +45,9 @@
                             <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput"
                                 placeholder="Confirm New Password" required>
                         </div>
-
+                        @error('new_password_confirmation')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     <div class="card-footer change-button">

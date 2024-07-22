@@ -333,12 +333,11 @@
                   <select name="status" id="meetingStatus" class="nice-select sections niceSelect bordered_style wide">
                         <option>Please select status</option>
                         {{-- <option value="Active">Active</option> --}}
-                        {{-- <option value="Reschedule Meeting Request">Reschedule Meeting Request</option> --}}
-                        <option value="Accept">Accept</option>
-                        <option value="Meeting Schedule">Meeting Schedule</option>
+                        <option value="Reschedule Meeting">Reschedule Meeting</option>
+                        {{-- <option value="Accept">Accept</option> --}}
                         <option value="Cancelled By Admin">Cancelled By Admin</option>
                         <option value="Rejected By Admin">Rejected By Admin</option>
-                        {{-- <option value="Upcoming Meeting">Upcoming Meeting</option> --}}
+                        <option value="Done">Done</option>
                   </select>
               </div>
           {{-- </div>
@@ -538,11 +537,14 @@ $(document).ready(function() {
                                 tbody.empty(); // Clear existing table body content
 
                                 response.meeting_status.forEach(function(status) {
+                                    var datetime = status.meeting_date;
+                                    var date = datetime.split('G')[0];
+
                                     var row = '<tr>' +
                                         '<td>' + status.id + '</td>' +
                                         '<td>' + status.status + '</td>' +
                                         '<td>' + status.note + '</td>' +
-                                        '<td>' + status.meeting_date + '</td>' +
+                                        '<td>' + date + '</td>' +
                                         '</tr>';
 
                                     tbody.append(row);

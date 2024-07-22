@@ -65,12 +65,12 @@
                             </a>
                         </li>
 
-                        <li class="{{ $elementActive == 'applicant-tracking' ? 'active' : '' }}">
+                        {{-- <li class="{{ $elementActive == 'applicant-tracking' ? 'active' : '' }}">
                             <a href="{{ route('meeting-tracking') }}">
                                 <span class="sidebar-mini-icon">{{ __('AT') }}</span>
                                 <span class="sidebar-normal">{{ __(' Applicant Tracking ') }}</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </li>
@@ -777,12 +777,12 @@
                 </a>
             </li>
 
-            <li class="{{ $elementActive == 'parent-meeting-track' ? 'active' : '' }}">
+            {{-- <li class="{{ $elementActive == 'parent-meeting-track' ? 'active' : '' }}">
                 <a href="{{ route('parent-meeting-track') }}">
                     <i class="fas fa-map-marker-alt"></i>
                     <p>{{ __('Track Meeting') }}</p>
                 </a>
-            </li>
+            </li> --}}
 
             @else
             <li class="{{ $elementActive == 'parent-dashboard' ? 'active' : '' }}">

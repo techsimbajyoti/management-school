@@ -3,30 +3,30 @@
     'elementActive' => 'applicant-list'
 ])
 @section('content')
-<style>
-    /*the container must be positioned relative:*/
-.autocomplete {
-  position: relative;
-}
+    <style>
+        /*the container must be positioned relative:*/
+    .autocomplete {
+    position: relative;
+    }
 
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  top: 100%;
-  left: 0;
-  right: 0;
-}
+    .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    }
 
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
-</style>
+    .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
+    }
+    </style>
 <div class="content">
     @if (session('status'))
         <div class="alert alert-success" role="alert">
@@ -521,11 +521,15 @@ $(document).ready(function() {
                             tbody.empty(); // Clear existing table body content
 
                             response.applicant_status.forEach(function(status) {
+                                var datetime = status.created_at;
+                                var date = datetime.split('T')[0];
+                               
+
                                 var row = '<tr>' +
                                     '<td>' + status.id + '</td>' +
                                     '<td>' + status.status + '</td>' +
                                     '<td>' + status.note + '</td>' +
-                                    '<td>' + status.created_at + '</td>' +
+                                    '<td>' + date + '</td>' +
                                     '</tr>';
 
                                 tbody.append(row);

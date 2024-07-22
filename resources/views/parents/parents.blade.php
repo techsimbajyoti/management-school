@@ -142,8 +142,8 @@
                                 </div>
                             @endforeach
                         @else
-                            <div class="col-md-6">
-                                <div class="card mini-card" style="height: 200px; width: 250px;">
+                            <div class="col-md-6" style="margin-left:75px;">
+                                <div class="card mini-card" style="height: 200px; width: 250px;padding:30px;">
                                     <div class="card-header d-flex justify-content-between">
                                         <h6 class="card-title">No Upcoming Meeting</h6>
                                     </div>
@@ -154,9 +154,6 @@
                             </div>
                         @endif
                     
-                    
-                      
-                       
                     </div>
                     </div>
                     <hr>

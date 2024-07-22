@@ -173,7 +173,12 @@
                 
             </div>
         </div>
-        @if($StudentView != '')
+        
+    @if($StudentView != null)
+    @php
+        $documents = json_decode($StudentView->document, true);
+    @endphp
+    @if(!empty($documents))
         <div class="col-md-4" style="margin-top: -180px;">
             <div class="card">
                 <div class="card-header">
@@ -181,11 +186,7 @@
                 </div>
                 <hr>
                 <div class="card-body p-0">
-                    @if($StudentView != null)
-                    @php
-                         $documents = json_decode($StudentView->document, true);
-                    @endphp
-                     <ul class="list-group list-group-flush rounded-3">
+                    <ul class="list-group list-group-flush rounded-3">
                         @foreach($documents as $document)
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <p class="mb-0">{{ $document['name'] }}</p>
@@ -195,27 +196,25 @@
                             </li>
                         @endforeach
                     </ul>
-                    @else
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <p class="mb-0"></p>
-                    </li>
-                    @endif
                 </div>
             </div>
         </div>
-        @else
-        <div class="col-md-4" style="margin-top: -180px;">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="mb-0">No Documents Uploaded</h4>
-                </div>
-                <hr>
-                <div class="card-body p-0">
-                    <p class="card-text">You have no uploaded documents at this time.</p>
-                </div>
+    @else
+    <div class="col-md-4" style="margin-top: -180px;">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h4 class="mb-0">Documents Uploaded</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">You have no uploaded documents at this time.</p>
             </div>
         </div>
-        @endif
+    </div>
+    @endif
+@else
+    
+@endif
+
     </div>
 </div>
 @endsection

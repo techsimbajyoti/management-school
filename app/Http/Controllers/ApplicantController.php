@@ -936,6 +936,17 @@ class ApplicantController extends Controller
         $meeting->created_by = 'null';
         $meeting->save();
 
+        $applicant_status = new ApplicantStatus;
+
+        $applicant_status->student_id = $combinedData['student_id'];
+        $applicant_status->parent_id = $combinedData['parent_id'];
+        $applicant_status->applicant_id = $combinedData['applicant_id'];
+        $applicant_status->status = 'Meeting Schedule';
+        $applicant_status->note = 'New meeting scheduled via form submit';
+        $applicant_status->ip_address = '1';
+        $applicant_status->created_by = 'null';
+        $applicant_status->save();
+
       
         $email = StudentParent::where('student_parents.id',$combinedData['parent_id'])
                 ->select('email')
@@ -1025,7 +1036,8 @@ class ApplicantController extends Controller
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
          $applicant->email = $request->email;
-        $applicant->password = Hash::make($plainPassword);
+        $applicant->hash_password =Crypt::encryptString($plainPassword);
+        $applicant->password= Hash::make($plainPassword);
         $applicant->father_profession = $request->profession;
         $applicant->role_id = $request->role_id;
         $applicant->status = $status; 
