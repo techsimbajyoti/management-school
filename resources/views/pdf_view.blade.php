@@ -93,10 +93,6 @@
                 <td>{{ $parent['contact'] }}</td>
               </tr>
               <tr>
-                <td><strong>User Name</strong></td>
-                <td>{{ $parent['username'] }}</td>
-              </tr>
-              <tr>
                 <td><strong>Password</strong></td>
                 <td>{{ $parent['password'] }}</td>
               </tr>

@@ -28,6 +28,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\ApplicantStatus;
 use Illuminate\Support\Facades\DB;
 use App\Models\MeetingStatus;
+use DateTime;
 use PDF;
 use Carbon\Carbon;
 
@@ -44,36 +45,44 @@ class ApplicantController extends Controller
             return $ipAddress;
     }
 
-    public function applicant(){
+    public function applicant()
+    {
+        // Get the current date and time
+        $today = (new DateTime())->format('Y-m-d H:i:s');
+        $excludedStatuses = ['Cancelled By Admin', 'Cancelled By Applicant', 'Rejected By Applicant'];
 
-     $upcoming_data = Student::join('student_parents','students.parent_id','=','student_parents.id')
-                      ->join('meeting_statuses', 'students.id', '=', 'meeting_statuses.student_id')
-                      ->select(
-                        'meeting_statuses.id',
-                        'meeting_statuses.meeting_date',
-                        'meeting_statuses.time_slot',
-                        'meeting_statuses.purpose',
-                        'meeting_statuses.mode',
-                        'meeting_statuses.status',
-                        'students.first_name',
-                        'students.last_name',
-                        'student_parents.father_name',
-                        'students.applicant_id',
-                        'students.class',
-                        'student_parents.father_mobile'
-                    )
-                    ->where('meeting_statuses.status', 'Meeting Schedule')
-                    ->whereIn('meeting_statuses.id', function ($query) {
-                        $query->selectRaw('MAX(id)')
-                            ->from('meeting_statuses')
-                            ->groupBy('student_id');
-                    })
-                    ->distinct()
-                    ->get();
+        $upcoming_data = Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+            ->join('meeting_statuses', 'students.id', '=', 'meeting_statuses.student_id')
+            ->select(
+                'meeting_statuses.id',
+                'meeting_statuses.meeting_date',
+                'meeting_statuses.time_slot',
+                'meeting_statuses.purpose',
+                'meeting_statuses.mode',
+                'meeting_statuses.status',
+                'students.id as student_id',
+                'students.first_name',
+                'students.last_name',
+                'student_parents.father_name',
+                'students.applicant_id',
+                'students.class',
+                'student_parents.father_mobile'
+            )
+            ->where(function($query) use ($today) {
+                $query->where('meeting_statuses.status', 'Meeting Schedule')
+                      ->orWhere('meeting_statuses.meeting_date', '>=', $today);
+            })
+            ->whereNotIn('meeting_statuses.status', $excludedStatuses)
+            ->whereIn('meeting_statuses.id', function ($query) {
+                $query->selectRaw('MAX(id)')
+                      ->from('meeting_statuses')
+                      ->groupBy('student_id');
+            })
+            ->distinct()
+            ->get();
 
-
-            return view('pages.applicant', compact('upcoming_data'));
-        }
+        return view('pages.applicant', compact('upcoming_data'));
+    }
 
     
     public function search_student(Request $request){
@@ -1025,8 +1034,10 @@ class ApplicantController extends Controller
         $applicant->father_name = $request->parent_name;
         $applicant->father_mobile = $request->contact_number;
          $applicant->email = $request->email;
+
         $applicant->hash_password =Crypt::encryptString($plainPassword);
         $applicant->password= Hash::make($plainPassword);
+
         $applicant->father_profession = $request->profession;
         $applicant->role_id = $request->role_id;
         $applicant->status = $status; 
@@ -2046,7 +2057,11 @@ class ApplicantController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return response()->json(['success' => true, 'applicant_status' => $applicant_status]);
+
+        $applicant_last = ApplicantStatus::where('student_id', $student_id)->get();
+        $applicant_last_status = $applicant_last->last();
+
+        return response()->json(['success' => true, 'applicant_status' => $applicant_status,'applicant_last_status'=>$applicant_last_status->status]);
     }
 
     public function get_meeting_status_by_id(Request $request){
@@ -2059,6 +2074,27 @@ class ApplicantController extends Controller
         ->get();
 
         return response()->json(['success' => true, 'meeting_status' => $meeting_status]);
+    }
+
+    public function get_meeting_status_by_id_admin(Request $request){
+        $student_id = $request->input('student_id');
+
+        $meeting_status = MeetingStatus::where('student_id', $student_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json(['success' => true, 'meeting_status' => $meeting_status]);
+    }
+
+    public function get_applicant_status_by_id_admin(Request $request){
+        $student_id = $request->input('student_id');
+        $applicant_id = $request->input('applicant_id');
+
+        $applicant_status = ApplicantStatus::where('student_id', $student_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return response()->json(['success' => true, 'applicant_status' => $applicant_status]);
     }
  
 }

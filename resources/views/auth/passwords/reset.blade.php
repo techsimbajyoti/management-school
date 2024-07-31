@@ -15,7 +15,9 @@
                             <div class="card-header ">
                                 <h3 class="header text-center">{{ __('Reset Password') }}</h3>
                             </div>
-                            
+                            @if($errors->has('token'))
+                           <p class='text-danger inputerror'>{{ $errors->first('token') }}</p>
+                            @endif
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">

@@ -572,9 +572,41 @@
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
                                         <span class="mini-card-title">Upcoming Meeting</span>
-                                        @php
-                                        $UpcomingMeeting = App\Models\MeetingStatus::where('status', 'Upcoming Meeting')
+                                    @php
+                                    $today = (new DateTime())->format('Y-m-d H:i:s');
+                                    $excludedStatuses = ['Cancelled By Admin', 'Cancelled By Applicant', 'Rejected By Applicant'];
+
+                                    $UpcomingMeeting = App\Models\Student::join('student_parents', 'students.parent_id', '=', 'student_parents.id')
+                                        ->join('meeting_statuses', 'students.id', '=', 'meeting_statuses.student_id')
+                                        ->select(
+                                            'meeting_statuses.id',
+                                            'meeting_statuses.meeting_date',
+                                            'meeting_statuses.time_slot',
+                                            'meeting_statuses.purpose',
+                                            'meeting_statuses.mode',
+                                            'meeting_statuses.status',
+                                            'students.id as student_id',
+                                            'students.first_name',
+                                            'students.last_name',
+                                            'student_parents.father_name',
+                                            'students.applicant_id',
+                                            'students.class',
+                                            'student_parents.father_mobile'
+                                        )
+                                        ->where(function($query) use ($today) {
+                                            $query->where('meeting_statuses.status', 'Meeting Schedule')
+                                                ->orWhere('meeting_statuses.meeting_date', '>=', $today);
+                                        })
+                                        ->whereNotIn('meeting_statuses.status', $excludedStatuses)
+                                        ->whereIn('meeting_statuses.id', function ($query) {
+                                            $query->selectRaw('MAX(id)')
+                                                ->from('meeting_statuses')
+                                                ->groupBy('student_id');
+                                        })
+                                        ->distinct()
                                         ->get();
+                                       
+                                       
                                         @endphp
                                         <span class="mini-card-number">{{ $UpcomingMeeting->count() }}</span>
                                     </div>
@@ -637,12 +669,12 @@
                             <div class="col-md-6">
                                 <div class="mini-card pending">
                                     <div class="mini-card-body">
-                                        <span class="mini-card-title">Student Interview</span>
+                                        <span class="mini-card-title">Parent Interview</span>
                                         @php
-                                        $StudentInterview = App\Models\MeetingStatus::where('purpose', 'Student Interview')
+                                        $parentInterview = App\Models\MeetingStatus::where('purpose', 'Parent Interview')
                                         ->get();
                                         @endphp
-                                        <span class="mini-card-number">{{ $StudentInterview->count() }}</span>
+                                        <span class="mini-card-number">{{ $parentInterview->count() }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -730,12 +762,13 @@
                                         </thead>
                                         <tbody class="tbody">
                                             @foreach($upcoming_data as $upcoming_meetings)
+                                           
                                             <tr id="row_7">
                                                 <td class="serial">{{$loop->iteration}}</td>
                                                 <td>{{$upcoming_meetings->applicant_id}}</td>
 
                                                 <td> <img src="{{asset('paper/img/demo.png')}}" height="40px" width="40px">
-                                                    <a href="{{ route('admin-student-profile')}}" target="_blank">{{$upcoming_meetings->first_name}} {{$upcoming_meetings->last_name}}</a></td>
+                                                    <a href="{{ route('new-applicant-student-profile',$upcoming_meetings->student_id)}}" target="_blank">{{$upcoming_meetings->first_name}} {{$upcoming_meetings->last_name}}</a></td>
                                                 <td>{{$upcoming_meetings->class}}</td>
                                                 <td>{{$upcoming_meetings->father_name}}</td>
 

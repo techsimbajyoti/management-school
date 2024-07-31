@@ -65,12 +65,12 @@
                             </a>
                         </li>
 
-                        <li class="{{ $elementActive == 'applicant-tracking' ? 'active' : '' }}">
+                        {{-- <li class="{{ $elementActive == 'applicant-tracking' ? 'active' : '' }}">
                             <a href="{{ route('meeting-tracking') }}">
                                 <span class="sidebar-mini-icon">{{ __('AT') }}</span>
                                 <span class="sidebar-normal">{{ __(' Applicant Tracking ') }}</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </li>

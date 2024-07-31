@@ -14,7 +14,7 @@
     <p>Applicant Name: {{ $applicant->first_name }} {{ $applicant->last_name }}</p>
     <p>Email Address:{{ $applicant->email }} </p>
     <p>Applicant ID: {{ $meeting->applicant_id }}</p>
-    <p>Meeting date: {{ $meeting->meeting_date }}</p>
+    <p>Meeting date: {{ substr($meeting->meeting_date,0,16) }}</p>
     <p>Meeting Time: {{ $meeting->time_slot }}</p>
     <p>Meeting Mode: {{ $meeting->mode }}</p>
     <p>Meeting location/URL: {{ $meeting->location_url }}</p>

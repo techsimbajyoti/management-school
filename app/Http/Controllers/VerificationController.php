@@ -116,24 +116,28 @@ class VerificationController extends Controller
         }
     
         // Use the identified guard to reset the password
-        $status = Password::broker($guard)->reset(
-            request()->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => bcrypt($password)
-                ])->setRememberToken(Str::random(60));
+        try {
+            $status = Password::broker()->reset(
+                $request->only('email', 'password', 'password_confirmation', 'token'),
+                function ($user, $password) {
+                    $user->forceFill([
+                        'password' => bcrypt($password)
+                    ])->setRememberToken(Str::random(60));
     
-                $user->save();
+                    $user->save();
     
-                event(new PasswordReset($user));
-            }
-        );
+                    event(new PasswordReset($user));
+                }
+            );
     
-        return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            return $status === Password::PASSWORD_RESET
+                ? redirect()->route('login')->with('status', __($status))
+                : back()->withErrors(['email' => [__($status)]]);
+        } catch (\Exception $e) {
+            // Handle specific error if token is invalid or any other error
+            return back()->withErrors(['token' => 'The token is invalid or expired.']);
+        }
     }
-
 
 
     public function verify_email($id)

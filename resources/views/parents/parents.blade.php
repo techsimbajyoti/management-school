@@ -70,7 +70,7 @@
                     <hr>
                 
                     <div class="card-footer">
-
+                      
                     {{-- <div id="meeting-details"></div> --}}
                     @php
                     $user = auth()->guard('webparents')->user();
@@ -79,8 +79,12 @@
                     
                     if ($user) {
                         $parent_id = App\Models\Student::where('parent_id', $user->id)->first()->parent_id;
-                    
+                        
                         if ($parent_id) {
+                            $today = (new DateTime())->format('Y-m-d H:i:s');
+
+                            $excludedStatuses = ['Cancelled By Admin', 'Cancelled By Applicant', 'Rejected By Applicant'];
+
                             $meeting_data = App\Models\MeetingStatus::join('students', 'meeting_statuses.student_id', '=', 'students.id')
                                 ->join('student_parents', 'meeting_statuses.parent_id', '=', 'student_parents.id')
                                 ->select(
@@ -93,7 +97,11 @@
                                     'meeting_statuses.location_url'
                                 )
                                 ->where('meeting_statuses.parent_id', $parent_id)
-                                ->where('meeting_statuses.status', 'Meeting Schedule')
+                                ->where(function($query) use ($today) {
+                                $query->where('meeting_statuses.status', 'Meeting Schedule')
+                                      ->orWhere('meeting_statuses.meeting_date', '>=', $today);
+                                })
+                                ->whereNotIn('meeting_statuses.status', $excludedStatuses)
                                 ->whereIn('meeting_statuses.id', function ($query) {
                                     $query->selectRaw('MAX(id)')
                                         ->from('meeting_statuses')

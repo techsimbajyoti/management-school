@@ -25,10 +25,14 @@
             <div class="col-lg-4">
                 <div class="card" style="margin-bottom: 20px;">
                     <div class="card-body text-center">
+                        @if($admin_info->image) 
+                        <img src="{{ url('storage/student_photos/' . $admin_info->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        @else
                         <img src="{{ asset('paper') }}/img/dummy-image.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                        <h5 class="my-3">Admin</h5>
-                        <p class="text-muted mb-1">Contact Number : 0000000000</p>
-                        <p class="text-muted mb-4">Address : Dummy</p>
+                        @endif
+                        <h5 class="my-3"> {{$admin_info->name}}</h5>
+                        <p class="text-muted mb-1">Contact Number :  {{$admin_info->contact}}</p>
+                        <p class="text-muted mb-4">Address :  {{$admin_info->address}}</p>
                     </div>
                 </div>
             
@@ -56,7 +60,7 @@
                 <div class="card" style="margin-bottom: 20px;">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0 title">{{ __('General Information') }}</h5>
-                        <a href="{{route('admin-edit')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{{route('admin-edit',auth()->user()->id)}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-edit"></i> Edit</a>
                     </div>
                     <hr>
                     <div class="card-body">
@@ -65,7 +69,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-3">
-                                <p class="text-muted mb-0">John Smith</p>
+                                <p class="text-muted mb-0"> {{$admin_info->name}}</p>
                             </div>
                             {{-- <div class="col-sm-3">
                                 <p class="mb-0">Blood Group</p>
@@ -87,7 +91,7 @@
                                 <p class="mb-0">Gender</p>
                             </div>
                             <div class="col-sm-3">
-                                <p class="text-muted mb-0">Male</p>
+                                <p class="text-muted mb-0"> {{$admin_info->gender}}</p>
                             </div>
                         </div>
                         <hr>
@@ -111,7 +115,7 @@
                                 <p class="mb-0">Date Of Birth</p>
                             </div>
                             <div class="col-sm-3">
-                                <p class="text-muted mb-0">05 April, 2014</p>
+                                <p class="text-muted mb-0"> {{$admin_info->dob}}</p>
                             </div>
                             {{-- <div class="col-sm-3">
                                 <p class="mb-0">Category</p>
@@ -152,7 +156,7 @@
                                 <p class="mb-0">Address</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">Bay Area</p>
+                                <p class="text-muted mb-0"> {{$admin_info->address}}</p>
                             </div>
                         </div>
                         <hr>
@@ -161,7 +165,7 @@
                                 <p class="mb-0">Country</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">United States Of America</p>
+                                <p class="text-muted mb-0"> {{$admin_info->country}}</p>
                             </div>
                         </div>
                         <hr>
@@ -170,7 +174,7 @@
                                 <p class="mb-0">State</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">California</p>
+                                <p class="text-muted mb-0"> {{$admin_info->state}}</p>
                             </div>
                         </div>
                         <hr>
@@ -179,25 +183,25 @@
                                 <p class="mb-0">City</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">San Francisco</p>
+                                <p class="text-muted mb-0"> {{$admin_info->city}}</p>
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Pin Code</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">125896</p>
+                                <p class="text-muted mb-0"></p>
                             </div>
                         </div>
-                        <hr>
+                        <hr> --}}
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Contact</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">(097) 234-5678</p>
+                                <p class="text-muted mb-0"> {{$admin_info->contact}}</p>
                             </div>
                         </div>
                         <hr>
@@ -207,7 +211,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">example@example.com</p>
+                                <p class="text-muted mb-0"> {{$admin_info->email}}</p>
                             </div>
                         </div>
                         <hr>
@@ -216,7 +220,14 @@
                                 <p class="mb-0">Password</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">123456789</p>
+                                @php
+                                try {
+                                    $newPassword = Crypt::decryptString($admin_info->hash_password);
+                                } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                                    $newPassword = '';
+                                }
+                                @endphp
+                                <p class="text-muted mb-0">{{$newPassword}}</p>
                             </div>
                         </div>
                         <hr>

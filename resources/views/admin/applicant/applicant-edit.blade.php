@@ -48,7 +48,7 @@
                                             <span style="color:red">*</span>
                                             <label class="form-label">{{ __('Email:') }}</label>
                                             <div class="form-group">
-                                                <input type="email" name="email" id="email" value="{{ auth()->guard('webparents')->user()->email }}" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" required>
+                                                <input type="email" name="email" id="email" value="{{ auth()->guard('webparents')->user()->email }}" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Email" readonly>
                                                 <span class="invalid-feedback" id="email_error" style="display: none;"></span>
                                             </div>
                                         </div>
@@ -56,7 +56,7 @@
                                             <span style="color:red">*</span>
                                             <label for="password" class="form-label">{{ __('Password:') }}</label>
                                             <div class="form-group">
-                                                <input type="password" name="password" id="password" value="{{ auth()->guard('webparents')->user()->password }}" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Password" pattern=".{8,}" title="Eight or more characters" required>
+                                                <input type="password" name="password" id="password" value="{{ auth()->guard('webparents')->user()->password }}" autocomplete="off" class="nice-select niceSelect bordered_style wide" placeholder="Enter Password" pattern=".{8,}" title="Eight or more characters" readonly>
                                                 <span class="invalid-feedback" id="password_error" style="display: none;"></span>
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
                                             <span style="color:red">*</span>
                                             <label for="password-confirmation" class="form-label">{{ __('Confirm Password:') }}</label>
                                             <div class="form-group">
-                                                <input type="password" name="password_confirmation" value="{{ auth()->guard('webparents')->user()->password }}" class="nice-select niceSelect bordered_style wide" placeholder="Enter Confirm Password" pattern=".{8,}" title="Eight or more characters" required>
+                                                <input type="password" name="password_confirmation" value="{{ auth()->guard('webparents')->user()->password }}" class="nice-select niceSelect bordered_style wide" placeholder="Enter Confirm Password" pattern=".{8,}" title="Eight or more characters" readonly>
                                                 <span class="invalid-feedback" id="password_confirmation_error" style="display: none;"></span>
                                             </div>
                                         </div>

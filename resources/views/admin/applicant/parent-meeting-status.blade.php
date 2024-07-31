@@ -86,6 +86,7 @@
                                                 </div>
                                             </td>
                                             <td><span class="badge-basic-info-text">{{$child->status}}</span></td>
+                                            @if($child->meeting_date)
                                             <td class="action">
                                                 <a class="btn ot-btn-primary applicant_status"
                                                 data-status-id="{{ $child->meeting_id }}"
@@ -104,6 +105,13 @@
                                                     <i class="fas fa-cog"></i>
                                                 </a>
                                           </td>
+                                          @else
+                                          <td class="action">
+                                            <a class="btn ot-btn-primary applicant_status disabled">
+                                                <i class="fas fa-cog"></i>
+                                            </a>
+                                         </td>
+                                         @endif
                                         </tr>
                                     @endforeach 
                                 </tbody>
@@ -167,7 +175,7 @@
           <div class="row justify-content-center mt-3"> --}}
               <div class="col-md-6">
                   <label for="">Note</label>
-                  <textarea note="note" class="nice-select niceSelect bordered_style wide" placeholder="Enter Note..." value="" id="note"></textarea>
+                  <textarea name="note" class="nice-select niceSelect bordered_style wide" placeholder="Enter Note..." value="" id="note"></textarea>
               </div>
             {{-- </div>
             <div class="row justify-content-center mt-3"> --}}

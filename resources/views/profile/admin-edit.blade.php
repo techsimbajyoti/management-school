@@ -21,6 +21,11 @@
                 {{ session('password_status') }}
             </div>
         @endif
+        @if (session('error'))
+        <div class="alert alert-warning" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
         <div class="row">
             <div class="col-md-12">
                 <div class="card ot-card">
@@ -30,19 +35,28 @@
                             <a href="{{route('edit-admin')}}" class="btn btn-lg ot-btn-primary"><i class="fa fa-arrow-left"></i> Back</a>
                         </div>
                         <div class="profile-body-form">
-                            <form action="" enctype="multipart/form-data" method="" id="visitForm" name="visitForm">
+                            <form action="{{route('update-admin-profile',auth()->user()->id)}}" enctype="multipart/form-data" method="POST" id="visitForm" name="visitForm">
                                 @csrf
                                 <div class="row mb-3 mt-3">
                                     
                                     <div class="col-md-12">
                                     <label class="form-label" for="image">Image: <span class="text-info">(Accepted Images : jpg, jpeg, png. Max Size 2Mb.)</span></label>
+                                    @if($admin_info->image)
+                                    <div class="d-flex flex-column align-items-center justify-content-center"><img class="img-thumbnail ot-input-image-preview mb-3" src="{{ url('storage/student_photos/' . $admin_info->image) }}" alt="Admin"></div>
+                                    @else
                                     <div class="d-flex flex-column align-items-center justify-content-center"><img class="img-thumbnail ot-input-image-preview mb-3" src="{{ url('paper/img/demo.png') }}" alt="Admin"></div>
+                                    @endif
                                     <div class="ot_fileUploader left-side mb-3">
-                                        <input class="form-control" type="text" placeholder="Image" readonly id="placeholder">
+                                        <input class="form-control  @error('image') is-invalid @enderror " type="text" placeholder="Image" readonly id="placeholder">
                                         <button class="primary-btn-small-input" type="button">
                                             <label class="btn btn-lg ot-btn-primary" for="fileBrouse">Browse</label> 
                                         <input type="file" class="d-none form-control" name="image" id="fileBrouse" accept="image/*"></button>
                                     </div>
+                                    <span class="text-danger" style="font-size:0.85rem;">
+                                        @error('image')
+                                          {{ $message }}
+                                        @enderror
+                                    </span>
                                     </div>
                                 {{-- </div> --}}
                                 {{-- <div class="row mb-3 mt-3"> --}}
@@ -50,72 +64,120 @@
                                     {{-- <div class="row mb-3"> --}}
                                         <label for="inputname" class="form-label">Name <span class="text-danger">*</span></label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="name" type="text" class="form-control ot-input" value="Admin" placeholder="Name">
+                                        <input name="name" type="text" class="form-control ot-input  @error('name') is-invalid @enderror" value="{{$admin_info->name}}" placeholder="Name">
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('name')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         {{-- <div class="row mb-3"> --}}
-                                            <label for="inputname" class="form-label">Gender <span class="text-danger">*</span></label>
+                                            <label for="inputname" class="form-label @error('gender') is-invalid @enderror">Gender <span class="text-danger">*</span></label>
                                             {{-- <div class="col-sm-12"> --}}<br>
-                                            <input name="name" type="radio" value="Admin" placeholder="Name">
+                                            <input name="gender" type="radio" value="Male" {{$admin_info->gender == 'Male' ? 'checked' :''}} placeholder="Name">
                                             <label for="">Male</label>
                                             <br>
-                                            <input name="name" type="radio" value="Admin" placeholder="Name">
+                                            <input name="gender" type="radio" value="Female" {{$admin_info->gender == 'Female' ? 'checked' :''}} placeholder="Name">
                                             <label for="">Female</label>
+                                            <br>
+                                            <input name="gender" type="radio" value="Other"{{$admin_info->gender == 'Other' ? 'checked' :''}} placeholder="Name">
+                                            <label for="">Other</label>
                                             {{-- </div> --}}
+                                            <span class="text-danger" style="font-size:0.85rem;">
+                                                @error('gender')
+                                                  {{ $message }}
+                                                @enderror
+                                            </span>
                                         </div>
                                         <div class="col-md-6 mt-3">
                                             <label for="inputname" class="form-label">Date Of Birth</label>
                                             {{-- <div class="col-sm-12"> --}}
-                                            <input name="date_of_birth" type="date" class="form-control ot-input" value="admin@gmail.com">
+                                            <input name="date_of_birth" type="date" class="form-control ot-input @error('date_of_birth') is-invalid @enderror" value="{{$admin_info->dob}}">
                                             {{-- </div> --}}
+                                            <span class="text-danger" style="font-size:0.85rem;">
+                                                @error('date_of_birth')
+                                                  {{ $message }}
+                                                @enderror
+                                            </span>
                                         </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">Email</label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="email" type="email" class="form-control ot-input" value="admin@gmail.com">
+                                        <input name="email" type="email" class="form-control ot-input @error('email') is-invalid @enderror" value="{{$admin_info->email}}" readonly>
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('email')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">Address <span class="text-danger">*</span></label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="phone" type="text" class="form-control ot-input" placeholder="" value="">
+                                        <input name="address" type="text" class="form-control ot-input @error('address') is-invalid @enderror" placeholder="Enter Address" value="{{$admin_info->address}}">
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('address')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">Country <span class="text-danger">*</span></label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="country" id="country" type="text" class="form-control ot-input" placeholder="" value="India">
+                                        <input name="country" id="country" type="text" class="form-control ot-input @error('country') is-invalid @enderror" placeholder="Country" value="{{$admin_info->country}}">
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('country')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">State <span class="text-danger">*</span></label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="state" id="state" type="text" class="form-control ot-input" placeholder="" value="Madhya Pradesh">
+                                        <input name="state" id="state" type="text" class="form-control ot-input @error('state') is-invalid @enderror" placeholder="State" value="{{$admin_info->state}}">
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('state')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">City <span class="text-danger">*</span></label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="city" type="text" class="form-control ot-input" placeholder="" value="Indore">
+                                        <input name="city" type="text" class="form-control ot-input @error('city') is-invalid @enderror"  placeholder="" value="{{$admin_info->city}}">
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('city')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
-                                    <div class="col-md-6 mt-3">
+                                    {{-- <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">Pin Code <span class="text-danger">*</span></label>
-                                        {{-- <div class="col-sm-12"> --}}
+                                        <div class="col-sm-12">
                                         <input name="city" type="text" class="form-control ot-input" placeholder="" value="123456">
-                                        {{-- </div> --}}
-                                    </div>
+                                        </div>
+                                    </div> --}}
                                     <div class="col-md-6 mt-3">
                                         <label for="inputname" class="form-label">Phone <span class="text-danger">*</span></label>
                                         {{-- <div class="col-sm-12"> --}}
-                                        <input name="phone" type="text" class="form-control ot-input" placeholder="" value="0000000000">
+                                        <input name="phone" type="number" class="form-control ot-input @error('phone') is-invalid @enderror" placeholder="Enter Phone Number" value="{{$admin_info->contact}}">
                                         {{-- </div> --}}
+                                        <span class="text-danger" style="font-size:0.85rem;">
+                                            @error('phone')
+                                              {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
                                     </div>
                                     <div class="col-md-12 mt-3">
                                     <div class="text-right">
-                                        <button class="btn btn-lg ot-btn-primary"><i class="fa fa-refresh"></i> Update</button>
+                                        <button class="btn btn-lg ot-btn-primary"><i class="fa fa-edit"></i> Update</button>
                                     </div>
                                     </div>
                                 </div>

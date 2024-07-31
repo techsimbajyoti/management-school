@@ -94,6 +94,7 @@ class LoginController extends Controller
         $credentials = [
             'email' => $loginField,
             'password' => $password,
+            'email_status' => 'verified'
         ];
       
         // Attempt login for different guards

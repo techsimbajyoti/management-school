@@ -119,7 +119,7 @@
             <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
                     <label for="">Status</label>
-                    <select name="status_update" class="nice-select sections niceSelect bordered_style wide">
+                    <select name="status_update" id="status_update" class="nice-select sections niceSelect bordered_style wide">
                         <option>Please select status</option>
                         <option>Accept</option>
                         <option>Reject</option>
@@ -257,7 +257,14 @@
                                 tbody.append(row);
                             });
                         }
-                },
+
+                    var status_update = $('#status_update');
+                    status_update.empty(); // Clear existing table body content
+                    if(response.applicant_last_status == 'Approved By Admin' || response.applicant_last_status == 'Meeting Schedule'){
+                        var row = '<option value="Approved By Applicant">Approved By Applicant</option><option value="Denied By Applicant">Denied By Applicant</option>';
+                        status_update.append(row);
+                    }
+                },  
                 error: function(xhr, status, error) {
                     console.log('Error:', error);
                 }

@@ -82,6 +82,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('get-applicant-id',[ApplicantController::class, 'get_applicant_id'])->name('get-applicant-id');
 
+	Route::post('get-meeting-status-by-id-admin',[ApplicantController::class, 'get_meeting_status_by_id_admin'])->name('get-meeting-status-by-id-admin');
+
+	Route::post('get-applicant-status-by-id-admin',[ApplicantController::class, 'get_applicant_status_by_id_admin'])->name('get-applicant-status-by-id-admin');
+
 	Route::get('admin-download-profile/{student_id}/{parent_id}',[ApplicantController::class, 'download_profile'])->name('admin-download-profile');
 
 	Route::post('get-applicant-status',[ApplicantController::class,'get_applicant_status'])->name('get-applicant-status');
@@ -123,6 +127,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('edit-admin', [AdminController::class, 'edit_admin'])->name('edit-admin');
 
 	Route::get('admin-edit', [AdminController::class, 'admin_edit'])->name('admin-edit');
+
+	Route::post('update-admin-profile{id}', [AdminController::class, 'update_admin_profile'])->name('update-admin-profile');
 
 	Route::get('students', [StudentController::class, 'students'])->name('students');
 

@@ -12,7 +12,7 @@
     <p>Your meeting details are as follows:</p>
     <ul>
         <li><strong>Applicant Name:</strong> {{ $applicant->first_name }}  {{ $applicant->last_name }} </li>
-        <li><strong>Meeting Date:</strong> {{ $meeting->meeting_date }}</li>
+        <li><strong>Meeting Date:</strong> {{ substr($meeting->meeting_date,0,16) }}</li>
         <li><strong>Meeting Time:</strong> {{ $meeting->time_slot }}</li>
         <li><strong>Meeting Mode:</strong> {{ $meeting->mode }}</li>
         <li><strong>Meeting Location/URL:</strong> {{ $meeting->location_url }}</li>
